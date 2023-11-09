@@ -1,0 +1,141 @@
+body {
+  color: #fff;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
+  width: 100%;
+  box-sizing: border-box;
+  background-image: url("./IMG_1370.jpg");
+  background-size: cover;
+  background-position: center bottom;
+}
+
+.spacer {
+  flex-grow: 1;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgb(6, 21, 28);
+  background: -moz-linear-gradient(
+    180deg,
+    rgba(6, 21, 28, 0) 40%,
+    rgba(6, 21, 28, 1) 100%
+  );
+  background: -webkit-linear-gradient(
+    180deg,
+    rgba(6, 21, 28, 0) 40%,
+    rgba(6, 21, 28, 1) 100%
+  );
+  background: linear-gradient(
+    180deg,
+    rgba(6, 21, 28, 0) 40%,
+    rgba(6, 21, 28, 1) 100%
+  );
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#06151c",endColorstr="#06151c",GradientType=1);
+}
+
+.title {
+  align-self: center;
+  
+}
+
+.title h1 {
+  font-size: 4.5em;
+  font-weight: 400;
+  margin: 15px 0;
+}
+
+.title p {
+  text-align: center;
+}
+
+.bottomHero {
+  display: flex;
+  width: 75%;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
+  margin-bottom: 5%;
+  align-self: flex-end;
+  
+  z-index: 99;
+}
+
+.bottomLeft {
+  display: flex;
+  width: 33.33%;
+  justify-content: center;
+}
+.bottomLeft p {
+  width: 85%;
+}
+.circle {
+  width: 150px;
+  height: 150px;
+  border: solid 1px #eee;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  box-shadow: 0 0 2px rgba(255, 255, 255, 0.3);
+}
+
+@keyframes moveDown {
+  0% {
+    transform: translateY(-50px);
+  }
+  50% {
+    transform: translateY(55px);
+  }
+
+  100% {
+    transform: translateY(200px);
+  }
+}
+
+.circle span {
+  font-weight: 100;
+  font-size: 2.6em;
+  color: #eee;
+  animation: moveDown 5s infinite;
+  transform: translatey(-100px);
+}
+
+.bottomRight {
+  display: flex;
+  width: 33.33%;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .container {
+    background-position: center center; /* Adjust background position for smaller screens */
+  }
+
+  .title h1 {
+    font-size: 3em; /* Adjust font size for smaller screens */
+  }
+
+  .bottomHero {
+    flex-direction: column; /* Stack the elements for smaller screens */
+    align-items: center; /* Center-align for smaller screens */
+  }
+
+  .bottomLeft, .bottomRight {
+    width: 100%; /* Full width for smaller screens */
+  }
+
+  .circle {
+    width: 100px; /* Adjust size for smaller screens */
+    height: 100px; /* Adjust size for smaller screens */
+  }
+}

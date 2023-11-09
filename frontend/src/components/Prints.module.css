@@ -1,0 +1,21 @@
+html, body {
+    background-color: #f0ede6;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 100px;
+}
+
+.header {
+    color: #06151c;
+    width: 60%
+}
+
+@media (max-width: 1000px) {
+    .header {
+        width: 100%;
+    }
+}
