@@ -1,4 +1,5 @@
 const express = require("express");
+const routes = require('./routes');
 const cors = require("cors"); 
 const { connectToDb, getDb } = require("./db");
 const app = express();
@@ -9,6 +10,7 @@ const port = process.env.PORT || 3000;
 
 // Enable CORS for your Express app
 app.use(cors());
+app.use('/api', routes);
 
 // db connection
 let db;

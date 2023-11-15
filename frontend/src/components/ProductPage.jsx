@@ -4,41 +4,64 @@ import Addtocartbtn from "./Addtocartbtn";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-export default function ProductPage() {
+const ProductPage = () => {
   const [products, setProducts] = useState([]);
   const [frames, setFrames] = useState([]);
   const [selectedFrame, setSelectedFrame] = useState("");
+  const [price, setPrice] = useState(0); // New state for the price
+  const [frameSize, setFrameSize] = useState(0); // New state for the frame size
   const { id } = useParams();
   const product = products.find((item) => item.id === parseInt(id));
+  const [printifyProducts, setPrintifyProducts] = useState([]);
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:3000/api/printify/products"
+      );
+      setPrintifyProducts(response.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   useEffect(() => {
     axios
       .get("http://localhost:3000/photos")
       .then((response) => setProducts(response.data))
       .catch((error) => console.error("Error:", error));
-    axios
-      .get("http://localhost:3000/frames")
-      .then((response) => setFrames(response.data))
-      .catch((error) => console.error("Error:", error));
+
   }, []);
 
   if (!product) {
     return <div>Product not found</div>;
   }
 
-  const frameOptions = frames.map((frame) => (
-    <option key={frame.id} value={frame.text}>
-      {frame.text}
-    </option>
-  ));
+  const frameOptions =
+    printifyProducts.data && printifyProducts.data.length > 0
+      ? printifyProducts.data[0].variants
+          ?.filter((variant) => variant.is_enabled === true)
+          .map((variant, index) => (
+            <option key={index} value={variant.title}>
+              {variant.title}
+            </option>
+          ))
+      : null;
 
+  const handleFrameSelection = (selectedVariantTitle) => {
+    const selectedVariant = printifyProducts.data[0].variants.find(
+      (variant) => variant.title === selectedVariantTitle
+    );
 
-  const selectedFrameObject = frames.find(
-    (frame) => frame.text === selectedFrame
-  );
-  const price = selectedFrameObject ? selectedFrameObject.price : 0;
-  const frameSize = selectedFrameObject ? selectedFrameObject.size : 0;
-    
+    setSelectedFrame(selectedVariantTitle);
+    setPrice(selectedVariant ? selectedVariant.price : 0);
+    setFrameSize(selectedVariant ? selectedVariant.size : 0);
+  };
+
   return (
     <div className={css.container}>
       <div className={css.header}>
@@ -63,7 +86,7 @@ export default function ProductPage() {
               <select
                 name="frame"
                 id="frame"
-                onChange={(e) => setSelectedFrame(e.target.value)}
+                onChange={(e) => handleFrameSelection(e.target.value)}
               >
                 <option value="">Select Frame</option>
                 {frameOptions}
@@ -73,13 +96,31 @@ export default function ProductPage() {
             <Addtocartbtn />
           </div>
         </div>
-        <p>price: {price}</p>
-        <p>size: {frameSize}</p>
-        <p>Image: ID-{product.id}</p>
+
         <div className={css.product}>
           <img src={product.thumb} alt={product.title} />
         </div>
       </div>
+      {/* {printifyProducts.data && printifyProducts.data.length > 0 && (
+        <div className={css.printifyProducts}>
+          <h2>Title: {printifyProducts.data[0].title}</h2>
+          <p>Variants:</p>
+          {printifyProducts.data[0].variants &&
+          printifyProducts.data[0].variants.length > 0
+            ? printifyProducts.data[0].variants
+                .filter((variant) => variant.is_enabled === true)
+                .map((variant, index) => (
+                  <div key={index}>
+                    <p>Size: {variant.title}</p>
+                    <p>Price: {variant.price}</p>
+                    <p>ID: {variant.id}</p>
+                  </div>
+                ))
+            : "No variants available"}
+        </div>
+      )} */}
     </div>
   );
-}
+};
+
+export default ProductPage;

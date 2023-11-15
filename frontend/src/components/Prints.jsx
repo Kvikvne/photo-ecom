@@ -5,6 +5,7 @@ import axios from "axios";
 
 export default function Prints() {
   const [products, setProducts] = useState([]);
+ 
 
   useEffect(() => {
     axios
@@ -12,6 +13,7 @@ export default function Prints() {
       .then((response) => setProducts(response.data))
       .catch((error) => console.error("Error:", error));
   }, []);
+
 
   return (
     <div className={css.container}>
@@ -35,6 +37,8 @@ export default function Prints() {
           price={product.price}
         />
       ))}
+
+      
     </div>
   );
 }
