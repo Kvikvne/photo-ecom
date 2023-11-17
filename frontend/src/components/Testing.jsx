@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import AddToCartBtn from "./Addtocartbtn";
 import axios from "axios";
 
 export default function Testing() {
@@ -56,10 +57,15 @@ export default function Testing() {
       .catch((error) => console.error("Error:", error));
   }, []);
 
-  const handleVariantChange = (productId, variantId) => {
+  const handleVariantChange = (productId, value) => {
+    const [variantId, sku] = value.split(",");
+
     setSelectedVariants({
       ...selectedVariants,
-      [productId]: variantId,
+      [productId]: {
+        variantId,
+        sku,
+      },
     });
   };
 
@@ -84,11 +90,18 @@ export default function Testing() {
                 ))}
               <p>{product.id}</p>
               <p>{product.description}</p>
+
               <select
                 onChange={(e) =>
                   handleVariantChange(product.id, e.target.value)
                 }
-                value={selectedVariants[product.id] || ""}
+                value={
+                  selectedVariants[product.id]
+                    ? `${selectedVariants[product.id].variantId},${
+                        selectedVariants[product.id].sku
+                      }`
+                    : ""
+                }
               >
                 <option value="" disabled>
                   Select Variant
@@ -98,12 +111,28 @@ export default function Testing() {
                   .map((variant, variantIndex) => (
                     <option
                       key={`${productIndex}-${variantIndex}`}
-                      value={variant.id}
+                      value={`${variant.id},${variant.sku}`}
                     >
                       {variant.title}
                     </option>
                   ))}
               </select>
+
+              <div>
+                <AddToCartBtn
+                  productId={product.id}
+                  variantId={
+                    selectedVariants[product.id]
+                      ? selectedVariants[product.id].variantId
+                      : ""
+                  }
+                  sku={
+                    selectedVariants[product.id]
+                      ? selectedVariants[product.id].sku
+                      : ""
+                  }
+                />
+              </div>
               <div
                 style={{
                   color: "black",
