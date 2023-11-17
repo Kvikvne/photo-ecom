@@ -1,21 +1,16 @@
-const express = require("express");
+const express = require('express');
 const routes = require('./routes');
-const cors = require("cors"); 
-const { connectToDb, getDb } = require("./db");
+const cors = require('cors');
+const { connectToDb, getDb } = require('./db/connection');
 const app = express();
 const port = process.env.PORT || 3000;
 
-// ------------------ FOR PRODUCTION CREATE A CDN FOR THE IMAGES ------------------------
-
-
-// Enable CORS for your Express app
 app.use(cors());
 app.use('/api', routes);
 
-// db connection
 let db;
 
-connectToDb((err) => {
+connectToDb('mongodb://127.0.0.1:27017/photoWebsite', (err) => {
   if (err) {
     console.error('Error connecting to the database:', err);
     return;
@@ -28,11 +23,14 @@ connectToDb((err) => {
   db = getDb();
 });
 
-// routes
-app.get("/photos", (req, res) => {
+app.get('/', (req, res) => {
+  res.json({ mssg: 'Welcome to the API' });
+});
+
+app.get('/photos', async (req, res) => {
   let photos = [];
   
-  db.collection("photos")
+  db.collection('photos')
     .find()
     .sort({ id: 1 })
     .forEach(photo => photos.push(photo))
@@ -44,23 +42,4 @@ app.get("/photos", (req, res) => {
     });
 });
 
-// frames route
-app.get("/frames", (req, res) => {
-  let frames = [];
-  
-  db.collection("frames")
-    .find()
-    .sort({ size: 1 })
-    .forEach(frame => frames.push(frame))
-    .then(() => {
-      res.status(200).json(frames);
-    })
-    .catch(() => {
-      res.status(500).json({ error: 'Could not fetch items' });
-    });
-});
 
-// Default route
-app.get("/", (req, res) => {
-  res.json({ mssg: "Welcome to the API" });
-});

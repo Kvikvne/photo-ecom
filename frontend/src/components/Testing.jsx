@@ -6,6 +6,34 @@ export default function Testing() {
   const [selectedVariants, setSelectedVariants] = useState({});
   const [mainPhoto, setMainPhoto] = useState([]);
 
+  // varibles needed to order a new item
+  // {
+  //   "external_id": "2750e210-39bb-11e9-a503-452618153e4a",
+  //   "label": "00012",
+  //   "line_items": [
+  //     {
+  //       "product_id": "5bfd0b66a342bcc9b5563216",
+  //       "variant_id": 17887,
+  //       "quantity": 1
+  //     }
+  //   ],
+  //   "shipping_method": 1,
+  //   "is_printify_express": false,
+  //   "send_shipping_notification": false,
+  //   "address_to": {
+  //     "first_name": "John",
+  //     "last_name": "Smith",
+  //     "email": "example@msn.com",
+  //     "phone": "0574 69 21 90",
+  //     "country": "BE",
+  //     "region": "",
+  //     "address1": "ExampleBaan 121",
+  //     "address2": "45",
+  //     "city": "Retie",
+  //     "zip": "2470"
+  //   }
+  // }
+
   const fetchData = async () => {
     try {
       const response = await axios.get(
