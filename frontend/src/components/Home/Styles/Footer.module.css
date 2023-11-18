@@ -1,0 +1,145 @@
+.container {
+  background-color: #06151c;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.btn {
+  background-color: #e1ad81;
+  color: #06151c;
+  width: max-content;
+  height: 25px;
+  padding: 8px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  margin: 45px auto;
+  transition: border-radius ease 0.3s;
+}
+
+.btn:hover {
+  border-radius: 5px;
+}
+
+.title {
+  text-align: center;
+  width: 100%;
+}
+
+.title span {
+  font-size: 56px;
+  margin-bottom: 85px;
+}
+
+.middle {
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+}
+
+.card {
+  width: 350px;
+}
+
+.card h1 {
+  font-size: 45px;
+  font-weight: 300;
+  text-align: center;
+}
+
+.card p {
+  font-size: 17px;
+  font-weight: 100;
+  text-align: center;
+}
+
+.bottom {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 40px;
+  width: 20%;
+}
+.spacer {
+  display: flex;
+  flex-grow: 1;
+}
+.circleIcon {
+  width: 100px;
+  height: 100px;
+  border-radius: 100%;
+  border: #e1ad81 solid 1px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color ease 0.4s, color ease 0.3s;
+  color: #e1ad81;
+}
+
+.circleIcon:hover {
+  background-color: #e1ad81;
+  color: #06151c;
+}
+
+.circleIcon i {
+  font-size: 25px;
+  text-align: center;
+}
+
+.copyright {
+  position: absolute;
+  bottom: 0;
+  text-align: center;
+  color: #585a5c;
+  padding: 10px;
+}
+
+@media (max-width: 768px) {
+
+  .container {
+    height: fit-content;
+  }
+  .circleIcon {
+    width: 65px;
+    height: 65px;
+  }
+
+  .title span {
+    font-size: 40px; /* Adjust font size for smaller screens */
+    margin-bottom: 10px;
+    margin-top: 15px; /* Adjust margin for smaller screens */
+  }
+
+  .btn {
+    width: 50%;
+    
+  }
+
+  .middle {
+    margin-top: 0;
+    width: 50%; 
+    flex-wrap: wrap;
+   
+  }
+
+  .bottom {
+    width: 50%; 
+    margin-bottom: 65px;
+  }
+  .card h1 {
+    font-size: 30px;
+
+  }
+}
+
+@media (max-width: 900px) {
+  .circleIcon {
+    width: 85px;
+    height: 85px;
+  }
+
+}

@@ -1,0 +1,81 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  height: 100vh;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: #06151c;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.wrapper {
+  display: flex;
+}
+
+.title {
+  margin-left: -100px;
+  z-index: 2;
+  position: absolute;
+}
+.image {
+  display: flex;
+  justify-content: center;
+  z-index: 1;
+}
+.image img {
+  width: 700px;
+}
+.description {
+  width: 200px;
+  margin: 0 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.description p {
+  margin: 0;
+}
+
+@media (max-width: 1200px) {
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+  }
+  .wrapper {
+    flex-direction: column; 
+    
+    width: 80%; /* Center-align text */
+  }
+
+  .title {
+    margin-left: 0; /* Reset margin for small screens */
+    position: relative; /* Reset position for small screens */
+    text-align: center;
+  }
+
+  .description p {
+    margin-bottom: 50px;
+  }
+
+  .image img {
+    max-width: 70%; /* Make the image responsive by scaling it to fit its container */
+    height: auto;
+  }
+
+  .description {
+    width: 100%; /* Full width for small screens */
+    padding: 10px; /* Add padding for better spacing on small screens */
+    margin: 0;
+    text-align: center;
+  }
+}

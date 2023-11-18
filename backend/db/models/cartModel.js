@@ -1,6 +1,6 @@
 // cartModel.js
 
-const { ObjectID } = require('mongodb');
+const { ObjectID } = require("mongodb");
 
 let cartCollection;
 
@@ -12,10 +12,14 @@ module.exports = {
   addToCart: async (product_id, variant_id, sku, quantity) => {
     try {
       const result = await cartCollection.insertOne({
-        product_id,
-        variant_id,
-        sku,
-        quantity,
+        line_items: [
+          {
+            product_id,
+            variant_id,
+            sku,
+            quantity,
+          },
+        ],
       });
 
       return result;
