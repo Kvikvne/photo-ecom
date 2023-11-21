@@ -7,6 +7,7 @@
     z-index: 100;
     background-color: rgba(6, 21, 28, 0); 
     transition: background-color ease .9s;
+    top: 0;
 }
 
 .navContainer.scrolled {

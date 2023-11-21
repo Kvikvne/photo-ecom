@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
-import AddToCartBtn from "./Addtocartbtn";
 import axios from "axios";
 import ProductDetails from "./ProductDetails";
-import VariantSelect from "./VariantSelect";
 import ProductImages from "./ProductImages";
+import css from "./Styles/Store2.module.css";
 
 export default function Store2() {
   const [printifyProducts, setPrintifyProducts] = useState([]);
@@ -46,46 +45,21 @@ export default function Store2() {
   };
 
   return (
-    <div>
-      <div
-        style={{
-          padding: "50px",
-          color: "black",
-          display: "flex",
-          flexDirection: "column-reverse",
-        }}
-      >
+    <div className={css.container}>
+      <div className={css.wrapper}>
         {Array.isArray(printifyProducts.data) ? (
           printifyProducts.data.map((product, productIndex) => (
-            <div key={productIndex}>
+            <div className={css.productCard} key={productIndex}>
               <ProductDetails product={product} mainPhoto={mainPhoto} />
-              <p>${selectedVariants[product.id]?.price / 100 || 0}</p>
+
               <div>
-                <AddToCartBtn
-                  productId={product.id}
-                  variantId={
-                    selectedVariants[product.id]
-                      ? selectedVariants[product.id].variantId
-                      : ""
-                  }
-                  sku={
-                    selectedVariants[product.id]
-                      ? selectedVariants[product.id].sku
-                      : ""
-                  }
+                <ProductImages
+                  product={product}
+                  selectedVariants={selectedVariants}
+                  handleVariantChange={handleVariantChange}
+                  productIndex={productIndex}
                 />
               </div>
-              <VariantSelect
-                product={product}
-                selectedVariants={selectedVariants}
-                handleVariantChange={handleVariantChange}
-                productIndex={productIndex}
-              />
-
-              <ProductImages
-                product={product}
-                selectedVariants={selectedVariants}
-              />
             </div>
           ))
         ) : (

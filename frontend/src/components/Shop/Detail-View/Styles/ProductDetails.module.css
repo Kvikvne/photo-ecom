@@ -1,0 +1,34 @@
+h2 {
+  font-size: 32px;
+}
+
+.mainPhoto {
+  width: 700px;
+  height: min-content;
+  border-radius: 5px;
+  overflow: hidden;
+  display: flex;
+}
+
+.container {
+  margin: 15px;
+}
+
+.content {
+  display: flex;
+  justify-content: space-between;
+  height: 500px;
+}
+
+.content p {
+  width: 35%;
+  overflow-y: scroll;
+  padding: 0;
+  margin: 0;
+}
+
+.mainPhoto img {
+  max-width: 100%;
+  height: auto;
+  margin: 0;
+}

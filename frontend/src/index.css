@@ -8,3 +8,32 @@ a {
   text-decoration: none;
   color: #fff;
 }
+/* For WebKit browsers (Chrome, Safari) */
+::-webkit-scrollbar {
+  width: 8px; /* Set the width of the scrollbar */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #d4d4d491; /* Set the color of the thumb */
+  border-radius: 4px; /* Set the border radius of the thumb */
+}
+
+/* For Firefox */
+/* Note: Firefox supports scrollbar styling from version 64 onwards */
+/* The color and width properties work in Firefox 64+, the thumb and track properties work in Firefox 73+ */
+
+/* Set the width and color of the scrollbar */
+* {
+  scrollbar-width: thin; /* "thin" is a keyword for a thin scrollbar */
+  scrollbar-color: #d4d4d491 transparent; /* Set the color of the thumb and track */
+}
+
+/* Set the color and width of the thumb */
+*::-moz-scrollbar-thumb {
+  background-color: #d4d4d491;
+}
+
+/* Set the color of the track */
+*::-moz-scrollbar-track {
+  background-color: transparent;
+}
