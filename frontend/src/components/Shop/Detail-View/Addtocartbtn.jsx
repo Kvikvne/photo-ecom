@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import css from "./Styles/Addtocartbtn.module.css";
 
-const AddToCartBtn = ({ productId, variantId, sku }) => {
+const AddToCartBtn = ({ productId, variantId, sku, title, price }) => {
   const handleAddToCart = async () => {
     try {
       console.log({
@@ -10,6 +10,8 @@ const AddToCartBtn = ({ productId, variantId, sku }) => {
         variant_id: variantId, 
         sku: sku,
         quantity: 1,
+        variant_label: title,
+        price: price,
       })
       // Assuming you have an API endpoint to handle adding to the cart
       const response = await axios.post("http://localhost:3000/api/cart/add", {
@@ -17,6 +19,8 @@ const AddToCartBtn = ({ productId, variantId, sku }) => {
         variant_id: variantId, 
         sku: sku,
         quantity: 1,
+        variant_label: title,
+        price: price,
       });
 
       // Assuming the API responds with the updated cart data

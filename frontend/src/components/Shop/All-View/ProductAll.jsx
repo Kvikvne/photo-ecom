@@ -5,23 +5,7 @@ import ProductCard from "./ProductCard";
 
 export default function ProductAll() {
   const [mainPhoto, setMainPhoto] = useState([]);
-  const [printifyProducts, setPrintifyProducts] = useState([]);
 
-  const fetchData = async () => {
-    try {
-      const response = await axios.get(
-        "http://localhost:3000/api/printify/products"
-      );
-      setPrintifyProducts(response.data);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
- 
   useEffect(() => {
     axios
       .get("http://localhost:3000/photos")
@@ -38,7 +22,7 @@ export default function ProductAll() {
           title={photo.title}
           cardDescription={photo.description}
           price={photo.price}
-          productId={photo.id}
+          productId={photo.productId}
         />
       ))}
     </div>

@@ -1,0 +1,13 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    height: 100vh; 
+}
+.cartCard {
+    width: 90vw;
+    height: 50vh;
+    background-color: #f0ede6;
+    color: #06151c;
+    border-radius: 8px;
+}

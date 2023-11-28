@@ -37,3 +37,10 @@ a {
 *::-moz-scrollbar-track {
   background-color: transparent;
 }
+
+select {
+  border-radius: 6px;
+  border: none;
+  background-color: f0ede6;
+
+}

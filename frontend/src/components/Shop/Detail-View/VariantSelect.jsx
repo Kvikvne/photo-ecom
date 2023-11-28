@@ -7,6 +7,9 @@ const VariantSelect = ({
   handleVariantChange,
   productIndex,
 }) => {
+
+  console.log(selectedVariants)
+
   return (
     <div className={css.container}>
       <p>${selectedVariants[product.id]?.price / 100 || 0}</p>
@@ -24,7 +27,7 @@ const VariantSelect = ({
           .map((variant, variantIndex) => (
             <option
               key={`${productIndex}-${variantIndex}`}
-              value={`${variant.id},${variant.sku},${variant.price}`}
+              value={`${variant.id},${variant.sku},${variant.price}, ${variant.cost}, ${variant.title}`}
             >
               {variant.title}
             </option>
@@ -41,6 +44,8 @@ const VariantSelect = ({
         sku={
           selectedVariants[product.id] ? selectedVariants[product.id].sku : ""
         }
+        title={selectedVariants[product.id] ? selectedVariants[product.id].title : ""}
+        price={selectedVariants[product.id] ? selectedVariants[product.id].price : ""}
       />
     </div>
   );
