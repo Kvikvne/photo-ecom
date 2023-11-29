@@ -3,6 +3,7 @@
     display: flex;
     overflow-x: scroll;
     gap: 5px;
+    margin: 0 15px;
 }
 
 .outer {
@@ -14,4 +15,5 @@
 .productImg img {
     cursor: pointer;
     width: 100px;
+    border-radius: 4px;
 }

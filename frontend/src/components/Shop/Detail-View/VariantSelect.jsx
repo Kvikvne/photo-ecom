@@ -26,11 +26,11 @@ const VariantSelect = ({
     }
   });
 
-  console.log(photoDescription);
+  
 
   return (
     <div className={css.container}>
-      <p>${selectedVariants[product.id]?.price / 100 || 0}</p>
+      <p>${(selectedVariants[product.id]?.price / 100 || 0.00).toFixed(2)}</p>
       <select onChange={(e) => handleVariantChange(product.id, e.target.value)}>
         <option value="" disabled>
           Select Variant
@@ -63,7 +63,7 @@ const VariantSelect = ({
           selectedVariants[product.id] ? selectedVariants[product.id].title : ""
         }
         price={
-          selectedVariants[product.id] ? selectedVariants[product.id].price : ""
+          selectedVariants[product.id] ? selectedVariants[product.id].price : "" 
         }
         selectedImage={selectedImages[1]}
         productName={product.title}

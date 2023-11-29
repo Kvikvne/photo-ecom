@@ -1,0 +1,37 @@
+.card {
+    width: 60vw;
+    height: fit-content;
+    background-color: #f0ede6;
+    color: #06151c;
+    border-radius: 8px;
+    padding: 25px;
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.backToShop {
+    background-color: #06151c00;
+    color: #06151c;
+    padding: 8px 20px;
+    cursor: pointer;
+    border: #06151c solid 1px;
+    border-radius: 8px;
+    transition: background-color ease .5s, color ease .5s;
+}
+
+.backToShop:hover {
+    background-color: #06151c;
+    color: #f0ede6;
+}
+
+.subTotal {
+    font-size: 1.3rem;
+}
+
+.rightSide {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
