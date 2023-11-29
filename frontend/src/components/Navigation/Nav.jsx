@@ -45,10 +45,10 @@ export default function Nav() {
           <a href="/">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink"
+              xmlnsXlink="http://www.w3.org/1999/xlink"
               aria-hidden="true"
               role="img"
-              class="iconify iconify--logos"
+              className="iconify iconify--logos"
               width="35.93"
               height="32"
               preserveAspectRatio="xMidYMid meet"
@@ -79,7 +79,7 @@ export default function Nav() {
       </nav>
       <div className={css.spacer}></div>
       <div className={css.cart}>
-        <i onClick={toggleCart} class="fa-solid fa-cart-shopping"></i>
+        <i onClick={toggleCart} className="fa-solid fa-cart-shopping"></i>
         {isCartOpen && (
           <div className={css.cartDownMenu}>
             <h2>Cart</h2>

@@ -3,11 +3,19 @@
     justify-content: center;
     align-items: center; 
     height: 100vh; 
+    padding-top: 50px;
 }
 .cartCard {
     width: 90vw;
-    height: 50vh;
+    height: fit-content;
     background-color: #f0ede6;
     color: #06151c;
     border-radius: 8px;
+    padding: 25px;
+    
+}
+.cartContent img{
+    width: 225px;
+    border-radius: 5px;
+    mix-blend-mode:multiply;
 }

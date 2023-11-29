@@ -61,7 +61,7 @@ app.get("/photos", async (req, res) => {
 app.post("/api/cart/add", async (req, res) => {
   try {
     // Extract product data from the request body
-    const { product_id, variant_id, sku, quantity, variant_label, price } =
+    const { product_id, variant_id, sku, quantity, variant_label, price, img } =
       req.body;
 
     // Add more validation if needed
@@ -69,11 +69,12 @@ app.post("/api/cart/add", async (req, res) => {
     // Use the cart model to interact with the cart collection
     await cartModel.addToCart(
       product_id,
-      variant_id,
-      sku,
       quantity,
+      variant_id,
+      price,
       variant_label,
-      price
+      sku,
+      img
     );
 
     // Send a success response

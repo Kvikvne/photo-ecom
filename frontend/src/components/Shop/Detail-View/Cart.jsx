@@ -24,8 +24,9 @@ export default function Cart() {
           <div className={css.cartContent}>
           {cartContent.map((item, index) => (
           <p key={index}>
-            ${item.line_items[0].price / 100} <br />
-            Size: {item.line_items[0].variant_label} <br />
+            <img src={item.line_items[0].metadata.img} alt="" /> <br />
+            ${item.line_items[0].metadata.price / 100} <br />
+            Size: {item.line_items[0].metadata.variant_label} <br />
             quantity: {item.line_items[0].quantity}
           </p>
           

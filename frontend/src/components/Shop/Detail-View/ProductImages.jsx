@@ -4,9 +4,11 @@ import css from "./Styles/ProductImages.module.css";
 
 const ProductImages = ({
   product,
+  productId,
   selectedVariants,
   handleVariantChange,
   productIndex,
+  filteredProducts
 }) => {
   return (
     <div className={css.outer}>
@@ -27,9 +29,11 @@ const ProductImages = ({
       </div>
       <VariantSelect
         product={product}
+        productId={productId}
         selectedVariants={selectedVariants}
         handleVariantChange={handleVariantChange}
         productIndex={productIndex}
+        filteredProducts={filteredProducts}
       />
     </div>
   );

@@ -2,25 +2,30 @@ import React, { useState } from "react";
 import axios from "axios";
 import css from "./Styles/Addtocartbtn.module.css";
 
-const AddToCartBtn = ({ productId, variantId, sku, title, price }) => {
+const AddToCartBtn = ({ productId, variantId, sku, title, price, selectedImage }) => {
+
+  const imgSrc = selectedImage?.src
+
   const handleAddToCart = async () => {
     try {
       console.log({
         product_id: productId,
-        variant_id: variantId, 
-        sku: sku,
         quantity: 1,
-        variant_label: title,
+        variant_id: variantId,
         price: price,
-      })
+        variant_label: title,
+        sku: sku,
+        img: imgSrc,
+      });
       // Assuming you have an API endpoint to handle adding to the cart
       const response = await axios.post("http://localhost:3000/api/cart/add", {
         product_id: productId,
-        variant_id: variantId, 
-        sku: sku,
         quantity: 1,
-        variant_label: title,
+        variant_id: variantId,
         price: price,
+        variant_label: title,
+        sku: sku,
+        img: imgSrc,
       });
 
       // Assuming the API responds with the updated cart data

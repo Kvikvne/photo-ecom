@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom"; 
+import { useParams } from "react-router-dom";
 import ProductDetails from "./ProductDetails";
 import ProductImages from "./ProductImages";
 import css from "./Styles/Store2.module.css";
 
 export default function Store2() {
-  const { productId } = useParams(); 
+  const { productId } = useParams();
   const [printifyProducts, setPrintifyProducts] = useState([]);
   const [selectedVariants, setSelectedVariants] = useState({});
   const [mainPhoto, setMainPhoto] = useState([]);
@@ -33,7 +33,6 @@ export default function Store2() {
       .catch((error) => console.error("Error:", error));
   }, []);
 
-
   const handleVariantChange = (productId, value) => {
     const [variantId, sku, price, cost, title] = value.split(",");
 
@@ -50,10 +49,15 @@ export default function Store2() {
   };
 
   // Filter the products array based on the productId
-  const filteredProducts = printifyProducts.data ? printifyProducts.data.filter(
-    (product) => product.id.toString() === productId
-  ) : [];
+  const filteredProducts = printifyProducts.data
+    ? printifyProducts.data.filter(
+        (product) => product.id.toString() === productId
+      )
+    : [];
 
+
+
+  
   return (
     <div className={css.container}>
       <div className={css.wrapper}>
@@ -65,9 +69,11 @@ export default function Store2() {
               <div>
                 <ProductImages
                   product={product}
+                  productId={productId}
                   selectedVariants={selectedVariants}
                   handleVariantChange={handleVariantChange}
                   productIndex={productIndex}
+                  filteredProducts={filteredProducts}
                 />
               </div>
             </div>

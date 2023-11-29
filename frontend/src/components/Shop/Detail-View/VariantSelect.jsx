@@ -3,12 +3,19 @@ import AddToCartBtn from "./Addtocartbtn";
 
 const VariantSelect = ({
   product,
+  productId,
   selectedVariants,
   handleVariantChange,
   productIndex,
+  filteredProducts
 }) => {
-
-  console.log(selectedVariants)
+  const currentVariant = parseInt(selectedVariants[productId]?.variantId, 10);
+  const selectedImages = filteredProducts[0]?.images.filter(
+    (image) =>
+      image.is_selected_for_publishing === true &&
+      image.variant_ids.includes(currentVariant)
+  );
+  
 
   return (
     <div className={css.container}>
@@ -46,6 +53,7 @@ const VariantSelect = ({
         }
         title={selectedVariants[product.id] ? selectedVariants[product.id].title : ""}
         price={selectedVariants[product.id] ? selectedVariants[product.id].price : ""}
+        selectedImage={selectedImages[1]}
       />
     </div>
   );
