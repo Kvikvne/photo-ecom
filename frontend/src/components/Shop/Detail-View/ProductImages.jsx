@@ -8,7 +8,8 @@ const ProductImages = ({
   selectedVariants,
   handleVariantChange,
   productIndex,
-  filteredProducts
+  filteredProducts,
+  photo
 }) => {
   return (
     <div className={css.outer}>
@@ -22,8 +23,8 @@ const ProductImages = ({
               : true
           )
           .map((image, imageIndex) => (
-            <div key={imageIndex}>
-              <img style={{ width: "100px" }} src={image.src} alt="" />
+            <div className={css.productImg} key={imageIndex}>
+              <img src={image.src} alt="" />
             </div>
           ))}
       </div>
@@ -34,6 +35,7 @@ const ProductImages = ({
         handleVariantChange={handleVariantChange}
         productIndex={productIndex}
         filteredProducts={filteredProducts}
+        photo={photo}
       />
     </div>
   );

@@ -4,3 +4,7 @@
     margin-top: 20px;
     justify-content: center;
 }
+
+select {
+    cursor: pointer;
+}

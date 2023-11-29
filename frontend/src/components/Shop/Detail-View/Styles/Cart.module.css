@@ -1,3 +1,11 @@
+h2 {
+    margin: 0;
+    padding: 0;
+}
+.cartHeader {
+    padding-bottom: 30px;
+    
+}
 .container {
     display: flex;
     justify-content: center;
@@ -18,4 +26,50 @@
     width: 225px;
     border-radius: 5px;
     mix-blend-mode:multiply;
+}
+
+.cartContent {
+    padding: 0 100px;
+    
+}
+
+.itemCard {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: solid 1px #06151c44;
+    
+}
+
+.cartItemDetail{
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.spacer {
+    flex-grow: 1;
+}
+
+.price {
+    font-size: 2rem;
+}
+
+.itemDesc {
+    width: 20%;
+}
+
+.delete {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    font-size: 26px;
+    color: #db0202;
+    border: #db0202 solid 2px;
+    border-radius: 50%;
+    height: 20px;
+    width: 20px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
 }

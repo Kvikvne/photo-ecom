@@ -10,3 +10,8 @@
     align-items: center;
     justify-content: space-between;
 }
+
+.productImg img {
+    cursor: pointer;
+    width: 100px;
+}

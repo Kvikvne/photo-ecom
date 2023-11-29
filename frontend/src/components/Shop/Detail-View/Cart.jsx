@@ -12,8 +12,6 @@ export default function Cart() {
       .catch((error) => console.error("Error:", error));
   }, []);
 
-
-  
   return (
     <div className={css.container}>
       <div className={css.wrapper}>
@@ -22,15 +20,30 @@ export default function Cart() {
             <h2>Your Cart</h2>
           </div>
           <div className={css.cartContent}>
-          {cartContent.map((item, index) => (
-          <p key={index}>
-            <img src={item.line_items[0].metadata.img} alt="" /> <br />
-            ${item.line_items[0].metadata.price / 100} <br />
-            Size: {item.line_items[0].metadata.variant_label} <br />
-            quantity: {item.line_items[0].quantity}
-          </p>
-          
-          ))}
+            {cartContent.map((item, index) => (
+              <div className={css.itemCard} key={index}>
+                <div>
+                  <img src={item.line_items[0].metadata.img} alt="" />
+                </div>
+                <div className={css.itemDesc}>
+                <h3>{item.line_items[0].metadata.name}</h3>
+                <p>{item.line_items[0].metadata.description}</p>
+                </div>
+                
+                <div className={css.cartItemDetail}>
+                  <div className={css.spacer}></div>
+                  
+                  <p>Size: {item.line_items[0].metadata.variant_label}</p>
+                  <p>Quantity: {item.line_items[0].quantity}</p>
+                </div>
+                <p className={css.price}>
+                    ${item.line_items[0].metadata.price / 100}
+                  </p>
+                <div className={css.delete}>
+                &times;
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>

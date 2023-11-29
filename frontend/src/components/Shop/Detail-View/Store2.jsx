@@ -33,8 +33,10 @@ export default function Store2() {
       .catch((error) => console.error("Error:", error));
   }, []);
 
+  
+  
   const handleVariantChange = (productId, value) => {
-    const [variantId, sku, price, cost, title] = value.split(",");
+    const [variantId, sku, price, title] = value.split(",");
 
     setSelectedVariants({
       ...selectedVariants,
@@ -42,7 +44,6 @@ export default function Store2() {
         variantId,
         sku,
         price,
-        cost,
         title,
       },
     });
@@ -74,6 +75,7 @@ export default function Store2() {
                   handleVariantChange={handleVariantChange}
                   productIndex={productIndex}
                   filteredProducts={filteredProducts}
+                  photo={mainPhoto}
                 />
               </div>
             </div>

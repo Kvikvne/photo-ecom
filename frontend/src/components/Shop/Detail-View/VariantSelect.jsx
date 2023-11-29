@@ -1,5 +1,6 @@
 import css from "./Styles/VariantSelect.module.css";
 import AddToCartBtn from "./Addtocartbtn";
+import he from "he";
 
 const VariantSelect = ({
   product,
@@ -7,7 +8,8 @@ const VariantSelect = ({
   selectedVariants,
   handleVariantChange,
   productIndex,
-  filteredProducts
+  filteredProducts,
+  photo,
 }) => {
   const currentVariant = parseInt(selectedVariants[productId]?.variantId, 10);
   const selectedImages = filteredProducts[0]?.images.filter(
@@ -15,17 +17,21 @@ const VariantSelect = ({
       image.is_selected_for_publishing === true &&
       image.variant_ids.includes(currentVariant)
   );
-  
+
+  let photoDescription;
+
+  photo.forEach((subArray) => {
+    if (subArray.productId === productId) {
+      photoDescription = subArray.description;
+    }
+  });
+
+  console.log(photoDescription);
 
   return (
     <div className={css.container}>
       <p>${selectedVariants[product.id]?.price / 100 || 0}</p>
-      <select
-        onChange={(e) => handleVariantChange(product.id, e.target.value)}
-        value={
-          selectedVariants[product.id] ? selectedVariants[product.id].title : ""
-        }
-      >
+      <select onChange={(e) => handleVariantChange(product.id, e.target.value)}>
         <option value="" disabled>
           Select Variant
         </option>
@@ -34,7 +40,9 @@ const VariantSelect = ({
           .map((variant, variantIndex) => (
             <option
               key={`${productIndex}-${variantIndex}`}
-              value={`${variant.id},${variant.sku},${variant.price}, ${variant.cost}, ${variant.title}`}
+              value={`${variant.id},${variant.sku},${variant.price},${he.decode(
+                variant.title
+              )}`}
             >
               {variant.title}
             </option>
@@ -51,9 +59,15 @@ const VariantSelect = ({
         sku={
           selectedVariants[product.id] ? selectedVariants[product.id].sku : ""
         }
-        title={selectedVariants[product.id] ? selectedVariants[product.id].title : ""}
-        price={selectedVariants[product.id] ? selectedVariants[product.id].price : ""}
+        title={
+          selectedVariants[product.id] ? selectedVariants[product.id].title : ""
+        }
+        price={
+          selectedVariants[product.id] ? selectedVariants[product.id].price : ""
+        }
         selectedImage={selectedImages[1]}
+        productName={product.title}
+        productDescription={photoDescription}
       />
     </div>
   );
