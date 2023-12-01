@@ -1,4 +1,5 @@
 import css from "./Styles/Nav.module.css";
+import NavCart from "./NavCart";
 import { useEffect, useState } from "react";
 
 export default function Nav() {
@@ -81,13 +82,7 @@ export default function Nav() {
       <div className={css.cart}>
         <i onClick={toggleCart} className="fa-solid fa-cart-shopping"></i>
         {isCartOpen && (
-          <div className={css.cartDownMenu}>
-            <h2>Cart</h2>
-            <div className={css.cartItems}>
-              <p>Your cart is empty</p>
-            </div>
-            <a href="/cart">View Cart</a>
-          </div>
+          <NavCart />
         )}
       </div>
     </div>

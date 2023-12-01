@@ -1,0 +1,39 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  background-color: #f0ede6;
+  box-sizing: border-box;
+  justify-content: center;
+  padding: 32px 65px;
+  width: 30vw;
+  gap: 25px;
+  border-radius: 8px;
+}
+
+.itemCard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: solid 1px #06151c44;
+  gap: 25px;
+  padding: 15px 0;
+}
+.itemContainer {
+  width: 100%;
+}
+.imgContainer {
+  width: 100px;
+}
+.imgContainer img {
+  max-width: 100%;
+  mix-blend-mode: multiply;
+}
+
+.itemDesc {
+  width: 100%;
+  color: #06151c;
+}
+
+.total {
+  color: #06151c;
+}

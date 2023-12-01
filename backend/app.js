@@ -5,7 +5,9 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const { connectToDb, getDb } = require("./db/connection");
 const routes = require("./routes");
-const cartModel = require("./db/models/cartModel"); // Import your cartModel
+const cartModel = require("./db/models/cartModel"); 
+
+ 
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -13,6 +15,7 @@ const port = process.env.PORT || 3000;
 app.use(cors());
 app.use(bodyParser.json());
 app.use("/api", routes);
+
 
 let db;
 
@@ -93,5 +96,27 @@ app.get("/api/cart", async (req, res) => {
   } catch (error) {
     console.error("Error fetching cart items:", error);
     res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+
+
+// Stripe
+
+const stripe = require('stripe')('SECRET_KEY');
+
+app.get('/secret', async (req, res) => {
+  try {
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: 10099,
+      currency: 'usd',
+      automatic_payment_methods: {
+        enabled: true,
+      },
+    });
+    res.json({ client_secret: paymentIntent.client_secret });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to create PaymentIntent' });
   }
 });
