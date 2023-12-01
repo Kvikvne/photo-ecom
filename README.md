@@ -29,6 +29,7 @@ Technologies Used
 -   Express.js: Web application framework for Node.js, facilitating server-side development.
 -   MongoDB: Database management for storing and retrieving data efficiently.
 -   Printify API: Integration for streamlined e-commerce operations, including product customization and order processing.
+-   Stripe: Easy and secure payment proccessing.
 -   Netlify: Hosting service for frontend deployment.
 -   Heroku: Cloud platform for backend deployment.
 -   MongoDB Atlas: Cloud-based database service for MongoDB, ensuring data scalability and reliability.
