@@ -22,12 +22,14 @@ h2 {
     padding: 25px;
     
 }
-.cartContent img{
-    width: 225px;
-    border-radius: 5px;
+
+.itemImg img {
+    max-width: 100%;
     mix-blend-mode:multiply;
 }
-
+.itemImg {
+    width: 225px;
+}
 .cartContent {
     padding: 0 100px;
     
@@ -44,6 +46,7 @@ h2 {
 .cartItemDetail{
     display: flex;
     flex-direction: column;
+    width: 25%;
     
 }
 
@@ -52,23 +55,24 @@ h2 {
 }
 
 .price {
-    font-size: 2rem;
+    font-size: 1.2rem;
 }
 
 .itemDesc {
     width: 20%;
 }
 
+
 .delete {
     padding: 0;
     margin: 0;
     display: flex;
-    font-size: 26px;
+    font-size: 15px;
     color: #db0202;
     border: #db0202 solid 2px;
     border-radius: 50%;
-    height: 20px;
-    width: 20px;
+    height: 15px;
+    width: 15px;
     align-items: center;
     justify-content: center;
     cursor: pointer;

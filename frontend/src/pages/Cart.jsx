@@ -1,21 +1,10 @@
 import css from "./Styles/Cart.module.css";
-import axios from "axios";
-import React, { useState, useEffect } from "react";
-import CartTotal from "./CartTotal";
+import React from "react";
+import CartTotal from "../components/Shop/Cart/CartTotal";
+import { useCartContent } from "../utilities/cartUtils";
 
 export default function Cart() {
-  const [cartContent, setCartContent] = useState([]);
-
-  useEffect(() => {
-    axios
-      .get("http://localhost:3000/api/cart")
-      .then((response) => setCartContent(response.data))
-      .catch((error) => console.error("Error:", error));
-  }, []);
-
-  let total = 0;
-  cartContent.forEach((item) => (total += item.line_items[0].metadata.price / 100));
-
+  const { cartContent, total } = useCartContent();
   return (
     <div className={css.container}>
       <div className={css.wrapper}>
@@ -29,7 +18,7 @@ export default function Cart() {
             <div className={css.cartContent}>
               {cartContent.map((item, index) => (
                 <div className={css.itemCard} key={index}>
-                  <div>
+                  <div className={css.itemImg}>
                     <img src={item.line_items[0].metadata.img} alt="" />
                   </div>
                   <div className={css.itemDesc}>

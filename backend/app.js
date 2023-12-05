@@ -102,7 +102,6 @@ app.get("/api/cart", async (req, res) => {
 
 
 // Stripe
-
 const stripe = require('stripe')('SECRET_KEY');
 
 app.get('/secret', async (req, res) => {

@@ -1,6 +1,6 @@
-import ShippingForm from "./ShippingForm";
-import Payment from "./Payment";
-import CartView from "./CartView";
+import ShippingForm from "../components/Shop/Checkout/ShippingForm";
+import Payment from "../components/Shop/Checkout/Payment";
+import CartView from "../components/Shop/Checkout/CartView";
 import css from "./Styles/CheckoutPage.module.css";
 
 export default function CheckoutPage() {

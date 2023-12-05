@@ -1,6 +1,6 @@
 import css from "./Styles/CartView.module.css";
 import React from "react";
-import { useCartContent } from "../../../../utilities/cartUtils";
+import { useCartContent } from "../../../utilities/cartUtils";
 
 export default function CartView() {
   const { cartContent, total } = useCartContent();

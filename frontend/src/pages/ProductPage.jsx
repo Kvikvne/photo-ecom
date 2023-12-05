@@ -1,39 +1,17 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
-import ProductDetails from "./ProductDetails";
-import ProductImages from "./ProductImages";
+import ProductDetails from "../components/Shop/Detail-View/ProductDetails";
+import ProductImages from "../components/Shop/Detail-View/ProductImages";
 import css from "./Styles/Store2.module.css";
+import { usePhotos } from "../utilities/photosUtils";
+import { usePrintify } from "../utilities/printifyUtils";
 
 export default function Store2() {
-  const { productId } = useParams();
-  const [printifyProducts, setPrintifyProducts] = useState([]);
   const [selectedVariants, setSelectedVariants] = useState({});
-  const [mainPhoto, setMainPhoto] = useState([]);
+  const { productId } = useParams();
+  const { mainPhoto } = usePhotos()
+  const { printifyProducts } = usePrintify()
 
-  const fetchData = async () => {
-    try {
-      const response = await axios.get(
-        "http://localhost:3000/api/printify/products"
-      );
-      setPrintifyProducts(response.data);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    axios
-      .get("http://localhost:3000/photos")
-      .then((response) => setMainPhoto(response.data))
-      .catch((error) => console.error("Error:", error));
-  }, []);
-
-  
   
   const handleVariantChange = (productId, value) => {
     const [variantId, sku, price, title] = value.split(",");
@@ -56,9 +34,6 @@ export default function Store2() {
       )
     : [];
 
-
-
-  
   return (
     <div className={css.container}>
       <div className={css.wrapper}>

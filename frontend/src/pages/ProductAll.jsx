@@ -1,17 +1,10 @@
 import css from "./Styles/ProductAll.module.css";
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import ProductCard from "./ProductCard";
+import React from "react";
+import ProductCard from "../components/Shop/All-View/ProductCard";
+import { usePhotos } from "../utilities/photosUtils";
 
 export default function ProductAll() {
-  const [mainPhoto, setMainPhoto] = useState([]);
-
-  useEffect(() => {
-    axios
-      .get("http://localhost:3000/photos")
-      .then((response) => setMainPhoto(response.data))
-      .catch((error) => console.error("Error:", error));
-  }, []);
+  const { mainPhoto } = usePhotos()
 
   return (
     <div className={css.container}>
