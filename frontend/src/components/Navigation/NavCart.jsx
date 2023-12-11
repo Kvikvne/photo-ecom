@@ -38,7 +38,7 @@ export default function NavCart() {
                       </p>
                     </div>
                     <p className={css.price}>
-                      ${(item.line_items[0].metadata.price / 100).toFixed(2)}
+                      ${item.line_items[0].metadata.price }
                     </p>
                   </div>
                 </a>

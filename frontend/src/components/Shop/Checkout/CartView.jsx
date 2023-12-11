@@ -15,6 +15,7 @@ export default function CartView() {
             </div>
             <div className={css.itemDesc}>
               <h3>{item.line_items[0].metadata.name}</h3>
+              <p> ${item.line_items[0].metadata.price}</p>
               <p>Size: {item.line_items[0].metadata.variant_label}</p>
               <p>Quantity: {item.line_items[0].quantity}</p>
             </div>

@@ -1,9 +1,9 @@
 import css from "./Styles/CheckoutBtn.module.css";
 
-export default function CheckoutBtn() {
+export default function CheckoutBtn({checkout}) {
   return (
-    <a href="/checkout">
-      <div className={css.btn}>
+    <a >
+      <div onClick={checkout} className={css.btn}>
         <p>Checkout</p>
       </div>
     </a>

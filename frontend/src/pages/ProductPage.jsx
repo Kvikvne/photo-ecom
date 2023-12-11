@@ -1,18 +1,17 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
+import css from "./Styles/Store2.module.css";
 import ProductDetails from "../components/Shop/Detail-View/ProductDetails";
 import ProductImages from "../components/Shop/Detail-View/ProductImages";
-import css from "./Styles/Store2.module.css";
 import { usePhotos } from "../utilities/photosUtils";
 import { usePrintify } from "../utilities/printifyUtils";
 
 export default function Store2() {
   const [selectedVariants, setSelectedVariants] = useState({});
   const { productId } = useParams();
-  const { mainPhoto } = usePhotos()
-  const { printifyProducts } = usePrintify()
+  const { mainPhoto } = usePhotos();
+  const { printifyProducts } = usePrintify();
 
-  
   const handleVariantChange = (productId, value) => {
     const [variantId, sku, price, title] = value.split(",");
 
@@ -40,8 +39,6 @@ export default function Store2() {
         {Array.isArray(filteredProducts) && filteredProducts.length > 0 ? (
           filteredProducts.map((product, productIndex) => (
             <div className={css.productCard} key={productIndex}>
-              <ProductDetails product={product} mainPhoto={mainPhoto} />
-
               <div>
                 <ProductImages
                   product={product}

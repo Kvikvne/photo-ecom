@@ -1,6 +1,5 @@
-// cartModel.js
+const { ObjectId } = require("mongodb");
 
-const { ObjectID } = require("mongodb");
 
 let cartCollection;
 
@@ -9,11 +8,12 @@ module.exports = {
     cartCollection = collection;
   },
 
-  addToCart: async (product_id, quantity, variant_id, price, variant_label, sku, img, name, description) => {
+  addToCart: async (id, product_id, quantity, variant_id, price, variant_label, sku, img, name, description) => {
     try {
       const result = await cartCollection.insertOne({
         line_items: [
           {
+            id,
             product_id,
             quantity,
             variant_id,
@@ -28,7 +28,6 @@ module.exports = {
           },
         ],
       });
-      
 
       return result;
     } catch (error) {
@@ -44,5 +43,20 @@ module.exports = {
       throw error;
     }
   },
-
+  deleteCartItem: async (itemId) => {
+    try {
+      console.log('Deleting item with ID:', itemId);
+  
+      // Find and delete the item from the cart collection
+      const deletedItem = await cartCollection.findOneAndDelete({ _id: new ObjectId(itemId) });
+  
+      console.log('Item deleted:', deletedItem);
+  
+      return deletedItem;
+    } catch (error) {
+      console.error('Error deleting item from the cart:', error);
+      throw error; // Propagate the error to the calling function
+    }
+  },
+  
 };

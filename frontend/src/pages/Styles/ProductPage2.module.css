@@ -1,0 +1,46 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+}
+
+.card {
+  background-color: #f0ede6;
+  padding: 25px;
+  border-radius: 8px;
+  margin: 100px 0;
+  display: flex;
+  height: 700px;
+  justify-content: center;
+  align-items: center;
+  color: #06151c;
+}
+
+.middle {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.description {
+  
+  width: 500px;
+  height: min-content;
+  max-height: 90%;
+  overflow-y: scroll;
+  padding: 25px;
+  background-color: #f0ede6;
+  -webkit-box-shadow: 1px 2px 25px -5px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 1px 2px 25px -5px rgba(0, 0, 0, 0.2);
+  box-shadow: 1px 2px 25px -5px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  margin: 0 25px;
+}

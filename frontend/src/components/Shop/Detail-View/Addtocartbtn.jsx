@@ -7,6 +7,10 @@ const AddToCartBtn = ({ productId, variantId, sku, title, price, selectedImage, 
   const imgSrc = selectedImage?.src
 
   const handleAddToCart = async () => {
+    if (sku.trim() === "") {
+      alert("No variant is selected. Please select a variant.");
+      return;
+    }
     try {
       console.log({
         product_id: productId,
@@ -19,8 +23,8 @@ const AddToCartBtn = ({ productId, variantId, sku, title, price, selectedImage, 
         name: productName,
         description: productDescription
       });
-      // Assuming you have an API endpoint to handle adding to the cart
-      const response = await axios.post("http://localhost:3000/api/cart/add", {
+      // API endpoint to handle adding to the cart
+      await axios.post("http://localhost:3000/api/cart/add", {
         product_id: productId,
         quantity: 1,
         variant_id: variantId,
@@ -32,17 +36,11 @@ const AddToCartBtn = ({ productId, variantId, sku, title, price, selectedImage, 
         description: productDescription
       });
 
-      // Assuming the API responds with the updated cart data
-      const updatedCart = response.data;
-
-      // Callback to notify parent component (e.g., update the UI)
-      // onSuccess(updatedCart);
-
-      // You can also show a success message or trigger other actions here
-      console.log("Product added to cart successfully");
+      // Show a success message or trigger other actions 
+      alert("Product added to cart successfully");
     } catch (error) {
-      // Handle errors (e.g., show an error message)
-      console.error("Error adding product to cart:", error);
+      // Handle errors 
+      alert("Error adding product to cart:", error);
     }
   };
 

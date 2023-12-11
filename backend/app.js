@@ -1,5 +1,3 @@
-// app.js
-
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
@@ -7,7 +5,9 @@ const { connectToDb, getDb } = require("./db/connection");
 const routes = require("./routes");
 const cartModel = require("./db/models/cartModel"); 
 
- 
+
+const stripe = require('stripe')('SECRET_KEY');
+
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -64,12 +64,13 @@ app.get("/photos", async (req, res) => {
 app.post("/api/cart/add", async (req, res) => {
   try {
     // Extract product data from the request body
-    const { product_id, variant_id, sku, quantity, variant_label, price, img, name, description } =
+    const { id, product_id, variant_id, sku, quantity, variant_label, price, img, name, description } =
       req.body;
 
 
     // Use the cart model to interact with the cart collection
     await cartModel.addToCart(
+      id,
       product_id,
       quantity,
       variant_id,
@@ -101,21 +102,50 @@ app.get("/api/cart", async (req, res) => {
 
 
 
-// Stripe
-const stripe = require('stripe')('SECRET_KEY');
 
-app.get('/secret', async (req, res) => {
-  try {
-    const paymentIntent = await stripe.paymentIntents.create({
-      amount: 10099,
-      currency: 'usd',
-      automatic_payment_methods: {
-        enabled: true,
-      },
-    });
-    res.json({ client_secret: paymentIntent.client_secret });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Failed to create PaymentIntent' });
-  }
+
+
+
+app.post("/checkout", async (req, res) => {
+
+  /*
+ req.body.items
+ [
+     {
+         id: 1,
+         quantity: 3
+     }
+ ]
+
+ stripe wants
+ [
+     {
+         price: 1,
+         quantity: 3
+     }
+ ]
+ */
+
+ console.log(req.body);
+ const items = req.body.items;
+ let lineItems = [];
+ items.forEach((item)=> {
+     lineItems.push(
+         {
+             price: item.line_items[0].id,
+             quantity: item.line_items[0].quantity
+         }
+     )
+ });
+
+ const session = await stripe.checkout.sessions.create({
+     line_items: lineItems,
+     mode: 'payment',
+     success_url: "http://localhost:5173/",
+     cancel_url: "http://localhost:5173/prints"
+ });
+
+ res.send(JSON.stringify({
+     url: session.url
+ }));
 });

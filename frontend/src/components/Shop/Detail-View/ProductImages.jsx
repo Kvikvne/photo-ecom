@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import VariantSelect from "./VariantSelect";
 import css from "./Styles/ProductImages.module.css";
+import ProductDetails from "./ProductDetails";
 
 const ProductImages = ({
   product,
@@ -9,10 +10,29 @@ const ProductImages = ({
   handleVariantChange,
   productIndex,
   filteredProducts,
-  photo
+  photo,
 }) => {
+  const [clickedImg, setClickedImg] = useState();
+
+  const handleImageClick = (imageSrc) => {
+    setClickedImg(imageSrc);
+  };
+
+  const currentVariant = parseInt(selectedVariants[productId]?.variantId, 10);
+  const selectedImages = filteredProducts[0]?.images.filter(
+    (image) =>
+      image.is_selected_for_publishing === true &&
+      image.variant_ids.includes(currentVariant)
+  );
+
   return (
     <div className={css.outer}>
+      <ProductDetails
+        selectedVariants={selectedVariants}
+        selectedImages={selectedImages}
+        clickedImg={clickedImg}
+        product={product}
+      />
       <div className={css.container}>
         {product.images
           .filter((image) =>
@@ -24,7 +44,11 @@ const ProductImages = ({
           )
           .map((image, imageIndex) => (
             <div className={css.productImg} key={imageIndex}>
-              <img src={image.src} alt="" />
+              <img
+                onClick={() => handleImageClick(image.src)}
+                src={image.src}
+                alt=""
+              />
             </div>
           ))}
       </div>

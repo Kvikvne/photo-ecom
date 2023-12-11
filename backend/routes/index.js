@@ -20,5 +20,6 @@ router.get('/', (req, res) => {
 
 // Handle the GET request for cart items directly in this file
 router.get('/cart', cartController.getCartItems);
+router.delete('/cart/remove/:itemId', cartController.deleteCartItem);
 
 module.exports = router;

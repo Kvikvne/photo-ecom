@@ -1,30 +1,68 @@
-const TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIzN2Q0YmQzMDM1ZmUxMWU5YTgwM2FiN2VlYjNjY2M5NyIsImp0aSI6ImVlNTI0OWEzNzVlYTA3YTFhNTY1MTRiZGY5NGM1OGU4YjYwN2ZiMTdlOWU0MDdhZWQwMmNjM2I4OTNlMmEwZjNlOTJlZTJlOTk2MDhkYWM2IiwiaWF0IjoxNjk5NTYwMTQ1LjQxMTgwNCwibmJmIjoxNjk5NTYwMTQ1LjQxMTgwOCwiZXhwIjoxNzMxMTgyNTQ1LjQwMTgxNywic3ViIjoiMTU4NjU5NTEiLCJzY29wZXMiOlsic2hvcHMubWFuYWdlIiwic2hvcHMucmVhZCIsImNhdGFsb2cucmVhZCIsIm9yZGVycy5yZWFkIiwib3JkZXJzLndyaXRlIiwicHJvZHVjdHMucmVhZCIsInByb2R1Y3RzLndyaXRlIiwid2ViaG9va3MucmVhZCIsIndlYmhvb2tzLndyaXRlIiwidXBsb2Fkcy5yZWFkIiwidXBsb2Fkcy53cml0ZSIsInByaW50X3Byb3ZpZGVycy5yZWFkIl19.Ahdtnv8H3pd3rftahuDhl95qozr5xL8AGxS9FsNK4d9q_BmfnSp61vivIngkmFHAKZcsVNvMyyGCi3_hKZI";
+const TOKEN =
+  "TOKEN";
 
-const axios = require('axios');
-const PRINTIFY_API_URL = 'https://api.printify.com/v1/shops.json';
+const axios = require("axios");
 
-const printifyApi = axios.create({
-  baseURL: PRINTIFY_API_URL,
-  headers: {
-    'Content-Type': 'application/json',
-    'Authorization': `Bearer ${TOKEN}`,
-  },
-});
-
+// Get an array of products from printify
 const getProducts = async () => {
-    try {
-      const response = await axios.get('https://api.printify.com/v1/shops/12652066/products.json', {
+  try {
+    const response = await axios.get(
+      "https://api.printify.com/v1/shops/12652066/products.json",
+      {
         headers: {
           Authorization: `Bearer ${TOKEN}`,
         },
-      });
-  
-      return response.data; // Assuming Printify API returns JSON data
-    } catch (error) {
-      throw error;
-    }
-  };
+      }
+    );
 
-// Add more functions as needed...
+    return response.data; 
+  } catch (error) {
+    throw error;
+  }
+};
 
-module.exports = { getProducts };
+
+// Get OG images from printify
+const getImages = async () => {
+  try {
+    const response = await axios.get(
+      "https://api.printify.com/v1/uploads.json",
+      {
+        headers: {
+          Authorization: `Bearer ${TOKEN}`,
+        },
+      }
+    );
+
+    return response.data; 
+  } catch (error) {
+    throw error;
+  }
+};
+
+
+
+// Delete a product from printify
+const deleteProduct = async (product_id) => {
+  try {
+    const shop_id = "12652066";
+    const response = await axios.delete(
+      `https://api.printify.com/v1/shops/${shop_id}/products/${product_id}.json`,
+      {
+        headers: {
+          Authorization: `Bearer ${TOKEN}`,
+        },
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error(
+      "Error in deleteProduct:",
+      error.response ? error.response.data : error.message
+    );
+    throw error;
+  }
+};
+
+module.exports = { getProducts, deleteProduct, getImages };

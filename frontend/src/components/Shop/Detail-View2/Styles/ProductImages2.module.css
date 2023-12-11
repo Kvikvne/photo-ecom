@@ -1,0 +1,67 @@
+/* .ProductImagescontainer {
+    width: 700px;
+    border-radius: 5px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+}
+
+.mainImageContainer {
+    width: 700px;
+}
+
+.mainImageContainer img {
+    max-width: 100%;
+}
+
+.ImgContainer img{
+    cursor: pointer;
+    width: 65px;
+    border-radius: 4px;
+
+}
+
+.ImgContainer {
+    max-width: 700px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin: 0 15px;
+    padding: 5px 0;
+} */
+
+
+/* image component container */
+.ProductImagescontainer {
+    
+}
+/* main image */
+.mainImageContainer {
+    width: 500px;
+}
+
+.mainImageContainer img {
+    max-width: 100%;
+    border-radius: 8px;
+}
+
+/* image select */
+.imgScrollContainer {
+    width: 500px;
+    padding: 10px 0;
+    overflow-x: scroll;
+}
+
+.ImgContainer {
+    width: 75px;
+    display: flex;
+    gap: 4px;
+    
+}
+
+.ImgContainer img {
+    max-width: 100%;
+    border-radius: 8px;
+    cursor: pointer;
+}

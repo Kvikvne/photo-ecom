@@ -1,84 +1,82 @@
 h2 {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 .cartHeader {
-    padding-bottom: 30px;
-    
+  padding-bottom: 30px;
 }
 .container {
-    display: flex;
-    justify-content: center;
-    align-items: center; 
-    min-height: 100vh; 
-    padding: 100px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 100px 0;
 }
 .cartCard {
-    width: 60vw;
-    height: fit-content;
-    background-color: #f0ede6;
-    color: #06151c;
-    border-radius: 8px;
-    padding: 25px;
-    
+  width: 60vw;
+  height: fit-content;
+  background-color: #f0ede6;
+  color: #06151c;
+  border-radius: 8px;
+  padding: 25px;
 }
 
 .itemImg img {
-    max-width: 100%;
-    mix-blend-mode:multiply;
+  max-width: 100%;
+  mix-blend-mode: multiply;
+  border-radius: 4px;
 }
 .itemImg {
-    width: 225px;
+  width: 200px;
 }
 .cartContent {
-    padding: 0 100px;
-    
+  padding: 0 100px;
 }
 
 .itemCard {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-bottom: solid 1px #06151c44;
-    
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: solid 1px #06151c44;
+  height: 250px;
 }
 
-.cartItemDetail{
-    display: flex;
-    flex-direction: column;
-    width: 25%;
-    
+.cartItemDetail {
+  display: flex;
+  flex-direction: column;
+  width: 25%;
 }
 
 .spacer {
-    flex-grow: 1;
+  flex-grow: 1;
 }
 
 .price {
-    font-size: 1.2rem;
+  font-size: 1.2rem;
 }
 
 .itemDesc {
-    width: 20%;
+  width: 20%; 
+  max-height: 90%;
+  overflow-y: hidden;
 }
 
-
 .delete {
-    padding: 0;
-    margin: 0;
-    display: flex;
-    font-size: 15px;
-    color: #db0202;
-    border: #db0202 solid 2px;
-    border-radius: 50%;
-    height: 15px;
-    width: 15px;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  font-size: 15px;
+  color: #db0202;
+  border: #db0202 solid 2px;
+  border-radius: 50%;
+  height: 15px;
+  width: 15px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
 }
 
 .emptyCartMessage {
-    text-align: center;
-    text-decoration: underline;
+  text-align: center;
+  text-decoration: underline;
 }

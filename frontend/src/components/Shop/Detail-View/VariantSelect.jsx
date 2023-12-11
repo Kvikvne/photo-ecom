@@ -17,6 +17,7 @@ const VariantSelect = ({
       image.is_selected_for_publishing === true &&
       image.variant_ids.includes(currentVariant)
   );
+ 
 
   let photoDescription;
 
@@ -31,7 +32,7 @@ const VariantSelect = ({
   return (
     <div className={css.container}>
       <p>${(selectedVariants[product.id]?.price / 100 || 0.00).toFixed(2)}</p>
-      <select onChange={(e) => handleVariantChange(product.id, e.target.value)}>
+      <select onChange={(e) => handleVariantChange(product.id, e.target.value)} defaultValue="" >
         <option value="" disabled>
           Select Variant
         </option>

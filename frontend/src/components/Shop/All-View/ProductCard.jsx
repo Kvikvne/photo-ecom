@@ -14,7 +14,7 @@ export default function ProductCard({ cardPhoto, cardDescription, price, title, 
         </div>
         <div className={css.bottom}>
           <div className={css.price}>
-            <p>From {price}</p>
+            <p>From ${price.toFixed(2)}</p>
           </div>
 
           <CardBtn 

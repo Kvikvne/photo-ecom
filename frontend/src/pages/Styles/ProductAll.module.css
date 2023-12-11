@@ -1,6 +1,23 @@
 .container {
-    margin-top: 50px;
     display: flex;
     gap: 25px;
     justify-content: center;
+    align-items: center;
+    height: 99vh;
+    width: 99vw;
 }
+
+.loader {
+    margin: auto;
+    border: 20px solid #f0ede6;
+    border-radius: 50%;
+    border-top: 20px solid #e1ad81;
+    width: 200px;
+    height: 200px;
+    animation: spinner 4s linear infinite;
+  }
+  
+  @keyframes spinner {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
