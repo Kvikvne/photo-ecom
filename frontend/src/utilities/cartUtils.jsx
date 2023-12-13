@@ -7,14 +7,14 @@ export const useCartContent = () => {
 
   const fetchCart = () => {
     axios
-      .get("http://localhost:3000/api/cart")
+      .get("http://localhost:3000/cart")
       .then((response) => setCartContent(response.data))
       .catch((error) => console.error("Error:", error));
   };
 
   const deleteCartItem = async (itemId) => {
     try {
-      await axios.delete(`http://localhost:3000/api/cart/remove/${itemId}`);
+      await axios.delete(`http://localhost:3000/cart/remove/${itemId}`);
       // After a successful deletion, update the cart
       updateCart();
     } catch (error) {

@@ -1,35 +1,54 @@
-// cartController.js
-
-const cartModel = require('../db/models/cartModel');
+const cartModel = require("../db/models/cartModel");
 
 const addToCart = async (req, res) => {
   try {
     // Extract product data from the request body
-    const { id, shipping, product_id, quantity, variant_id, price, variant_label, sku, img, name, description } = req.body;
-
-    // Add more validation if needed
+    const {
+      id,
+      shipping,
+      product_id,
+      variant_id,
+      sku,
+      quantity,
+      variant_label,
+      price,
+      img,
+      name,
+      description,
+    } = req.body;
 
     // Use the cart model to interact with the cart collection
-    await cartModel.addToCart(id, shipping, product_id, quantity, variant_id, price, variant_label, sku, img, name, description);
+    await cartModel.addToCart(
+      id,
+      shipping,
+      product_id,
+      quantity,
+      variant_id,
+      price,
+      variant_label,
+      sku,
+      img,
+      name,
+      description
+    );
 
     // Send a success response
-    res.status(200).json({ message: 'Item added to the cart successfully' });
+    res.status(200).json({ message: "Item added to the cart successfully" });
   } catch (error) {
-    console.error('Error adding item to the cart:', error);
-    res.status(500).json({ error: 'Internal server error' });
+    console.error("Error adding item to the cart:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 };
 
 const getCartItems = async (req, res) => {
   try {
-    const cartItems = await cartModel.getCartItems(); // Adjust based on your actual method in cartModel
+    const cartItems = await cartModel.getCartItems();
     res.json(cartItems);
   } catch (error) {
-    console.error('Error fetching cart items:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    console.error("Error fetching cart items:", error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 };
-
 
 const deleteCartItem = async (req, res) => {
   try {
@@ -41,14 +60,14 @@ const deleteCartItem = async (req, res) => {
 
     if (!deletedItem) {
       // If the item with the specified ID is not found, return a 404 response
-      return res.status(404).json({ error: 'Item not found in the cart' });
+      return res.status(404).json({ error: "Item not found in the cart" });
     }
 
     // Send a success response
-    res.json({ message: 'Item deleted from the cart successfully' });
+    res.json({ message: "Item deleted from the cart successfully" });
   } catch (error) {
-    console.error('Error deleting item from the cart:', error);
-    res.status(500).json({ error: 'Internal server error' });
+    console.error("Error deleting item from the cart:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 };
 

@@ -1,25 +1,15 @@
 // index.js
-
 const express = require('express');
-const printifyRoutes = require('./printifyRoutes');
-const photosController = require('../controllers/photosController');
-const cartRoutes = require('./cart');
-const cartController = require('../controllers/cartController');
-
+const db = require('../db/connection');
 const router = express.Router();
+const photoController = require('../controllers/photosController')
 
-router.use('/printify', printifyRoutes);
-router.get('/photos', photosController.getPhotosController);
+// Gallery photos route
+router.get('/photos', photoController.getPhotosController);
 
+// test route
 router.get('/', (req, res) => {
   res.json({ mssg: 'Welcome to the API' });
 });
-
-// Use the cart routes directly without a sub-route '/cart'
-// router.use(cartRoutes);
-
-// Handle the GET request for cart items directly in this file
-router.get('/cart', cartController.getCartItems);
-router.delete('/cart/remove/:itemId', cartController.deleteCartItem);
 
 module.exports = router;

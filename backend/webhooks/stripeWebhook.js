@@ -1,4 +1,3 @@
-const express = require('express');
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 const handleStripeWebhook = (request, response) => {
@@ -21,7 +20,6 @@ const handleStripeWebhook = (request, response) => {
       const paymentIntentSucceeded = event.data.object;
       console.log(paymentIntentSucceeded.shipping);
       break;
-    // ... handle other event types
     default:
       console.log(`Unhandled event type ${event.type}`);
   }

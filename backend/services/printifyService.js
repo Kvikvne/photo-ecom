@@ -23,25 +23,6 @@ const getProducts = async () => {
 };
 
 
-// Get OG images from printify
-const getImages = async () => {
-  try {
-    const response = await axios.get(
-      "https://api.printify.com/v1/uploads.json",
-      {
-        headers: {
-          Authorization: `Bearer ${TOKEN}`,
-        },
-      }
-    );
-
-    return response.data; 
-  } catch (error) {
-    throw error;
-  }
-};
-
-
 
 // Delete a product from printify
 const deleteProduct = async (product_id) => {
@@ -66,4 +47,4 @@ const deleteProduct = async (product_id) => {
   }
 };
 
-module.exports = { getProducts, deleteProduct, getImages };
+module.exports = { getProducts, deleteProduct };

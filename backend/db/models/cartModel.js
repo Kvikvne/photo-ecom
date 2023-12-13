@@ -1,6 +1,5 @@
 const { ObjectId } = require("mongodb");
 
-
 let cartCollection;
 
 module.exports = {
@@ -8,7 +7,19 @@ module.exports = {
     cartCollection = collection;
   },
 
-  addToCart: async (id, shipping, product_id, quantity, variant_id, price, variant_label, sku, img, name, description) => {
+  addToCart: async (
+    id,
+    shipping,
+    product_id,
+    quantity,
+    variant_id,
+    price,
+    variant_label,
+    sku,
+    img,
+    name,
+    description
+  ) => {
     try {
       const result = await cartCollection.insertOne({
         line_items: [
@@ -24,8 +35,8 @@ module.exports = {
               sku,
               img,
               name,
-              description
-            }
+              description,
+            },
           },
         ],
       });
@@ -40,24 +51,25 @@ module.exports = {
       const cartItems = await cartCollection.find().toArray();
       return cartItems;
     } catch (error) {
-      console.error('Error fetching cart items:', error);
+      console.error("Error fetching cart items:", error);
       throw error;
     }
   },
   deleteCartItem: async (itemId) => {
     try {
-      console.log('Deleting item with ID:', itemId);
-  
+      console.log("Deleting item with ID:", itemId);
+
       // Find and delete the item from the cart collection
-      const deletedItem = await cartCollection.findOneAndDelete({ _id: new ObjectId(itemId) });
-  
-      console.log('Item deleted:', deletedItem);
-  
+      const deletedItem = await cartCollection.findOneAndDelete({
+        _id: new ObjectId(itemId),
+      });
+
+      console.log("Item deleted:", deletedItem);
+
       return deletedItem;
     } catch (error) {
-      console.error('Error deleting item from the cart:', error);
+      console.error("Error deleting item from the cart:", error);
       throw error; // Propagate the error to the calling function
     }
   },
-  
 };
