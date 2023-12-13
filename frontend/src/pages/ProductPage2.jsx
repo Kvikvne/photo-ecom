@@ -52,13 +52,18 @@ export default function ProductPage2() {
   const sku = productInfo?.[0]?.sku || "";
   const imgSrc = variantFilter?.[variantFilter.length - 1]?.src || "";
   const name = filteredProducts?.[0]?.title || "";
-  const description = (filteredProducts?.[0]?.description || "").replace(/<p>/g, '').replace(/<\/p>/g, '').replace(/<br\s*\/><br\s*\/>/g, '');;
-  const priceId = sku === '19209890069376927152' 
-  ? 'price_1OLHA8DJK1tIdvkfBqXSzo8l' 
-  : '';
+  const description = (filteredProducts?.[0]?.description || "")
+    .replace(/<p>/g, "")
+    .replace(/<\/p>/g, "")
+    .replace(/<br\s*\/><br\s*\/>/g, "");
+  const priceId =
+    sku === "19209890069376927152" ? "price_1OLHA8DJK1tIdvkfBqXSzo8l" : "";
+  const shippingId =
+    sku === "19209890069376927152" ? "shr_1OMKyBDJK1tIdvkfeXHkLmmV" : "";
 
   const cartInfo = {
     id: priceId,
+    shipping: shippingId,
     product_id: productId,
     quantity: 1,
     variant_id: selectedVariant,
@@ -75,7 +80,7 @@ export default function ProductPage2() {
       <div className={css.card}>
         <div className={css.boxes}>
           <div>
-            <h2>{name}</h2>
+    
             <ProductImages2
               productId={productId}
               filteredProducts={filteredProducts}
@@ -96,6 +101,7 @@ export default function ProductPage2() {
         </div>
 
         <div className={css.description}>
+        <h2>{name}</h2>
           <p>{description}</p>
         </div>
       </div>

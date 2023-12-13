@@ -8,12 +8,13 @@ module.exports = {
     cartCollection = collection;
   },
 
-  addToCart: async (id, product_id, quantity, variant_id, price, variant_label, sku, img, name, description) => {
+  addToCart: async (id, shipping, product_id, quantity, variant_id, price, variant_label, sku, img, name, description) => {
     try {
       const result = await cartCollection.insertOne({
         line_items: [
           {
             id,
+            shipping,
             product_id,
             quantity,
             variant_id,

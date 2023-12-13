@@ -1,5 +1,6 @@
-const TOKEN =
-  "TOKEN";
+require('dotenv').config();
+
+const TOKEN = process.env.PRINTIFY_TOKEN;
 
 const axios = require("axios");
 

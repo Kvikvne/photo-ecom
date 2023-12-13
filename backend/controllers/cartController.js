@@ -5,12 +5,12 @@ const cartModel = require('../db/models/cartModel');
 const addToCart = async (req, res) => {
   try {
     // Extract product data from the request body
-    const { id, product_id, quantity, variant_id, price, variant_label, sku, img, name, description } = req.body;
+    const { id, shipping, product_id, quantity, variant_id, price, variant_label, sku, img, name, description } = req.body;
 
     // Add more validation if needed
 
     // Use the cart model to interact with the cart collection
-    await cartModel.addToCart(id, product_id, quantity, variant_id, price, variant_label, sku, img, name, description);
+    await cartModel.addToCart(id, shipping, product_id, quantity, variant_id, price, variant_label, sku, img, name, description);
 
     // Send a success response
     res.status(200).json({ message: 'Item added to the cart successfully' });
