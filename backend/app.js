@@ -13,16 +13,6 @@ const app = express();
 const port = process.env.PORT || 3000;
 require("dotenv").config();
 
-// Middleware
-app.use(cors());
-
-
-// webhook route
-app.post("/webhook", handleStripeWebhook);
-
-// json Middleware
-app.use(bodyParser.json());
-
 let db;
 
 // Connect to the MongoDB database
@@ -47,8 +37,19 @@ connectToDb("mongodb://127.0.0.1:27017/photoWebsite", async (err) => {
   });
 });
 
+// Middleware
+app.use(cors());
+
+// webhook route
+app.use('/webhook', express.raw({ type: 'application/json' }));
+app.post("/webhook", handleStripeWebhook);
+
+// json Middleware
+app.use(bodyParser.json());
+
 // Routes
 app.use('/api/printify', printifyRoutes);
 app.use("/", indexRoutes);
 app.use('/cart', cartRoutes);
 app.use('/checkout', checkoutRoutes); 
+
