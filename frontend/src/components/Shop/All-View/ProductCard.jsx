@@ -10,7 +10,7 @@ export default function ProductCard({ cardPhoto, cardDescription, price, title, 
         </div>
         <div className={css.productP}>
             <h4>{title}</h4>
-          <p>{cardDescription}</p>
+          
         </div>
         <div className={css.bottom}>
           <div className={css.price}>

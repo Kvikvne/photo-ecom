@@ -6,13 +6,12 @@ h4 {
 .container {
   display: flex;
   justify-content: center;
-  margin-top: 50px;
+  
 }
 
 .productCard {
   height: fit-content;
   max-width: 400px;
-
   background-color: #f0ede6;
   border-radius: 8px;
   padding: 10px;
@@ -35,21 +34,17 @@ h4 {
 .productP {
   box-sizing: border-box;
   width: 100%;
-  height: 150px;
   color: #06151c;
   border-radius: 8px;
   margin-top: 10px;
   padding: 5px;
   overflow-y: hidden;
 }
-.productP p {
-  max-height: 100%;
-  overflow-wrap: break-word;  
-  text-overflow: ellipsis; 
-}
+
 
 .productP h4 {
   margin-bottom: 5px;
+  font-size: 2em;
 }
 
 .bottom {
@@ -59,6 +54,7 @@ h4 {
   justify-content: space-between;
   align-items: center;
   color: #06151c;
+  flex-wrap: wrap;
 }
 
 .price {

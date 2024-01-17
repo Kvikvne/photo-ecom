@@ -1,46 +1,110 @@
-.container {
+/* CSS Module: ProductPage.module.css */
+
+/* Container styles */
+.productContainer {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
   width: 100vw;
+  margin-top: 50px 0;
 }
 
-.card {
+/* Product card styles */
+.productCard {
   background-color: #f0ede6;
-  padding: 25px;
   border-radius: 8px;
-  margin: 100px 0;
+  box-sizing: border-box;
+  padding: 5vw;
+  width: 90%;
+  max-width: 1200px;
+  max-height: 80vh;
   display: flex;
-  height: 700px;
-  justify-content: center;
-  align-items: center;
+  justify-content: space-around;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Added a subtle box shadow */
+}
+
+/* Product images container styles */
+.productImagesContainer {
+  margin-right: 25px;
+}
+
+/* Product information styles */
+.productInfo {
   color: #06151c;
+  flex-grow: 1; /* Allow the productInfo section to grow to fill available space */
 }
 
-.middle {
-  display: flex;
-  align-items: center;
-  gap: 15px;
+/* Name styles */
+.name {
+  margin-bottom: 10px; /* Add some spacing between name and description */
 }
 
-.bottom {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
+/* Description styles */
 .description {
-  
-  width: 500px;
-  height: min-content;
-  max-height: 90%;
+  color: #4d4d4d; /* Use a slightly lighter color for the description text */
+  line-height: 1.5; /* Improve readability with increased line-height */
+  max-height: 360px;
   overflow-y: scroll;
-  padding: 25px;
-  background-color: #f0ede6;
-  -webkit-box-shadow: 1px 2px 25px -5px rgba(0, 0, 0, 0.2);
-  -moz-box-shadow: 1px 2px 25px -5px rgba(0, 0, 0, 0.2);
-  box-shadow: 1px 2px 25px -5px rgba(0, 0, 0, 0.2);
-  border-radius: 8px;
-  margin: 0 25px;
+}
+
+/* Variant container styles */
+.variantContainer {
+  display: flex;
+  flex-direction: column; /* Align VariantSelect2 and price vertically */
+  gap: 10px; /* Add vertical spacing between VariantSelect2 and price */
+  margin-top: 15px;
+}
+
+/* AddToCart styles */
+.addToCart {
+  display: flex;
+  justify-content: start;
+  gap: 15px;
+  align-items: center;
+  margin-top: 20px; /* Add some spacing between VariantContainer and AddToCart */
+}
+
+/* Price styles */
+.addToCart p {
+  font-weight: bold; /* Make the price text bold for emphasis */
+}
+
+@media (max-width: 830px) {
+  .productCard {
+    max-height: fit-content;
+  }
+  .description {
+    line-height: 1.1;
+  }
+  .productImagesContainer {
+    display: flex;
+    justify-content: center;
+  }
+  .bottom {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+  }
+}
+@media (max-width: 690px) {
+  .productCard {
+    display: block;
+  }
+
+  .description {
+    max-height: 100px;
+  }
+}
+
+@media (max-width: 400px) {
+  .bottom {
+    display: block;
+  }
+  .description {
+    max-height: 150px;
+  }
+  .productContainer {
+    margin: 50px 0;
+  }
 }

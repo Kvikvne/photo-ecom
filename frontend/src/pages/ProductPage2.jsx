@@ -76,33 +76,36 @@ export default function ProductPage2() {
   };
 
   return (
-    <div className={css.container}>
-      <div className={css.card}>
-        <div className={css.boxes}>
-          <div>
-    
-            <ProductImages2
-              productId={productId}
-              filteredProducts={filteredProducts}
-              availibleImages={availibleImages}
-              variantFilter={variantFilter}
-            />
-            <div className={css.bottom}>
-              <div className={css.middle}>
-                <VariantSelect2
-                  onSelectVariant={(variant) => setSelectedVariant(variant)}
-                  availibleVariants={availibleVariants}
-                />
-                <p>${price}</p>
-              </div>
+    <div className={css.productContainer}>
+      <div className={css.productCard}>
+        <div className={css.productImagesContainer}>
+          <ProductImages2
+            productId={productId}
+            filteredProducts={filteredProducts}
+            availibleImages={availibleImages}
+            variantFilter={variantFilter}
+          />
+        </div>
+
+        <div className={css.productInfo}>
+          <div className={css.name}>
+            <h2>{name}</h2>
+          </div>
+          <div className={css.description}>
+            <p>{description}</p>
+          </div>
+          <div className={css.bottom}>
+            <div className={css.variantContainer}>
+              <VariantSelect2
+                onSelectVariant={(variant) => setSelectedVariant(variant)}
+                availibleVariants={availibleVariants}
+              />
+            </div>
+            <div className={css.addToCart}>
+              <p>${price}</p>
               <AddToCartBtn2 cartInfo={cartInfo} />
             </div>
           </div>
-        </div>
-
-        <div className={css.description}>
-        <h2>{name}</h2>
-          <p>{description}</p>
         </div>
       </div>
     </div>

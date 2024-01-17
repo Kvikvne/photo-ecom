@@ -23,6 +23,10 @@ export default function ProductAll() {
   }
 
   return (
+    <div>
+      <div className={css.container2}>
+        <h1>Canvas Prints</h1>
+      </div>
     <div className={css.container}>
       {products.map((product, index) => {
         const minEnabledPrice = product.variants
@@ -46,6 +50,6 @@ export default function ProductAll() {
           />
         );
       })}
-    </div>
+    </div></div>
   );
 }

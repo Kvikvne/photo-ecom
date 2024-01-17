@@ -1,44 +1,5 @@
-/* .ProductImagescontainer {
-    width: 700px;
-    border-radius: 5px;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-}
-
 .mainImageContainer {
-    width: 700px;
-}
-
-.mainImageContainer img {
-    max-width: 100%;
-}
-
-.ImgContainer img{
-    cursor: pointer;
-    width: 65px;
-    border-radius: 4px;
-
-}
-
-.ImgContainer {
-    max-width: 700px;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 5px;
-    margin: 0 15px;
-    padding: 5px 0;
-} */
-
-
-/* image component container */
-.ProductImagescontainer {
-    
-}
-/* main image */
-.mainImageContainer {
-    width: 500px;
+    width: 350px;
 }
 
 .mainImageContainer img {
@@ -48,7 +9,7 @@
 
 /* image select */
 .imgScrollContainer {
-    width: 500px;
+    width: 350px;
     padding: 10px 0;
     overflow-x: scroll;
 }
@@ -64,4 +25,21 @@
     max-width: 100%;
     border-radius: 8px;
     cursor: pointer;
+}
+
+@media only screen and (max-width: 1020px) {
+    .mainImageContainer {
+        width: 250px;
+        
+    }
+    .imgScrollContainer {
+        width: 100%;
+    }
+  }
+
+  @media (max-width: 400px) {
+    .mainImageContainer {
+        width: 200px;
+        
+    }
 }
