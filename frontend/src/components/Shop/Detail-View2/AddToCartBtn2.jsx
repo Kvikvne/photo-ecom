@@ -14,7 +14,7 @@ export default function AddToCartBtn2({ cartInfo }) {
         try {
           console.log(cartInfo);
           // API endpoint to handle adding to the cart
-          await axios.post("http://localhost:3000/cart/add", cartInfo);
+          await axios.post("http://localhost:3000/cart/add", cartInfo, { withCredentials: true });
           console.log(cartInfo)
           // Show a success message or trigger other actions 
           alert("Product added to cart successfully");

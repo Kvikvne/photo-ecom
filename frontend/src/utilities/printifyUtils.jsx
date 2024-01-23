@@ -1,23 +1,24 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 export const usePrintify = () => {
-    const [printifyProducts, setPrintifyProducts] = useState([]);
+  const [printifyProducts, setPrintifyProducts] = useState([]);
 
-    const fetchData = async () => {
-        try {
-          const response = await axios.get(
-            "http://localhost:3000/api/printify/products"
-          );
-          setPrintifyProducts(response.data);
-        } catch (error) {
-          console.error("Error fetching data:", error);
-        }
-      };
-    
-      useEffect(() => {
-        fetchData();
-      }, []);
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:3000/api/printify/products",
+        { withCredentials: true }
+      );
+      setPrintifyProducts(response.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
 
-      return { printifyProducts };
-}
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  return { printifyProducts };
+};

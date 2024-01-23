@@ -1,3 +1,4 @@
+// cartModal.js
 const { ObjectId } = require("mongodb");
 
 let cartCollection;
@@ -8,6 +9,7 @@ module.exports = {
   },
 
   addToCart: async (
+    sessionID,
     id,
     shipping,
     product_id,
@@ -24,6 +26,7 @@ module.exports = {
       const result = await cartCollection.insertOne({
         line_items: [
           {
+            sessionID,
             id,
             shipping,
             product_id,
@@ -46,15 +49,17 @@ module.exports = {
       throw error;
     }
   },
-  getCartItems: async () => {
+
+  getCartItems: async (sessionID) => { // Add sessionID parameter
     try {
-      const cartItems = await cartCollection.find().toArray();
+      const cartItems = await cartCollection.find({ 'line_items.sessionID': sessionID }).toArray();
       return cartItems;
     } catch (error) {
       console.error("Error fetching cart items:", error);
       throw error;
     }
   },
+
   deleteCartItem: async (itemId) => {
     try {
       console.log("Deleting item with ID:", itemId);
@@ -69,7 +74,7 @@ module.exports = {
       return deletedItem;
     } catch (error) {
       console.error("Error deleting item from the cart:", error);
-      throw error; // Propagate the error to the calling function
+      throw error;
     }
   },
 };

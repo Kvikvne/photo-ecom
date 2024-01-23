@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 export const useCartContent = () => {
   const [cartContent, setCartContent] = useState([]);
@@ -7,14 +7,18 @@ export const useCartContent = () => {
 
   const fetchCart = () => {
     axios
-      .get("http://localhost:3000/cart")
-      .then((response) => setCartContent(response.data))
-      .catch((error) => console.error("Error:", error));
+      .get("http://localhost:3000/cart", { withCredentials: true })
+      .then((response) => {
+        setCartContent(response.data);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   };
 
   const deleteCartItem = async (itemId) => {
     try {
-      await axios.delete(`http://localhost:3000/cart/remove/${itemId}`);
+      await axios.delete(`http://localhost:3000/cart/remove/${itemId}`, { withCredentials: true });
       // After a successful deletion, update the cart
       updateCart();
     } catch (error) {
@@ -33,7 +37,11 @@ export const useCartContent = () => {
   useEffect(() => {
     let calculatedTotal = 0;
     cartContent.forEach((item) => {
-      if (item.line_items && item.line_items.length > 0 && item.line_items[0].metadata) {
+      if (
+        item.line_items &&
+        item.line_items.length > 0 &&
+        item.line_items[0].metadata
+      ) {
         const itemPrice = parseFloat(item.line_items[0].metadata.price);
         calculatedTotal += !isNaN(itemPrice) ? itemPrice : 0;
       }

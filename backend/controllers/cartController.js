@@ -17,8 +17,12 @@ const addToCart = async (req, res) => {
       description,
     } = req.body;
 
+    // Get sessionID from the request
+    const sessionID = req.sessionID;
+
     // Use the cart model to interact with the cart collection
     await cartModel.addToCart(
+      sessionID,
       id,
       shipping,
       product_id,
@@ -41,8 +45,9 @@ const addToCart = async (req, res) => {
 };
 
 const getCartItems = async (req, res) => {
+  const sessionID = req.sessionID;
   try {
-    const cartItems = await cartModel.getCartItems();
+    const cartItems = await cartModel.getCartItems(sessionID);
     res.json(cartItems);
   } catch (error) {
     console.error("Error fetching cart items:", error);

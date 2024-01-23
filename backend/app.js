@@ -8,10 +8,35 @@ const printifyRoutes = require('./routes/printifyRoutes');
 const checkoutRoutes = require('./routes/checkout'); 
 const cartModel = require("./db/models/cartModel");
 const handleStripeWebhook = require("./webhooks/stripeWebhook");
+const { v4: uuidv4 } = require('uuid');
+const MongoStore = require("connect-mongo");
+const session = require("express-session");
 
 const app = express();
 const port = process.env.PORT || 3000;
 require("dotenv").config();
+
+// Middleware
+const corsOptions = {
+  origin: 'http://localhost:5173',
+  credentials: true,
+};
+app.use(cors(corsOptions));
+
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    genid: (req) => {
+      return req.sessionID || uuidv4();
+    },
+    store: MongoStore.create({
+      mongoUrl: 'mongodb://127.0.0.1:27017/photoWebsite',
+      ttl: 14 * 24 * 60 * 60,
+    }),
+  })
+);
 
 let db;
 
@@ -36,9 +61,6 @@ connectToDb("mongodb://127.0.0.1:27017/photoWebsite", async (err) => {
     console.log(`Server is running on port ${port}`);
   });
 });
-
-// Middleware
-app.use(cors());
 
 // webhook route
 app.use('/webhook', express.raw({ type: 'application/json' }));

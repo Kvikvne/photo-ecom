@@ -9,7 +9,7 @@ export default function Cart() {
 
   const handleDeleteItem = async (itemId) => {
     try {
-      await deleteCartItem(itemId);
+      await deleteCartItem(itemId),{ withCredentials: true };
     } catch (error) {
       console.error("Error deleting item from the cart:", error);
     }
