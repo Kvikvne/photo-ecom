@@ -1,4 +1,4 @@
-Photography Portfolio and E-commerce Website
+Fully Automated E-commerce Website project
 ============================================
 
 (Currently a work in progress)
@@ -12,7 +12,7 @@ Future plans include optimizing this process by creating individual carts where 
 Introduction
 ------------
 
-Welcome to the Photography Portfolio and E-commerce Website project---Integrated Stripe's API for secure payment processing and leveraged Printify's API to efficiently list products and manage order fulfillment. The checkout process seamlessly stores user carts in the database, directing them to a secure Stripe page for payment and shipping details. Upon checkout, a webhook triggers a streamlined request to Printify, automating the production and shipment of orders for a seamless end-to-end user experience.
+Welcome to the Fully Automated E-commerce Website project---Integrated Stripe's API for secure payment processing and leveraged Printify's API to efficiently list products and manage order fulfillment. The checkout process seamlessly stores user carts in the database, directing them to a secure Stripe page for payment and shipping details. Upon checkout, a webhook triggers a streamlined request to Printify, automating the production and shipment of orders for a seamless end-to-end user experience.
 
 
 Features
