@@ -3,10 +3,17 @@ Photography Portfolio and E-commerce Website
 
 (Currently a work in progress)
 
+Most recent changes/progress (01/23/24)
+--------
+Implemented user sessions, enabling session-based shopping carts for a personalized user experience. The decision to avoid user authentication through account creation was made to streamline the user journey, eliminating the need for unnecessary account setup. Currently, each item added to the cart is stored individually in the collection, requiring requests to filter through all items to find those associated with the correct sessionID.
+
+Future plans include optimizing this process by creating individual carts where a user's items are stored in a single document. This improvement aims to reduce the request's workload, as it will only need to filter through the relevant cart items rather than the entire cart collection, resulting in a more efficient data retrieval process.
+
 Introduction
 ------------
 
-Welcome to the Photography Portfolio and E-commerce Website project---a dynamic platform under development to showcase a vast collection of captivating photographs while offering a seamless e-commerce experience. This project aims to create an immersive environment for both photography enthusiasts and potential clients, combining artistic presentation with user-friendly online shopping features.
+Welcome to the Photography Portfolio and E-commerce Website project---Integrated Stripe's API for secure payment processing and leveraged Printify's API to efficiently list products and manage order fulfillment. The checkout process seamlessly stores user carts in the database, directing them to a secure Stripe page for payment and shipping details. Upon checkout, a webhook triggers a streamlined request to Printify, automating the production and shipment of orders for a seamless end-to-end user experience.
+
 
 Features
 --------
