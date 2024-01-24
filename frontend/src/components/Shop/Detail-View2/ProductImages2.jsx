@@ -1,6 +1,17 @@
 import { useState, useEffect } from "react";
 import css from "./Styles/ProductImages2.module.css";
 
+// Modal component
+const Modal = ({ imageUrl, onClose }) => {
+  return (
+    <div className={css.modalOverlay} onClick={onClose}>
+      <div className={css.modalContent}>
+        <img src={imageUrl} alt="" />
+      </div>
+    </div>
+  );
+};
+
 export default function ProductImages2({
   filteredProducts,
   availibleImages,
@@ -8,6 +19,8 @@ export default function ProductImages2({
 }) {
   // State to track the currently selected image
   const [selectedImage, setSelectedImage] = useState("");
+  // State to track whether the modal is open
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Effect to update selectedImage when variantFilter changes
   useEffect(() => {
@@ -19,18 +32,29 @@ export default function ProductImages2({
     );
   }, [variantFilter]);
 
+  // Function to open the modal
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  // Function to close the modal
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <div className={css.ProductImagescontainer}>
       {Array.isArray(filteredProducts) && filteredProducts.length > 0 ? (
         filteredProducts.map((product, productIndex) => (
           <div key={productIndex}>
-            
-            
             <div className={css.mainImageContainer}>
               {/* Main photo */}
-              <img src={selectedImage || product.images[4].src} alt="" />
+              <img
+                src={selectedImage || product.images[4].src}
+                alt=""
+                onClick={openModal}
+              />
             </div>
-
 
             <div className={css.imgScrollContainer}>
               <div className={css.ImgContainer}>
@@ -48,8 +72,10 @@ export default function ProductImages2({
               </div>
             </div>
 
-
-            
+            {/* Modal */}
+            {isModalOpen && (
+              <Modal imageUrl={selectedImage} onClose={closeModal} />
+            )}
           </div>
         ))
       ) : (

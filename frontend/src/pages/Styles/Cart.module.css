@@ -9,16 +9,18 @@ h2 {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  margin: 100px 0;
+  height: 100vh;
+  
 }
 .cartCard {
   width: 60vw;
-  height: fit-content;
+  max-height: 65vh;
   background-color: #f0ede6;
   color: #06151c;
   border-radius: 8px;
   padding: 25px;
+  overflow-y: auto;
+
 }
 
 .itemImg img {
@@ -38,7 +40,8 @@ h2 {
   align-items: center;
   justify-content: space-between;
   border-bottom: solid 1px #06151c44;
-  height: 250px;
+  max-height: 250px;
+  box-sizing: border-box;
 }
 
 .cartItemDetail {
@@ -86,6 +89,8 @@ h2 {
   text-align: center;
   text-decoration: underline;
 }
+
+
 @media (max-width: 1024px) {
   .cartCard {
     width: 80vw;
@@ -101,6 +106,7 @@ h2 {
   .itemDetailList {
     display: block;
     margin-left: 10px;
+    font-size: .8em;
     
   }
   .itemDesc {

@@ -1,50 +1,72 @@
 .card {
-    width: 60vw;
-    height: fit-content;
-    background-color: #f0ede6;
-    color: #06151c;
-    border-radius: 8px;
-    padding: 25px;
-    margin-top: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    
+  width: 60vw;
+  height: fit-content;
+  background-color: #f0ede6;
+  color: #06151c;
+  border-radius: 8px;
+  padding: 25px;
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .backToShop {
-    background-color: #06151c00;
-    color: #06151c;
-    padding: 8px 20px;
-    cursor: pointer;
-    border: #06151c solid 1px;
-    border-radius: 8px;
-    transition: background-color ease .5s, color ease .5s;
+  background-color: #06151c00;
+  color: #06151c;
+  padding: 8px 10px;
+  cursor: pointer;
+  border: #06151c solid 1px;
+  border-radius: 8px;
+  transition: background-color ease 0.5s, color ease 0.5s;
 }
 
 .backToShop:hover {
-    background-color: #06151c;
-    color: #f0ede6;
+  background-color: #06151c;
+  color: #f0ede6;
 }
 
 .subTotal {
-    font-size: 1.3rem;
+  font-size: 1.3rem;
 }
 
 .rightSide {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 @media (max-width: 1024px) {
-    .card {
-      width: 80vw;
-    }
+  .card {
+    width: 80vw;
   }
+}
+@media (max-width: 425px) {
+  .subTotal {
+    font-size: 0.8rem;
+  }
+  .backToShop {
+    font-size: 0.8rem;
+  }
+  .rightSide {
+    font-size: 0.8rem;
+  }
+}
 
-  @media (min-width: 2560px) {
-    .card {
-      max-width: 40vw;
-    }
+@media (max-width: 320px) {
+  .subTotal {
+    font-size: 0.6rem;
   }
+  .backToShop {
+    font-size: 0.6rem;
+  }
+  .rightSide {
+    font-size: 0.6rem;
+  }
+}
+
+@media (min-width: 2560px) {
+  .card {
+    max-width: 40vw;
+  }
+}

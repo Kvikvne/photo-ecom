@@ -12,11 +12,11 @@ a {
 }
 /* For WebKit browsers (Chrome, Safari) */
 ::-webkit-scrollbar {
-  width: 8px; /* Set the width of the scrollbar */
+  width: 12px; /* Set the width of the scrollbar */
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #d4d4d491; /* Set the color of the thumb */
+  background-color: #b4b4b491; /* Set the color of the thumb */
   border-radius: 4px; /* Set the border radius of the thumb */
 }
 
@@ -46,3 +46,6 @@ select {
   background-color: f0ede6;
 
 }
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

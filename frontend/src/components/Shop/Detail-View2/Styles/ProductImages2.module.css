@@ -5,6 +5,7 @@
 .mainImageContainer img {
     max-width: 100%;
     border-radius: 8px;
+    cursor: pointer;
 }
 
 /* image select */
@@ -27,6 +28,40 @@
     cursor: pointer;
 }
 
+/* Styles for the Modal */
+
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    z-index: 999;
+  }
+
+  .modalContent {
+    padding: 20px;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+}
+  .modalContent img {
+    max-width: 65%;
+    height: auto;
+    display: block;
+    border-radius: 5px;
+  }
+  
+  /* Additional styling for closing the modal */
+  
+  .modalOverlay:hover {
+    cursor: pointer;
+  }
+
 @media only screen and (max-width: 1020px) {
     .mainImageContainer {
         width: 250px;
@@ -35,11 +70,19 @@
     .imgScrollContainer {
         width: 100%;
     }
+
+    
   }
 
-  @media (max-width: 400px) {
+  @media (max-width: 425px) {
     .mainImageContainer {
         width: 200px;
         
     }
+    .modalContent img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        border-radius: 5px;
+      }
 }

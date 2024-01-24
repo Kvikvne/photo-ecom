@@ -10,9 +10,12 @@ a {
   position: fixed;
   z-index: 100;
   background-color: rgba(6, 21, 28, 0);
-  transition: background-color ease .9s;
+  transition: background-color ease 0.9s;
   top: 0;
- height: 50px;
+  height: 50px;
+  color: #06151c;
+  background-color: rgb(6, 21, 28);
+  color: #f0ede6;
 }
 
 .navContainer.scrolled {
@@ -26,16 +29,12 @@ a {
   align-items: center;
   width: 80%; /* Adjusted width for responsiveness */
   max-width: 1200px; /* Add a max-width for larger screens */
-  
-}
-
-.navRight span {
-  color: #ffffff;
 }
 
 .icon {
-  padding: 0 15px;
-  transition: scale ease .4s;
+  padding: 15px;
+  transition: scale ease 0.4s;
+  width: 80px;
 }
 
 .spacer {
@@ -44,43 +43,33 @@ a {
 
 .cart {
   display: inline-block;
+  position: relative;
   margin: auto;
-  padding-right: 35px;
+  margin-right: 35px;
   cursor: pointer;
-  transition: transform ease .8s;
-  font-size: 1.3em;
+  transition: transform ease 0.8s;
 }
 
-.cartDownMenu {
-  background-color: #f0ede6;
-  max-height: 100px;
-  overflow-y: scroll;
-  width: 200px;
-  border-radius: 5px;
+.cartCount {
   position: absolute;
-  right: 0;
-  margin-right: 1%;
-  padding: 10px;
-  animation: fadeIn 0.6s ease-in-out;
-  border: solid rgba(6, 21, 28, 0.226) 1px;
   display: flex;
+  justify-content: center;
   align-items: center;
-  flex-direction: column;
-  color: rgb(6, 21, 28);
-  cursor: auto;
+  top: 0;
+  right: 0;
+  transform: translate(50%, -50%); /* Move it to the upper right corner */
+  background-color: #e1ad81; /* Customize the background color as needed */
+  color: white; /* Customize the text color as needed */
+  border-radius: 50%; /* Make it a circle */
+  height: 14px;
+  width: 14px;
+  font-size: 10px;
+
 }
 
-.cartDownMenu h2 {
-  margin: 0;
-  text-align: center;
-  padding: 5px 0;
+.cart i {
+  font-size: 24px;
 }
-
-.cartDownMenu a {
-  text-decoration: underline;
-  color: rgb(6, 21, 28);
-}
-
 .icon:hover {
   scale: 105%;
 }
@@ -88,7 +77,7 @@ a {
 .navRight {
   padding: 0 15px;
   cursor: pointer;
-  transition: transform ease .2s;
+  transition: transform ease 0.2s;
   user-select: none;
 }
 
@@ -111,7 +100,10 @@ a {
   gap: 10px;
   padding: 10px;
   animation: fadeIn 0.4s ease-in-out;
-  border: solid rgba(6, 21, 28, 0.226) 1px;
+  -webkit-box-shadow: 0px 0px 59px -20px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 0px 59px -20px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 59px -20px rgba(0, 0, 0, 0.75);
+  margin-top: 25px;
 }
 
 .dropDownMenu a {
@@ -119,7 +111,7 @@ a {
   color: rgb(6, 21, 28);
   border-radius: 5px;
   padding: 5px;
-  transition: background-color ease .3s;
+  transition: background-color ease 0.3s;
 }
 
 .dropDownMenu a:hover {

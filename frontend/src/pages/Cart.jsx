@@ -36,8 +36,9 @@ export default function Cart() {
   return (
     <div className={css.container}>
       <div className={css.wrapper}>
+        
         <div className={css.cartCard}>
-          <div className={css.cartHeader}>
+        <div className={css.cartHeader}>
             <h2>Your Cart</h2>
           </div>
           {cartContent.length === 0 ? (
