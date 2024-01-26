@@ -4,6 +4,7 @@ import axios from "axios";
 export const useCartContent = () => {
   const [cartContent, setCartContent] = useState([]);
   const [total, setTotal] = useState(0);
+  const [totalQuantity, setTotalQuantity] = useState(0);
 
   const fetchCart = () => {
     axios
@@ -18,12 +19,24 @@ export const useCartContent = () => {
 
   const deleteCartItem = async (itemId) => {
     try {
-      await axios.delete(`http://localhost:3000/cart/remove/${itemId}`, { withCredentials: true });
+      await axios.delete(`http://localhost:3000/cart/remove/${itemId}`, {
+        withCredentials: true,
+      });
       // After a successful deletion, update the cart
       updateCart();
     } catch (error) {
       console.error("Error deleting item from the cart:", error);
     }
+  };
+
+  const calculateTotalQuantity = () => {
+    let calculatedTotalQuantity = 0;
+    cartContent.forEach((item) => {
+      if (item.line_items && item.line_items.length > 0) {
+        calculatedTotalQuantity += item.line_items[0].quantity || 0;
+      }
+    });
+    setTotalQuantity(calculatedTotalQuantity);
   };
 
   const updateCart = () => {
@@ -42,12 +55,15 @@ export const useCartContent = () => {
         item.line_items.length > 0 &&
         item.line_items[0].metadata
       ) {
-        const itemPrice = parseFloat(item.line_items[0].metadata.price);
+        const itemPrice = parseFloat(
+          item.line_items[0].metadata.price * item.line_items[0].quantity
+        );
         calculatedTotal += !isNaN(itemPrice) ? itemPrice : 0;
       }
     });
-    setTotal(calculatedTotal.toFixed(2)); // Round the total to 2 decimal places
+    setTotal(calculatedTotal.toFixed(2));
+    calculateTotalQuantity(); // Call the new function to calculate total quantity
   }, [cartContent]);
 
-  return { cartContent, total, updateCart, deleteCartItem };
+  return { cartContent, total, totalQuantity, updateCart, deleteCartItem };
 };

@@ -3,16 +3,17 @@ import React from "react";
 import { useCartContent } from "../../utilities/cartUtils";
 
 export default function NavCart() {
-  const { cartContent, total } = useCartContent();
-
+  const { cartContent, total, totalQuantity } = useCartContent();
   return (
     <div className={css.cartDownMenu}>
       <h2>Cart</h2>
       <div className={css.cartDropHeader}>
-      <span>{cartContent.length} Items</span>
-      <p>Subtotal: ${total}</p>
+        <span>
+          {totalQuantity} {totalQuantity === 1 ? "Item" : "Items"}
+        </span>
+        <p>Subtotal: ${total}</p>
       </div>
-      
+
       <div>
         <div className={css.cartItems}>
           <div className={css.cartCard}>
@@ -56,7 +57,6 @@ export default function NavCart() {
           </a>
         </div>
       </div>
-      
     </div>
   );
 }

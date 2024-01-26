@@ -1,21 +1,19 @@
 .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    gap: 20px;
-    padding: 100px 0;
-    
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  gap: 20px;
+
 }
 
 .formCard {
-    display: flex;
-    flex-direction: column;
-    background-color: #f0ede6;
-    box-sizing: border-box;
-    padding: 32px 65px;
-    width: 30vw;
-    gap: 25px;
-    border-radius: 8px;
-    
+  display: flex;
+  flex-direction: column;
+  background-color: #f0ede6;
+  box-sizing: border-box;
+  padding: 32px 65px;
+  width: 30vw;
+  gap: 25px;
+  border-radius: 8px;
 }

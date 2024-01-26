@@ -12,9 +12,11 @@ export default function ProductCard({
   return (
     <div className={css.container}>
       <div className={css.productCard}>
-        <div className={css.productImg}>
-          <img src={cardPhoto} alt="" />
-        </div>
+        <a href={`prints/${productId}`}>
+          <div className={css.productImg}>
+            <img src={cardPhoto} alt="" />
+          </div>
+        </a>
         <div className={css.productP}>
           <h4>{title}</h4>
         </div>

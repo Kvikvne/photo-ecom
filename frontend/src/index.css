@@ -1,10 +1,10 @@
-html, body {
-  font-family: 'Outfit', sans-serif;
+html,
+body {
+  font-family: "Outfit", sans-serif;
   margin: 0;
   padding: 0;
   scroll-behavior: smooth;
   box-sizing: border-box;
- 
 }
 a {
   text-decoration: none;
@@ -44,8 +44,4 @@ select {
   border-radius: 6px;
   border: none;
   background-color: f0ede6;
-
 }
-@tailwind base;
-@tailwind components;
-@tailwind utilities;

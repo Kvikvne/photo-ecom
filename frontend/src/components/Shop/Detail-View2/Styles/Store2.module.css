@@ -1,0 +1,24 @@
+body {
+    background-color: #06151c;;
+}
+.container {
+  color: #000;
+  
+}
+
+.wrapper {
+  color: black;
+  display: flex;
+  margin-top: 100px;
+  flex-direction: column-reverse;
+  align-items: center;
+}
+
+.productCard {
+  background-color: #f0ede6;
+  padding: 45px;
+  width: 60vw;
+  margin-bottom: 50px;
+  border-radius: 3px;
+}
+

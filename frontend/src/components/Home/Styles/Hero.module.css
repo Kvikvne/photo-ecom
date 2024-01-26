@@ -9,9 +9,9 @@ body {
   height: 100vh;
   width: 100%;
   box-sizing: border-box;
-  background-image: url("./IMG_1370.jpg");
+  background-image: url("./IMG_6374.jpg");
   background-size: cover;
-  background-position: center bottom;
+  background-position: bottom;
 }
 
 .spacer {
@@ -45,17 +45,17 @@ body {
 
 .title {
   align-self: center;
-  
 }
 
 .title h1 {
-  font-size: 4.5em;
-  font-weight: 400;
+  font-size: 6vw;
+  font-weight: 600;
   margin: 15px 0;
 }
 
 .title p {
-  text-align: center;
+  text-align: left;
+  font-size: 1.8vw;
 }
 
 .bottomHero {
@@ -66,7 +66,7 @@ body {
   margin: 0 auto;
   margin-bottom: 5%;
   align-self: flex-end;
-  
+
   z-index: 99;
 }
 
@@ -74,7 +74,18 @@ body {
   display: flex;
   width: 33.33%;
   justify-content: center;
+  font-size: 1vw;
+  font-weight: 300;
 }
+
+.bottomRight {
+  display: flex;
+  width: 33.33%;
+  justify-content: center;
+  font-size: 1vw;
+  font-weight: 300;
+}
+
 .bottomLeft p {
   width: 85%;
 }
@@ -110,32 +121,37 @@ body {
   transform: translatey(-100px);
 }
 
-.bottomRight {
-  display: flex;
-  width: 33.33%;
-  justify-content: center;
-}
-
 @media (max-width: 768px) {
   .container {
-    background-position: center center; /* Adjust background position for smaller screens */
-  }
-
-  .title h1 {
-    font-size: 3em; /* Adjust font size for smaller screens */
+    background-position: center center;
   }
 
   .bottomHero {
-    flex-direction: column; /* Stack the elements for smaller screens */
-    align-items: center; /* Center-align for smaller screens */
+    flex-direction: column;
+    align-items: center;
+  }
+  .title h1 {
+    font-size: 10vw;
+    font-weight: 400;
+    margin: 15px 0;
   }
 
-  .bottomLeft, .bottomRight {
-    width: 100%; /* Full width for smaller screens */
+  .title p {
+    text-align: center;
+    font-size: 5vw;
   }
 
   .circle {
-    width: 100px; /* Adjust size for smaller screens */
-    height: 100px; /* Adjust size for smaller screens */
+    width: 100px;
+    height: 100px;
+  }
+  .bottomLeft {
+    font-size: 1rem;
+    margin: 15% 0;
+    width: 100%;
+    width: 99vw;
+  }
+  .bottomRight {
+    display: none;
   }
 }

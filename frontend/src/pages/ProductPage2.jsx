@@ -47,6 +47,11 @@ export default function ProductPage2() {
     (variant) => variant.id.toString() === selectedVariant
   );
 
+
+
+
+
+   
   const price = (productInfo?.[0]?.price / 100 || 0).toFixed(2);
   const title = productInfo?.[0]?.title || "";
   const sku = productInfo?.[0]?.sku || "";
@@ -73,6 +78,8 @@ export default function ProductPage2() {
     img: imgSrc,
     name: name,
     description: description,
+    print_provider_id: filteredProducts?.[0]?.print_provider_id,
+    blueprint_id: filteredProducts?.[0]?.blueprint_id,
   };
 
   return (

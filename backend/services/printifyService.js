@@ -1,4 +1,4 @@
-require('dotenv').config();
+require("dotenv").config();
 
 const TOKEN = process.env.PRINTIFY_TOKEN;
 
@@ -16,13 +16,11 @@ const getProducts = async () => {
       }
     );
 
-    return response.data; 
+    return response.data;
   } catch (error) {
     throw error;
   }
 };
-
-
 
 // Delete a product from printify
 const deleteProduct = async (product_id) => {
@@ -47,4 +45,25 @@ const deleteProduct = async (product_id) => {
   }
 };
 
-module.exports = { getProducts, deleteProduct };
+// Calculate shipping cost
+const shippingCost = async (formattedData) => {
+  try {
+    const response = await axios.post(
+      "https://api.printify.com/v1/shops/12652066/orders/shipping.json",
+      formattedData,
+      {
+        headers: {
+          Authorization: `Bearer ${TOKEN}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error("Error in shippingCost:", error.response ? error.response.data : error.message);
+    throw error;
+  }
+};
+
+module.exports = { getProducts, deleteProduct, shippingCost };

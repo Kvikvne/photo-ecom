@@ -8,7 +8,7 @@ export default function Nav() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
 
-  const { cartContent, total } = useCartContent();
+  const { cartContent, totalQuantity, updateCart } = useCartContent();
 
   const updateScrollState = () => {
     if (location.pathname !== "/") {
@@ -24,6 +24,8 @@ export default function Nav() {
 
   const toggleCart = () => {
     setIsCartOpen(!isCartOpen);
+    updateCart()
+    
   };
 
   useEffect(() => {
@@ -67,7 +69,7 @@ export default function Nav() {
       <div className={css.cart}>
         <i onClick={toggleCart} className="fa-solid fa-cart-shopping"></i>
         {cartContent.length > 0 && (
-          <span className={css.cartCount}>{cartContent.length}</span>
+          <span className={css.cartCount}>{totalQuantity}</span>
         )}
         {isCartOpen && <NavCart />}
       </div>

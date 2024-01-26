@@ -27,8 +27,8 @@ a {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 80%; /* Adjusted width for responsiveness */
-  max-width: 1200px; /* Add a max-width for larger screens */
+  width: 80%;
+  max-width: 1200px;
 }
 
 .icon {
@@ -57,14 +57,13 @@ a {
   align-items: center;
   top: 0;
   right: 0;
-  transform: translate(50%, -50%); /* Move it to the upper right corner */
-  background-color: #e1ad81; /* Customize the background color as needed */
-  color: white; /* Customize the text color as needed */
-  border-radius: 50%; /* Make it a circle */
+  transform: translate(50%, -50%);
+  background-color: #e1ad81;
+  color: white;
+  border-radius: 50%;
   height: 14px;
   width: 14px;
   font-size: 10px;
-
 }
 
 .cart i {
@@ -120,7 +119,7 @@ a {
 
 @media (max-width: 768px) {
   .navContainer nav {
-    width: 90%; /* Adjusted width for smaller screens */
+    width: 90%;
   }
 
   .dropDownMenu {

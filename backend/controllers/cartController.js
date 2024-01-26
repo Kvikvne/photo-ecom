@@ -15,37 +15,80 @@ const addToCart = async (req, res) => {
       img,
       name,
       description,
+      print_provider_id,
+      blueprint_id
     } = req.body;
 
     // Get sessionID from the request
     const sessionID = req.sessionID;
 
-    // Use the cart model to interact with the cart collection
-    await cartModel.addToCart(
+    // Check if the item already exists in the cart for the given sessionID
+    const existingItem = await cartModel.findCartItem(
       sessionID,
-      id,
-      shipping,
       product_id,
-      quantity,
-      variant_id,
-      price,
-      variant_label,
-      sku,
-      img,
-      name,
-      description
+      variant_id
     );
 
-    // Send a success response
-    res.status(200).json({ message: "Item added to the cart successfully" });
+    if (existingItem) {
+      await cartModel.updateCartItemQuantity(
+        existingItem._id,
+        existingItem.line_items[0].quantity + quantity,
+        existingItem.sessionID
+      );
+
+     
+    } else {
+      // If the item doesn't exist, add a new item to the cart
+      await cartModel.addToCart(
+        sessionID,
+        id,
+        shipping,
+        product_id,
+        quantity,
+        variant_id,
+        price,
+        variant_label,
+        sku,
+        img,
+        name,
+        description,
+        print_provider_id,
+        blueprint_id
+      );
+
+      // Fetch updated cart items and send the response
+      const updatedCartItems = await cartModel.getCartItems(sessionID);
+      res.status(200).json({
+        message: "Item added to the cart successfully",
+        cartItems: updatedCartItems,
+      });
+    }
   } catch (error) {
     console.error("Error adding item to the cart:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 };
 
+const updateCartItemQuantity = async (req, res) => {
+  const sessionID = req.sessionID;
+
+  try {
+    const { itemId } = req.params;
+    const { quantity } = req.body;
+
+    // Update the quantity in your database
+    await cartModel.updateCartItemQuantity(itemId, quantity, sessionID);
+
+    res.status(200).json({ message: "Item quantity updated successfully" });
+  } catch (error) {
+    console.error("Error updating item quantity:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
 const getCartItems = async (req, res) => {
   const sessionID = req.sessionID;
+
   try {
     const cartItems = await cartModel.getCartItems(sessionID);
     res.json(cartItems);
@@ -76,4 +119,9 @@ const deleteCartItem = async (req, res) => {
   }
 };
 
-module.exports = { getCartItems, addToCart, deleteCartItem };
+module.exports = {
+  getCartItems,
+  addToCart,
+  deleteCartItem,
+  updateCartItemQuantity,
+};

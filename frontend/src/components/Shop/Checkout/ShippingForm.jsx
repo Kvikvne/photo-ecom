@@ -1,8 +1,13 @@
 import css from "./Styles/ShippingForm.module.css";
-import { useState } from "react";
+import { usePrintify } from "../../../utilities/printifyUtils";
+import { useCartContent } from "../../../utilities/cartUtils";
+import { useState, useEffect } from "react";
 
 export default function ShippingForm() {
-  // delivery data array state
+  const { printifyProducts, shippingCost } = usePrintify();
+  const { cartContent } = useCartContent();
+
+  const [formattedLineItems, setFormattedLineItems] = useState([]);
   const [deliveryData, setDeliveryData] = useState({
     first_name: "",
     last_name: "",
@@ -12,8 +17,29 @@ export default function ShippingForm() {
     zip: "",
     email: "",
     phone: "",
-    company: "",
   });
+
+  useEffect(() => {
+    // Check if cartContent is available and has line_items
+    if (cartContent && cartContent[0]?.line_items) {
+      // Transform line_items into the desired format
+      const transformedLineItems = cartContent[0].line_items
+        .map((item) => {
+          const { product_id, variant_id, quantity } = item;
+          const { print_provider_id, blueprint_id, sku } = item.metadata;
+
+          return [
+            { product_id, variant_id, quantity },
+            { print_provider_id, blueprint_id, variant_id, quantity },
+            { sku, quantity },
+          ];
+        })
+        .flat(); // Flatten the array of arrays
+
+      // Update the state with the transformed line_items
+      setFormattedLineItems(transformedLineItems);
+    }
+  }, [cartContent]);
 
   // create array with user info
   const handleInputChange = (e) => {
@@ -23,17 +49,77 @@ export default function ShippingForm() {
       [name]: value,
     }));
   };
-  // submit array to express and mongodb
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Form data submitted:", deliveryData);
-  };
 
+  // submit array to express and mongodb
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // Format line_items before sending
+    const formattedData = {
+      line_items: formattedLineItems,
+      address_to: {
+        first_name: deliveryData.first_name,
+        last_name: deliveryData.last_name,
+        email: deliveryData.email,
+        phone: deliveryData.phone,
+        country: deliveryData.country,
+        region: "", // Set your region logic if needed
+        address1: deliveryData.address1,
+        address2: "", // Set your address2 logic if needed
+        city: deliveryData.city,
+        zip: deliveryData.zip,
+      },
+
+    
+    };
+      
+    try {
+      // Get the shipping cost
+      console.log(deliveryData)
+      const shippingResponse = await shippingCost(formattedData);
+      console.log("Shipping Cost:", shippingResponse.standard);
+
+      // Now you can proceed to checkout
+      await checkout(shippingResponse.standard, deliveryData);
+    } catch (error) {
+      // Handle errors here
+      console.error("Shipping Cost Error:", error);
+    }
+    
+  };
+  
+  
+
+  const checkout = async (shippingCost, deliveryData) => {
+    try {
+      const response = await fetch("http://localhost:3000/checkout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({ items: cartContent, shippingCost, deliveryData }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const responseData = await response.json();
+
+      if (responseData.url) {
+        window.location.assign(responseData.url);
+      }
+    } catch (error) {
+      console.error("Error during checkout:", error);
+      // Handle the error as needed
+    }
+  };
   return (
     <div className={css.formCard}>
       <form onSubmit={handleSubmit}>
         <div className={css.header}>
-          <h2>Delivery</h2>
+          <h2>Shipping information</h2>
         </div>
 
         <div className={css.group}>
@@ -60,12 +146,12 @@ export default function ShippingForm() {
         </div>
 
         <div className={css.inputBox}>
-          <select name="country" value={deliveryData.country} onChange={handleInputChange}>
+          <select
+            name="country"
+            value={deliveryData.country}
+            onChange={handleInputChange}
+          >
             <option value="US">United States</option>
-            <option value="CA">Canada</option>
-            <option value="DE">Germany</option>
-            <option value="AU">Australia</option>
-            <option value="JP">Japan</option>
           </select>
         </div>
 
@@ -122,19 +208,9 @@ export default function ShippingForm() {
           />
           <span>Phone</span>
         </div>
-        <div className={css.inputBox}>
-          <input
-            value={deliveryData.company}
-            onChange={handleInputChange}
-            name="company"
-            type="text"
-            required
-          />
-          <span>Company</span>
-        </div>
-        {/* <button className={css.submitBtn} type="submit">
+        <button onClick={checkout} className={css.submitBtn} type="submit">
           Submit
-        </button> */}
+        </button>
       </form>
     </div>
   );

@@ -10,7 +10,6 @@ h2 {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  
 }
 .cartCard {
   width: 60vw;
@@ -20,7 +19,6 @@ h2 {
   border-radius: 8px;
   padding: 25px;
   overflow-y: auto;
-
 }
 
 .itemImg img {
@@ -50,6 +48,10 @@ h2 {
   width: fit-content;
 }
 
+.cartItemDetail input {
+  width: 35px;
+}
+
 .spacer {
   flex-grow: 1;
 }
@@ -59,7 +61,7 @@ h2 {
 }
 
 .itemDesc {
-  width: fit-content; 
+  width: fit-content;
   max-height: 90%;
   overflow-y: hidden;
 }
@@ -90,7 +92,6 @@ h2 {
   text-decoration: underline;
 }
 
-
 @media (max-width: 1024px) {
   .cartCard {
     width: 80vw;
@@ -106,8 +107,7 @@ h2 {
   .itemDetailList {
     display: block;
     margin-left: 10px;
-    font-size: .8em;
-    
+    font-size: 0.8em;
   }
   .itemDesc {
     margin: 10px 0;

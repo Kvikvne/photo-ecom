@@ -1,44 +1,78 @@
 import css from "./Styles/Cart.module.css";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import CartTotal from "../components/Shop/Cart/CartTotal";
 import { useCartContent } from "../utilities/cartUtils";
-import { useDeleteProduct } from "../utilities/deleteUtils";
+import axios from "axios";
 
 export default function Cart() {
-  const { cartContent, total, deleteCartItem } = useCartContent();
+  const { cartContent, total, deleteCartItem, updateCart } = useCartContent();
+  const [editedQuantities, setEditedQuantities] = useState({});
+  const [totalQuantity, setTotalQuantity] = useState(0);
+
+  useEffect(() => {
+    // Calculate and set the total quantity whenever cartContent changes
+    let calculatedTotalQuantity = 0;
+    cartContent.forEach((item) => {
+      if (item.line_items && item.line_items.length > 0) {
+        calculatedTotalQuantity += item.line_items[0].quantity || 0;
+      }
+    });
+    setTotalQuantity(calculatedTotalQuantity);
+  }, [cartContent]);
+
+  const handleQuantityChange = (itemId, newQuantity) => {
+    // Parse the new quantity to an integer
+    const parsedQuantity = parseInt(newQuantity, 10);
+
+    // Check if the parsed quantity is a valid integer
+    if (!isNaN(parsedQuantity)) {
+      setEditedQuantities({ ...editedQuantities, [itemId]: parsedQuantity });
+    }
+  };
+
+  const updateQuantity = async (itemId, currentQuantity) => {
+    const newQuantity = editedQuantities[itemId] || currentQuantity;
+
+    // Perform an update to your backend to update the quantity
+    try {
+      await axios.put(
+        `http://localhost:3000/cart/updateQuantity/${itemId}`,
+        {
+          quantity: newQuantity,
+        },
+        {
+          withCredentials: true, 
+        }
+      );
+
+      // After the backend update, refresh the cart
+      await updateCart();
+
+      // Clear the edited quantity for the specific item
+      setEditedQuantities((prevQuantities) => {
+        const updatedQuantities = { ...prevQuantities };
+        delete updatedQuantities[itemId];
+        return updatedQuantities;
+      });
+    } catch (error) {
+      console.error("Error updating quantity:", error);
+    }
+  };
 
   const handleDeleteItem = async (itemId) => {
     try {
-      await deleteCartItem(itemId),{ withCredentials: true };
+      await deleteCartItem(itemId), { withCredentials: true };
     } catch (error) {
       console.error("Error deleting item from the cart:", error);
     }
   };
 
-  const checkout = async () => {
-    await fetch("http://localhost:3000/checkout", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ items: cartContent }),
-    })
-      .then((response) => {
-        return response.json();
-      })
-      .then((response) => {
-        if (response.url) {
-          window.location.assign(response.url); // Forwarding user to Stripe
-        }
-      });
-  };
 
   return (
     <div className={css.container}>
       <div className={css.wrapper}>
-        
         <div className={css.cartCard}>
-        <div className={css.cartHeader}>
+          <div className={css.cartHeader}>
             <h2>Your Cart</h2>
           </div>
           {cartContent.length === 0 ? (
@@ -59,7 +93,26 @@ export default function Cart() {
                       <div className={css.spacer}></div>
 
                       <p>Size: {item.line_items[0].metadata.variant_label}</p>
-                      <p>Quantity: {item.line_items[0].quantity}</p>
+                      <p>
+                        Quantity:
+                        <input
+                          type="number"
+                          value={
+                            editedQuantities[item._id] ||
+                            item.line_items[0].quantity
+                          }
+                          onChange={(e) =>
+                            handleQuantityChange(item._id, e.target.value)
+                          }
+                          onBlur={() =>
+                            updateQuantity(
+                              item._id,
+                              item.line_items[0].quantity
+                            )
+                          }
+                          min="1"
+                        />
+                      </p>
                     </div>
                     <p className={css.price}>
                       ${item.line_items[0].metadata.price}
@@ -77,7 +130,10 @@ export default function Cart() {
             </div>
           )}
         </div>
-        <CartTotal checkout={checkout} totalPrice={total} />
+        <CartTotal
+          totalPrice={total}
+          totalQuantity={totalQuantity}
+        />
       </div>
     </div>
   );

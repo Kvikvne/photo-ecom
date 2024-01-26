@@ -19,14 +19,12 @@ export default function CartView() {
               <p>Size: {item.line_items[0].metadata.variant_label}</p>
               <p>Quantity: {item.line_items[0].quantity}</p>
             </div>
-            
           </div>
         ))}
       </div>
       <div className={css.total}>
         <h3>Subtotal: ${total}</h3>
       </div>
-      
     </div>
   );
 }

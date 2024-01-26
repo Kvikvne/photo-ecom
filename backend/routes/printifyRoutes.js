@@ -32,4 +32,19 @@ router.get('/products', async (req, res) => {
 //   }
 // });
 
+
+
+// Route to handle shipping cost calculation
+
+router.post('/calculate-shipping', async (req, res) => {
+  try {
+    const formattedData = req.body; // Assuming the formatted data is sent in the request body
+    const shippingCostResult = await printifyApi.shippingCost(formattedData);
+    res.json(shippingCostResult);
+  } catch (error) {
+    console.error('Error in shipping cost calculation:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
 module.exports = router;

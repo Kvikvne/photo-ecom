@@ -1,3 +1,4 @@
+import React from "react";
 import css from "./Styles/Featured.module.css";
 import Arrow from "./Arrow";
 
@@ -10,7 +11,7 @@ export default function Featured() {
           <h1>Inspire through Imagery</h1>
         </div>
         <div className={css.image}>
-          <img src="./IMG_6374.jpg" alt="" />
+          <img src="./IMG_7310.JPG" alt="" />
         </div>
         <div className={css.description}>
           <p>

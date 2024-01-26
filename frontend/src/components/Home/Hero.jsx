@@ -13,10 +13,11 @@ export default function Hero() {
       <div className={css.bottomHero}>
         <div className={css.bottomLeft}>
           <p>
-            Welcome to my photography portfolio, where the art of visual
-            storytelling converges with the world of web development. This site
-            is a testament to my passion for photography and my prowess in
-            crafting digital experiences.
+            This space is a celebration of my love for photography and my skill
+            in presenting captivating moments through the art of print. Explore
+            and immerse yourself in a collection that reflects not only images
+            captured through my lens but also the essence of unique stories
+            preserved in each print.
           </p>
         </div>
         <div className={css.circle}>

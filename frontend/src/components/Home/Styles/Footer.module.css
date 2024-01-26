@@ -8,17 +8,34 @@
   align-items: center;
   position: relative;
 }
+.copied {
+  color: green;
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+  
+}
+
+.copied2 {
+  width: fit-content;
+  background-color: #f0ede6;
+  padding: 10px;
+  border-radius: 6px;
+ 
+}
 
 .btn {
   background-color: #e1ad81;
   color: #06151c;
   width: max-content;
-  height: 25px;
+  height: 3rem;
   padding: 8px 20px;
   border-radius: 25px;
   cursor: pointer;
   margin: 45px auto;
   transition: border-radius ease 0.3s;
+  display: flex;
+  align-items: center;
 }
 
 .btn:hover {
@@ -28,6 +45,10 @@
 .title {
   text-align: center;
   width: 100%;
+}
+
+.title p {
+  font-size: 1.5rem;
 }
 
 .title span {
@@ -47,13 +68,13 @@
 
 .card h1 {
   font-size: 45px;
-  font-weight: 300;
+  font-weight: 400;
   text-align: center;
 }
 
 .card p {
   font-size: 17px;
-  font-weight: 100;
+  font-weight: 200;
   text-align: center;
 }
 
@@ -99,7 +120,6 @@
 }
 
 @media (max-width: 768px) {
-
   .container {
     height: fit-content;
   }
@@ -109,30 +129,27 @@
   }
 
   .title span {
-    font-size: 40px; /* Adjust font size for smaller screens */
+    font-size: 40px;
     margin-bottom: 10px;
-    margin-top: 15px; /* Adjust margin for smaller screens */
+    margin-top: 15px;
   }
 
   .btn {
     width: 50%;
-    
   }
 
   .middle {
     margin-top: 0;
-    width: 50%; 
+    width: 50%;
     flex-wrap: wrap;
-   
   }
 
   .bottom {
-    width: 50%; 
+    width: 50%;
     margin-bottom: 65px;
   }
   .card h1 {
     font-size: 30px;
-
   }
 }
 
@@ -141,5 +158,4 @@
     width: 85px;
     height: 85px;
   }
-
 }

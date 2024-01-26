@@ -10,7 +10,7 @@
   border-radius: 5px;
   position: absolute;
   right: 0;
-  
+
   padding: 25px;
   animation: fadeIn 0.6s ease-in-out;
   -webkit-box-shadow: 0px 0px 100px -20px rgba(0, 0, 0, 0.75);
@@ -41,7 +41,7 @@
   width: auto;
   padding: 4px;
   border-radius: 25px;
-  transition: border-radius .4s ease;
+  transition: border-radius 0.4s ease;
   text-align: center;
   margin-top: 15px;
   background-color: #e1ad81;
@@ -51,9 +51,8 @@
 }
 
 .viewCart:hover {
- border-radius: 8px;
+  border-radius: 8px;
 }
-
 
 .cartDownMenu img {
   width: 100%;
@@ -63,8 +62,6 @@
   margin: 10px 0;
   padding: 25px;
   border-radius: 8px;
-  
-  
 }
 
 .itemCard h3 {
@@ -88,10 +85,10 @@ p span {
   width: 100%;
   margin-bottom: 25px;
 }
-.cartDropHeader span{
+.cartDropHeader span {
   font-weight: 700;
   font-size: 1.125rem;
-    line-height: 1.75rem;
+  line-height: 1.75rem;
 }
 
 .cartDropHeader p {

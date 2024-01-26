@@ -16,12 +16,14 @@ body {
 
 .wrapper {
   display: flex;
+  width: fit-content;
 }
 
 .title {
   margin-left: -100px;
   z-index: 2;
   position: absolute;
+  font-size: 1.5rem;
 }
 .image {
   display: flex;
@@ -49,17 +51,16 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    
   }
   .wrapper {
-    flex-direction: column; 
-    
-    width: 80%; /* Center-align text */
+    flex-direction: column;
+
+    width: 80%;
   }
 
   .title {
-    margin-left: 0; /* Reset margin for small screens */
-    position: relative; /* Reset position for small screens */
+    margin-left: 0;
+    position: relative;
     text-align: center;
   }
 
@@ -68,13 +69,13 @@ body {
   }
 
   .image img {
-    max-width: 70%; /* Make the image responsive by scaling it to fit its container */
+    max-width: 70%;
     height: auto;
   }
 
   .description {
-    width: 100%; /* Full width for small screens */
-    padding: 10px; /* Add padding for better spacing on small screens */
+    width: 100%;
+    padding: 10px;
     margin: 0;
     text-align: center;
   }

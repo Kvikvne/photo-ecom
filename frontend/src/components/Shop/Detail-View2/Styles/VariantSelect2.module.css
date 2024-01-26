@@ -12,6 +12,13 @@
     border-radius: 20px;
     font-size: clamp(1rem, 1.0774rem + 3.7936vw, .625rem);
     transition: border-radius ease .3s;
+    font-family: "Outfit", sans-serif;
+    height: 3rem;
+    width: 100%;
+    max-width: 160px;
+    color: #f0ede6;
+    border: none;
+    cursor: pointer;
 }
 
 .variantBtn:hover {

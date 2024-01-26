@@ -1,4 +1,5 @@
 const express = require("express");
+const router = express.Router();
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const { connectToDb, getDb } = require("./db/connection");
@@ -38,6 +39,11 @@ app.use(
   })
 );
 
+app.get('/test-session', (req, res) => {
+  const sessionID = req.sessionID;
+  res.json({ sessionID });
+});
+
 let db;
 
 // Connect to the MongoDB database
@@ -69,7 +75,7 @@ app.post("/webhook", handleStripeWebhook);
 // json Middleware
 app.use(bodyParser.json());
 
-// Routes
+// // Routes
 app.use('/api/printify', printifyRoutes);
 app.use("/", indexRoutes);
 app.use('/cart', cartRoutes);
