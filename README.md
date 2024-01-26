@@ -3,7 +3,20 @@ Fully Automated E-commerce Website project
 
 (Currently a work in progress)
 
-Most recent changes/progress (01/23/24)
+**_Most recent changes/progress (01/25/24)_**
+--------
+I added a shipping address collection page before initializing a Stripe session. This enables me to submit a request to Printify with the user's order and shipping data, resulting in a precise shipping cost calculation. Now, when the Stripe session commences, the checkout process will reflect the accurate shipping price. To facilitate this, I expanded the scope of data collected from Printify when a product is added to the cart, prompting me to make slight modifications to the database structure.
+
+I implemented a methode to manage duplicate products in the shopping cart. Instead of duplicating the same product, the system checks whether the user already has the item in the cart. If so, it simply adjusts the quantity. Users can now manually increase or decrease the quantity of each item through the user interface.
+
+I addressed a few issues related to user sessions. Some requests within the app inadvertently created uninitialized sessions, leading to the accumulation of unused sessions in the database. While this had no significant impact beyond being an inconvenience and increasing database storage usage, I resolved the issue to optimize the system.
+
+Looking ahead, my next focus is on further refining product and API setup to facilitate testing of the checkout process with a diverse range of products. Adjustments may be necessary in how shipping is calculated during this phase.
+
+(As of now, this web store should be significantly more cost-effective than platforms such as Shopify, considering the estimated monthly expenses.)
+
+
+Change/progress (01/23/24)
 --------
 Implemented user sessions, enabling session-based shopping carts for a personalized user experience. The decision to avoid user authentication through account creation was made to streamline the user journey, eliminating the need for unnecessary account setup. Currently, each item added to the cart is stored individually in the collection, requiring requests to filter through all items to find those associated with the correct sessionID.
 
