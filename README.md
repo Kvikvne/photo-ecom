@@ -5,7 +5,7 @@ Fully Automated E-commerce Website project
 
 **_Most recent changes/progress (01/25/24)_**
 --------
-I added a shipping address collection page before initializing a Stripe session. This enables me to submit a request to Printify with the user's order and shipping data, resulting in a precise shipping cost calculation. Now, when the Stripe session commences, the checkout process will reflect the accurate shipping price. To facilitate this, I expanded the scope of data collected from Printify when a product is added to the cart, prompting me to make slight modifications to the database structure.
+I added a shipping address collection page before initializing a Stripe session. This enables me to submit a request to Printify with the user's order and shipping data, resulting in a precise shipping cost calculation. Now, when the Stripe session commences, the checkout process will reflect the accurate shipping price. To facilitate this, I expanded the scope of data collected from Printify when a product is added to the cart, prompting me to make slight modifications to the database structure and expand my server to handle an process more data coming from the client and api requests. 
 
 I implemented a methode to manage duplicate products in the shopping cart. Instead of duplicating the same product, the system checks whether the user already has the item in the cart. If so, it simply adjusts the quantity. Users can now manually increase or decrease the quantity of each item through the user interface.
 
