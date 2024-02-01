@@ -1,7 +1,7 @@
 .btnContainer {
     display: flex;
     gap: 15px;
-    justify-content: space-betweenS;
+    justify-content: start;
     flex-wrap: wrap;
     max-width: 100%;
 }
@@ -23,4 +23,9 @@
 
 .variantBtn:hover {
     border-radius: 5px;
+}
+
+.variantBtn.selectedVariant {
+    background-color: #e1ad81;
+    color: #06151c;
 }

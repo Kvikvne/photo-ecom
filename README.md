@@ -3,9 +3,24 @@ Fully Automated E-commerce Website project
 
 (Currently a work in progress)
 
-**_Most recent changes/progress (01/25/24)_**
+**_Most recent changes/progress (01/31/24)_**
 --------
-I added a shipping address collection page before initializing a Stripe session. This enables me to submit a request to Printify with the user's order and shipping data, resulting in a precise shipping cost calculation. Now, when the Stripe session commences, the checkout process will reflect the accurate shipping price. To facilitate this, I expanded the scope of data collected from Printify when a product is added to the cart, prompting me to make slight modifications to the database structure and expand my server to handle and process more data coming from the client and api requests. 
+Complete UI overhaul on the home page, making it more responsive and adding animations with react-spring (I integrated TypeScript into my project to facilitate adding animations easier). Variant buttons on the product pages are now better and more user-friendly. Updated the home page gallery section to include links to individual prints based on the photo the user was interacting with.
+
+Fixed the shipping cost API request (a string in the request was supposed to be an integer). Resolved an issue with the shipping info not being passed correctly through the Stripe session and webhook. Previously, since shipping data was collected before the Stripe session, users had to input shipping info twice. Now, it is passed as metadata in the Stripe session and sent out properly with the webhook. Additionally, addressed an issue where the webhook was creating multiple uninitialized sessions. Cart items are now removed after a checkout session is completed successfully.
+
+Future plans:
+
+Checkout success page
+UI improvements (navigation and store page)
+Image optimizations, database collection, and CDNs
+Printify API admin utilities (Delete and publish products, order confirmation)
+
+
+
+Changes/progress (01/25/24)
+--------
+I added a shipping address collection page before initializing a Stripe session. This enables me to submit a request to Printify with the user's order and shipping data, resulting in a precise shipping cost calculation. Now, when the Stripe session commences, the checkout process will reflect the accurate shipping price. To facilitate this, I expanded the scope of data collected from Printify when a product is added to the cart, prompting me to make slight modifications to the database structure and expand the server to handle and process more data coming from the client and api requests. 
 
 I implemented a method to manage duplicate products in the shopping cart. Instead of duplicating the same product, the system checks whether the user already has the item in the cart. If so, it simply adjusts the quantity. Users can now manually increase or decrease the quantity of each item through the user interface.
 

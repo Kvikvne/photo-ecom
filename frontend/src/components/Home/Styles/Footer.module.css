@@ -7,22 +7,23 @@
   justify-content: center;
   align-items: center;
   position: relative;
+  color: #fff;
+  overflow-x: hidden;
 }
 .copied {
-  color: green;
-  display: flex;
-  justify-content: center;
-  margin-top: 15px;
-  
+  color: #06151c;
+  position: absolute;
+  margin-top: 10px;
 }
 
 .copied2 {
-  width: fit-content;
-  background-color: #f0ede6;
+  width: 100%;
+  background-color: #e1ad81;
   padding: 10px;
   border-radius: 6px;
- 
+  text-align: center;
 }
+
 
 .btn {
   background-color: #e1ad81;
@@ -44,7 +45,8 @@
 
 .title {
   text-align: center;
-  width: 100%;
+  width: 90%;
+  padding: 0 15px;
 }
 
 .title p {
@@ -81,8 +83,8 @@
 .bottom {
   display: flex;
   justify-content: space-evenly;
+  gap: 15px;
   margin-top: 40px;
-  width: 20%;
 }
 .spacer {
   display: flex;
@@ -119,43 +121,23 @@
   padding: 10px;
 }
 
-@media (max-width: 768px) {
-  .container {
-    height: fit-content;
-  }
-  .circleIcon {
-    width: 65px;
-    height: 65px;
-  }
-
-  .title span {
-    font-size: 40px;
-    margin-bottom: 10px;
-    margin-top: 15px;
-  }
-
-  .btn {
-    width: 50%;
-  }
-
-  .middle {
-    margin-top: 0;
-    width: 50%;
-    flex-wrap: wrap;
-  }
-
-  .bottom {
-    width: 50%;
-    margin-bottom: 65px;
-  }
-  .card h1 {
-    font-size: 30px;
-  }
-}
 
 @media (max-width: 900px) {
   .circleIcon {
     width: 85px;
     height: 85px;
+  }
+}
+
+@media (max-width: 425px) {
+  .circleIcon {
+    width: 65px;
+    height: 65px;
+  }
+  .bottom {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 5px;
+    margin-top: 40px;
   }
 }

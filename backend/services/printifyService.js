@@ -61,7 +61,10 @@ const shippingCost = async (formattedData) => {
 
     return response.data;
   } catch (error) {
-    console.error("Error in shippingCost:", error.response ? error.response.data : error.message);
+    console.error(
+      "Error in shippingCost:",
+      error.response ? error.response.data : error.message
+    );
     throw error;
   }
 };

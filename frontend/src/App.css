@@ -1,7 +1,10 @@
-body,
-html {
+html,
+body {
+  font-family: "Outfit", sans-serif;
   margin: 0;
   padding: 0;
+  scroll-behavior: smooth;
+  box-sizing: border-box;
 }
 
 a {

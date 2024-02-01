@@ -1,17 +1,18 @@
 import React from "react";
 import css from "./Styles/Featured.module.css";
 import Arrow from "./Arrow";
+import Masonry from "./Masonry";
 
 export default function Featured() {
   return (
-    <div className={css.container}>
+    <div id="featured" className={css.container}>
       <div className={css.wrapper}>
         <div className={css.title}>
-          <p>One of my favorites.</p>
+          <p>Some of my favorites.</p>
           <h1>Inspire through Imagery</h1>
         </div>
         <div className={css.image}>
-          <img src="./IMG_7310.JPG" alt="" />
+          <Masonry />
         </div>
         <div className={css.description}>
           <p>
@@ -22,7 +23,9 @@ export default function Featured() {
             of the shutter, we aim to freeze time and immortalize the essence of
             every scene.
           </p>
-          <Arrow />
+          <a href="#collection">
+            <Arrow />
+          </a>
         </div>
       </div>
     </div>

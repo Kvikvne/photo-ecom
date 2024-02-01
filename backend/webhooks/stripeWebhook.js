@@ -21,7 +21,9 @@ const handleStripeWebhook = async (request, response) => {
   // Handle the event
   switch (event.type) {
     case "checkout.session.completed":
+      
       const checkoutSessionComplete = event.data.object;
+      console.log('checkoutSessionComplete: ', checkoutSessionComplete)
       const session_id = checkoutSessionComplete.id;
       const line_items = await stripe.checkout.sessions.listLineItems(
         session_id
@@ -55,12 +57,12 @@ const handleStripeWebhook = async (request, response) => {
             checkoutSessionComplete.customer_details.name.split(" ")[1],
           email: checkoutSessionComplete.customer_details.email,
           phone: checkoutSessionComplete.customer_details.phone,
-          country: checkoutSessionComplete.shipping_details.address.country,
-          region: checkoutSessionComplete.shipping_details.address.state,
-          address1: checkoutSessionComplete.shipping_details.address.line1,
-          address2: checkoutSessionComplete.shipping_details.address.line2,
-          city: checkoutSessionComplete.shipping_details.address.city,
-          zip: checkoutSessionComplete.shipping_details.address.postal_code,
+          country: checkoutSessionComplete.metadata.country,
+          region: checkoutSessionComplete.metadata.state,
+          address1: checkoutSessionComplete.metadata.line1,
+          address2: checkoutSessionComplete.metadata.line2,
+          city: checkoutSessionComplete.metadata.city,
+          zip: checkoutSessionComplete.metadata.postal_code,
         },
       };
       // Insert the order document into the "orders" collection
@@ -68,6 +70,10 @@ const handleStripeWebhook = async (request, response) => {
 
       // Send the order to Printify
       await postOrderToPrintify(orderDocument);
+
+      // Remove cart items associated with the user's session ID
+      
+      await removeCartItemsBySessionId(checkoutSessionComplete.metadata.sessionId);
 
       console.log("Order created: ", orderDocument);
       break;
@@ -79,6 +85,19 @@ const handleStripeWebhook = async (request, response) => {
   // Return a 200 response to acknowledge receipt of the event
   response.send();
 };
+async function removeCartItemsBySessionId(sessionId) {
+  try {
+    const db = getDb();
+    const cartCollection = db.collection("cart");
+
+    // Delete cart items for the given session ID
+    await cartCollection.deleteMany({ "line_items.sessionID": sessionId });
+
+    console.log("Cart items removed for session:", sessionId);
+  } catch (error) {
+    console.error("Error removing cart items:", error);
+  }
+}
 // Function to insert order document into the MongoDB collection
 async function insertOrderDocument(orderDocument) {
   try {
@@ -96,7 +115,7 @@ async function postOrderToPrintify(orderDocument) {
   try {
     const { PRINTIFY_SHOP_ID, PRINTIFY_TOKEN } = process.env;
 
-    // Replace the following URL with the actual Printify endpoint
+    // Printify endpoint
     const printifyEndpoint = `https://api.printify.com/v1/shops/${PRINTIFY_SHOP_ID}/orders.json`;
 
     // Prepare the data for the Printify API request
@@ -107,6 +126,7 @@ async function postOrderToPrintify(orderDocument) {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${PRINTIFY_TOKEN}`,
+        
       },
     });
 

@@ -1,13 +1,13 @@
 .container {
   background-color: #f0ede6;
-  height: 100vh;
-  max-width: 100vw;
-  padding: 55px;
+  height: max-content;
+  width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 .wrapper {
   background-color: #f0ede6;
-  padding: 25px;
 }
 .header {
   display: flex;
@@ -15,6 +15,10 @@
   align-items: center;
   width: 100%;
   gap: 25px;
+  margin-bottom: 25px;
+  margin-left: 50px;
+  margin-top: 70px;
+  padding-bottom: 0;
 }
 .title h1 {
   color: #06151c;
@@ -32,7 +36,7 @@
   border-radius: 20px;
   background-color: #e1ad81;
   color: #06151c;
-  transition: border-radius ease .2s;
+  transition: border-radius ease 0.2s;
   cursor: pointer;
 }
 
@@ -44,7 +48,8 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 10px;
-  margin: 0;
+  margin: 0 50px;
+  margin-bottom: 70px;
 }
 .btn {
   border: none;
@@ -69,29 +74,31 @@
   transition: transform ease 0.3s;
   cursor: pointer;
 }
-.Gallerygrid :last-child {
+/* .Gallerygrid :last-child {
   width: 45%;
-}
+} */
 
 .Gallerygrid img:hover {
   transform: scale(1.03);
 }
 
-@media (max-width: 900px) {
-  .container {
-    height: max-content;
-  }
-
-  .wrapper {
-    padding: 5%;
-  }
-
+@media (max-width: 768px) {
   .Gallerygrid {
-    grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
-    gap: 5px;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   }
+}
 
-  .Gallerygrid img {
-    border-radius: 4px;
+@media (max-width: 550px) {
+  .header {
+    margin-bottom: 25px;
+    margin-left: 0;
+    margin-top: 70px;
+    flex-direction: column;
+    padding: 0;
+    gap: 5px;
+    justify-content: start;
+  }
+  .title h1 {
+    font-size: 3rem;
   }
 }

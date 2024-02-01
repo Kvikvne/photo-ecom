@@ -12,6 +12,7 @@ const handleStripeWebhook = require("./webhooks/stripeWebhook");
 const { v4: uuidv4 } = require('uuid');
 const MongoStore = require("connect-mongo");
 const session = require("express-session");
+const cookieParser = require("cookie-parser");
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -23,21 +24,6 @@ const corsOptions = {
   credentials: true,
 };
 app.use(cors(corsOptions));
-
-app.use(
-  session({
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: true,
-    genid: (req) => {
-      return req.sessionID || uuidv4();
-    },
-    store: MongoStore.create({
-      mongoUrl: 'mongodb://127.0.0.1:27017/photoWebsite',
-      ttl: 14 * 24 * 60 * 60,
-    }),
-  })
-);
 
 app.get('/test-session', (req, res) => {
   const sessionID = req.sessionID;
@@ -68,16 +54,35 @@ connectToDb("mongodb://127.0.0.1:27017/photoWebsite", async (err) => {
   });
 });
 
+
+app.use(cookieParser());
 // webhook route
 app.use('/webhook', express.raw({ type: 'application/json' }));
 app.post("/webhook", handleStripeWebhook);
 
+// Session middleware
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    genid: (req) => {
+      console.log('*** User session created ***')
+      return req.sessionID || uuidv4();
+    },
+    store: MongoStore.create({
+      mongoUrl: 'mongodb://127.0.0.1:27017/photoWebsite',
+      ttl: 14 * 24 * 60 * 60,
+    }),
+  })
+);
+
 // json Middleware
 app.use(bodyParser.json());
+
 
 // // Routes
 app.use('/api/printify', printifyRoutes);
 app.use("/", indexRoutes);
 app.use('/cart', cartRoutes);
 app.use('/checkout', checkoutRoutes); 
-

@@ -4,7 +4,7 @@ import Home from './pages/Home';
 import Cart from './pages/Cart';
 import CheckoutPage from './pages/CheckoutPage';
 import ProductAll from './pages/ProductAll';
-
+import Testing from './components/Shop/Checkout/Testing';
 import ProductPage2 from './pages/ProductPage2';
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 
@@ -23,6 +23,7 @@ function App() {
         <Route path="/prints" element={<ProductAll />} />
         <Route path="/prints/:productId" element={<ProductPage2 />} />
         <Route path="/checkout-shipping" element={<CheckoutPage />} />
+        <Route path="/testing" element={<Testing />} />
       </Routes>
     </BrowserRouter>
   );

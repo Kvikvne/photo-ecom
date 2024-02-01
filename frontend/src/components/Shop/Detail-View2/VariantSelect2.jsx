@@ -1,8 +1,12 @@
 import css from "./Styles/VariantSelect2.module.css";
+import { useState, useEffect } from "react";
 
 export default function VariantSelect2({ availibleVariants, onSelectVariant }) {
-  const handleVariantSelect = (variantId) => {
-    onSelectVariant(variantId);
+  const [selectedVariant, setSelectedVariant] = useState();
+
+  const handleVariantSelect = (variantId, buttonValue) => {
+    setSelectedVariant(variantId);
+    onSelectVariant(buttonValue);
   };
 
   return (
@@ -14,10 +18,14 @@ export default function VariantSelect2({ availibleVariants, onSelectVariant }) {
           {availibleVariants && availibleVariants.length > 0
             ? availibleVariants.map((variant, variantIndex) => (
                 <button
-                  className={css.variantBtn}
+                  className={`${css.variantBtn} ${
+                    selectedVariant === variant.id ? css.selectedVariant : ""
+                  }`}
                   key={variantIndex}
                   value={variant.id}
-                  onClick={(e) => handleVariantSelect(e.target.value)}
+                  onClick={(e) =>
+                    handleVariantSelect(variant.id, e.target.value)
+                  }
                 >
                   {variant.title}
                 </button>

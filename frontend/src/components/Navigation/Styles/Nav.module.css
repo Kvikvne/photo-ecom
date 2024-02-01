@@ -8,7 +8,7 @@ a {
   width: 100%;
   padding: 10px 0;
   position: fixed;
-  z-index: 100;
+  z-index: 999;
   background-color: rgba(6, 21, 28, 0);
   transition: background-color ease 0.9s;
   top: 0;
@@ -29,6 +29,7 @@ a {
   align-items: center;
   width: 80%;
   max-width: 1200px;
+  z-index: 999;
 }
 
 .icon {

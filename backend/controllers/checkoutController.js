@@ -1,16 +1,18 @@
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
-
 const initiateCheckout = async (req, res) => {
   try {
+    // passed data
     const items = req.body.items;
     const shippingCost = req.body.shippingCost;
     const deliveryData = req.body.deliveryData;
     
-    console.log(deliveryData)
+    // Get sessionID from the request
+    const userSessionId = req.sessionID;
+    
 
+    // Gets product info and pushes it to the Stripe session
     let lineItems = [];
-
     items.forEach((item) => {
       lineItems.push({
         price: item.line_items[0].id,
@@ -18,24 +20,16 @@ const initiateCheckout = async (req, res) => {
       });
     });
 
-    let shipping_options = [];
-    items.forEach((item) => {
-      shipping_options.push({
-        shipping_rate: item.line_items[0].shipping,
-      });
-    });
 
-
+    // Create Stripe session
     const session = await stripe.checkout.sessions.create({
       phone_number_collection: {
         enabled: true,
       },
       billing_address_collection: "required",
-      shipping_address_collection: {
-        allowed_countries: ["US"],
-      },
-      
+
       line_items: lineItems,
+
       shipping_options: [
         {
           shipping_rate_data: {
@@ -44,6 +38,7 @@ const initiateCheckout = async (req, res) => {
               amount: shippingCost,
               currency: "usd",
             },
+
             display_name: "Shipping",
             delivery_estimate: {
               minimum: {
@@ -52,16 +47,31 @@ const initiateCheckout = async (req, res) => {
               },
               maximum: {
                 unit: "business_day",
-                value: 7,
+                value: 10,
               },
             },
           },
         },
       ],
-      
+
       mode: "payment",
       success_url: "http://localhost:5173/",
       cancel_url: "http://localhost:5173/cart",
+
+
+      // Passes the shipping data collected before stripe session to the web hook
+      metadata: {
+        line1: deliveryData.address1,
+        line2: '',
+        state: '',
+        city: deliveryData.city,
+        postal_code: deliveryData.zip,
+        country: deliveryData.country,
+        name: deliveryData.first_name + " " + deliveryData.last_name,
+        phone: deliveryData.phone,
+        email: deliveryData.email,
+        sessionId: userSessionId
+      },
     });
 
     res.json({
@@ -71,7 +81,6 @@ const initiateCheckout = async (req, res) => {
     console.error("Error initiating checkout:", error);
     res.status(500).json({ error: "Internal server error" });
   }
-  
 };
 
 module.exports = { initiateCheckout };

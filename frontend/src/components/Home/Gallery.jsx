@@ -22,13 +22,66 @@ const imagePaths = [
   "./IMG_9486.jpg",
 ];
 
+const images = [
+  {
+    path: "./IMG_6374.jpg",
+    id: "6573d2578f6758c6d8097283",
+  },
+  {
+    path: "./IMG_4847.jpg",
+    id: "65a7192d23373c467702019d",
+  },
+  {
+    path: "./IMG_5963.jpg",
+    id: "65a717f45c6a08ca8f0f0f3a",
+  },
+  {
+    path: "./IMG_6374.jpg",
+    id: "6573d2578f6758c6d8097283",
+  },
+  {
+    path: "./IMG_4847.jpg",
+    id: "65a7192d23373c467702019d",
+  },
+  {
+    path: "./IMG_5963.jpg",
+    id: "65a717f45c6a08ca8f0f0f3a",
+  },
+  {
+    path: "./IMG_6374.jpg",
+    id: "6573d2578f6758c6d8097283",
+  },
+  {
+    path: "./IMG_4847.jpg",
+    id: "65a7192d23373c467702019d",
+  },
+  {
+    path: "./IMG_5963.jpg",
+    id: "65a717f45c6a08ca8f0f0f3a",
+  },
+  {
+    path: "./IMG_6374.jpg",
+    id: "6573d2578f6758c6d8097283",
+  },
+  {
+    path: "./IMG_4847.jpg",
+    id: "65a7192d23373c467702019d",
+  },
+  {
+    path: "./IMG_5963.jpg",
+    id: "65a717f45c6a08ca8f0f0f3a",
+  },
+];
+
 export default function Gallery() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState("");
+  const [selectedImageId, setSelectedImageId] = useState("");
 
-  const openModal = (imagePath) => {
+  const openModal = (imagePath, imageId) => {
     setIsModalOpen(true);
     setSelectedImage(imagePath);
+    setSelectedImageId(imageId);
   };
 
   const closeModal = () => {
@@ -37,7 +90,7 @@ export default function Gallery() {
   };
 
   return (
-    <div className={css.container}>
+    <div id="collection" className={css.container}>
       <div className={css.header}>
         <div className={css.title}>
           <h1>Collection</h1>
@@ -52,21 +105,23 @@ export default function Gallery() {
 
       <div className={css.wrapper}>
         <div className={css.Gallerygrid}>
-          {imagePaths.map((imagePath, index) => (
+          {images.map((image, index) => (
             <img
               key={index}
-              src={imagePath}
+              src={image.path}
               alt={`Image ${index}`}
-              onClick={() => openModal(imagePath)}
+              onClick={() => openModal(image.path, image.id)}
               className={css.gridItem}
             />
           ))}
         </div>
       </div>
+
       <GalleryModal
         isOpen={isModalOpen}
         onClose={closeModal}
         imagePath={selectedImage}
+        imageId={selectedImageId}
       />
     </div>
   );

@@ -1,24 +1,21 @@
-body {
-  color: #fff;
-}
-
 .container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  color: #fff;
   height: 100vh;
   width: 100%;
-  box-sizing: border-box;
   background-image: url("./IMG_6374.jpg");
-  background-size: cover;
   background-position: bottom;
+  /* background-attachment: fixed; */
+  background-size: cover;
+  box-sizing: border-box;
 }
-
 .spacer {
   flex-grow: 1;
 }
 
 .overlay {
+  z-index: 1;
   position: absolute;
   top: 0;
   left: 0;
@@ -45,29 +42,44 @@ body {
 
 .title {
   align-self: center;
+  padding: 35px;
+  max-width: 100vw;
+  z-index: 2;
+  padding-top: 200px;
 }
 
-.title h1 {
-  font-size: 6vw;
-  font-weight: 600;
-  margin: 15px 0;
+.title button {
+  height: 4rem;
+  max-width: 185px;
+  border-radius: 18px;
+  font-size: 1.3rem;
+}
+
+.title button:hover {
+  border-radius: 10px;
 }
 
 .title p {
-  text-align: left;
-  font-size: 1.8vw;
+  font-size: 3rem;
+  margin: 0;
+}
+.title h1 {
+  font-size: 8rem;
+  margin: 0;
+}
+.heroHook p {
+  font-size: 1.3rem;
+  font-weight: 200;
+  max-width: 800px;
 }
 
 .bottomHero {
   display: flex;
-  width: 75%;
-  justify-content: space-between;
-  align-items: center;
-  margin: 0 auto;
-  margin-bottom: 5%;
-  align-self: flex-end;
-
-  z-index: 99;
+  justify-content: center;
+  align-self: center;
+  width: 100%;
+  padding-bottom: 25px;
+  z-index: 2;
 }
 
 .bottomLeft {
@@ -97,7 +109,8 @@ body {
   display: flex;
   justify-content: center;
   overflow: hidden;
-  box-shadow: 0 0 2px rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 2px rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(2px);
 }
 
 @keyframes moveDown {
@@ -114,44 +127,45 @@ body {
 }
 
 .circle span {
-  font-weight: 100;
+  font-weight: 200;
   font-size: 2.6em;
   color: #eee;
   animation: moveDown 5s infinite;
   transform: translatey(-100px);
 }
-
-@media (max-width: 768px) {
-  .container {
-    background-position: center center;
+@media (max-width: 1440px) {
+  .title {
+    align-self: center;
+    padding: 35px;
   }
-
-  .bottomHero {
-    flex-direction: column;
-    align-items: center;
+  .title p {
+    font-size: 2rem;
+    margin: 0;
   }
   .title h1 {
-    font-size: 10vw;
-    font-weight: 400;
-    margin: 15px 0;
+    font-size: 4rem;
+    margin: 0;
   }
 
-  .title p {
-    text-align: center;
-    font-size: 5vw;
+  .title button {
+    height: 3rem;
+    max-width: 145px;
+    border-radius: 18px;
+    font-size: 1.3rem;
   }
 
+  .heroHook p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 425px) {
   .circle {
     width: 100px;
     height: 100px;
   }
-  .bottomLeft {
-    font-size: 1rem;
-    margin: 15% 0;
-    width: 100%;
-    width: 99vw;
-  }
-  .bottomRight {
-    display: none;
+  .circle span {
+    font-weight: 200;
+    font-size: 2em;
   }
 }

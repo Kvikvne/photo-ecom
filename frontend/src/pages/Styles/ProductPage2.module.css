@@ -1,13 +1,11 @@
-/* CSS Module: ProductPage.module.css */
-
 /* Container styles */
 .productContainer {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  width: 100vw;
- 
+  height: calc(100vh - 70px);
+  max-width: 100vw;
+  
 }
 .backToShop {
   background-color: #06151c00;
@@ -35,7 +33,7 @@
   max-height: 80vh;
   display: flex;
   justify-content: space-around;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Added a subtle box shadow */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
 }
 
 /* Product images container styles */
@@ -46,18 +44,18 @@
 /* Product information styles */
 .productInfo {
   color: #06151c;
-  flex-grow: 1; /* Allow the productInfo section to grow to fill available space */
+  flex-grow: 1; 
 }
 
 /* Name styles */
 .name {
-  margin-bottom: 10px; /* Add some spacing between name and description */
+  margin-bottom: 10px; 
 }
 
 /* Description styles */
 .description {
-  color: #4d4d4d; /* Use a slightly lighter color for the description text */
-  line-height: 1.5; /* Improve readability with increased line-height */
+  color: #4d4d4d; 
+  line-height: 1.5; 
   max-height: 360px;
   overflow-y: scroll;
   font-size: clamp(1rem, 1.0774rem + 3.7936vw, .825rem);
@@ -66,8 +64,8 @@
 /* Variant container styles */
 .variantContainer {
   display: flex;
-  flex-direction: column; /* Align VariantSelect2 and price vertically */
-  gap: 10px; /* Add vertical spacing between VariantSelect2 and price */
+  flex-direction: column; 
+  gap: 10px; 
   margin-top: 25px;
 }
 
@@ -77,12 +75,13 @@
   justify-content: start;
   gap: 15px;
   align-items: center;
-  margin-top: 40px; /* Add some spacing between VariantContainer and AddToCart */
+  margin-top: 40px; 
 }
 
 /* Price styles */
 .addToCart p {
-  font-weight: bold; /* Make the price text bold for emphasis */
+  font-weight: bold; 
+  font-size: 1.3em;
 }
 
 @media (max-width: 830px) {

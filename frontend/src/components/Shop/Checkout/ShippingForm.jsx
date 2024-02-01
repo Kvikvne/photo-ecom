@@ -4,10 +4,9 @@ import { useCartContent } from "../../../utilities/cartUtils";
 import { useState, useEffect } from "react";
 
 export default function ShippingForm() {
-  const { printifyProducts, shippingCost } = usePrintify();
+  const { shippingCost } = usePrintify();
   const { cartContent } = useCartContent();
 
-  const [formattedLineItems, setFormattedLineItems] = useState([]);
   const [deliveryData, setDeliveryData] = useState({
     first_name: "",
     last_name: "",
@@ -19,29 +18,8 @@ export default function ShippingForm() {
     phone: "",
   });
 
-  useEffect(() => {
-    // Check if cartContent is available and has line_items
-    if (cartContent && cartContent[0]?.line_items) {
-      // Transform line_items into the desired format
-      const transformedLineItems = cartContent[0].line_items
-        .map((item) => {
-          const { product_id, variant_id, quantity } = item;
-          const { print_provider_id, blueprint_id, sku } = item.metadata;
+  
 
-          return [
-            { product_id, variant_id, quantity },
-            { print_provider_id, blueprint_id, variant_id, quantity },
-            { sku, quantity },
-          ];
-        })
-        .flat(); // Flatten the array of arrays
-
-      // Update the state with the transformed line_items
-      setFormattedLineItems(transformedLineItems);
-    }
-  }, [cartContent]);
-
-  // create array with user info
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setDeliveryData((prevData) => ({
@@ -49,56 +27,65 @@ export default function ShippingForm() {
       [name]: value,
     }));
   };
+  
 
-  // submit array to express and mongodb
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Format line_items before sending
-    const formattedData = {
-      line_items: formattedLineItems,
-      address_to: {
-        first_name: deliveryData.first_name,
-        last_name: deliveryData.last_name,
-        email: deliveryData.email,
-        phone: deliveryData.phone,
-        country: deliveryData.country,
-        region: "", // Set your region logic if needed
-        address1: deliveryData.address1,
-        address2: "", // Set your address2 logic if needed
-        city: deliveryData.city,
-        zip: deliveryData.zip,
-      },
-
-    
-    };
-      
     try {
-      // Get the shipping cost
-      console.log(deliveryData)
-      const shippingResponse = await shippingCost(formattedData);
-      console.log("Shipping Cost:", shippingResponse.standard);
+      // Format line_items before sending
+      const formattedData = {
+        line_items: cartContent.map((cartItem) => {
+          return cartItem.line_items.map((item) => ({
+            product_id: item.product_id,
+            variant_id: parseInt(item.variant_id, 10),
+            quantity: parseInt(item.quantity, 10),
+            print_provider_id: parseInt(item.metadata.print_provider_id, 10),
+            blueprint_id: parseInt(item.metadata.blueprint_id, 10),
+            sku: item.metadata.sku,
+          }));
+        }).flat(),
+        address_to: {
+          first_name: deliveryData.first_name,
+          last_name: deliveryData.last_name,
+          email: deliveryData.email,
+          phone: deliveryData.phone,
+          country: deliveryData.country,
+          region: "",
+          address1: deliveryData.address1,
+          address2: "", 
+          city: deliveryData.city,
+          zip: deliveryData.zip,
+        },
+      };
+    
 
-      // Now you can proceed to checkout
+      // Get the shipping cost
+      const shippingResponse = await shippingCost(formattedData);
+
+      // Proceed to checkout
       await checkout(shippingResponse.standard, deliveryData);
     } catch (error) {
-      // Handle errors here
       console.error("Shipping Cost Error:", error);
     }
-    
   };
-  
-  
+ 
 
   const checkout = async (shippingCost, deliveryData) => {
     try {
       const response = await fetch("http://localhost:3000/checkout", {
+      withCredentials: true,
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         credentials: "include",
-        body: JSON.stringify({ items: cartContent, shippingCost, deliveryData }),
+        body: JSON.stringify({
+          items: cartContent,
+          shippingCost,
+          deliveryData,
+      
+        }),
       });
 
       if (!response.ok) {
@@ -112,9 +99,9 @@ export default function ShippingForm() {
       }
     } catch (error) {
       console.error("Error during checkout:", error);
-      // Handle the error as needed
     }
   };
+
   return (
     <div className={css.formCard}>
       <form onSubmit={handleSubmit}>
@@ -208,7 +195,7 @@ export default function ShippingForm() {
           />
           <span>Phone</span>
         </div>
-        <button onClick={checkout} className={css.submitBtn} type="submit">
+        <button className={css.submitBtn} type="submit">
           Submit
         </button>
       </form>

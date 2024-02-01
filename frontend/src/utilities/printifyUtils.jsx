@@ -23,18 +23,23 @@ export const usePrintify = () => {
   const shippingCost = async (formattedData) => {
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/printify/calculate-shipping", // Use your server's address
+        "http://localhost:3000/api/printify/calculate-shipping",
         formattedData,
         {
+          withCredentials: true,
+
           headers: {
             "Content-Type": "application/json",
           },
         }
       );
-  
+
       return response.data;
     } catch (error) {
-      console.error("Error in shippingCost:", error.response ? error.response.data : error.message);
+      console.error(
+        "Error in shippingCost:",
+        error.response ? error.response.data : error.message
+      );
       throw error;
     }
   };

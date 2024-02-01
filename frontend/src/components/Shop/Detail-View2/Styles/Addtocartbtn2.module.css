@@ -3,11 +3,16 @@
     width: max-content;
     justify-self: end;
     color: #06151c;
-    padding: 8px 20px;
+    padding: 15px 20px;
     border-radius: 25px;
     cursor: pointer;
     transition: border-radius ease 0.3s;
-  
+
+    
+  }
+
+  .btn p{
+    font-size: 1em;
   }
   
   .btn:hover {

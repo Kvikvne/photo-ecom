@@ -1,7 +1,7 @@
 import css from "./Styles/Footer.module.css";
 import React, { useRef, useState } from "react";
 
-const CopyToClipboard = ({ text, children }) => {
+const CopyToClipboard = ({ text, children, icon }) => {
   const textRef = useRef(null);
   const [isCopied, setIsCopied] = useState(false);
 
@@ -30,7 +30,6 @@ const CopyToClipboard = ({ text, children }) => {
       {isCopied && (
         <div className={css.copied}>
           <div className={css.copied2}>
-            {" "}
             <span>Copied!</span>
           </div>
         </div>
@@ -40,6 +39,13 @@ const CopyToClipboard = ({ text, children }) => {
 };
 
 export default function Footer() {
+  const [copiedIcon, setCopiedIcon] = useState("fa-solid fa-envelope");
+
+  const handleCopy = () => {
+    setCopiedIcon("fa-regular fa-check-circle"); // Change the icon to a checkmark when copied
+    setTimeout(() => setCopiedIcon("fa-solid fa-envelope"), 2000); // Reset the icon after a short delay
+  };
+
   return (
     <div className={css.container}>
       <div className={css.title}>
@@ -48,23 +54,6 @@ export default function Footer() {
           If you are interested in my work please feel free to reach out via the
           links below
         </p>
-        <div className={css.btn}>Let's connect</div>
-      </div>
-      <div className={css.middle}>
-        <div className={css.card}>
-          <h1>Write</h1>
-          <CopyToClipboard text="kaianderson9@gmail.com">
-            <p>kaianderson9@gmail.com (Click to Copy)</p>
-          </CopyToClipboard>
-        </div>
-        <div className={css.card}>
-          <h1>Tech Portfolio</h1>
-          <p>
-            <a target="blank" href="https://kvikvne.github.io/portfolio/">
-              Click Me!
-            </a>
-          </p>
-        </div>
       </div>
       <div className={css.bottom}>
         <a target="blank" href="https://www.instagram.com/kvikvne/">
@@ -84,6 +73,16 @@ export default function Footer() {
             <i class="fa-brands fa-github"></i>
           </div>
         </a>
+        <div className={css.spacer}></div>
+        <CopyToClipboard
+          text="kaianderson9@gmail.com"
+          icon={copiedIcon}
+          onClick={handleCopy}
+        >
+          <div onClick={handleCopy} className={css.circleIcon}>
+            <i className={`fa-solid ${copiedIcon}`}></i>
+          </div>
+        </CopyToClipboard>
       </div>
       <div className={css.copyright}>
         <p>&copy; 2023 Photography By Kai. All rights reserved.</p>
