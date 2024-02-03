@@ -7,8 +7,13 @@
     border-radius: 25px;
     cursor: pointer;
     transition: border-radius ease 0.3s;
-
-    
+    overflow: hidden;
+    position: relative;
+    min-width: 90px;
+    height: 1em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .btn p{

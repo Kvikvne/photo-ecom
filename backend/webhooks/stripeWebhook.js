@@ -39,6 +39,7 @@ const handleStripeWebhook = async (request, response) => {
 
       // Create an order document by combining cart data and webhook payload
       const orderDocument = {
+        session_id: checkoutSessionComplete.metadata.sessionId,
         external_id: uuidv4(),
         label: productDetails[0].metadata.label,
         line_items: [
@@ -52,9 +53,9 @@ const handleStripeWebhook = async (request, response) => {
         send_shipping_notification: true,
         address_to: {
           first_name:
-            checkoutSessionComplete.customer_details.name.split(" ")[0],
+            checkoutSessionComplete.metadata.name.split(" ")[0],
           last_name:
-            checkoutSessionComplete.customer_details.name.split(" ")[1],
+            checkoutSessionComplete.metadata.name.split(" ")[1],
           email: checkoutSessionComplete.customer_details.email,
           phone: checkoutSessionComplete.customer_details.phone,
           country: checkoutSessionComplete.metadata.country,
@@ -65,11 +66,13 @@ const handleStripeWebhook = async (request, response) => {
           zip: checkoutSessionComplete.metadata.postal_code,
         },
       };
-      // Insert the order document into the "orders" collection
-      await insertOrderDocument(orderDocument);
+   
 
       // Send the order to Printify
-      await postOrderToPrintify(orderDocument);
+      const printifyResponseData = await postOrderToPrintify(orderDocument);
+
+        // Insert the order document into the "orders" collection
+       await insertOrderDocument(orderDocument, printifyResponseData);
 
       // Remove cart items associated with the user's session ID
       
@@ -99,12 +102,12 @@ async function removeCartItemsBySessionId(sessionId) {
   }
 }
 // Function to insert order document into the MongoDB collection
-async function insertOrderDocument(orderDocument) {
+async function insertOrderDocument(orderDocument, printifyResponseData) {
   try {
     const db = getDb();
     const collection = db.collection("orders");
-
-    await collection.insertOne(orderDocument);
+    orderDocument.printifyResponse = printifyResponseData;
+    await collection.insertOne(orderDocument,);
     console.log("Order inserted into MongoDB");
   } catch (error) {
     console.error("Error inserting order into MongoDB:", error);
@@ -128,9 +131,13 @@ async function postOrderToPrintify(orderDocument) {
         Authorization: `Bearer ${PRINTIFY_TOKEN}`,
         
       },
+      
     });
-
+    /////// Return this value to insertOrderDocument ////////
+    
     console.log('Order sent to Printify:', printifyResponse.data);
+    return printifyResponse.data;
+    
   } catch (error) {
     console.error('Error sending order to Printify:', error);
   }

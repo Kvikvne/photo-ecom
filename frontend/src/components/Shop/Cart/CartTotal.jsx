@@ -1,7 +1,10 @@
 import css from "./Styles/CartTotal.module.css";
 import CheckoutBtn from "./CheckoutBtn";
+import { useCartContent } from "../../../utilities/cartUtils";
 
 export default function CartTotal({ totalPrice, checkout, totalQuantity }) {
+  const { cartContent } = useCartContent();
+  const isCartEmpty = cartContent.length === 0;
   return (
     <div className={css.card}>
       <a href="/prints">
@@ -15,7 +18,8 @@ export default function CartTotal({ totalPrice, checkout, totalQuantity }) {
         </p>
 
         <p className={css.subTotal}>Subtotal: ${totalPrice}</p>
-        <CheckoutBtn checkout={checkout} />
+
+        {!isCartEmpty && <CheckoutBtn checkout={checkout} />}
       </div>
     </div>
   );

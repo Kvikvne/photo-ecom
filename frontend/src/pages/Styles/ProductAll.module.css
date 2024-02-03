@@ -1,16 +1,16 @@
 body {
-  background-color: #06151c;
+  background-color: #f0ede6;
 }
 
 .container {
   display: grid;
-  gap: 25px;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 35px;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   justify-content: center;
-  align-items: center;
+  align-content: start;
   height: 99vh;
   max-width: 99vw;
-  margin: 0 15%;
+  margin: 0 10%;
   padding: 25px;
   border-radius: 10px;
   margin-bottom: 50px;
@@ -18,25 +18,27 @@ body {
 
 .container2 {
   max-width: 99vw;
-  color: #f0ede6;
+  color: #06151c;
   background-color: #f0ede6;;
   text-align: left;
   padding: 25px;
+  margin: 0 10%;
+  margin-bottom: 50px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   padding-bottom: 0;
   height: calc(100% + 100px);
-  background-image: url("./IMG_5881.jpg");
+  /* background-image: url("./IMG_5881.jpg");
   background-position:  center;
-  background-size: cover;
+  background-size: cover; */
 
 }
 
 .container2 h1 {
   font-size: 3.5em;
   margin-bottom: 0; 
-  margin-top: 7%;
+  margin-top: 100px;
    
 }
 
@@ -53,6 +55,8 @@ body {
   }
 } */
 
+
+
 @media only screen and (min-width: 2560px) {
   .container {
     height: 75vh;
@@ -64,5 +68,21 @@ body {
     margin-top: 50px; 
     text-align: center;  
     font-size: 2.5em;  
+  }
+}
+
+@media (max-width: 1440px) {
+  .container {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
+    margin: 0 0%;
+  }
+  .container2 {
+    margin: 0 0%;
   }
 }

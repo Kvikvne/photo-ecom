@@ -2,6 +2,7 @@ import css from "./Styles/ProductAll.module.css";
 import React from "react";
 import ProductCard from "../components/Shop/All-View/ProductCard";
 import { usePrintify } from "../utilities/printifyUtils";
+import AllLoadingState from "../components/Loaders/AllLoadingState";
 
 const ProductAll = () => {
   const { printifyProducts } = usePrintify();
@@ -13,7 +14,11 @@ const ProductAll = () => {
         <h1>Canvas Prints</h1>
       </div>
       <div className={css.container}>
-        {products.length === 0 && <div>Loading...</div>}
+        {products.length === 0 &&
+          Array.from({ length: 5 }).map((_, index) => (
+            <AllLoadingState key={index} />
+          ))}
+
         {products.map((product, index) => {
           const enabledVariants = product.variants.filter(
             (variant) => variant.is_enabled

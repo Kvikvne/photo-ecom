@@ -98,6 +98,7 @@ const getCartItems = async (req, res) => {
   }
 };
 
+
 const deleteCartItem = async (req, res) => {
   try {
     // Extract the item ID from the request parameters

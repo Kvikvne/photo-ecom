@@ -1,9 +1,11 @@
 import css from "./Styles/NavCart.module.css";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useCartContent } from "../../utilities/cartUtils";
+
 
 export default function NavCart() {
   const { cartContent, total, totalQuantity } = useCartContent();
+
   return (
     <div className={css.cartDownMenu}>
       <h2>Cart</h2>
@@ -22,8 +24,8 @@ export default function NavCart() {
             ) : (
               <div className={css.cartContent}>
                 {cartContent.map((item, index) => (
-                  <a className={css.anchor} href="/cart">
-                    <div className={css.itemCard} key={index}>
+                  <a className={css.anchor} href="/cart" key={index}>
+                    <div className={css.itemCard}>
                       <div>
                         <img src={item.line_items[0].metadata.img} alt="" />
                       </div>

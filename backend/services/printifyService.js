@@ -22,6 +22,23 @@ const getProducts = async () => {
   }
 };
 
+const getOrders = async () => {
+  try {
+    const response = await axios.get(
+      "https://api.printify.com/v1/shops/12652066//orders.json",
+      {
+        headers: {
+          Authorization: `Bearer ${TOKEN}`,
+        },
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 // Delete a product from printify
 const deleteProduct = async (product_id) => {
   try {
@@ -69,4 +86,4 @@ const shippingCost = async (formattedData) => {
   }
 };
 
-module.exports = { getProducts, deleteProduct, shippingCost };
+module.exports = { getProducts, deleteProduct, shippingCost, getOrders };

@@ -16,7 +16,15 @@ router.get('/products', async (req, res) => {
   }
 });
 
-
+router.get('/orders', async (req, res) => {
+  try {
+    const orders = await printifyApi.getOrders();
+    res.json(orders);
+  } catch (error) {
+    console.error('Error fetching orders from Printify:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
 
 
 // ----------------------------- DELETE PRODUCT CAREFULL!!! --------------------------------------------------------------------------

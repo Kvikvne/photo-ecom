@@ -3,7 +3,17 @@ Fully Automated E-commerce Website project
 
 (Currently a work in progress)
 
-**_Most recent changes/progress (01/31/24)_**
+**_Most recent changes/progress (02/02/24)_**
+--------
+I've recently enhanced the user experience on this project by introducing loading state indicators and adding visually appealing animations to confirm successful actions or to tell the user something is loading.
+
+Additionally, I've introduced an intuitive order summary page that the user gets redirected to automatically after completing a purchase. This page offers detailed insights into their order, including a breakdown of purchased items, costs, and a unique order number for reference. implementing this required backend modifications and new frontend utilities to ensure accurate presentation of user-specific information.
+
+I have encountered persistent challenges related to unnecessary session creation. To address this, I optimized our route organization and refined our middleware implementation to minimize the accumulation of session data in the database. However, ongoing feature additions continue to introduce potential complications, necessitating ongoing efforts to manage session data effectively.
+
+Lastly, I dedicated resources to improving the user interface of our product pages. These enhancements aim to enhance usability and visual appeal, creating a more seamless browsing experience for future customers.
+
+Changes/progress (01/31/24)
 --------
 Complete UI overhaul on the home page, making it more responsive and adding animations with react-spring (I integrated TypeScript into my project to facilitate adding animations easier). Variant buttons on the product pages are now better and more user-friendly. Updated the home page gallery section to include links to individual prints based on the photo the user was interacting with.
 

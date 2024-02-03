@@ -7,12 +7,14 @@ const cartRoutes = require('./routes/cart');
 const indexRoutes = require('./routes/index');
 const printifyRoutes = require('./routes/printifyRoutes');
 const checkoutRoutes = require('./routes/checkout'); 
+const orderRoutes = require('./routes/orders');
 const cartModel = require("./db/models/cartModel");
+const orderModel = require("./db/models/orderModel");
 const handleStripeWebhook = require("./webhooks/stripeWebhook");
 const { v4: uuidv4 } = require('uuid');
 const MongoStore = require("connect-mongo");
 const session = require("express-session");
-const cookieParser = require("cookie-parser");
+
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -44,9 +46,11 @@ connectToDb("mongodb://127.0.0.1:27017/photoWebsite", async (err) => {
 
   // Acess 'cart' collection 
   const cartCollection = db.collection("cart");
+  const ordersCollection = db.collection("orders");
 
   // Set the collection in cartModel
   cartModel.setCollection(cartCollection);
+  orderModel.setCollection(ordersCollection)
 
   // Start the Express app
   app.listen(port, () => {
@@ -55,10 +59,19 @@ connectToDb("mongodb://127.0.0.1:27017/photoWebsite", async (err) => {
 });
 
 
-app.use(cookieParser());
+
 // webhook route
 app.use('/webhook', express.raw({ type: 'application/json' }));
 app.post("/webhook", handleStripeWebhook);
+
+
+// json Middleware
+app.use(bodyParser.json());
+
+// non session generating routes
+app.use('/api/printify/', printifyRoutes);
+app.use("/", indexRoutes);
+
 
 // Session middleware
 app.use(
@@ -77,12 +90,10 @@ app.use(
   })
 );
 
-// json Middleware
-app.use(bodyParser.json());
 
 
-// // Routes
-app.use('/api/printify', printifyRoutes);
-app.use("/", indexRoutes);
+
+// Session generating Routes
+app.use('/orders', orderRoutes);
 app.use('/cart', cartRoutes);
 app.use('/checkout', checkoutRoutes); 

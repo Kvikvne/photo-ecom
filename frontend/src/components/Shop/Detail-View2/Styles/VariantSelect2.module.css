@@ -8,7 +8,6 @@
 
 .variantBtn {
     background-color: #06151c;
-    max-width: fit-content;
     border-radius: 20px;
     font-size: clamp(1rem, 1.0774rem + 3.7936vw, .625rem);
     transition: border-radius ease .3s;
@@ -28,4 +27,11 @@
 .variantBtn.selectedVariant {
     background-color: #e1ad81;
     color: #06151c;
+}
+
+@media (max-width: 1024px) {
+    .variantBtn {
+        max-width: 140px;
+        height: 3rem;
+    }
 }

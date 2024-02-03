@@ -87,4 +87,8 @@ button {
   padding: 10px;
   width: 100%;
   margin-top: 15px;
+  box-sizing: border-box;
+  height: 3em;
+  overflow: hidden;
+  position: relative;
 }

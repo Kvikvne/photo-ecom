@@ -10,11 +10,10 @@ h4 {
 }
 
 .productCard {
-  height: fit-content;
-  max-width: 450px;
-  min-height: 450px;
-  
-  background-color: #f0ede6;
+  width: 450px;
+  height: 420px;
+
+  /* background-color: #ebe7df; */
   border-radius: 8px;
   padding: 0;
   /* -webkit-box-shadow: 0px 0px 85px 3px rgba(0, 0, 0, 0.31);
@@ -24,12 +23,13 @@ h4 {
 
 .productImg {
   width: 100%;
-  height: auto;
-  background-color: #d6d3cb;
+  height: 60%;
+  background-color: rgb(226, 223, 217);
   border-radius: 8px;
   overflow: hidden;
   display: flex;
   align-content: center;
+  animation: pulse 2.5s infinite;
 }
 
 .productImg img {
@@ -37,13 +37,17 @@ h4 {
 }
 
 .productP {
+  background-color: #e2dfd9;
   box-sizing: border-box;
-  width: 100%;
+  width: 60%;
+  height: 7%;
   color: #06151c;
   border-radius: 8px;
-  margin-top: 0;
+  margin-top: 10px;
   padding: 5px;
   overflow-y: hidden;
+  margin-left: 5px;
+  animation: pulse 2.5s infinite;
 }
 
 .productP h4 {
@@ -53,41 +57,50 @@ h4 {
 }
 
 .bottom {
-  max-height: 10%;
+  height: 40%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   color: #06151c;
   flex-wrap: wrap;
-  padding: 10px 0;
+  padding: 10px 10px;
 }
 .size {
   padding: 5px;
+  background-color: rgb(226, 223, 217);
+  width: 45%;
+  height: 20%;
+  border-radius: 8px;
+  animation: pulse 2.5s infinite;
 }
 
 .price {
-  background-color: #06151c;
+  background-color: rgb(226, 223, 217);
   padding: 5px;
   border-radius: 8px;
-  color: #f0ede6;
+  color: rgb(226, 223, 217);
   cursor: default;
   font-size: 1rem;
+  animation: pulse 2.5s infinite;
+  width: 30%;
+  height: 13%;
 }
 
-@media (max-width: 1440px) {
-  .price {
-    font-size: .8rem;
-  }
-  .size {
-    font-size: .8rem;
-  }
-}
 
-@media (max-width: 1024px) {
-  .price {
-    font-size: .8rem;
+@keyframes pulse {
+    0% {
+      transform: scale(0.95);
+      box-shadow: inset 0 0 0 0 rgba(253, 249, 241, 0.7);
+    }
+  
+    70% {
+      transform: scale(1);
+      box-shadow: inset 0 0 0 50px rgba(226, 223, 217, 0);
+    }
+  
+    100% {
+      transform: scale(0.95);
+      box-shadow: inset 0 0 0 0 rgba(226, 223, 217, 0);
+    }
   }
-  .size {
-    font-size: .8rem;
-  }
-}
+  
