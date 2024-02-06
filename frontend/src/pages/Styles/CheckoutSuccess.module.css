@@ -9,10 +9,41 @@
   overflow: hidden;
 }
 
-.content {
-
+.mainText {
+  display: flex;
+  flex-direction: column;
+}
+.orderDetails {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px 0;
+  gap: 50px;
+  border: #06151c solid 2px;
+  border-radius: 5px;
+  padding: 20px;
+  margin-top: .67em;
+  max-width: 100%;
 }
 
-.mainText {
-    font-size: 2em;
+.spacer {
+  flex-grow: 1;
+}
+
+.orderDetails span {
+  font-weight: 600;
+}
+
+.costSummary {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.costSummary h2 {
+  text-align: left;
+}
+
+.costSummary > p:last-child {
+  font-size: 1.5rem;
+  margin-top: 10px;
 }

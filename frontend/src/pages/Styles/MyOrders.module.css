@@ -1,0 +1,50 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+  color: #06151c;
+  overflow: hidden;
+  gap: 50px;
+}
+table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 1em;
+    font-family: sans-serif;
+    min-width: 60vw;
+    font-family: "Outfit", sans-serif;
+    max-height: 80vw;
+    overflow-y: scroll;
+}
+
+thead tr {
+    text-align: left;
+}
+
+th td {
+    padding: 12px 15px;
+    
+}
+tbody tr {
+    border-bottom: 1px solid #dddddd;
+    height: 100px;
+}
+
+
+
+.order {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+@media (max-width: 450px)   {
+ table {
+    width: 100%;
+    font-size: .7em;
+  
+}
+}

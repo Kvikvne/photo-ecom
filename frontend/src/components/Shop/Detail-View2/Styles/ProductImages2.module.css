@@ -1,5 +1,5 @@
 .mainImageContainer {
-  width: 350px;
+  width: 500px;
 }
 
 .mainImageContainer img {
@@ -75,9 +75,9 @@
   }
 }
 
-@media (max-width: 425px) {
+@media (max-width: 430px) {
   .mainImageContainer {
-    width: 200px;
+    width: 85vw;
   }
   .modalContent img {
     max-width: 100%;

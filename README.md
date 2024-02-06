@@ -3,7 +3,19 @@ Fully Automated E-commerce Website project
 
 (Currently a work in progress)
 
-**_Most recent changes/progress (02/02/24)_**
+
+**_Most recent changes/progress (02/05/24)_**
+--------
+Order Confirmation Page: Completed the order confirmation page with comprehensive order details after they complete a purchase.
+
+My Orders Page: Implemented a new "My Orders" page that leverages session tracking to provide users with up-to-date order information. Users can now conveniently view their current and past orders, along with tracking details. (Note: Order cancellation feature is planned for future implementation.)
+
+UI Enhancements:
+Navigation Bar Redesign: Revamped the navigation bar for improved navigation and aesthetics.
+
+User Interface Tweaks: Made several small UI adjustments to enhance the overall look and feel of the application.
+
+Changes/progress (02/02/24)
 --------
 I've recently enhanced the user experience on this project by introducing loading state indicators and adding visually appealing animations to confirm successful actions or to tell the user something is loading.
 

@@ -27,10 +27,6 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 
-app.get('/test-session', (req, res) => {
-  const sessionID = req.sessionID;
-  res.json({ sessionID });
-});
 
 let db;
 

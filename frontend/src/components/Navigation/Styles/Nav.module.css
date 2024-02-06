@@ -1,6 +1,9 @@
 a {
   text-decoration: none;
 }
+i {
+  user-select: none;
+}
 
 .navContainer {
   display: flex;
@@ -81,6 +84,28 @@ a {
   user-select: none;
 }
 
+.navRight > a {
+  margin-left: 20px;
+  
+}
+.navRight > a:first-child {
+  margin-left: 0;
+}
+
+.navRight span {
+  padding: 10px;
+  border-radius: 2px;
+  transition: background-color .8s, border-radius ease .8s;
+  user-select: none;
+}
+
+.navRight span:hover{
+  background-color: #e1ad81;
+  border-radius: 10px;
+  text-decoration: none;
+  
+}
+
 @keyframes fadeIn {
   0% {
     opacity: 0;
@@ -104,6 +129,7 @@ a {
   -moz-box-shadow: 0px 0px 59px -20px rgba(0, 0, 0, 0.75);
   box-shadow: 0px 0px 59px -20px rgba(0, 0, 0, 0.75);
   margin-top: 25px;
+  user-select: none;
 }
 
 .dropDownMenu a {
@@ -127,3 +153,5 @@ a {
     margin-left: -100px;
   }
 }
+
+

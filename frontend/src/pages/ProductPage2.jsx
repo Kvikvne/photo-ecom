@@ -5,6 +5,8 @@ import { usePrintify } from "../utilities/printifyUtils";
 import VariantSelect2 from "../components/Shop/Detail-View2/VariantSelect2";
 import ProductImages2 from "../components/Shop/Detail-View2/ProductImages2";
 import AddToCartBtn2 from "../components/Shop/Detail-View2/AddToCartBtn2";
+import SmallLoader from "../components/Loaders/SmallLoader";
+
 
 export default function ProductPage2() {
   const { productId } = useParams();
@@ -82,6 +84,7 @@ export default function ProductPage2() {
     blueprint_id: filteredProducts?.[0]?.blueprint_id,
   };
 
+  if (productInfo) {
   return (
     <div className={css.productContainer}>
       <div className={css.productCard}>
@@ -117,4 +120,11 @@ export default function ProductPage2() {
       </div>
     </div>
   );
+} else {
+  return(
+    <div className={css.productContainer}>
+      <SmallLoader />
+    </div>
+    )
+}
 }

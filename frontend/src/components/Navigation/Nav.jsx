@@ -2,49 +2,37 @@ import css from "./Styles/Nav.module.css";
 import NavCart from "./NavCart";
 import { useCartContent } from "../../utilities/cartUtils";
 import { useEffect, useState } from "react";
+import NavMenu from "./NavMenu";
 
 export default function Nav() {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
-
+  const [isScreenWidth500, setIsScreenWidth500] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const { cartContent, totalQuantity, updateCart } = useCartContent();
 
-  const updateScrollState = () => {
-    if (location.pathname !== "/") {
-      setIsScrolled(true);
-    } else {
-      setIsScrolled(false);
-    }
-  };
-
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen); // Toggle the dropdown menu state
   };
 
   const toggleCart = () => {
     setIsCartOpen(!isCartOpen);
-    updateCart()
-    
+    updateCart();
   };
 
   useEffect(() => {
-    updateScrollState();
+    function handleResize() {
+      setIsScreenWidth500(window.innerWidth < 700);
+    }
 
-    const handleScroll = () => {
-      const scrolled = window.scrollY > 0;
-      setIsScrolled(scrolled);
-    };
+    // Initial check on component mount
+    handleResize();
 
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [location.pathname]);
+    // Event listener for window resize
+    window.addEventListener("resize", handleResize);
+  }, []);
 
   return (
-    <div className={`${css.navContainer} ${isScrolled ? css.scrolled : ""}`}>
+    <div className={css.navContainer}>
       <div className={css.spacer}></div>
       <nav>
         <div className={css.icon}>
@@ -54,18 +42,32 @@ export default function Nav() {
         </div>
 
         <div className={css.navRight}>
-          <span onClick={toggleMenu} className="material-symbols-outlined">
-            menu
-          </span>
-
-          {isMenuOpen && (
-            <div className={css.dropDownMenu}>
-              <a href="/prints">Canvas Prints</a>
+          {isScreenWidth500 ? (
+            <div className={css.toggleDropdown} onClick={toggleDropdown}>
+              <span>Menu</span>
+              <i className="fa-solid fa-caret-down"></i>
+              
             </div>
+            
+          ) : (
+            <>
+              <a href="/">
+                <span>Home</span>
+              </a>
+              <a href="">
+                <span>About</span>
+              </a>
+              <a href="/prints">
+                <span>Canvas prints</span>
+              </a>
+              <a href="/my-orders">
+                <span>My orders</span>
+              </a>
+            </>
           )}
         </div>
       </nav>
-      <div className={css.spacer}></div>
+
       <div className={css.cart}>
         <i onClick={toggleCart} className="fa-solid fa-cart-shopping"></i>
         {cartContent.length > 0 && (
@@ -73,6 +75,8 @@ export default function Nav() {
         )}
         {isCartOpen && <NavCart />}
       </div>
+      <div className={css.spacer}></div>
+      {isDropdownOpen && <NavMenu />}
     </div>
   );
 }
