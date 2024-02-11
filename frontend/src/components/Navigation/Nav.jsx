@@ -54,7 +54,7 @@ export default function Nav() {
               <a href="/">
                 <span>Home</span>
               </a>
-              <a href="">
+              <a href="/about">
                 <span>About</span>
               </a>
               <a href="/prints">

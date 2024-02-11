@@ -3,6 +3,7 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  height: fit-content;
   gap: 20px;
 
 }
@@ -16,4 +17,23 @@
   width: 30vw;
   gap: 25px;
   border-radius: 8px;
+}
+@media (max-width: 1024px) {
+  .container {
+    flex-direction: column-reverse;
+  }
+  .formCard {
+    width: fit-content;
+  }
+}
+
+@media (max-width: 400px) {
+  .container {
+    margin-top: 50px;
+    
+  }
+  .formCard {
+    width: 100%;
+    padding: 0;
+  }
 }

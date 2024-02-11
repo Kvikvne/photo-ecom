@@ -8,6 +8,8 @@ import Testing from './components/Shop/Checkout/Testing';
 import ProductPage2 from './pages/ProductPage2';
 import CheckoutSuccess from './pages/CheckoutSuccess';
 import MyOrders from './pages/MyOrders';
+import Footer from './components/Home/Footer';
+import About from './pages/About';
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 
 // COLORS
@@ -27,8 +29,11 @@ function App() {
         <Route path="/checkout-shipping" element={<CheckoutPage />} />
         <Route path="/checkout-success" element={<CheckoutSuccess />} />
         <Route path="/my-orders" element={<MyOrders />} />
+        <Route path="/about" element={<About />} />
+
         <Route path="/testing" element={<Testing />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 }

@@ -22,7 +22,7 @@ export default function AddToCartBtn2({ cartInfo }) {
 
       setTimeout(() => {
         setLoading(false);
-      }, 5000);
+      }, 1500);
     } catch (error) {
       // Handle errors
       alert("Error adding product to cart:", error);

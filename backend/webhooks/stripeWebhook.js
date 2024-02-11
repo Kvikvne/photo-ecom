@@ -1,6 +1,6 @@
 const { v4: uuidv4 } = require("uuid");
 const { getDb } = require("../db/connection");
-const axios = require('axios');
+const axios = require("axios");
 
 require("dotenv").config();
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
@@ -21,41 +21,38 @@ const handleStripeWebhook = async (request, response) => {
   // Handle the event
   switch (event.type) {
     case "checkout.session.completed":
-      
       const checkoutSessionComplete = event.data.object;
-      console.log('checkoutSessionComplete: ', checkoutSessionComplete)
       const session_id = checkoutSessionComplete.id;
+
+      // Retrieve all line items from the session
       const line_items = await stripe.checkout.sessions.listLineItems(
         session_id
       );
 
-      // Extract product IDs from line items
-      const productIds = line_items.data.map((item) => item.price.product);
+      // Extract product IDs and quantities from all line items
+      const lineItemsData = line_items.data.map((item) => ({
+        price_id: item.price.id,
+        quantity: item.quantity,
+      }));
 
-      // Fetch detailed product information
+      // Fetch detailed product information for each price
       const productDetails = await Promise.all(
-        productIds.map((productId) => stripe.products.retrieve(productId))
+        lineItemsData.map((lineItem) =>
+          stripe.prices.retrieve(lineItem.price_id)
+        )
       );
 
-      // Create an order document by combining cart data and webhook payload
+      // Create an order document for each product
       const orderDocument = {
         session_id: checkoutSessionComplete.metadata.sessionId,
         external_id: uuidv4(),
-        label: productDetails[0].metadata.label,
-        line_items: [
-          {
-            sku: productDetails[0].metadata.sku,
-            quantity: line_items.data[0].quantity,
-          },
-        ],
         shipping_method: 1,
         is_printify_express: false,
         send_shipping_notification: true,
+        line_items: [],
         address_to: {
-          first_name:
-            checkoutSessionComplete.metadata.name.split(" ")[0],
-          last_name:
-            checkoutSessionComplete.metadata.name.split(" ")[1],
+          first_name: checkoutSessionComplete.metadata.name.split(" ")[0],
+          last_name: checkoutSessionComplete.metadata.name.split(" ")[1],
           email: checkoutSessionComplete.customer_details.email,
           phone: checkoutSessionComplete.customer_details.phone,
           country: checkoutSessionComplete.metadata.country,
@@ -66,21 +63,30 @@ const handleStripeWebhook = async (request, response) => {
           zip: checkoutSessionComplete.metadata.postal_code,
         },
       };
-   
 
-      // Send the order to Printify
+      // Append line items for each product
+      productDetails.forEach((product, index) => {
+        for (let i = 0; i < lineItemsData[index].quantity; i++) {
+          orderDocument.line_items.push({
+            sku: product.metadata.sku,
+            quantity: 1,
+          });
+        }
+      });
+
+
+      // Send each order to Printify and insert into MongoDB
       const printifyResponseData = await postOrderToPrintify(orderDocument);
+      await insertOrderDocument(orderDocument, printifyResponseData);
 
-        // Insert the order document into the "orders" collection
-       await insertOrderDocument(orderDocument, printifyResponseData);
 
       // Remove cart items associated with the user's session ID
-      
-      await removeCartItemsBySessionId(checkoutSessionComplete.metadata.sessionId);
+      await removeCartItemsBySessionId(
+        checkoutSessionComplete.metadata.sessionId
+      );
 
-      console.log("Order created: ", orderDocument);
+      console.log("Orders created:", orderDocument);
       break;
-
     default:
       console.log(`Unhandled event type ${event.type}`);
   }
@@ -107,7 +113,7 @@ async function insertOrderDocument(orderDocument, printifyResponseData) {
     const db = getDb();
     const collection = db.collection("orders");
     orderDocument.printifyResponse = printifyResponseData;
-    await collection.insertOne(orderDocument,);
+    await collection.insertOne(orderDocument);
     console.log("Order inserted into MongoDB");
   } catch (error) {
     console.error("Error inserting order into MongoDB:", error);
@@ -127,19 +133,16 @@ async function postOrderToPrintify(orderDocument) {
     // Make the HTTP POST request to Printify
     const printifyResponse = await axios.post(printifyEndpoint, printifyData, {
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
         Authorization: `Bearer ${PRINTIFY_TOKEN}`,
-        
       },
-      
     });
     /////// Return this value to insertOrderDocument ////////
-    
-    console.log('Order sent to Printify:', printifyResponse.data);
+
+    console.log("Order sent to Printify:", printifyResponse.data);
     return printifyResponse.data;
-    
   } catch (error) {
-    console.error('Error sending order to Printify:', error);
+    console.error("Error sending order to Printify:", error);
   }
 }
 module.exports = handleStripeWebhook;

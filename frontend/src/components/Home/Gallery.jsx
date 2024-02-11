@@ -2,75 +2,59 @@ import React, { useState } from "react";
 import GalleryModal from "./GalleryModal";
 import css from "./Styles/Gallery.module.css";
 
-const imagePaths = [
-  "./IMG_1370.jpg",
-  "./IMG_6374.jpg",
-  "./IMG_7310.JPG",
-  "./IMG_2532_COPY_EDIT.jpg",
-  "./IMG_4847.jpg",
-  "./IMG_5060.JPG",
-  "./IMG_5881.jpg",
-  "./IMG_5963.jpg",
-  "./IMG_6247.jpg",
-  "./IMG_7622.jpg",
-  "./IMG_8219.jpg",
-  "./IMG_9061.jpg",
-  "./IMG_9082.jpg",
-  "./IMG_9088.jpg",
-  "./IMG_9277.jpg",
-  "./IMG_9278.jpg",
-  "./IMG_9486.jpg",
-];
 
 const images = [
   {
-    path: "./IMG_6374.jpg",
+    path: "./IMG_6374_edit.JPG",
     id: "6573d2578f6758c6d8097283",
   },
   {
-    path: "./IMG_4847.jpg",
+    path: "./IMG_4847_edit.JPG",
     id: "65a7192d23373c467702019d",
   },
   {
-    path: "./IMG_5963.jpg",
+    path: "./IMG_5963_edit.JPG",
     id: "65a717f45c6a08ca8f0f0f3a",
   },
   {
-    path: "./IMG_6374.jpg",
-    id: "6573d2578f6758c6d8097283",
+    path: "./IMG_9088.jpg",
+    id: "65c55f164ba9341a6d081ef4",
+  },
+
+  {
+    path: "./IMG_4955_edit.JPG",
+    id: "65c55b04688e99f9a001907b",
   },
   {
-    path: "./IMG_4847.jpg",
-    id: "65a7192d23373c467702019d",
+    path: "./IMG_6247_edit.JPG",
+    id: "65c559ec511eb82d320116fa",
   },
   {
-    path: "./IMG_5963.jpg",
-    id: "65a717f45c6a08ca8f0f0f3a",
+    path: "./IMG_5868_edit.JPG",
+    id: "65c55855800827daf10c139f",
+  },
+
+  {
+    path: "./IMG_5929_edit.JPG",
+    id: "65c552364d795c018c0c9a9e",
   },
   {
-    path: "./IMG_6374.jpg",
-    id: "6573d2578f6758c6d8097283",
+    path: "./IMG_5881_edit.JPG",
+    id: "65c5508098398742140348fd",
   },
   {
-    path: "./IMG_4847.jpg",
-    id: "65a7192d23373c467702019d",
+    path: "./IMG_4847_edit.JPG",
+    id: "65c54e726a56e47eba094950",
   },
   {
-    path: "./IMG_5963.jpg",
-    id: "65a717f45c6a08ca8f0f0f3a",
+    path: "./IMG_5770_edit.JPG",
+    id: "65c556ece943e035240e3e8e",
   },
   {
-    path: "./IMG_6374.jpg",
-    id: "6573d2578f6758c6d8097283",
+    path: "./IMG_9486.jpg",
+    id: "65c55cb2833a332c6d0bc39a",
   },
-  {
-    path: "./IMG_4847.jpg",
-    id: "65a7192d23373c467702019d",
-  },
-  {
-    path: "./IMG_5963.jpg",
-    id: "65a717f45c6a08ca8f0f0f3a",
-  },
+
 ];
 
 export default function Gallery() {

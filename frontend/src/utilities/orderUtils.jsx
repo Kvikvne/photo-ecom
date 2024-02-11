@@ -23,10 +23,9 @@ export const usePrintifyOrders = () => {
 
   const fetchMongoOrders = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:3000/orders",
-        { withCredentials: true }
-      );
+      const response = await axios.get("http://localhost:3000/orders", {
+        withCredentials: true,
+      });
       setMongoOrders(response.data);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -37,5 +36,29 @@ export const usePrintifyOrders = () => {
     fetchMongoOrders();
   }, []);
 
-  return { printifyOrders, mongoOrders };
+  const cancelOrder = async (shop_order_id) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/api/printify/cancel-order",
+        { shop_order_id }, 
+        {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.error(
+        "Error in cancelOrder util:",
+        error.response ? error.response.data : error.message
+      );
+      throw error;
+    }
+  };
+  
+
+
+  return { printifyOrders, mongoOrders, cancelOrder };
 };

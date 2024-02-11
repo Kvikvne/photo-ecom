@@ -49,7 +49,7 @@ export default function Footer() {
   return (
     <div className={css.container}>
       <div className={css.title}>
-        <span class="material-symbols-outlined">handshake</span>
+        <img className={css.logo} src="./PORTFOLIO_LOGO_1.svg" alt="" />
         <p>
           If you are interested in my work please feel free to reach out via the
           links below

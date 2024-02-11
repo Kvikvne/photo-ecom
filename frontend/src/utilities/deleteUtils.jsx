@@ -2,23 +2,40 @@ import { useEffect } from "react";
 import axios from "axios";
 
 export const useDeleteProduct = () => {
-  const deleteProductRequest = async () => {
+  // const deleteProductRequest = async () => {
+  //   try {
+  //     const response = await axios.delete(
+  //       "http://localhost:3000/api/printify/products/delete-hardcoded"
+  //     );
+  //     console.log("Product deleted successfully:", response.data);
+  //   } catch (error) {
+  //     console.error(
+  //       "Error deleting product:",
+  //       error.response ? error.response.data : error.message
+  //     );
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   deleteProductRequest();
+  // }, []);
+
+  const publishProductRequest = async () => {
     try {
-      const response = await axios.delete(
-        "http://localhost:3000/api/printify/products/delete-hardcoded"
+      const response = await axios.post(
+        "http://localhost:3000/api/printify/products/publish"
       );
-      console.log("Product deleted successfully:", response.data);
+      console.log("Product published successfully:", response.data);
     } catch (error) {
       console.error(
-        "Error deleting product:",
+        "Error publishing product:",
         error.response ? error.response.data : error.message
       );
     }
   };
 
   useEffect(() => {
-    deleteProductRequest();
+    publishProductRequest();
   }, []);
-
-  return { deleteProductRequest };
+  return {  publishProductRequest };
 };

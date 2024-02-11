@@ -8,12 +8,11 @@ body {
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   justify-content: center;
   align-content: start;
-  height: 99vh;
+  height: fit-content;
+  min-height: 100vh;
   max-width: 99vw;
   margin: 0 10%;
   padding: 25px;
-  border-radius: 10px;
-  margin-bottom: 50px;
 }
 
 .container2 {
@@ -28,7 +27,6 @@ body {
   flex-direction: column;
   justify-content: flex-end;
   padding-bottom: 0;
-  height: calc(100% + 100px);
   /* background-image: url("./IMG_5881.jpg");
   background-position:  center;
   background-size: cover; */

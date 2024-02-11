@@ -92,3 +92,9 @@ button {
   overflow: hidden;
   position: relative;
 }
+
+@media (max-width: 1024px) {
+  .cartCard {
+    width: 100%;
+  }
+}

@@ -3,48 +3,109 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: fit-content;
+  min-height: calc(100vh + 100px) ;
   width: 100%;
   color: #06151c;
-  overflow: hidden;
   gap: 50px;
 }
-table {
-    border-collapse: collapse;
-    margin: 25px 0;
-    font-size: 1em;
-    font-family: sans-serif;
-    min-width: 60vw;
-    font-family: "Outfit", sans-serif;
-    max-height: 80vw;
-    overflow-y: scroll;
+
+.container p a {
+  color: #e1ad81;
 }
 
-thead tr {
-    text-align: left;
+.tableContainer {
+  max-height: 75vh;
+  overflow-y: scroll;
+  border-radius: 10px;
+  
+  
+}
+.mainTable {
+  border-collapse: collapse;
+  font-size: 1em;
+  font-family: sans-serif;
+  min-width: 60vw;
+  font-family: "Outfit", sans-serif;
+  max-height: 100%;
+  overflow: auto;
+  
+}
+
+thead {
+  border-bottom: #4d4d4d10 solid 1px;
+  height: 50px;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #4d4d4d05;
+ 
+}
+.costCol {
+  min-width: 5%;
+}
+
+tr td {
+  text-align: center;
 }
 
 th td {
-    padding: 12px 15px;
-    
+  padding: 12px 15px;
 }
 tbody tr {
-    border-bottom: 1px solid #dddddd;
-    height: 100px;
+  border-bottom: 1px solid #dddddd;
+  height: 100px;
 }
 
-
+tbody td {
+  padding: 0 10px;
+}
 
 .order {
   display: flex;
   align-items: center;
   gap: 15px;
 }
-
-@media (max-width: 450px)   {
- table {
-    width: 100%;
-    font-size: .7em;
-  
+.cancelOrderContainer {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  z-index: 999;
 }
+.cancelOrder {
+  -webkit-box-shadow: 0px 0px 100px -25px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 0px 100px -20px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 100px -20px rgba(0, 0, 0, 0.75);
+  background-color: #f0ede6;
+  width: 10vw;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.support {
+  text-align: center;
+
+  border-radius: 8px;
+}
+
+@media (max-width: 450px) {
+
+  table {
+    max-width: 100%;
+    font-size: 0.7em;
+  }
+}
+
+@media (max-width: 1024px) {
+  table {
+    width: 100%;
+    
+  }
+  .tableContainer {
+    width: 100%;
+    margin: 0 25px;
+  }
 }

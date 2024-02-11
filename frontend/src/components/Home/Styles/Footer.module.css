@@ -1,6 +1,6 @@
 .container {
   background-color: #06151c;
-  height: 100vh;
+  height: 50vh;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -10,6 +10,12 @@
   color: #fff;
   overflow-x: hidden;
 }
+
+.logo {
+  width: 10%;
+  margin-bottom: 50px;
+}
+
 .copied {
   color: #06151c;
   position: absolute;

@@ -3,8 +3,16 @@ import React from "react";
 import ProductCard from "../components/Shop/All-View/ProductCard";
 import { usePrintify } from "../utilities/printifyUtils";
 import AllLoadingState from "../components/Loaders/AllLoadingState";
+import { useDeleteProduct , } from "../utilities/deleteUtils";
 
 const ProductAll = () => {
+  // uncomment to delete a product from printify
+  // const { deleteProductRequest } = useDeleteProduct()
+  // Publish
+  // const { publishProductRequest } = useDeleteProduct()
+
+  
+
   const { printifyProducts } = usePrintify();
   const products = printifyProducts.data || [];
   
@@ -15,7 +23,7 @@ const ProductAll = () => {
       </div>
       <div className={css.container}>
         {products.length === 0 &&
-          Array.from({ length: 5 }).map((_, index) => (
+          Array.from({ length: 11 }).map((_, index) => (
             <AllLoadingState key={index} />
           ))}
 

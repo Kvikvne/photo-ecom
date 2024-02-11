@@ -58,6 +58,7 @@
   font-weight: 400;
   font-family: "Outfit", sans-serif;
 }
+
 .Gallerygrid img {
   width: 100%;
   height: auto;
@@ -66,17 +67,13 @@
   transition: transform ease 0.3s;
   cursor: pointer;
 }
-.Gallerygrid img {
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-  border-radius: 5px;
-  transition: transform ease 0.3s;
-  cursor: pointer;
-}
-/* .Gallerygrid :last-child {
+.Gallerygrid :nth-last-child(1) {
   width: 45%;
-} */
+}
+
+.Gallerygrid :nth-last-child(2) {
+  width: 45%;
+}
 
 .Gallerygrid img:hover {
   transform: scale(1.03);

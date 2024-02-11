@@ -6,14 +6,14 @@ const initiateCheckout = async (req, res) => {
     const items = req.body.items;
     const shippingCost = req.body.shippingCost;
     const deliveryData = req.body.deliveryData;
-    
     // Get sessionID from the request
     const userSessionId = req.sessionID;
     
-
+    
     // Gets product info and pushes it to the Stripe session
     let lineItems = [];
     items.forEach((item) => {
+      console.log('Item', item)
       lineItems.push({
         price: item.line_items[0].id,
         quantity: item.line_items[0].quantity,
