@@ -7,6 +7,8 @@ Fully Automated E-commerce Website project
 --------
 I've overhauled the webhook to seamlessly process orders with multiple products, eliminating the need for separate handling. This enhancement ensures that both the order confirmation page and order history page display accurate data, thanks to the improved checkout and order sending functionality. Furthermore, my API now efficiently communicates with both Stripe and Prifntify, dynamically assigning price IDs to each product SKU. This streamlines the process and removes the necessity for hard-coded values, ensuring precise tracking of costs by Stripe.
 
+Users can now cancel and track orders via the My orders page.
+
 I've also made significant improvements to session handling, switching to more robust cookies to maintain user and web app data persistence even after browser closure. Additionally, I've migrated my database to the cloud, a crucial step towards production readiness.
 
 In addition to these backend enhancements, I've implemented various UI enhancements and layout adjustments for a smoother user experience. With these upgrades in place, I'm confident that the hosted version will be fully operational by next week.
