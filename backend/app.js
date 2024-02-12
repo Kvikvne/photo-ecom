@@ -80,10 +80,10 @@ app.use(
       ttl: 14 * 24 * 60 * 60, // Session TTL in seconds (optional)
     }),
     cookie: {
-      maxAge: 30 * 24 * 60 * 60 * 1000,
-      secure: true, // Set to true if using HTTPS
+      maxAge: 30 * 24 * 60 * 60 * 1000, // Cookie expiration time in milliseconds (30 days)
+      secure: false, // Set to true if using HTTPS
       httpOnly: true,
-      sameSite: "none",
+      sameSite: "strict", // Optional: enforce strict same-site policy
     },
   })
 );
