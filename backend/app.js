@@ -19,7 +19,7 @@ const session = require("express-session");
 const app = express();
 const port = process.env.PORT || 3000;
 require("dotenv").config();
-
+app.set('trust proxy', 1);
 // Middleware
 const corsOptions = {
   origin: "https://ecom-frontend-test.onrender.com",
@@ -84,7 +84,7 @@ app.use(
       secure: true, // Set to true if using HTTPS
       httpOnly: true,
       sameSite: "none", // Optional: enforce strict same-site policy
-      domain: ".onrender.com",
+      domain: ".ecom-backend-test-ur3x.onrender.com",
     },
   })
 );
