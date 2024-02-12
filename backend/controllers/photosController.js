@@ -11,4 +11,3 @@ const getPhotosController = async (req, res) => {
 };
 
 module.exports = { getPhotosController };
-backend\db\models\photosmodel.js
