@@ -1,4 +1,4 @@
-const { getPhotos } = require('../db/models/photosModel');
+const { getPhotos } = require('../../db/models/photosModel');
 
 const getPhotosController = async (req, res) => {
   try {
@@ -11,3 +11,4 @@ const getPhotosController = async (req, res) => {
 };
 
 module.exports = { getPhotosController };
+backend\db\models\photosmodel.js
