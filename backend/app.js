@@ -83,7 +83,7 @@ app.use(
     cookie: {
       maxAge: 30 * 24 * 60 * 60 * 1000, // Cookie expiration time in milliseconds (30 days)
       secure: true, // Set to true if using HTTPS
-      httpOnly: true,
+      httpOnly: false,
       sameSite: "none", // Optional: enforce strict same-site policy
     },
   })
