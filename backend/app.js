@@ -10,7 +10,7 @@ const checkoutRoutes = require("./routes/checkout");
 const orderRoutes = require("./routes/orders");
 const cartModel = require("./db/models/cartModel");
 const orderModel = require("./db/models/orderModel");
-const stripeRoutes = require("./routes/stripe")
+const stripeRoutes = require("./routes/stripe");
 const handleStripeWebhook = require("./webhooks/stripeWebhook");
 const { v4: uuidv4 } = require("uuid");
 const MongoStore = require("connect-mongo");
@@ -65,7 +65,6 @@ app.use("/api/printify/", printifyRoutes);
 app.use("/", indexRoutes);
 app.use("/stripe", stripeRoutes);
 
-
 // Session middleware
 app.use(
   session({
@@ -81,10 +80,10 @@ app.use(
       ttl: 14 * 24 * 60 * 60, // Session TTL in seconds (optional)
     }),
     cookie: {
-      maxAge: 30 * 24 * 60 * 60 * 1000, // Cookie expiration time in milliseconds (30 days)
+      maxAge: 30 * 24 * 60 * 60 * 1000,
       secure: true, // Set to true if using HTTPS
-      httpOnly: false,
-      sameSite: "none", // Optional: enforce strict same-site policy
+      httpOnly: true,
+      sameSite: "none",
     },
   })
 );
@@ -93,4 +92,3 @@ app.use(
 app.use("/orders", orderRoutes);
 app.use("/cart", cartRoutes);
 app.use("/checkout", checkoutRoutes);
-
