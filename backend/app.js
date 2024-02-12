@@ -22,7 +22,7 @@ require("dotenv").config();
 
 // Middleware
 const corsOptions = {
-  origin: "https://ecom-frontend-test.onrender.com",
+  origin: ".onrender.com",
   credentials: true,
 };
 app.use(cors(corsOptions));
@@ -84,7 +84,7 @@ app.use(
       secure: false, // Set to true if using HTTPS
       httpOnly: true,
       sameSite: "none", // Optional: enforce strict same-site policy
-      domain: "onrender.com",
+      domain: ".onrender.com",
     },
   })
 );
