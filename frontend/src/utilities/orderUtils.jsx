@@ -8,7 +8,7 @@ export const usePrintifyOrders = () => {
   const fetchPrintifyOrders = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:3000/api/printify/orders",
+        "https://ecom-backend-test-ur3x.onrender.com/api/printify/orders",
         { withCredentials: true }
       );
       setPrintifyOrders(response.data);
@@ -23,7 +23,7 @@ export const usePrintifyOrders = () => {
 
   const fetchMongoOrders = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/orders", {
+      const response = await axios.get("https://ecom-backend-test-ur3x.onrender.com/orders", {
         withCredentials: true,
       });
       setMongoOrders(response.data);
@@ -39,7 +39,7 @@ export const usePrintifyOrders = () => {
   const cancelOrder = async (shop_order_id) => {
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/printify/cancel-order",
+        "https://ecom-backend-test-ur3x.onrender.com/api/printify/cancel-order",
         { shop_order_id }, 
         {
           withCredentials: true,

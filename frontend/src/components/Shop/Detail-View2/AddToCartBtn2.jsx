@@ -16,7 +16,7 @@ export default function AddToCartBtn2({ cartInfo }) {
     try {
       setLoading(true);
       // API endpoint to handle adding to the cart
-      await axios.post("http://localhost:3000/cart/add", cartInfo, {
+      await axios.post("https://ecom-backend-test-ur3x.onrender.com/cart/add", cartInfo, {
         withCredentials: true,
       });
 
