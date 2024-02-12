@@ -81,7 +81,7 @@ app.use(
     }),
     cookie: {
       maxAge: 30 * 24 * 60 * 60 * 1000, // Cookie expiration time in milliseconds (30 days)
-      secure: true, // Set to true if using HTTPS
+      secure: false, // Set to true if using HTTPS
       httpOnly: true,
       sameSite: "none", // Optional: enforce strict same-site policy
       domain: "https://ecom-frontend-test.onrender.com/",
