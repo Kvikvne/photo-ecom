@@ -84,7 +84,7 @@ app.use(
       secure: false, // Set to true if using HTTPS
       httpOnly: true,
       sameSite: "none", // Optional: enforce strict same-site policy
-      domain: "https://ecom-frontend-test.onrender.com/prints",
+      domain: "ecom-frontend-test.onrender.com",
     },
   })
 );
