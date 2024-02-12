@@ -2,10 +2,10 @@
 const express = require('express');
 const db = require('../db/connection');
 const router = express.Router();
-const photoController = require('../controllers/photosController')
+// const photoController = require('../controllers/photosController')
 
-// Gallery photos route
-router.get('/photos', photoController.getPhotosController);
+// // Gallery photos route
+// router.get('/photos', photoController.getPhotosController);
 
 // test route
 router.get('/', (req, res) => {
