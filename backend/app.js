@@ -22,7 +22,7 @@ require("dotenv").config();
 app.set('trust proxy', 1);
 // Middleware
 const corsOptions = {
-  origin: "https://ecom-frontend-test.onrender.com",
+  origin: "http://localhost:5173",
   credentials: true,
 };
 app.use(cors(corsOptions));
@@ -81,10 +81,10 @@ app.use(
     }),
     cookie: {
       maxAge: 30 * 24 * 60 * 60 * 1000, // Cookie expiration time in milliseconds (30 days)
-      secure: true, // Set to true if using HTTPS
+      secure: false, // Set to true if using HTTPS
       httpOnly: true,
-      sameSite: "none", // Optional: enforce strict same-site policy
-      domain: ".ecom-backend-test-ur3x.onrender.com",
+      sameSite: "strict", // Optional: enforce strict same-site policy
+      domain: "localhost",
     },
   })
 );

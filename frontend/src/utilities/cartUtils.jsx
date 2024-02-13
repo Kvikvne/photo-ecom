@@ -8,7 +8,7 @@ export const useCartContent = () => {
 
   const fetchCart = () => {
     axios
-      .get("https://ecom-backend-test-ur3x.onrender.com/cart", { withCredentials: true })
+      .get("http://localhost:3000/cart", { withCredentials: true })
       .then((response) => {
         setCartContent(response.data);
       })
@@ -19,7 +19,7 @@ export const useCartContent = () => {
 
   const deleteCartItem = async (itemId) => {
     try {
-      await axios.delete(`https://ecom-backend-test-ur3x.onrender.com/cart/remove/${itemId}`, {
+      await axios.delete(`http://localhost:3000/cart/remove/${itemId}`, {
         withCredentials: true,
       });
       // After a successful deletion, update the cart
