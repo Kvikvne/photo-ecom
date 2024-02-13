@@ -85,6 +85,7 @@ app.use(
       secure: false, // Set to true if using HTTPS
       httpOnly: true, // aaaaaaaaaah
       sameSite: "strict", // Optional: enforce strict same-site policy
+      domain: "localhost"
     },
   })
 );
