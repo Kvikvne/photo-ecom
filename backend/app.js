@@ -84,7 +84,7 @@ app.use(
       secure: true, // Set to true if using HTTPS
       httpOnly: true,
       sameSite: "none", // Optional: enforce strict same-site policy
-      domain: ".ecom-backend-test-ur3x.onrender.com",
+      domain: ".onrender.com",
     },
   })
 );
