@@ -36,7 +36,7 @@ export default function Cart() {
     // Perform an update to your backend to update the quantity
     try {
       await axios.put(
-        `https://ecom-backend-test-ur3x.onrender.com/cart/updateQuantity/${itemId}`,
+        `https://api.kvikvne.com/cart/updateQuantity/${itemId}`,
         {
           quantity: newQuantity,
         },

@@ -7,7 +7,7 @@ export const usePrintify = () => {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        "https://ecom-backend-test-ur3x.onrender.com/api/printify/products",
+        "https://api.kvikvne.com/api/printify/products",
         { withCredentials: true }
       );
       setPrintifyProducts(response.data);
@@ -23,7 +23,7 @@ export const usePrintify = () => {
   const shippingCost = async (formattedData) => {
     try {
       const response = await axios.post(
-        "https://ecom-backend-test-ur3x.onrender.com/api/printify/calculate-shipping",
+        "https://api.kvikvne.com/api/printify/calculate-shipping",
         formattedData,
         {
           withCredentials: true,

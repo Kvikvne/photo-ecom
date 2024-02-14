@@ -7,7 +7,7 @@ export const useStripe = () => {
   const itemPrice = async (sku) => {
       try {
           const response = await axios.get(
-              "https://ecom-backend-test-ur3x.onrender.com/stripe/products/search",
+              "https://api.kvikvne.com/stripe/products/search",
               {
                   params: { sku },
                   withCredentials: true,

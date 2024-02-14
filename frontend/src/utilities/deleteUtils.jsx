@@ -23,7 +23,7 @@ export const useDeleteProduct = () => {
   const publishProductRequest = async () => {
     try {
       const response = await axios.post(
-        "https://ecom-backend-test-ur3x.onrender.com/api/printify/products/publish"
+        "https://api.kvikvne.com/api/printify/products/publish"
       );
       console.log("Product published successfully:", response.data);
     } catch (error) {
