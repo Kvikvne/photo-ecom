@@ -18,6 +18,8 @@
   max-height: 75vh;
   overflow-y: scroll;
   border-radius: 10px;
+  
+  
 }
 .mainTable {
   border-collapse: collapse;
@@ -29,14 +31,7 @@
   overflow: auto;
   
 }
-.nestedTable {
-  background-color: #4d4d4d05;
-  min-width: 100%;
-}
-.nestedTable td {
-  padding: 0;
-  margin: 0;
-}
+
 thead {
   border-bottom: #4d4d4d10 solid 1px;
   height: 50px;
