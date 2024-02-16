@@ -135,7 +135,7 @@
   }
 }
 
-@media (max-width: 425px) {
+/* @media (max-width: 425px) {
   .circleIcon {
     width: 65px;
     height: 65px;
@@ -146,4 +146,35 @@
     gap: 5px;
     margin-top: 40px;
   }
+} */
+
+@media only screen 
+  and (min-device-width: 375px) 
+  and (max-device-width: 812px) 
+  and (-webkit-min-device-pixel-ratio: 3) { 
+  
+    .container {
+      background-color: #06151c;
+      height: 50svh;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      color: #fff;
+      overflow-x: hidden;
+     
+    }
+    .bottom {
+      display: flex;
+      justify-content: space-around;
+      gap: 6px;
+      margin: 40px 0;
+      max-width: 90vw;
+    }
+    .title p {
+      font-size: 1.1rem;
+    }
+    
 }

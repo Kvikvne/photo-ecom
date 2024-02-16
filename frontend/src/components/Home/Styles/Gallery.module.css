@@ -85,17 +85,30 @@
   }
 }
 
-@media (max-width: 550px) {
-  .header {
-    margin-bottom: 25px;
-    margin-left: 0;
-    margin-top: 70px;
-    flex-direction: column;
-    padding: 0;
-    gap: 5px;
-    justify-content: start;
-  }
-  .title h1 {
-    font-size: 3rem;
-  }
+
+@media only screen 
+  and (min-device-width: 375px) 
+  and (max-device-width: 812px) 
+  and (-webkit-min-device-pixel-ratio: 3) { 
+    .Gallerygrid {
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+    .header {
+      margin-bottom: 25px;
+      margin-left: 0;
+      
+      flex-direction: row;
+      padding: 0 16px;
+      gap: 5px;
+      justify-content: baseline;
+    }
+    .title h1 {
+      font-size: 3rem;
+      
+    }
+    .title {
+      margin: 0;
+      padding: 0;
+    }
+    
 }
