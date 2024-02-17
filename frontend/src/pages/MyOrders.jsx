@@ -36,11 +36,12 @@ export default function MyOrders() {
     setCancelConfirmationId(orderId);
   };
 
-  const handleCancelOrder = (orderId) => {
-    cancelOrder(orderId.toString());
+  const handleCancelOrder = async (orderId) => {
+    await cancelOrder(orderId.toString());
     setCancelConfirmationId(null);
-    // window.location.reload();
+    window.location.reload();
   };
+  
 
   if (noOrders) {
     return (
