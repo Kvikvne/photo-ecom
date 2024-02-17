@@ -52,13 +52,13 @@ connectToDb(process.env.MONGO_URI, async (err) => {
     console.log(`Server is running on port ${port}`);
   });
 });
-
+// json Middleware
+app.use(bodyParser.json());
 // webhook route
 app.use("/webhook", express.raw({ type: "application/json" }));
 app.post("/webhook", handleStripeWebhook);
 
-// json Middleware
-app.use(bodyParser.json());
+
 
 // non session generating routes
 app.use("/api/printify/", printifyRoutes);
