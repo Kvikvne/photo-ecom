@@ -39,7 +39,7 @@ export default function MyOrders() {
   const handleCancelOrder = (orderId) => {
     cancelOrder(orderId.toString());
     setCancelConfirmationId(null);
-    window.location.reload();
+    // window.location.reload();
   };
 
   if (noOrders) {
