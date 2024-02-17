@@ -55,7 +55,7 @@ connectToDb(process.env.MONGO_URI, async (err) => {
 
 // webhook route
 app.use("/webhook", express.raw({ type: "application/json" }));
-app.post("/webhook", handleStripeWebhook);
+app.post("/webhook", express.raw({type: 'application/json'}), handleStripeWebhook);
 
 // json Middleware
 app.use(bodyParser.json());
