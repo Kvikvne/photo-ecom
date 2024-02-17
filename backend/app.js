@@ -19,6 +19,7 @@ const session = require("express-session");
 const app = express();
 const port = process.env.PORT || 3000;
 require("dotenv").config();
+
 app.set('trust proxy', 1);
 // Middleware
 const corsOptions = {
@@ -54,7 +55,7 @@ connectToDb(process.env.MONGO_URI, async (err) => {
 });
 
 // webhook route
-app.use("/webhook", express.raw({ type: "application/json" }));
+// app.use("/webhook", express.raw({ type: "application/json" }));
 app.post("/webhook", express.raw({type: 'application/json'}), handleStripeWebhook);
 
 // json Middleware
