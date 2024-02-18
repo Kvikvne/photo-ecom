@@ -3,6 +3,8 @@ import css from "./Styles/Addtocartbtn2.module.css";
 import Checkmark from "../../Loaders/Checkmark";
 import { useState } from "react";
 
+const REQ_URL = import.meta.env.VITE_UTIL
+
 export default function AddToCartBtn2({ cartInfo }) {
   const [loading, setLoading] = useState(false);
 
@@ -16,7 +18,7 @@ export default function AddToCartBtn2({ cartInfo }) {
     try {
       setLoading(true);
       // API endpoint to handle adding to the cart
-      await axios.post("https://api.kvikvne.com/cart/add", cartInfo, {
+      await axios.post(`${REQ_URL}/cart/add`, cartInfo, {
         withCredentials: true,
       });
 

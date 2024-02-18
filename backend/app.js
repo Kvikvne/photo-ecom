@@ -23,7 +23,7 @@ require("dotenv").config();
 app.set('trust proxy', 1);
 // Middleware
 const corsOptions = {
-  origin: "https://www.kvikvne.com",
+  origin: process.env.CORS_ORIGIN,
   credentials: true,
 };
 app.use(cors(corsOptions));
@@ -84,8 +84,8 @@ app.use(
       maxAge: 30 * 24 * 60 * 60 * 1000, // Cookie expiration time in milliseconds (30 days)
       secure: true, // Set to true if using HTTPS
       httpOnly: true,
-      sameSite: "none", // Optional: enforce strict same-site policy
-      domain: ".kvikvne.com",
+      sameSite: process.env.SAME_SITE, // Optional: enforce strict same-site policy
+      domain: process.env.DOMAIN,
     },
   })
 );

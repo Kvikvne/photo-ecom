@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
+const REQ_URL = import.meta.env.VITE_UTIL
+
 export const usePrintifyOrders = () => {
   const [printifyOrders, setPrintifyOrders] = useState([]);
   const [mongoOrders, setMongoOrders] = useState([]);
@@ -8,7 +10,7 @@ export const usePrintifyOrders = () => {
   const fetchPrintifyOrders = async () => {
     try {
       const response = await axios.get(
-        "https://api.kvikvne.com/api/printify/orders",
+        `${REQ_URL}/api/printify/orders`,
         { withCredentials: true }
       );
       setPrintifyOrders(response.data);
@@ -23,7 +25,7 @@ export const usePrintifyOrders = () => {
 
   const fetchMongoOrders = async () => {
     try {
-      const response = await axios.get("https://api.kvikvne.com/orders", {
+      const response = await axios.get(`${REQ_URL}/orders`, {
         withCredentials: true,
       });
       setMongoOrders(response.data);
@@ -39,7 +41,7 @@ export const usePrintifyOrders = () => {
   const cancelOrder = async (shop_order_id) => {
     try {
       const response = await axios.post(
-        "https://api.kvikvne.com/api/printify/cancel-order",
+        `${REQ_URL}/api/printify/cancel-order`,
         { shop_order_id }, 
         {
           withCredentials: true,

@@ -4,6 +4,8 @@ import CartTotal from "../components/Shop/Cart/CartTotal";
 import { useCartContent } from "../utilities/cartUtils";
 import axios from "axios";
 
+const REQ_URL = import.meta.env.VITE_UTIL
+
 export default function Cart() {
   const { cartContent, total, deleteCartItem, updateCart } = useCartContent();
   const [editedQuantities, setEditedQuantities] = useState({});
@@ -36,7 +38,7 @@ export default function Cart() {
     // Perform an update to your backend to update the quantity
     try {
       await axios.put(
-        `https://api.kvikvne.com/cart/updateQuantity/${itemId}`,
+        `${REQ_URL}/cart/updateQuantity/${itemId}`,
         {
           quantity: newQuantity,
         },

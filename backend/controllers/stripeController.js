@@ -1,4 +1,4 @@
-require("dotenv").config();
+require("dotenv").config({ path: ".env.dev" });
 
 // Import necessary modules
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);

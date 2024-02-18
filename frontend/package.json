@@ -17,6 +17,7 @@
     "@types/node": "^20.11.13",
     "@use-gesture/react": "^10.3.0",
     "axios": "^1.6.0",
+    "dotenv": "^16.4.4",
     "he": "^1.2.0",
     "lodash.shuffle": "^4.2.0",
     "react": "^18.2.0",
