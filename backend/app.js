@@ -78,13 +78,13 @@ app.use(
     },
     store: MongoStore.create({
       mongoUrl: process.env.MONGO_URI,
-      ttl: 14 * 24 * 60 * 60, // Session TTL in seconds (optional)
+      ttl: 14 * 24 * 60 * 60, 
     }),
     cookie: {
-      maxAge: 30 * 24 * 60 * 60 * 1000, // Cookie expiration time in milliseconds (30 days)
-      secure: true, // Set to true if using HTTPS
+      maxAge: 30 * 24 * 60 * 60 * 1000, // 30 DAYS
+      secure: false, // SET TO TRUE BEFORE PUSHING TO PRODUCTION!!!!
       httpOnly: true,
-      sameSite: process.env.SAME_SITE, // Optional: enforce strict same-site policy
+      sameSite: process.env.SAME_SITE, 
       domain: process.env.DOMAIN,
     },
   })
