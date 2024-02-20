@@ -3,7 +3,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: fit-content;
+  min-height: 100vh;
   width: 100%;
   color: #06151c;
   overflow: hidden;
@@ -22,7 +23,7 @@
   border: #06151c solid 2px;
   border-radius: 5px;
   padding: 20px;
-  margin-top: .67em;
+  margin-top: 0.67em;
   max-width: 100%;
 }
 
@@ -46,4 +47,17 @@
 .costSummary > p:last-child {
   font-size: 1.5rem;
   margin-top: 10px;
+}
+@media only screen and (min-device-width: 360px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 3) {
+  .content{
+    width: 80%;
+    margin: 100px 0;
+  }
+  .orderDetails {
+    flex-direction: column;
+    justify-content: start;
+    align-items: baseline;
+    gap: 25px;
+  }
+
 }
