@@ -7,6 +7,7 @@ import ProductImages2 from "../components/Shop/Detail-View2/ProductImages2";
 import AddToCartBtn2 from "../components/Shop/Detail-View2/AddToCartBtn2";
 import SmallLoader from "../components/Loaders/SmallLoader";
 import { useStripe } from "../utilities/getPriceUtil";
+import BackBtn from "../components/Buttons/BackBtn";
 
 export default function ProductPage2() {
   const { productId } = useParams();
@@ -96,6 +97,7 @@ export default function ProductPage2() {
   if (productInfo) {
     return (
       <div className={css.productContainer}>
+        <BackBtn />
         <div className={css.productCard}>
           <div className={css.productImagesContainer}>
             <ProductImages2

@@ -24,12 +24,12 @@ const handleStripeWebhook = async (request, response) => {
     case "checkout.session.completed":
       const checkoutSessionComplete = event.data.object;
       const session_id = checkoutSessionComplete.id;
-
+      console.log("checkoutSessionComplete", checkoutSessionComplete)
       // Retrieve all line items from the session
       const line_items = await stripe.checkout.sessions.listLineItems(
         session_id
       );
-
+      console.log("checkoutSessionComplete", checkoutSessionComplete)
       // Extract product IDs and quantities from all line items
       const lineItemsData = line_items.data.map((item) => ({
         price_id: item.price.id,
@@ -46,6 +46,7 @@ const handleStripeWebhook = async (request, response) => {
       // Create an order document for each product
       const orderDocument = {
         session_id: checkoutSessionComplete.metadata.sessionId,
+        payment_intent: checkoutSessionComplete.payment_intent,
         external_id: uuidv4(),
         shipping_method: 1,
         is_printify_express: false,

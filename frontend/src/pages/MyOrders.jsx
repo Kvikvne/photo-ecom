@@ -8,8 +8,9 @@ export default function MyOrders() {
   const [foundIds, setFoundIds] = useState([]);
   const [filteredPrintifyData, setFilteredPrintifyData] = useState([]);
   const [cancelConfirmationId, setCancelConfirmationId] = useState(null);
-  const [canceledOrders, setCanceledOrders] = useState([]);
+  const [refundMessage, setRefundMessage] = useState(null);
   const [noOrders, setNoOrders] = useState(false);
+  const [cancelLoading, setCancelLoading] = useState(false);
 
   // find printify response id in database to match with printify api order id
   useEffect(() => {
@@ -37,11 +38,26 @@ export default function MyOrders() {
   };
 
   const handleCancelOrder = async (orderId) => {
-    await cancelOrder(orderId.toString());
+    setCancelLoading(true);
+    const mongoFilter = mongoOrders.filter(
+      (item) => item.printifyResponse.id === orderId
+    );
+
+    const paymentIntentId = mongoFilter[0].payment_intent;
+
+    const refundResponse = await cancelOrder(
+      orderId.toString(),
+      paymentIntentId.toString()
+    );
     setCancelConfirmationId(null);
-    window.location.reload();
+    setCancelLoading(false);
+    // Display refund message if available
+    if (refundResponse) {
+      setRefundMessage(
+        `Amount refunded: $${(refundResponse.refund.amount / 100).toFixed(2)}`
+      );
+    }
   };
-  
 
   if (noOrders) {
     return (
@@ -55,6 +71,25 @@ export default function MyOrders() {
     return (
       <div className={css.container}>
         <div className={css.tableContainer}>
+          {refundMessage && (
+            <div className={css.cancelSuccessContainer}>
+              <div className={css.cancelSuccess}>
+                <h3>Success</h3>
+                <h4>
+                  Order canceled <i class="fa-solid fa-circle-check"></i>
+                </h4>
+                <h4>
+                  Refund processed <i class="fa-solid fa-circle-check"></i>
+                </h4>
+                <p>{refundMessage}</p>
+                <p>
+                  It may take a few days for the money to reach your bank
+                  account.
+                </p>
+                <button onClick={() => window.location.reload()}>Ok</button>
+              </div>
+            </div>
+          )}
           <table className={css.mainTable}>
             <thead>
               <tr>
@@ -113,13 +148,13 @@ export default function MyOrders() {
                     <td className={css.costCol}>
                       {order.line_items[0].status === "canceled"
                         ? "-"
-                        : `$${order.total_shipping / 100}`}
+                        : `$${(order.total_shipping / 100).toFixed(2)}`}
                     </td>
 
                     <td className={css.costCol}>
                       {order.line_items[0].status === "canceled"
                         ? "-"
-                        : `$${totalItem}`}
+                        : `$${totalItem.toFixed(2)}`}
                     </td>
                     <td className={css.costCol}>
                       {order.line_items[0].status === "canceled"
@@ -148,16 +183,29 @@ export default function MyOrders() {
                             <div className={css.cancelOrderContainer}>
                               <div className={css.cancelOrder}>
                                 Are you sure you want to cancel this order?
-                                <button
-                                  onClick={() => handleCancelOrder(order.id)}
-                                >
-                                  Yes
-                                </button>
-                                <button
-                                  onClick={() => setCancelConfirmationId(null)}
-                                >
-                                  No
-                                </button>
+                                {cancelLoading ? (
+                                  <button>
+                                    <SmallLoader />
+                                  </button>
+                                ) : (
+                                  <>
+                                    {" "}
+                                    <button
+                                      onClick={() =>
+                                        handleCancelOrder(order.id)
+                                      }
+                                    >
+                                      Yes
+                                    </button>
+                                    <button
+                                      onClick={() =>
+                                        setCancelConfirmationId(null)
+                                      }
+                                    >
+                                      No
+                                    </button>
+                                  </>
+                                )}
                               </div>
                             </div>
                             <button
