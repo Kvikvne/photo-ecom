@@ -8,9 +8,6 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const handleStripeWebhook = async (request, response) => {
   const endpointSecret = process.env.STRIPE_ENDPOINT_SECRET;
   const sig = request.headers["stripe-signature"];
-  console.log("signature: ", sig)
-  console.log("request body: ", request.body)
-  console.log("Headers: ", request.headers);
 
   let event;
   try {

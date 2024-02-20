@@ -4,7 +4,7 @@ import { usePrintifyOrders } from "../utilities/orderUtils";
 import SmallLoader from "../components/Loaders/SmallLoader";
 
 export default function CheckoutSuccess() {
-  const { printifyOrders } = usePrintifyOrders();
+  const { printifyOrders, mongoOrders } = usePrintifyOrders();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -20,13 +20,14 @@ export default function CheckoutSuccess() {
       </div>
     );
   }
-
+ console.log(mongoOrders)
   // Find matching order from printify
-  const orderId = printifyOrders.data[0].id || "";
+  const orderId = mongoOrders[mongoOrders.length - 1].printifyResponse.id
+
   const matchingOrder = printifyOrders.data.find(
     (order) => order.id === orderId
   );
-
+  
   if (!matchingOrder) {
     return <p>Error: Order not found.</p>;
   }

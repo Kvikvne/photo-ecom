@@ -55,8 +55,8 @@ const initiateCheckout = async (req, res) => {
       ],
 
       mode: "payment",
-      success_url: "https://www.kvikvne.com/checkout-success",
-      cancel_url: "https://www.kvikvne.com/cart",
+      success_url: "http://192.168.1.104:5173/checkout-success",
+      cancel_url: "http://192.168.1.104:5173/cart",
 
 
       // Passes the shipping data collected before stripe session to the web hook
