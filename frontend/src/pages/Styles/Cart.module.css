@@ -11,7 +11,7 @@ h2 {
   align-items: center;
   height: fit-content;
   min-height: 100vh;
-  margin: 100px;
+  margin: 5% 0;
 }
 .cartCard {
   width: 60vw;
