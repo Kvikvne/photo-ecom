@@ -1,15 +1,15 @@
-const { getDb } = require('../connection');
+// const { getDb } = require('../connection');
 
-const getPhotos = async () => {
-  const db = getDb();
-  let photos = [];
+// const getPhotos = async () => {
+//   const db = getDb();
+//   let photos = [];
   
-  await db.collection('photos')
-    .find()
-    .sort({ id: 1 })
-    .forEach(photo => photos.push(photo));
+//   await db.collection('photos')
+//     .find()
+//     .sort({ id: 1 })
+//     .forEach(photo => photos.push(photo));
 
-  return photos;
-};
+//   return photos;
+// };
 
-module.exports = { getPhotos };
+// module.exports = { getPhotos };

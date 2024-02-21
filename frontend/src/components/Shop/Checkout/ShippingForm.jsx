@@ -28,7 +28,7 @@ export default function ShippingForm() {
     }));
   };
 
-  // console.log(cartContent[0]?.line_items[0].metadata.price)
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -63,12 +63,9 @@ export default function ShippingForm() {
         },
       };
 
-      
-     console.log(formattedData)
 
       // Get the shipping cost
       const shippingResponse = await shippingCost(formattedData);
-      console.log(shippingResponse)
 
       // Proceed to checkout
       await checkout(shippingResponse.standard, deliveryData);
@@ -106,7 +103,7 @@ export default function ShippingForm() {
       console.error("Error during checkout:", error);
     }
   };
-  console.log(deliveryData)
+ 
 
   return (
     <>

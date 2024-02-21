@@ -1,4 +1,4 @@
-.checkmark__circle {
+.checkmarkCircle {
   stroke-dasharray: 166;
   stroke-dashoffset: 166;
   stroke-width: 2;
@@ -21,7 +21,7 @@
     scale 0.3s ease-in-out 0.9s both;
 
 }
-.checkmark__check {
+.checkmarkCheck {
   transform-origin: 50% 50%;
   stroke-dasharray: 48;
   stroke-dashoffset: 48;

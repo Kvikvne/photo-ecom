@@ -58,19 +58,19 @@ export default function Footer() {
       <div className={css.bottom}>
         <a target="blank" href="https://www.instagram.com/kvikvne/">
           <div className={css.circleIcon}>
-            <i class="fa-brands fa-instagram"></i>
+            <i className="fa-brands fa-instagram"></i>
           </div>
         </a>
         <div className={css.spacer}></div>
         <a target="blank" href="https://www.linkedin.com/in/kvikvne/">
           <div className={css.circleIcon}>
-            <i class="fa-brands fa-linkedin"></i>
+            <i className="fa-brands fa-linkedin"></i>
           </div>
         </a>
         <div className={css.spacer}></div>
         <a target="blank" href="https://github.com/Kvikvne">
           <div className={css.circleIcon}>
-            <i class="fa-brands fa-github"></i>
+            <i className="fa-brands fa-github"></i>
           </div>
         </a>
         <div className={css.spacer}></div>

@@ -10,7 +10,7 @@ const checkoutRoutes = require("./routes/checkout");
 const orderRoutes = require("./routes/orders");
 const cartModel = require("./db/models/cartModel");
 const orderModel = require("./db/models/orderModel");
-const stripeRoutes = require("./routes/stripe")
+const stripeRoutes = require("./routes/stripe");
 const handleStripeWebhook = require("./webhooks/stripeWebhook");
 const { v4: uuidv4 } = require("uuid");
 const MongoStore = require("connect-mongo");
@@ -19,7 +19,10 @@ const session = require("express-session");
 const app = express();
 const port = process.env.PORT || 3000;
 require("dotenv").config();
+<<<<<<< HEAD
 
+=======
+>>>>>>> prod
 app.set('trust proxy', 1);
 // Middleware
 const corsOptions = {
@@ -65,7 +68,6 @@ app.use("/api/printify/", printifyRoutes);
 app.use("/", indexRoutes);
 app.use("/stripe", stripeRoutes);
 
-
 // Session middleware
 app.use(
   session({
@@ -82,10 +84,17 @@ app.use(
     }),
     cookie: {
       maxAge: 30 * 24 * 60 * 60 * 1000, // Cookie expiration time in milliseconds (30 days)
+<<<<<<< HEAD
       secure: process.env.COOKIE_SECURE, 
       httpOnly: true, // aaaaaaaaaah
       sameSite: process.env.SAME_SITE, // Optional: enforce strict same-site policy
       domain: process.env.DOMAIN
+=======
+      secure: false, // Set to true if using HTTPS
+      httpOnly: true,
+      sameSite: "strict", // Optional: enforce strict same-site policy
+      domain: "localhost",
+>>>>>>> prod
     },
   })
 );
@@ -94,4 +103,3 @@ app.use(
 app.use("/orders", orderRoutes);
 app.use("/cart", cartRoutes);
 app.use("/checkout", checkoutRoutes);
-

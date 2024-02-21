@@ -13,6 +13,8 @@ I've also made significant improvements to session handling, switching to more r
 
 In addition to these backend enhancements, I've implemented various UI enhancements and layout adjustments for a smoother user experience. With these upgrades in place, I'm confident that the hosted version will be fully operational by next week.
 
+also I am now learning setting cookies is an absolute nightmare
+
 Changes/progress (02/05/24)
 --------
 Order Confirmation Page: Completed the order confirmation page with comprehensive order details after they complete a purchase.

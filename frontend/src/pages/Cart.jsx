@@ -36,7 +36,11 @@ export default function Cart() {
     // Perform an update to your backend to update the quantity
     try {
       await axios.put(
+<<<<<<< HEAD
         `http://192.168.1.104:3000/cart/updateQuantity/${itemId}`,
+=======
+        `https://ecom-backend-test-ur3x.onrender.com/cart/updateQuantity/${itemId}`,
+>>>>>>> prod
         {
           quantity: newQuantity,
         },

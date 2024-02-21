@@ -22,7 +22,7 @@ export default function MyOrders() {
     }
   }, [mongoOrders]);
 
-// filter orders by id
+  // filter orders by id
   useEffect(() => {
     if (printifyOrders && printifyOrders.data) {
       const filteredData = printifyOrders.data.filter((item) =>
@@ -41,7 +41,6 @@ export default function MyOrders() {
     setCancelConfirmationId(null);
     window.location.reload();
   };
-  console.log(filteredPrintifyData)
 
   if (noOrders) {
     return (
@@ -70,7 +69,7 @@ export default function MyOrders() {
             <tbody>
               {/* calculate cost of each order and return elements for each order */}
               {filteredPrintifyData.map((order, index) => {
-                let totalItem = 0; 
+                let totalItem = 0;
                 order.line_items.forEach((item) => {
                   totalItem += item.metadata.price / 100;
                 });
@@ -97,9 +96,15 @@ export default function MyOrders() {
                     <td>{order.metadata.shop_order_id}</td>
                     <td>
                       {order.line_items.map((item, index) => (
-                        <table className={css.nestedTable}>
-                          {item.metadata.title}
-                          {item.metadata.variant_label} x {item.quantity}
+                        <table key={index} className={css.nestedTable}>
+                          <tbody>
+                            <tr>
+                              <td>
+                                {item.metadata.title}
+                                {item.metadata.variant_label} x {item.quantity}
+                              </td>
+                            </tr>
+                          </tbody>
                         </table>
                       ))}
                     </td>
