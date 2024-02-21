@@ -82,7 +82,7 @@ app.use(
     }),
     cookie: {
       maxAge: 30 * 24 * 60 * 60 * 1000, // 30 DAYS
-      secure: false, // SET TO TRUE BEFORE PUSHING TO PRODUCTION!!!!
+      secure: true, // SET TO TRUE BEFORE PUSHING TO PRODUCTION!!!!
       httpOnly: true,
       sameSite: process.env.SAME_SITE, 
       domain: process.env.DOMAIN,
