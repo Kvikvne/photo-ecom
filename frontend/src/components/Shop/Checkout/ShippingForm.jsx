@@ -4,6 +4,8 @@ import { useCartContent } from "../../../utilities/cartUtils";
 import { useState, useEffect } from "react";
 import SmallLoader from "../../Loaders/SmallLoader";
 
+const REQ_URL = import.meta.env.VITE_UTIL
+
 export default function ShippingForm() {
   const { shippingCost } = usePrintify();
   const { cartContent } = useCartContent();
@@ -76,7 +78,7 @@ export default function ShippingForm() {
 
   const checkout = async (shippingCost, deliveryData) => {
     try {
-      const response = await fetch("http://192.168.1.104:3000/checkout", {
+      const response = await fetch(`${REQ_URL}/checkout`, {
         withCredentials: true,
         method: "POST",
         headers: {

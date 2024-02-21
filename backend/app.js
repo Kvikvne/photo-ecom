@@ -19,10 +19,7 @@ const session = require("express-session");
 const app = express();
 const port = process.env.PORT || 3000;
 require("dotenv").config();
-<<<<<<< HEAD
 
-=======
->>>>>>> prod
 app.set('trust proxy', 1);
 // Middleware
 const corsOptions = {
@@ -58,6 +55,7 @@ connectToDb(process.env.MONGO_URI, async (err) => {
 });
 
 // webhook route
+// app.use("/webhook", express.raw({ type: "application/json" }));
 app.post("/webhook", express.raw({type: 'application/json'}), handleStripeWebhook);
 
 // json Middleware
@@ -80,21 +78,14 @@ app.use(
     },
     store: MongoStore.create({
       mongoUrl: process.env.MONGO_URI,
-      ttl: 14 * 24 * 60 * 60, // Session TTL in seconds (optional)
+      ttl: 14 * 24 * 60 * 60, 
     }),
     cookie: {
-      maxAge: 30 * 24 * 60 * 60 * 1000, // Cookie expiration time in milliseconds (30 days)
-<<<<<<< HEAD
-      secure: process.env.COOKIE_SECURE, 
-      httpOnly: true, // aaaaaaaaaah
-      sameSite: process.env.SAME_SITE, // Optional: enforce strict same-site policy
-      domain: process.env.DOMAIN
-=======
-      secure: false, // Set to true if using HTTPS
+      maxAge: 30 * 24 * 60 * 60 * 1000, // 30 DAYS
+      secure: true, // SET TO TRUE BEFORE PUSHING TO PRODUCTION!!!!
       httpOnly: true,
-      sameSite: "strict", // Optional: enforce strict same-site policy
-      domain: "localhost",
->>>>>>> prod
+      sameSite: process.env.SAME_SITE, 
+      domain: process.env.DOMAIN,
     },
   })
 );

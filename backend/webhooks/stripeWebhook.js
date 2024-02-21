@@ -8,6 +8,7 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const handleStripeWebhook = async (request, response) => {
   const endpointSecret = process.env.STRIPE_ENDPOINT_SECRET;
   const sig = request.headers["stripe-signature"];
+
   let event;
   try {
     event = stripe.webhooks.constructEvent(request.body, sig, endpointSecret);
@@ -23,12 +24,12 @@ const handleStripeWebhook = async (request, response) => {
     case "checkout.session.completed":
       const checkoutSessionComplete = event.data.object;
       const session_id = checkoutSessionComplete.id;
-      console.log("CheckoutSessionComplete: ", checkoutSessionComplete)
+      console.log("checkoutSessionComplete", checkoutSessionComplete)
       // Retrieve all line items from the session
       const line_items = await stripe.checkout.sessions.listLineItems(
         session_id
       );
-
+      console.log("checkoutSessionComplete", checkoutSessionComplete)
       // Extract product IDs and quantities from all line items
       const lineItemsData = line_items.data.map((item) => ({
         price_id: item.price.id,

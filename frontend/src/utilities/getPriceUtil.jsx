@@ -1,13 +1,15 @@
 import axios from "axios";
 import { useState } from "react"; 
 
+const REQ_URL = import.meta.env.VITE_UTIL
+
 export const useStripe = () => {
   const [priceId, setPriceId] = useState(null);
 
   const itemPrice = async (sku) => {
       try {
           const response = await axios.get(
-              "http://192.168.1.104:3000/stripe/products/search",
+              `${REQ_URL}/stripe/products/search`,
               {
                   params: { sku },
                   withCredentials: true,

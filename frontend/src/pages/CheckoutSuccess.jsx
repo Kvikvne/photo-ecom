@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
 import css from "./Styles/CheckoutSuccess.module.css";
-import { usePrintifyOrders } from "../utilities/orderUtils";
+import { usePrintifyOrders } from "../utilities/confirmUtils";
 import SmallLoader from "../components/Loaders/SmallLoader";
 
 export default function CheckoutSuccess() {
-  const { printifyOrders } = usePrintifyOrders();
+  const { printifyOrders, mongoOrders } = usePrintifyOrders();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (printifyOrders.data && printifyOrders.data.length > 0) {
-      setLoading(false);
-    }
+      if (printifyOrders.data && printifyOrders.data.length > 0) {
+        setLoading(false);
+      }
+    
   }, [printifyOrders.data]);
 
   if (loading) {
@@ -20,9 +21,9 @@ export default function CheckoutSuccess() {
       </div>
     );
   }
-
   // Find matching order from printify
-  const orderId = printifyOrders.data[0].id || "";
+  const orderId = mongoOrders[mongoOrders.length - 1].printifyResponse.id;
+
   const matchingOrder = printifyOrders.data.find(
     (order) => order.id === orderId
   );
@@ -31,24 +32,22 @@ export default function CheckoutSuccess() {
     return <p>Error: Order not found.</p>;
   }
 
-
   // Get order data
   const { metadata, line_items, total_shipping, address_to } = matchingOrder;
   const { shop_order_id } = metadata;
   const { first_name } = address_to;
   const itemShipping = total_shipping ? total_shipping / 100 : 0;
 
- 
-// calculate total price for each item in the order plus shipping cost
+  // calculate total price for each item in the order plus shipping cost
   let total = 0;
   line_items.forEach((item) => {
     const price = item.metadata.price;
-    if (typeof price === 'number') {
+    if (typeof price === "number") {
       total += price;
     }
   });
-  
-  const formattedTotal = ((total  + total_shipping) / 100).toFixed(2);
+
+  const formattedTotal = ((total + total_shipping) / 100).toFixed(2);
 
   return (
     <div className={css.container}>
@@ -67,7 +66,7 @@ export default function CheckoutSuccess() {
             {line_items.map((item, index) => (
               <p key={index}>
                 <span>
-                  {item.metadata.title} {" "} {item.metadata.variant_label}{" "} 
+                  {item.metadata.title} {item.metadata.variant_label}{" "}
                 </span>
                 ${(item.metadata.price / 100).toFixed(2)} x {item.quantity}
               </p>
@@ -75,12 +74,10 @@ export default function CheckoutSuccess() {
             <p>
               <span>Shipping:</span> ${itemShipping}
             </p>
-            
-              <p>
-              <span>Total: </span>${(formattedTotal)}
+
+            <p>
+              <span>Total: </span>${formattedTotal}
             </p>
-          
-            
           </div>
 
           <div className={css.shippingSummary}>

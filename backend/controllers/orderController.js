@@ -9,7 +9,7 @@ const getOrders = async (req, res) => {
       const orders = await orderModel.getOrders(sessionID);
       res.json(orders);
     } catch (error) {
-      console.error("Error fetching order items:", error);
+      console.error("Error fetching cart items:", error);
       res.status(500).json({ error: "Internal Server Error" });
     }
   };

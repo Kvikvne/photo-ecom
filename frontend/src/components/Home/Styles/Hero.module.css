@@ -4,7 +4,7 @@
   color: #fff;
   height: 100vh;
   width: 100%;
-  background-image: url("./IMG_6374_edit.JPG");
+  background-image: url("../IMG_6374_edit.JPG");
   background-position: bottom;
   /* background-attachment: fixed; */
   background-size: cover;
@@ -170,12 +170,35 @@
   }
 } */
 
-@media only screen 
-  and (min-device-width: 375px) 
-  and (max-device-width: 812px) 
-  and (-webkit-min-device-pixel-ratio: 3) { 
+
+  @media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 812px)
+  and (-webkit-min-device-pixel-ratio: 2) {
     .container {
       height: 100svh;
     }
-  
-  }
+    .title p {
+      font-size: 1rem;
+      margin: 0;
+    }
+    .title h1 {
+      font-size: 2.2rem;
+      margin: 0;
+    }
+    .circle {
+      width: 100px;
+      height: 100px;
+    }
+    .circle span {
+      font-weight: 200;
+      font-size: 2em;
+    }
+    .title button {
+      height: 7svh;
+      max-width: 185px;
+      border-radius: 18px;
+      font-size: 1rem;
+    }
+
+}

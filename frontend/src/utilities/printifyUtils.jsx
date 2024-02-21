@@ -1,13 +1,15 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
+const REQ_URL = import.meta.env.VITE_UTIL
+
 export const usePrintify = () => {
   const [printifyProducts, setPrintifyProducts] = useState([]);
 
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        "http://192.168.1.104:3000/api/printify/products",
+        `${REQ_URL}/api/printify/products`,
         { withCredentials: true }
       );
       setPrintifyProducts(response.data);
@@ -23,11 +25,10 @@ export const usePrintify = () => {
   const shippingCost = async (formattedData) => {
     try {
       const response = await axios.post(
-        "http://192.168.1.104:3000/api/printify/calculate-shipping",
+        `${REQ_URL}/api/printify/calculate-shipping`,
         formattedData,
         {
           withCredentials: true,
-
           headers: {
             "Content-Type": "application/json",
           },

@@ -13,7 +13,6 @@ const initiateCheckout = async (req, res) => {
     // Gets product info and pushes it to the Stripe session
     let lineItems = [];
     items.forEach((item) => {
-      console.log('Item', item)
       lineItems.push({
         price: item.line_items[0].id,
         quantity: item.line_items[0].quantity,
@@ -55,8 +54,8 @@ const initiateCheckout = async (req, res) => {
       ],
 
       mode: "payment",
-      success_url: "http://192.168.1.104:5173/checkout-success",
-      cancel_url: "http://192.168.1.104:5173/cart",
+      success_url: "https://www.kvikvne.com/checkout-success",
+      cancel_url: "https://www.kvikvne.com/cart",
 
 
       // Passes the shipping data collected before stripe session to the web hook

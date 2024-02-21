@@ -25,7 +25,7 @@ const getProducts = async () => {
 const getOrders = async () => {
   try {
     const response = await axios.get(
-      "https://api.printify.com/v1/shops/12652066//orders.json",
+      "https://api.printify.com/v1/shops/12652066/orders.json",
       {
         headers: {
           Authorization: `Bearer ${TOKEN}`,

@@ -1,14 +1,18 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
+
+
 export const useCartContent = () => {
+  const REQ_URL = import.meta.env.VITE_UTIL
   const [cartContent, setCartContent] = useState([]);
   const [total, setTotal] = useState(0);
   const [totalQuantity, setTotalQuantity] = useState(0);
-
   const fetchCart = () => {
+    console.log("REQ_URL:", REQ_URL);
+
     axios
-      .get("http://192.168.1.104:3000/cart", { withCredentials: true })
+      .get(`${REQ_URL}/cart`, { withCredentials: true })
       .then((response) => {
         setCartContent(response.data);
       })
@@ -19,7 +23,7 @@ export const useCartContent = () => {
 
   const deleteCartItem = async (itemId) => {
     try {
-      await axios.delete(`http://192.168.1.104:3000/cart/remove/${itemId}`, {
+      await axios.delete(`${REQ_URL}/cart/remove/${itemId}`, {
         withCredentials: true,
       });
       // After a successful deletion, update the cart

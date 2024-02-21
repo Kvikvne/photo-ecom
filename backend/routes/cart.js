@@ -5,7 +5,6 @@ const cartController = require("../controllers/cartController");
 
 // Middleware to check if the user has an active session
 const checkSession = (req, res, next) => {
-  console.log("route session check: ", req.sessionID)
   if (!req.session || !req.sessionID) {
     return res.status(401).json({ error: "Unauthorized - Missing session" });
   }

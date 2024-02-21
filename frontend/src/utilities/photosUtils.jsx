@@ -6,7 +6,7 @@ export const usePhotos = () => {
 
   useEffect(() => {
     axios
-      .get("http:/192.168.1.104:3000/photos", { withCredentials: true })
+      .get("https://api.kvikvne.com/photos", { withCredentials: true })
       .then((response) => setMainPhoto(response.data), {
         withCredentials: true,
       })

@@ -11,10 +11,11 @@ h2 {
   align-items: center;
   height: fit-content;
   min-height: 100vh;
+  margin: 5% 0;
 }
 .cartCard {
   width: 60vw;
-  max-height: 65vh;
+  max-height: fit-content;
   background-color: #f0ede6;
   color: #06151c;
   border-radius: 8px;

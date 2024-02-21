@@ -8,8 +8,9 @@ export default function MyOrders() {
   const [foundIds, setFoundIds] = useState([]);
   const [filteredPrintifyData, setFilteredPrintifyData] = useState([]);
   const [cancelConfirmationId, setCancelConfirmationId] = useState(null);
-  const [canceledOrders, setCanceledOrders] = useState([]);
+  const [refundMessage, setRefundMessage] = useState(null);
   const [noOrders, setNoOrders] = useState(false);
+  const [cancelLoading, setCancelLoading] = useState(false);
 
   // find printify response id in database to match with printify api order id
   useEffect(() => {
@@ -36,10 +37,26 @@ export default function MyOrders() {
     setCancelConfirmationId(orderId);
   };
 
-  const handleCancelOrder = (orderId) => {
-    cancelOrder(orderId.toString());
+  const handleCancelOrder = async (orderId) => {
+    setCancelLoading(true);
+    const mongoFilter = mongoOrders.filter(
+      (item) => item.printifyResponse.id === orderId
+    );
+
+    const paymentIntentId = mongoFilter[0].payment_intent;
+
+    const refundResponse = await cancelOrder(
+      orderId.toString(),
+      paymentIntentId.toString()
+    );
     setCancelConfirmationId(null);
-    window.location.reload();
+    setCancelLoading(false);
+    // Display refund message if available
+    if (refundResponse) {
+      setRefundMessage(
+        `Amount refunded: $${(refundResponse.refund.amount / 100).toFixed(2)}`
+      );
+    }
   };
 
   if (noOrders) {
@@ -54,6 +71,25 @@ export default function MyOrders() {
     return (
       <div className={css.container}>
         <div className={css.tableContainer}>
+          {refundMessage && (
+            <div className={css.cancelSuccessContainer}>
+              <div className={css.cancelSuccess}>
+                <h3>Success</h3>
+                <h4>
+                  Order canceled <i class="fa-solid fa-circle-check"></i>
+                </h4>
+                <h4>
+                  Refund processed <i class="fa-solid fa-circle-check"></i>
+                </h4>
+                <p>{refundMessage}</p>
+                <p>
+                  It may take a few days for the money to reach your bank
+                  account.
+                </p>
+                <button onClick={() => window.location.reload()}>Ok</button>
+              </div>
+            </div>
+          )}
           <table className={css.mainTable}>
             <thead>
               <tr>
@@ -76,7 +112,8 @@ export default function MyOrders() {
 
                 return (
                   <tr key={index}>
-                    <td>{new Date(order.created_at).toLocaleDateString()}</td>
+                    
+                    <td><h4>Date</h4>{new Date(order.created_at).toLocaleDateString()}</td>
                     <td
                       style={{
                         color:
@@ -90,16 +127,17 @@ export default function MyOrders() {
                             ? "#33b1ff"
                             : "inherit",
                       }}
-                    >
+                    ><h4>Status</h4>
                       {order.line_items[0].status}
                     </td>
-                    <td>{order.metadata.shop_order_id}</td>
+                    <td><h4>ID</h4>{order.metadata.shop_order_id}</td>
                     <td>
                       {order.line_items.map((item, index) => (
                         <table key={index} className={css.nestedTable}>
                           <tbody>
                             <tr>
                               <td>
+                                <h4>Product</h4>
                                 {item.metadata.title}
                                 {item.metadata.variant_label} x {item.quantity}
                               </td>
@@ -110,17 +148,20 @@ export default function MyOrders() {
                     </td>
 
                     <td className={css.costCol}>
+                    <h4>Shipping</h4>
                       {order.line_items[0].status === "canceled"
                         ? "-"
-                        : `$${order.total_shipping / 100}`}
+                        : `$${(order.total_shipping / 100).toFixed(2)}`}
                     </td>
 
                     <td className={css.costCol}>
+                    <h4>Items</h4>
                       {order.line_items[0].status === "canceled"
                         ? "-"
-                        : `$${totalItem}`}
+                        : `$${totalItem.toFixed(2)}`}
                     </td>
                     <td className={css.costCol}>
+                    <h4>Total</h4>
                       {order.line_items[0].status === "canceled"
                         ? "-"
                         : `$${(totalItem + order.total_shipping / 100).toFixed(
@@ -147,16 +188,29 @@ export default function MyOrders() {
                             <div className={css.cancelOrderContainer}>
                               <div className={css.cancelOrder}>
                                 Are you sure you want to cancel this order?
-                                <button
-                                  onClick={() => handleCancelOrder(order.id)}
-                                >
-                                  Yes
-                                </button>
-                                <button
-                                  onClick={() => setCancelConfirmationId(null)}
-                                >
-                                  No
-                                </button>
+                                {cancelLoading ? (
+                                  <button>
+                                    <SmallLoader />
+                                  </button>
+                                ) : (
+                                  <>
+                                    {" "}
+                                    <button
+                                      onClick={() =>
+                                        handleCancelOrder(order.id)
+                                      }
+                                    >
+                                      Yes
+                                    </button>
+                                    <button
+                                      onClick={() =>
+                                        setCancelConfirmationId(null)
+                                      }
+                                    >
+                                      No
+                                    </button>
+                                  </>
+                                )}
                               </div>
                             </div>
                             <button

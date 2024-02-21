@@ -150,7 +150,7 @@
 @media only screen and (min-device-width: 360px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 3) {
   .productContainer{
     min-height: 100svh;
-    padding: 15px;
+    padding: 0 15px;
   }
   .productInfo{
     display: flex;
