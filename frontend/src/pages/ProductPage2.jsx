@@ -15,9 +15,8 @@ export default function ProductPage2() {
   const { itemPrice } = useStripe();
   const [cartInfo, setCartInfo] = useState(null);
 
-// useMemo to make sure itemPrice remains constant unless its dependencies change
+  // useMemo to make sure itemPrice remains constant unless its dependencies change
   const itemPriceMemoized = useMemo(() => itemPrice, []);
-
 
   // Product Images logic------------------------------------
   // Filter the products array based on the productId
@@ -66,35 +65,33 @@ export default function ProductPage2() {
 
   const shippingId =
     sku === "20669326178018925650" ? "shr_1OMKyBDJK1tIdvkfeXHkLmmV" : "";
- 
-    useEffect(() => {
-      const fetchData = async () => {
-        const fetchedPriceId = await itemPriceMemoized(sku);
-        
-        setCartInfo({
-          ...cartInfo,
-          id: fetchedPriceId.data[0]?.id,
-          shipping: shippingId,
-          product_id: productId,
-          quantity: 1,
-          variant_id: selectedVariant,
-          price: price,
-          variant_label: title,
-          sku: sku,
-          img: imgSrc,
-          name: name,
-          description: description,
-          print_provider_id: filteredProducts?.[0]?.print_provider_id,
-          blueprint_id: filteredProducts?.[0]?.blueprint_id,
-        });
-      };
-  
-      if (selectedVariant) {
-        fetchData();
-      }
-  }, [selectedVariant, itemPriceMemoized]);
-  
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const fetchedPriceId = await itemPriceMemoized(sku);
+
+      setCartInfo({
+        ...cartInfo,
+        id: fetchedPriceId.data[0]?.id,
+        shipping: shippingId,
+        product_id: productId,
+        quantity: 1,
+        variant_id: selectedVariant,
+        price: price,
+        variant_label: title,
+        sku: sku,
+        img: imgSrc,
+        name: name,
+        description: description,
+        print_provider_id: filteredProducts?.[0]?.print_provider_id,
+        blueprint_id: filteredProducts?.[0]?.blueprint_id,
+      });
+    };
+
+    if (selectedVariant) {
+      fetchData();
+    }
+  }, [selectedVariant, itemPriceMemoized]);
 
   if (productInfo) {
     return (
@@ -108,13 +105,17 @@ export default function ProductPage2() {
               variantFilter={variantFilter}
             />
           </div>
-
+          <div className={css.nameMobile}>
+                <h2>{name}</h2>
+              </div>
           <div className={css.productInfo}>
-            <div className={css.name}>
-              <h2>{name}</h2>
-            </div>
-            <div className={css.description}>
-              <p>{description}</p>
+            <div className={css.itemText}>
+              <div className={css.name}>
+                <h2>{name}</h2>
+              </div>
+              <div className={css.description}>
+                <p>{description}</p>
+              </div>
             </div>
             <div className={css.bottom}>
               <div className={css.variantContainer}>

@@ -20,9 +20,10 @@ const app = express();
 const port = process.env.PORT || 3000;
 require("dotenv").config();
 
+app.set('trust proxy', 1);
 // Middleware
 const corsOptions = {
-  origin: "http://localhost:5173",
+  origin: process.env.CORS_ORIGIN,
   credentials: true,
 };
 app.use(cors(corsOptions));
@@ -54,8 +55,7 @@ connectToDb(process.env.MONGO_URI, async (err) => {
 });
 
 // webhook route
-app.use("/webhook", express.raw({ type: "application/json" }));
-app.post("/webhook", handleStripeWebhook);
+app.post("/webhook", express.raw({type: 'application/json'}), handleStripeWebhook);
 
 // json Middleware
 app.use(bodyParser.json());
@@ -82,10 +82,10 @@ app.use(
     }),
     cookie: {
       maxAge: 30 * 24 * 60 * 60 * 1000, // Cookie expiration time in milliseconds (30 days)
-      secure: false, // Set to true if using HTTPS
+      secure: process.env.COOKIE_SECURE, 
       httpOnly: true, // aaaaaaaaaah
-      sameSite: "strict", // Optional: enforce strict same-site policy
-      domain: "localhost"
+      sameSite: process.env.SAME_SITE, // Optional: enforce strict same-site policy
+      domain: process.env.DOMAIN
     },
   })
 );

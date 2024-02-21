@@ -7,7 +7,7 @@ export const useStripe = () => {
   const itemPrice = async (sku) => {
       try {
           const response = await axios.get(
-              "http://localhost:3000/stripe/products/search",
+              "http://192.168.1.104:3000/stripe/products/search",
               {
                   params: { sku },
                   withCredentials: true,

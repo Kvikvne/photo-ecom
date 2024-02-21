@@ -79,7 +79,7 @@ export default function ShippingForm() {
 
   const checkout = async (shippingCost, deliveryData) => {
     try {
-      const response = await fetch("http://localhost:3000/checkout", {
+      const response = await fetch("http://192.168.1.104:3000/checkout", {
         withCredentials: true,
         method: "POST",
         headers: {

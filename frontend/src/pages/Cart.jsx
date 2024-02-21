@@ -36,7 +36,7 @@ export default function Cart() {
     // Perform an update to your backend to update the quantity
     try {
       await axios.put(
-        `http://localhost:3000/cart/updateQuantity/${itemId}`,
+        `http://192.168.1.104:3000/cart/updateQuantity/${itemId}`,
         {
           quantity: newQuantity,
         },

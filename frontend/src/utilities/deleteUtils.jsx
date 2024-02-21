@@ -23,7 +23,7 @@ export const useDeleteProduct = () => {
   const publishProductRequest = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/printify/products/publish"
+        "http://192.168.1.104:3000/api/printify/products/publish"
       );
       console.log("Product published successfully:", response.data);
     } catch (error) {
