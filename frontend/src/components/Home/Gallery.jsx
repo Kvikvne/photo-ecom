@@ -6,15 +6,15 @@ import css from "./Styles/Gallery.module.css";
 const images = [
   {
     path: "./IMG_6374_edit.JPG",
-    id: "6573d2578f6758c6d8097283",
+    id: "65c53b0224b6d9777f0ffb58",
   },
   {
     path: "./IMG_4847_edit.JPG",
-    id: "65a7192d23373c467702019d",
+    id: "65c54e726a56e47eba094950",
   },
   {
     path: "./IMG_5963_edit.JPG",
-    id: "65a717f45c6a08ca8f0f0f3a",
+    id: "65c5535bc55f04117f02cd7b",
   },
   {
     path: "./IMG_9088.jpg",
@@ -41,10 +41,6 @@ const images = [
   {
     path: "./IMG_5881_edit.JPG",
     id: "65c5508098398742140348fd",
-  },
-  {
-    path: "./IMG_4847_edit.JPG",
-    id: "65c54e726a56e47eba094950",
   },
   {
     path: "./IMG_5770_edit.JPG",
