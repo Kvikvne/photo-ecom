@@ -1,7 +1,7 @@
 import css from "./Styles/Nav.module.css";
 import NavCart from "./NavCart";
 import { useCartContent } from "../../utilities/cartUtils";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef  } from "react";
 import NavMenu from "./NavMenu";
 
 export default function Nav() {
@@ -9,6 +9,8 @@ export default function Nav() {
   const [isScreenWidth500, setIsScreenWidth500] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const { cartContent, totalQuantity, updateCart } = useCartContent();
+  const dropdownRef = useRef(null);
+  const cartRef = useRef(null);
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen); // Toggle the dropdown menu state
@@ -29,7 +31,24 @@ export default function Nav() {
 
     // Event listener for window resize
     window.addEventListener("resize", handleResize);
+
+     // Event listener to detect clicks outside of dropdown
+     document.addEventListener("mousedown", handleClickOutside);
+
+     return () => {
+       document.removeEventListener("mousedown", handleClickOutside);
+      };
   }, []);
+
+   // Function to handle click outside of dropdown
+   const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setIsDropdownOpen(false);
+    }
+    if (cartRef.current && !cartRef.current.contains(event.target)) {
+      setIsCartOpen(false);
+    }
+  };
 
   return (
     <div className={css.navContainer}>
@@ -43,7 +62,7 @@ export default function Nav() {
 
         <div className={css.navRight}>
           {isScreenWidth500 ? (
-            <div className={css.toggleDropdown} onClick={toggleDropdown}>
+            <div ref={dropdownRef} className={css.toggleDropdown} onClick={toggleDropdown}>
               <span>Menu</span>
               <i className="fa-solid fa-caret-down"></i>
               
@@ -68,7 +87,7 @@ export default function Nav() {
         </div>
       </nav>
 
-      <div className={css.cart}>
+      <div ref={cartRef} className={css.cart}>
         <i onClick={toggleCart} className="fa-solid fa-cart-shopping"></i>
         {cartContent.length > 0 && (
           <span className={css.cartCount}>{totalQuantity}</span>

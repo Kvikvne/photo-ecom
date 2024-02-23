@@ -1,5 +1,7 @@
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
+require("dotenv").config();
+
 const initiateCheckout = async (req, res) => {
   try {
     // passed data
@@ -54,8 +56,8 @@ const initiateCheckout = async (req, res) => {
       ],
 
       mode: "payment",
-      success_url: "https://www.kvikvne.com/checkout-success",
-      cancel_url: "https://www.kvikvne.com/cart",
+      success_url: `${process.env.CORS_ORIGIN}/checkout-success`,
+      cancel_url: `${process.env.CORS_ORIGIN}/cart`,
 
 
       // Passes the shipping data collected before stripe session to the web hook
