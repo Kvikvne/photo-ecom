@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-
-
 export const useCartContent = () => {
   const REQ_URL = import.meta.env.VITE_UTIL
   const [cartContent, setCartContent] = useState([]);

@@ -1,7 +1,5 @@
 const orderModel = require('../db/models/orderModel')
 
-
-
 const getOrders = async (req, res) => {
     const sessionID = req.sessionID;
   

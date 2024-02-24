@@ -7,7 +7,6 @@ export default function CheckoutPage() {
     <div className={css.container}>
       <div className={css.formCard}>
         <ShippingForm />
-       
       </div>
       <CartView />
     </div>

@@ -30,7 +30,6 @@ function App() {
         <Route path="/checkout-success" element={<CheckoutSuccess />} />
         <Route path="/my-orders" element={<MyOrders />} />
         <Route path="/about" element={<About />} />
-
         <Route path="/testing" element={<Testing />} />
       </Routes>
       <Footer />
