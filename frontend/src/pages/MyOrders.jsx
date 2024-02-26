@@ -3,6 +3,8 @@ import { usePrintifyOrders } from "../utilities/orderUtils";
 import { useState, useEffect } from "react";
 import SmallLoader from "../components/Loaders/SmallLoader";
 
+import { Helmet } from "react-helmet";
+
 export default function MyOrders() {
   const { mongoOrders, printifyOrders, cancelOrder } = usePrintifyOrders();
   const [foundIds, setFoundIds] = useState([]);
@@ -62,6 +64,9 @@ export default function MyOrders() {
   if (noOrders) {
     return (
       <div className={css.container}>
+        <Helmet>
+          <title>Orders | KVIKVNE Photography</title>
+        </Helmet>
         <p>No orders found</p>
       </div>
     );
@@ -70,6 +75,9 @@ export default function MyOrders() {
   if (filteredPrintifyData.length > 0) {
     return (
       <div className={css.container}>
+        <Helmet>
+          <title>Orders | KVIKVNE Photography</title>
+        </Helmet>
         <div className={css.tableContainer}>
           {refundMessage && (
             <div className={css.cancelSuccessContainer}>
@@ -112,8 +120,10 @@ export default function MyOrders() {
 
                 return (
                   <tr key={index}>
-                    
-                    <td><h4>Date</h4>{new Date(order.created_at).toLocaleDateString()}</td>
+                    <td>
+                      <h4>Date</h4>
+                      {new Date(order.created_at).toLocaleDateString()}
+                    </td>
                     <td
                       style={{
                         color:
@@ -127,10 +137,14 @@ export default function MyOrders() {
                             ? "#33b1ff"
                             : "inherit",
                       }}
-                    ><h4>Status</h4>
+                    >
+                      <h4>Status</h4>
                       {order.line_items[0].status}
                     </td>
-                    <td><h4>ID</h4>{order.metadata.shop_order_id}</td>
+                    <td>
+                      <h4>ID</h4>
+                      {order.metadata.shop_order_id}
+                    </td>
                     <td>
                       {order.line_items.map((item, index) => (
                         <table key={index} className={css.nestedTable}>
@@ -148,20 +162,20 @@ export default function MyOrders() {
                     </td>
 
                     <td className={css.costCol}>
-                    <h4>Shipping</h4>
+                      <h4>Shipping</h4>
                       {order.line_items[0].status === "canceled"
                         ? "-"
                         : `$${(order.total_shipping / 100).toFixed(2)}`}
                     </td>
 
                     <td className={css.costCol}>
-                    <h4>Items</h4>
+                      <h4>Items</h4>
                       {order.line_items[0].status === "canceled"
                         ? "-"
                         : `$${totalItem.toFixed(2)}`}
                     </td>
                     <td className={css.costCol}>
-                    <h4>Total</h4>
+                      <h4>Total</h4>
                       {order.line_items[0].status === "canceled"
                         ? "-"
                         : `$${(totalItem + order.total_shipping / 100).toFixed(
@@ -248,6 +262,9 @@ export default function MyOrders() {
   } else {
     return (
       <div className={css.container}>
+        <Helmet>
+          <title>Orders | KVIKVNE Photography</title>
+        </Helmet>
         <SmallLoader />
       </div>
     );

@@ -8,6 +8,7 @@ import AddToCartBtn2 from "../components/Shop/Detail-View2/AddToCartBtn2";
 import SmallLoader from "../components/Loaders/SmallLoader";
 import { useStripe } from "../utilities/getPriceUtil";
 import BackBtn from "../components/Buttons/BackBtn";
+import { Helmet } from "react-helmet";
 
 export default function ProductPage2() {
   const { productId } = useParams();
@@ -97,6 +98,9 @@ export default function ProductPage2() {
   if (productInfo) {
     return (
       <div className={css.productContainer}>
+        <Helmet>
+          <title>{name} | KVIKVNE Photography</title>
+        </Helmet>
         <BackBtn />
         <div className={css.productCard}>
           <div className={css.productImagesContainer}>
@@ -108,8 +112,8 @@ export default function ProductPage2() {
             />
           </div>
           <div className={css.nameMobile}>
-                <h2>{name}</h2>
-              </div>
+            <h2>{name}</h2>
+          </div>
           <div className={css.productInfo}>
             <div className={css.itemText}>
               <div className={css.name}>

@@ -3,8 +3,9 @@ import React, { useEffect, useState } from "react";
 import CartTotal from "../components/Shop/Cart/CartTotal";
 import { useCartContent } from "../utilities/cartUtils";
 import axios from "axios";
+import { Helmet } from "react-helmet";
 
-const REQ_URL = import.meta.env.VITE_UTIL
+const REQ_URL = import.meta.env.VITE_UTIL;
 
 export default function Cart() {
   const { cartContent, total, deleteCartItem, updateCart } = useCartContent();
@@ -43,7 +44,7 @@ export default function Cart() {
           quantity: newQuantity,
         },
         {
-          withCredentials: true, 
+          withCredentials: true,
         }
       );
 
@@ -69,9 +70,11 @@ export default function Cart() {
     }
   };
 
-
   return (
     <div className={css.container}>
+      <Helmet>
+        <title>Cart | KVIKVNE Photography</title>
+      </Helmet>
       <div className={css.wrapper}>
         <div className={css.cartCard}>
           <div className={css.cartHeader}>
@@ -132,10 +135,7 @@ export default function Cart() {
             </div>
           )}
         </div>
-        <CartTotal
-          totalPrice={total}
-          totalQuantity={totalQuantity}
-        />
+        <CartTotal totalPrice={total} totalQuantity={totalQuantity} />
       </div>
     </div>
   );

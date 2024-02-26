@@ -1,8 +1,12 @@
 import css from "./Styles/About.module.css";
+import { Helmet } from "react-helmet";
 
 export default function About() {
   return (
     <div className={css.container}>
+      <Helmet>
+        <title>About Me | KVIKVNE Photography</title>
+      </Helmet>
       <div className={css.wrapper}>
         <div className={css.header}>
           <h1>About me</h1>

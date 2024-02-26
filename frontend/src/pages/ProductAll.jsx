@@ -3,7 +3,9 @@ import React from "react";
 import ProductCard from "../components/Shop/All-View/ProductCard";
 import { usePrintify } from "../utilities/printifyUtils";
 import AllLoadingState from "../components/Loaders/AllLoadingState";
-import { useDeleteProduct , } from "../utilities/deleteUtils";
+import { useDeleteProduct } from "../utilities/deleteUtils";
+
+import { Helmet } from "react-helmet";
 
 const ProductAll = () => {
   // uncomment to delete a product from printify
@@ -11,13 +13,15 @@ const ProductAll = () => {
   // Publish
   // const { publishProductRequest } = useDeleteProduct()
 
-  
-
   const { printifyProducts } = usePrintify();
   const products = printifyProducts.data || [];
-  
+
   return (
     <div>
+      <Helmet>
+      <title>Canvas Prints | KVIKVNE Photography</title>
+      </Helmet>
+
       <div className={css.container2}>
         <h1>Canvas Prints</h1>
       </div>

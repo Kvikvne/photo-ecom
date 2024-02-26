@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import css from "./Styles/CheckoutSuccess.module.css";
 import { usePrintifyOrders } from "../utilities/confirmUtils";
 import SmallLoader from "../components/Loaders/SmallLoader";
+import { Helmet } from "react-helmet";
 
 export default function CheckoutSuccess() {
   const { printifyOrders, mongoOrders } = usePrintifyOrders();
@@ -51,6 +52,9 @@ export default function CheckoutSuccess() {
 
   return (
     <div className={css.container}>
+      <Helmet>
+        <title>Order Success | KVIKVNE Photography</title>
+      </Helmet>
       <div className={css.content}>
         <div className={css.mainText}>
           <p>Thank you {first_name}</p>
