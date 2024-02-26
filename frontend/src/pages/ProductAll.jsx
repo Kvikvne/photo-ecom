@@ -19,7 +19,7 @@ const ProductAll = () => {
   return (
     <div>
       <Helmet>
-      <title>Canvas Prints | KVIKVNE Photography</title>
+        <title>Canvas Prints | KVIKVNE Photography</title>
       </Helmet>
 
       <div className={css.container2}>
@@ -45,6 +45,9 @@ const ProductAll = () => {
 
           return (
             <div key={index}>
+              <Helmet>
+              <meta property="og:image" content={defaultImg} />
+              </Helmet>
               <ProductCard
                 cardPhoto={defaultImg}
                 title={product.title}
