@@ -97,6 +97,7 @@ export default function ProductPage2() {
 
   if (productInfo) {
     return (
+      <div className={css.mainContainer}>
       <div className={css.productContainer}>
         <Helmet>
           <title>{name} | KVIKVNE Photography</title>
@@ -137,6 +138,7 @@ export default function ProductPage2() {
             </div>
           </div>
         </div>
+      </div>
       </div>
     );
   } else {

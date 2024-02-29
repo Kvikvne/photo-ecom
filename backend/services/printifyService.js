@@ -66,7 +66,7 @@ const publishProduct = async (product_id) => {
   try {
     const shop_id = "12652066";
     const response = await axios.post(
-      `https://api.printify.com/v1/shops/12652066/products/65c55cb2833a332c6d0bc39a/publishing_succeeded.json`, // Corrected endpoint
+      `https://api.printify.com/v1/shops/12652066/products/65c556ece943e035240e3e8e/publishing_succeeded.json`, // Corrected endpoint
       {
         "external": {
             "id": "65c54e726a56e47eba094950",

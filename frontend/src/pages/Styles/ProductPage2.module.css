@@ -1,4 +1,7 @@
-/* Container styles */
+/* .mainContainer {
+  height: 1000px;
+
+} */
 .productContainer {
   display: flex;
   justify-content: center;
@@ -6,6 +9,7 @@
   height: fit-content;
   min-height: 100vh;
   max-width: 100%;
+  
 }
 .backToShop {
   background-color: #06151c00;
@@ -28,12 +32,13 @@
   border-radius: 8px;
   box-sizing: border-box;
   padding: 3vw;
-  width: 90%;
-  max-width: 1200px;
-  max-height: 80vh;
+  width: 80%;
+  max-width: 1400px;
+
   display: flex;
   justify-content: space-around;
-  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  */
+  margin: 100px 0;
+  
 }
 
 /* Product images container styles */
