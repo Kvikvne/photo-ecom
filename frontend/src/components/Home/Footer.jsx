@@ -75,7 +75,7 @@ export default function Footer() {
         </a>
         <div className={css.spacer}></div>
         <CopyToClipboard
-          text="kaianderson9@gmail.com"
+          text="kvikvne.prints@gmail.com"
           icon={copiedIcon}
           onClick={handleCopy}
         >
