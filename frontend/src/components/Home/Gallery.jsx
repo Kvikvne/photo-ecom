@@ -77,7 +77,7 @@ export default function Gallery() {
         </div>
 
         <div className={css.btnContainer}>
-          <a href="/prints">
+          <a href="/products/Canvas">
             <button className={css.btn}>Shop prints</button>
           </a>
         </div>

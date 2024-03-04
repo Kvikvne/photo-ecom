@@ -65,6 +65,10 @@ h4 {
   padding: 5px;
 }
 
+.spacer {
+  flex-grow: 1;
+}
+
 .price {
   background-color: #06151c;
   padding: 5px;
@@ -72,6 +76,22 @@ h4 {
   color: #f0ede6;
   cursor: default;
   font-size: 1rem;
+}
+
+.categoryContainer {
+display: flex;
+gap: 8px;
+
+}
+
+
+.category {
+  /* border: solid 1px #06151c; */
+  background-color: #e9e1d9;
+  /* color: #f0ede6; */
+  border-radius: 12px;
+  padding: 2px 8px;
+  font-size: .8rem;
 }
 
 @media (max-width: 1440px) {

@@ -23,3 +23,8 @@
   .btn:hover {
     border-radius: 5px;
   }
+
+  .error {
+    color: red;
+    font-weight: 100;
+  }

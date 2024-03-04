@@ -9,8 +9,8 @@ export default function NavMenu() {
       <a href="/about">
         <span>About</span>
       </a>
-      <a href="/prints">
-        <span>Canvas prints</span>
+      <a href="/products">
+        <span>Products</span>
       </a>
       <a href="/my-orders">
         <span>My orders</span>

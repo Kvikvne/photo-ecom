@@ -22,7 +22,7 @@ export default function GalleryModal({ isOpen, onClose, imagePath, imageId }) {
             <div className={css.modalContent}>
               <img src={imagePath} alt="Modal" />
               <div className={css.btnContainer}>
-                <a href={`/prints/${imageId}`}>
+                <a href={`/products/Canvas/${imageId}`}>
                   <button>Buy this print</button>
                 </a>
               </div>

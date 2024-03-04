@@ -3,16 +3,17 @@ import css from "./Styles/Addtocartbtn2.module.css";
 import Checkmark from "../../Loaders/Checkmark";
 import { useState } from "react";
 
-const REQ_URL = import.meta.env.VITE_UTIL
+const REQ_URL = import.meta.env.VITE_UTIL;
 
 export default function AddToCartBtn2({ cartInfo }) {
   const [loading, setLoading] = useState(false);
+  const [isSelection, setIsSelection] = useState(true);
 
   const handleAddToCart = async () => {
-    if (cartInfo.sku.trim() === "") {
-      setLoading(true);
-      alert("No variant is selected. Please select a variant.");
-      setLoading(false);
+    setIsSelection(true);
+    if (cartInfo === null) {
+      setIsSelection(false);
+
       return;
     }
     try {
@@ -32,8 +33,11 @@ export default function AddToCartBtn2({ cartInfo }) {
   };
 
   return (
-    <div className={css.btn} onClick={handleAddToCart}>
-      <p>{loading ? <Checkmark /> : "Add to Cart"}</p>
-    </div>
+    <>
+      <div className={css.btn} onClick={handleAddToCart}>
+        <p>{loading ? <Checkmark /> : "Add to Cart"}</p>
+      </div>
+      {!isSelection && <p className={css.error}>please select a size</p>}
+    </>
   );
 }

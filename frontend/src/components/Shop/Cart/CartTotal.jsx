@@ -7,7 +7,7 @@ export default function CartTotal({ totalPrice, checkout, totalQuantity }) {
   const isCartEmpty = cartContent.length === 0;
   return (
     <div className={css.card}>
-      <a href="/prints">
+      <a href="/products">
         <div className={css.backToShop}>
           <p> Back to Shop</p>
         </div>

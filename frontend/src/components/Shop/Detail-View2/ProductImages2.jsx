@@ -50,7 +50,7 @@ export default function ProductImages2({
             <div className={css.mainImageContainer}>
               {/* Main photo */}
               <img
-                src={selectedImage || product.images[4].src}
+                src={selectedImage || product.images[product.images.length - 1].src}
                 alt=""
                 onClick={openModal}
               />

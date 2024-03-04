@@ -66,11 +66,11 @@ const publishProduct = async (product_id) => {
   try {
     const shop_id = "12652066";
     const response = await axios.post(
-      `https://api.printify.com/v1/shops/12652066/products/65c556ece943e035240e3e8e/publishing_succeeded.json`, // Corrected endpoint
+      `https://api.printify.com/v1/shops/12652066/products/65c53b0224b6d9777f0ffb58/publishing_succeeded.json`, // Corrected endpoint
       {
         "external": {
             "id": "65c54e726a56e47eba094950",
-            "handle": "https://example.com/path/to/product"
+            "handle": "/products/Canvas/65c53b0224b6d9777f0ffb58"
         }
     },
       {

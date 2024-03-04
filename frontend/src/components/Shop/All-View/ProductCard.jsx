@@ -8,11 +8,34 @@ export default function ProductCard({
   price,
   title,
   productId,
+  tag,
+  products,
 }) {
+  const productTypes = {
+    Decor: "Acrylic",
+    Canvas: "Canvas",
+    'iPhone Cases': "iPhone Cases",
+    'Mouse pad': 'Desk mat'
+  };
+
+
+  const getProductType = (tags) => {
+    for (const type in productTypes) {
+      if (tags.includes(type)) {
+        return productTypes[type];
+      }
+    }
+  };
+
+  // Filter products with matching names
+  const matchingProducts = products.filter(
+    (product) => product.title === title
+  );
+
   return (
     <div className={css.container}>
       <div className={css.productCard}>
-        <a href={`prints/${productId}`}>
+        <a href={`/products/${getProductType(tag) || ""}/${productId}`}>
           <div className={css.productImg}>
             <img src={cardPhoto} alt="" />
           </div>
@@ -29,8 +52,17 @@ export default function ProductCard({
             <h4>Size Range</h4>
             <p>{variant}</p>
           </div>
+          <div className={css.categoryContainer}>
+            {matchingProducts.map((item, index) => (
+              <div className={css.category}>
+                <p key={index}>
+                  {productTypes[item.tags[4]]}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
-        <CardBtn productId={productId} />
+        <CardBtn productId={productId} tag={getProductType(tag) || ""} />
       </div>
     </div>
   );

@@ -1,0 +1,45 @@
+.wrapper {
+    margin: 16px 0;
+
+}
+
+.wrapper p {
+    font-weight: 500;
+}
+
+.btnContainer {
+    display: flex;
+    gap: 15px;
+    justify-content: start;
+    flex-wrap: wrap;
+    max-width: 100%;
+}
+
+.typeBtn {
+    background-color: #06151c;
+    border-radius: 20px;
+    font-size: clamp(1rem, 1.0774rem + 3.7936vw, .625rem);
+    transition: border-radius ease .3s;
+    font-family: "Outfit", sans-serif;
+    height: 3rem;
+    width: 100%;
+    max-width: 160px;
+    color: #f0ede6;
+    border: none;
+    cursor: pointer;
+}
+
+.typeBtn:hover {
+    border-radius: 5px;
+}
+
+.active {
+    background-color: #e1ad81;
+    color: #06151c;
+    cursor: default;
+    
+}
+
+.activeA {
+    pointer-events: none;
+}

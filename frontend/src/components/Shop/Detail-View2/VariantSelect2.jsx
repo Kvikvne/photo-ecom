@@ -16,23 +16,27 @@ export default function VariantSelect2({ availibleVariants, onSelectVariant }) {
         <p>(width x height / depth)</p>
         <div className={css.btnContainer}>
           {availibleVariants && availibleVariants.length > 0
-            ? availibleVariants.map((variant, variantIndex) => (
-                <button
-                  className={`${css.variantBtn} ${
-                    selectedVariant === variant.id ? css.selectedVariant : ""
-                  }`}
-                  key={variantIndex}
-                  value={variant.id}
-                  onClick={(e) =>
-                    handleVariantSelect(variant.id, e.target.value)
-                  }
-                >
-                  {variant.title}
-                </button>
-              ))
+            ? availibleVariants
+                .slice() // Create a shallow copy to avoid mutating the original array
+                .sort((a, b) => a.price - b.price) // Sort the variants by price
+                .map((variant, variantIndex) => (
+                  <button
+                    className={`${css.variantBtn} ${
+                      selectedVariant === variant.id ? css.selectedVariant : ""
+                    }`}
+                    key={variantIndex}
+                    value={variant.id}
+                    onClick={(e) =>
+                      handleVariantSelect(variant.id, e.target.value)
+                    }
+                  >
+                    {variant.title.replace(' (Horizontal) / Glossy', "").replace(' (Vertical) / Glossy', "").replace(' / Matte', "")}
+                  </button>
+                ))
             : null}
         </div>
       </div>
     </div>
   );
+  
 }

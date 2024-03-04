@@ -10,8 +10,10 @@ import { useStripe } from "../utilities/getPriceUtil";
 import BackBtn from "../components/Buttons/BackBtn";
 import { Helmet } from "react-helmet";
 
+import PrintType from "../components/Shop/Detail-View2/PrintType";
+
 export default function ProductPage2() {
-  const { productId } = useParams();
+  const { productId, tag } = useParams();
   const { printifyProducts } = usePrintify();
   const [selectedVariant, setSelectedVariant] = useState(null);
   const { itemPrice } = useStripe();
@@ -83,7 +85,7 @@ export default function ProductPage2() {
         variant_label: title,
         sku: sku,
         img: imgSrc,
-        name: name,
+        name: name + " " + tag,
         description: description,
         print_provider_id: filteredProducts?.[0]?.print_provider_id,
         blueprint_id: filteredProducts?.[0]?.blueprint_id,
@@ -95,50 +97,59 @@ export default function ProductPage2() {
     }
   }, [selectedVariant, itemPriceMemoized]);
 
+
   if (productInfo) {
     return (
       <div className={css.mainContainer}>
-      <div className={css.productContainer}>
-        <Helmet>
-          <title>{name} | KVIKVNE Photography</title>
-        </Helmet>
-        <BackBtn />
-        <div className={css.productCard}>
-          <div className={css.productImagesContainer}>
-            <ProductImages2
-              productId={productId}
-              filteredProducts={filteredProducts}
-              availibleImages={availibleImages}
-              variantFilter={variantFilter}
-            />
-          </div>
-          <div className={css.nameMobile}>
-            <h2>{name}</h2>
-          </div>
-          <div className={css.productInfo}>
-            <div className={css.itemText}>
-              <div className={css.name}>
-                <h2>{name}</h2>
-              </div>
-              <div className={css.description}>
-                <p>{description}</p>
-              </div>
+        <div className={css.productContainer}>
+          <Helmet>
+            <title>{name} | KVIKVNE Photography</title>
+          </Helmet>
+          <BackBtn />
+          <div className={css.productCard}>
+            <div className={css.productImagesContainer}>
+              <ProductImages2
+                productId={productId}
+                filteredProducts={filteredProducts}
+                availibleImages={availibleImages}
+                variantFilter={variantFilter}
+              />
             </div>
-            <div className={css.bottom}>
-              <div className={css.variantContainer}>
-                <VariantSelect2
-                  onSelectVariant={(variant) => setSelectedVariant(variant)}
-                  availibleVariants={availibleVariants}
-                />
+            <div className={css.nameMobile}>
+              <h2>{name}</h2>
+            </div>
+            <div className={css.productInfo}>
+              <div className={css.itemText}>
+                <div className={css.name}>
+                  <h2>
+                    {name} {tag}
+                  </h2>
+                </div>
+                <div className={css.description}>
+                  <p>{description}</p>
+                </div>
               </div>
-              <div className={css.addToCart}>
-                <p>${price}</p>
-                <AddToCartBtn2 cartInfo={cartInfo} />
+              <div className={css.bottom}>
+                {(tag === "Canvas" || tag === "Acrylic") && (
+                  <div>
+                    <PrintType products={printifyProducts} name={name} />
+                  </div>
+                )}
+
+                <div className={css.variantContainer}>
+                  <VariantSelect2
+                    onSelectVariant={(variant) => setSelectedVariant(variant)}
+                    availibleVariants={availibleVariants}
+                  />
+                </div>
+                <div className={css.addToCart}>
+                  <p>${price}</p>
+                  <AddToCartBtn2 cartInfo={cartInfo} />
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
       </div>
     );
   } else {

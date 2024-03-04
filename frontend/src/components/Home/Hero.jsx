@@ -41,7 +41,7 @@ export default function Hero() {
               unique stories preserved in each print.
             </p>
           </div>
-          <a href="/prints">
+          <a href="/products">
             <button>Shop prints</button>
           </a>
         </Trail>

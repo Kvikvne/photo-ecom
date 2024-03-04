@@ -10,6 +10,7 @@ import CheckoutSuccess from "./pages/CheckoutSuccess";
 import MyOrders from "./pages/MyOrders";
 import Footer from "./components/Home/Footer";
 import About from "./pages/About";
+import ProductMain from "./pages/ProductMain";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 // COLORS
@@ -23,8 +24,9 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/cart" element={<Cart />} />
-          <Route path="/prints" element={<ProductAll />} />
-          <Route path="/prints/:productId" element={<ProductPage2 />} />
+          <Route path="/products" element={<ProductMain />} />
+          <Route path="/products/:tag" element={<ProductAll />} />
+          <Route path="/products/:tag/:productId" element={<ProductPage2 />} />
           <Route path="/checkout-shipping" element={<CheckoutPage />} />
           <Route path="/checkout-success" element={<CheckoutSuccess />} />
           <Route path="/my-orders" element={<MyOrders />} />
