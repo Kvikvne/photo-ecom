@@ -17,7 +17,7 @@ export default function ProductMain() {
   // Utility to publish products
   //-----------------------------
   // to change product id go to the printify services controller
-  const { publishProductRequest } = useDeleteProduct()
+  // const { publishProductRequest } = useDeleteProduct()
   //------------------------------------------------------------
 
   // Define product types with their corresponding display names
