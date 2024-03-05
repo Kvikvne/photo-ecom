@@ -1,5 +1,12 @@
 import css from "./Styles/Footer.module.css";
+import styles from "./Styles/Footer2.module.css";
 import React, { useRef, useState } from "react";
+import axios from 'axios';
+import Checkmark from "../Loaders/Checkmark";
+
+const REQ_URL = import.meta.env.VITE_UTIL
+
+
 
 const CopyToClipboard = ({ text, children, icon }) => {
   const textRef = useRef(null);
@@ -40,52 +47,126 @@ const CopyToClipboard = ({ text, children, icon }) => {
 
 export default function Footer() {
   const [copiedIcon, setCopiedIcon] = useState("fa-solid fa-envelope");
+  const [email, setEmail] = useState('');
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState(false);
 
   const handleCopy = () => {
     setCopiedIcon("fa-regular fa-check-circle"); // Change the icon to a checkmark when copied
     setTimeout(() => setCopiedIcon("fa-solid fa-envelope"), 2000); // Reset the icon after a short delay
   };
 
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
+  };
+
+  const handleEmailSubmit = () => {
+
+    // Data to be sent in the request body
+    const data = {
+        email: email 
+    };
+
+    // Making a POST request to the backend
+    axios.post(`${REQ_URL}/subscribe`, data)
+        .then(response => {
+          setSubmitSuccess(true);
+            
+        })
+        .catch(error => {
+            console.error('Error submitting email:', error);
+           setSubmitError(true)
+        });
+};
+
   return (
-    <div className={css.container}>
-      <div className={css.title}>
-        <img className={css.logo} src="./PORTFOLIO_LOGO_1.svg" alt="" />
-        <p>
-          If you are interested in my work please feel free to reach out via the
-          links below
-        </p>
+    <div>
+      <div className={styles.container}>
+        <div className={styles.left}>
+          <div className={styles.leftBox}>
+            <div className={styles.logo}>
+              <img src="./PORTFOLIO_LOGO_1.svg" alt="" />
+            </div>
+            <div className={styles.socials}>
+              <a target="blank" href="https://www.instagram.com/kvikvne/">
+                <div className={styles.circleIcon}>
+                  <i className="fa-brands fa-instagram"></i>
+                </div>
+              </a>
+              <a target="blank" href="https://www.linkedin.com/in/kvikvne/">
+                <div className={styles.circleIcon}>
+                  <i className="fa-brands fa-linkedin"></i>
+                </div>
+              </a>
+              <a target="blank" href="https://github.com/Kvikvne">
+                <div className={styles.circleIcon}>
+                  <i className="fa-brands fa-github"></i>
+                </div>
+              </a>
+              <CopyToClipboard
+                text="kvikvne.prints@gmail.com"
+                icon={copiedIcon}
+                onClick={handleCopy}
+              >
+                <div className={styles.circleIcon}>
+                  <i className={`fa-solid ${copiedIcon}`}></i>
+                </div>
+              </CopyToClipboard>
+            </div>
+            <div className={styles.links}>
+              <ul>
+                <h4>About</h4>
+                <li>
+                  <a href="/about">My Story</a>
+                </li>
+                <li>
+                  <a href="#">Terms</a>
+                </li>
+                <li>
+                  <a href="#">Order Policy</a>
+                </li>
+              </ul>
+              <ul>
+                <h4>Help</h4>
+                <li>
+                  <a href="#">Contact me</a>
+                </li>
+                <li>
+                  <a href="#">FAQ</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div className={styles.right}>
+          <div className={styles.email}>
+            <h4>Keep up with the latest releases</h4>
+            <p>
+              I will continue to design and add new items to my collection so
+              you dont want to miss out!
+            </p>
+            <div className={styles.inputBox}>
+              <input
+                required
+                onChange={handleEmailChange}
+                name="email"
+                value={email}
+                type="text"
+                
+              />
+              <button onClick={handleEmailSubmit} className={styles.subBtn}>
+                 {submitSuccess ? <Checkmark />:"Subscribe"}
+              </button>
+              <p>{submitError && "You have already subscribed"}</p>
+              <span>Email</span>
+            </div>
+          </div>
+        </div>
       </div>
-      <div className={css.bottom}>
-        <a target="blank" href="https://www.instagram.com/kvikvne/">
-          <div className={css.circleIcon}>
-            <i className="fa-brands fa-instagram"></i>
-          </div>
-        </a>
-        <div className={css.spacer}></div>
-        <a target="blank" href="https://www.linkedin.com/in/kvikvne/">
-          <div className={css.circleIcon}>
-            <i className="fa-brands fa-linkedin"></i>
-          </div>
-        </a>
-        <div className={css.spacer}></div>
-        <a target="blank" href="https://github.com/Kvikvne">
-          <div className={css.circleIcon}>
-            <i className="fa-brands fa-github"></i>
-          </div>
-        </a>
-        <div className={css.spacer}></div>
-        <CopyToClipboard
-          text="kvikvne.prints@gmail.com"
-          icon={copiedIcon}
-          onClick={handleCopy}
-        >
-          <div onClick={handleCopy} className={css.circleIcon}>
-            <i className={`fa-solid ${copiedIcon}`}></i>
-          </div>
-        </CopyToClipboard>
-      </div>
-      <div className={css.copyright}>
-        <p>&copy; 2023 Photography By Kai. All rights reserved.</p>
+      <div className={styles.middle}>
+        <div className={styles.copyright}>
+          <p>&copy; 2024 KVIKVNE. All rights reserved.</p>
+        </div>
       </div>
     </div>
   );

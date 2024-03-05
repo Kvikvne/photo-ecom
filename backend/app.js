@@ -8,6 +8,7 @@ const indexRoutes = require("./routes/index");
 const printifyRoutes = require("./routes/printifyRoutes");
 const checkoutRoutes = require("./routes/checkout");
 const orderRoutes = require("./routes/orders");
+const emailSub = require("./routes/emailSub");
 const cartModel = require("./db/models/cartModel");
 const orderModel = require("./db/models/orderModel");
 const stripeRoutes = require("./routes/stripe");
@@ -40,6 +41,7 @@ connectToDb(process.env.MONGO_URI, async (err) => {
   // Get the database instance
   db = getDb();
 
+ 
   // Acess 'cart' collection
   const cartCollection = db.collection("cart");
   const ordersCollection = db.collection("orders");
@@ -64,6 +66,7 @@ app.use(bodyParser.json());
 // non session generating routes
 app.use("/api/printify/", printifyRoutes);
 app.use("/", indexRoutes);
+app.use("/", emailSub);
 app.use("/stripe", stripeRoutes);
 
 // Session middleware

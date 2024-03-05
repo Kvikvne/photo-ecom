@@ -1,0 +1,184 @@
+.container {
+  background-color: #06151c;
+  padding: 25px 200px;
+  display: flex;
+}
+
+.left {
+  height: 100%;
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto 0;
+}
+.leftBox{
+    width: 100%;
+}
+
+.logo {
+  display: flex;
+  justify-content: start;
+}
+
+.logo img {
+  width: 15%;
+}
+
+.socials {
+  width: 25%;
+  padding: 12px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.circleIcon i {
+  font-size: 2rem;
+}
+.links {
+  padding: 12px;
+  display: flex;
+  justify-content: space-between;
+  width: 25%;
+}
+.links h4 {
+  font-size: 1.2rem;
+  color: white;
+}
+
+.links ul {
+  margin: 0;
+  padding: 0;
+}
+
+.links ul li {
+  text-decoration: none;
+  list-style: none;
+  padding: 6px 0;
+}
+
+.links ul li a {
+  color: #4d4d4d;
+}
+
+.middle {
+  background-color: #06151c;
+}
+
+.right {
+  height: 100%;
+  width: 50%;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px;
+  margin: auto 0;
+}
+.email {
+  max-width: 350px;
+}
+.email p {
+  margin-bottom: 12px;
+}
+
+.email h4 {
+  margin-bottom: 12px;
+  font-size: 1.2rem;
+}
+.subBtn {
+  background-color: transparent;
+  border: #f0ede6 solid 1px;
+}
+
+.subBtn:hover {
+  color: #06151c;
+  background-color: #f0ede6;
+}
+
+.copyright {
+  color: #4d4d4d;
+  text-align: center;
+}
+
+.inputBox {
+  position: relative;
+  box-sizing: border-box;
+}
+
+.inputBox input {
+  width: calc(100% - 23px);
+  padding: 10px;
+  background-color: #f0ede6;
+  border: solid #06151c4d 1px;
+  border-radius: 4px;
+  outline: none;
+  transition: 0.5s;
+  font-size: 1em;
+  font-weight: 400;
+}
+
+.inputBox span {
+  position: absolute;
+  left: 0;
+  top: 0;
+  padding: 10px;
+  pointer-events: none;
+  font-size: 1em;
+  color: #06151c;
+  transition: 0.2s ease-in-out;
+}
+
+.inputBox input:focus ~ span,
+.inputBox input:valid ~ span {
+  transform: translateX(10px) translateY(-9px);
+  font-size: 0.85em;
+  padding: 0 2px;
+  background: #f0ede6;
+  letter-spacing: 0.1em;
+  border-radius: 4px;
+}
+
+.inputBox input:focus {
+  border: solid #06151c 1px;
+}
+
+@media (max-width: 1024px) {
+    .logo img {
+      width: 25%;
+    }
+    .circleIcon i {
+      font-size: 1.5rem;
+    }
+  
+    .links {
+      
+      width: 40%;
+    }
+    .socials {
+      width: 40%;
+    }
+    .container {
+   
+        padding: 25px;
+        
+      }
+  }
+
+@media (max-width: 600px) {
+  .logo img {
+    width: 35%;
+  }
+  .circleIcon i {
+    font-size: 1.5rem;
+  }
+
+  .links {
+    
+    width: 80%;
+  }
+  .socials {
+    width: 80%;
+  }
+ 
+}
