@@ -2,6 +2,7 @@ import css from "./Styles/ProductMain.module.css";
 import { usePrintify } from "../utilities/printifyUtils";
 import { useDeleteProduct } from "../utilities/deleteUtils";
 import AllLoadingState from "../components/Loaders/AllLoadingState";
+import { Helmet } from "react-helmet";
 
 // Define the available product types
 const TAGS = ["Canvas", "Accessories"];
@@ -35,6 +36,10 @@ export default function ProductMain() {
 
   return (
     <div className={css.wrapper}>
+      {/* Helmet for setting page title */}
+      <Helmet>
+        <title>Shop | KVIKVNE Photography</title>
+      </Helmet>
       <div className={css.header}>
         {/* Main heading */}
         <h1>Shop</h1>
