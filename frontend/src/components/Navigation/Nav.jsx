@@ -42,7 +42,11 @@ export default function Nav() {
 
    // Function to handle click outside of dropdown
    const handleClickOutside = (event) => {
-    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+    if (
+      dropdownRef.current &&
+      !dropdownRef.current.contains(event.target) &&
+      !event.target.closest('a')
+    ) {
       setIsDropdownOpen(false);
     }
     if (cartRef.current && !cartRef.current.contains(event.target)) {

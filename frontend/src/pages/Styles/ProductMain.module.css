@@ -41,3 +41,18 @@
   max-width: 100%;
   border-radius: 8px;
 }
+
+@media only screen 
+  and (min-device-width: 375px) 
+  and (max-device-width: 812px) 
+  and (-webkit-min-device-pixel-ratio: 3) { 
+  
+    .container {
+      width: 90%;
+    }
+    
+    .header {
+      width: 90%;
+    }
+  
+  }

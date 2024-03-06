@@ -1,8 +1,8 @@
 .wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 100px;
 }
 
 .container {
@@ -79,19 +79,19 @@
 }
 
 .inputAttach {
-    position: relative;
-    box-sizing: border-box;
+  position: relative;
+  box-sizing: border-box;
 }
 
 .inputAttach input {
-    width: calc(100% - 23px);
-    padding: 10px;
-    background-color: transparent;
-    outline: none;
-    transition: 0.5s;
-    font-size: 1em;
-    font-weight: 400;
-  }
+  width: calc(100% - 23px);
+  padding: 10px;
+  background-color: transparent;
+  outline: none;
+  transition: 0.5s;
+  font-size: 1em;
+  font-weight: 400;
+}
 
 .inputBox input:focus ~ span,
 .inputBox input:valid ~ span,
@@ -145,7 +145,7 @@ button {
   margin-top: 12px;
 }
 
-.disclaimer p a{
+.disclaimer p a {
   color: #e1ad81;
 }
 
@@ -156,9 +156,22 @@ button {
   align-items: center;
 }
 
-
 @media (max-width: 1024px) {
   .cartCard {
     width: 100%;
   }
+}
+
+@media only screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 3) {
+  .form {
+    background-color: #f0ede6;
+    width: 350px;
+    border-radius: 8px;
+    box-sizing: border-box;
+  }
+
+  .wrapper {
+    margin-top: 50px;
+  }
+  
 }

@@ -113,4 +113,9 @@ body {
       margin: 0 0%;
       padding: 16px;
     }
+    .container2 p {
+      font-size: 1.1rem;
+      width: 100%;
+      text-align: center;  
+    }
 }
