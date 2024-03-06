@@ -161,7 +161,8 @@ and (min-device-width: 320px)
 and (max-device-width: 812px)
 and (-webkit-min-device-pixel-ratio: 2) {
   .container {
-    height: 100svh;
+    height: 130svh;
+
   }
   .wrapper {
     margin-left: 0;

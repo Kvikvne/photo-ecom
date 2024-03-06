@@ -2,18 +2,20 @@ import React from "react";
 import css from "./Styles/Featured.module.css";
 import Arrow from "./Arrow";
 import Masonry from "./Masonry";
+import Slide from "./Slide";
 
 export default function Featured() {
   return (
     <div id="featured" className={css.container}>
       <div className={css.wrapper}>
         <div className={css.title}>
-          <p>One of my favorites.</p>
+          <p>My favorites.</p>
           <h1>Inspire through Imagery</h1>
         </div>
-        <div className={css.image}>
+        {/* <div className={css.image}>
           <img src="./IMG_9088.jpg" alt="" />
-        </div>
+        </div> */}
+        <Slide />
         <div className={css.description}>
           <p>
             Photography is the art of capturing moments, emotions, and the
