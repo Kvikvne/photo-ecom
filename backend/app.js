@@ -17,6 +17,8 @@ const { v4: uuidv4 } = require("uuid");
 const MongoStore = require("connect-mongo");
 const session = require("express-session");
 
+const supportMail = require("./routes/supportMail");
+
 const app = express();
 const port = process.env.PORT || 3000;
 require("dotenv").config();
@@ -60,14 +62,17 @@ connectToDb(process.env.MONGO_URI, async (err) => {
 // app.use("/webhook", express.raw({ type: "application/json" }));
 app.post("/webhook", express.raw({type: 'application/json'}), handleStripeWebhook);
 
+
+
 // json Middleware
 app.use(bodyParser.json());
 
 // non session generating routes
 app.use("/api/printify/", printifyRoutes);
 app.use("/", indexRoutes);
-app.use("/", emailSub);
+app.use("/sub", emailSub);
 app.use("/stripe", stripeRoutes);
+
 
 // Session middleware
 app.use(
@@ -97,3 +102,4 @@ app.use(
 app.use("/orders", orderRoutes);
 app.use("/cart", cartRoutes);
 app.use("/checkout", checkoutRoutes);
+app.use("/support", supportMail);

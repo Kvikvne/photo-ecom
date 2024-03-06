@@ -25,7 +25,7 @@ export default function ProductMain() {
     Poster: "Acrylic prints",
     Canvas: "Art & Wall Decor",
     Accessories: "Accessories",
-    "Art & Wall Decor": "Art & Wall Decor"
+    "Art & Wall Decor": "Art & Wall Decor",
   };
 
   // Function to filter products for each tag
@@ -37,7 +37,7 @@ export default function ProductMain() {
     <div className={css.wrapper}>
       <div className={css.header}>
         {/* Main heading */}
-        <h1>Products</h1>
+        <h1>Shop</h1>
         {/* Additional information or description */}
         <p>
           Whether you're seeking a statement piece to anchor your living room or
@@ -57,24 +57,6 @@ export default function ProductMain() {
           ))
         ) : (
           <>
-            {/* All products card 
-            <div className={css.categoryCard}>
-              <div className={css.cardHeader}>
-          
-                <h2>All</h2>
-              </div>
-           
-              <div className={css.imgContainer}>
-                <img src="" alt="" />
-              </div>
-          
-              <div>
-                <a href={`products/all`}>
-                  <button>View</button>
-                </a>
-              </div>
-              */}
-            
             {TAGS.map((tag, index) => {
               // Find product with the current tag
               const productWithTag = getProductByTag(tag);

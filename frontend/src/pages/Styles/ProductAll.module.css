@@ -33,6 +33,11 @@ body {
 
 }
 
+.container2 p {
+  font-size: 1.1rem;
+  width: 75%;
+}
+
 .container2 h1 {
   font-size: 3.5em;
   margin-bottom: 0; 

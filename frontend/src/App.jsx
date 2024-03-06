@@ -10,7 +10,12 @@ import CheckoutSuccess from "./pages/CheckoutSuccess";
 import MyOrders from "./pages/MyOrders";
 import Footer from "./components/Home/Footer";
 import About from "./pages/About";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 import ProductMain from "./pages/ProductMain";
+import TOS from "./pages/TOS";
+import ReturnsRefunds from "./pages/ReturnsRefunds";
+import SupportForm from "./pages/SupportForm";
+
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 // COLORS
@@ -32,6 +37,11 @@ function App() {
           <Route path="/my-orders" element={<MyOrders />} />
           <Route path="/about" element={<About />} />
           <Route path="/testing" element={<Testing />} />
+          <Route path="/terms-of-service" element={<TOS />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/returns-refunds" element={<ReturnsRefunds />} />
+          <Route path="/contact-support" element={<SupportForm />} />
+
         </Routes>
         <Footer />
       </BrowserRouter>

@@ -77,7 +77,7 @@ export default function Nav() {
                 <span>About</span>
               </a>
               <a href="/products">
-                <span>Products</span>
+                <span>Shop</span>
               </a>
               <a href="/my-orders">
                 <span>My orders</span>

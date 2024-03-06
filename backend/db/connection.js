@@ -24,7 +24,7 @@ const mongoose = require('mongoose');
 let dbConnection;
 
 const connectToDb = (mongoURI, cb) => {
-  mongoose.connect(mongoURI, { })
+  mongoose.connect(mongoURI, {})
     .then(() => {
       dbConnection = mongoose.connection;
       console.log('Connected to the database');

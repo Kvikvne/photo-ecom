@@ -6,8 +6,8 @@ export const useCartContent = () => {
   const [cartContent, setCartContent] = useState([]);
   const [total, setTotal] = useState(0);
   const [totalQuantity, setTotalQuantity] = useState(0);
+  
   const fetchCart = () => {
-    console.log("REQ_URL:", REQ_URL);
 
     axios
       .get(`${REQ_URL}/cart`, { withCredentials: true })

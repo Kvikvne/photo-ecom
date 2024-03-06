@@ -26,7 +26,7 @@ const ProductAll = () => {
   const categoryHeaders = {
     Poster: "Acrylic prints",
     Canvas:
-      "Transform Your Space with Inspired prints: Elevate Your Home's Aesthetic with Our Stunning Selection",
+      "Transform Your Space with Inspired prints: Elevate Your Home's Aesthetic with Our Stunning Selection. We currently offer our prints in both canvas and acrylic options.",
     iPhone: "Phone cases",
     all: "All products",
   };
@@ -41,7 +41,7 @@ const ProductAll = () => {
       {/* Header with category name */}
       <div className={css.container2}>
         <h1>{categoryNames[tag] || ""}</h1>
-        <p>
+        <p className={css.headerP}>
           {categoryHeaders[tag]}
         </p>
       </div>

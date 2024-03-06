@@ -251,10 +251,10 @@ export default function MyOrders() {
         <div className={css.support}>
           <p>
             If you need help with an order click
-            <a href="mailto: kvikvne.prints@gmail.com"> here</a> or copy the email
-            found at the bottom of the web page. <br />
-            <br /> Please include your orders ID aswell as your shipping info in
-            the email.
+            <a href="/contact-support"> here</a> or copy the email found at the
+            bottom of the web page. <br />
+            <br /> Please include your orders ID in the email. This will speed
+            up the support process.
           </p>
         </div>
       </div>

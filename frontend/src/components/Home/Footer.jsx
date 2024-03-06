@@ -1,12 +1,10 @@
 import css from "./Styles/Footer.module.css";
 import styles from "./Styles/Footer2.module.css";
 import React, { useRef, useState } from "react";
-import axios from 'axios';
+import axios from "axios";
 import Checkmark from "../Loaders/Checkmark";
 
-const REQ_URL = import.meta.env.VITE_UTIL
-
-
+const REQ_URL = import.meta.env.VITE_UTIL;
 
 const CopyToClipboard = ({ text, children, icon }) => {
   const textRef = useRef(null);
@@ -47,13 +45,13 @@ const CopyToClipboard = ({ text, children, icon }) => {
 
 export default function Footer() {
   const [copiedIcon, setCopiedIcon] = useState("fa-solid fa-envelope");
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState(false);
 
   const handleCopy = () => {
-    setCopiedIcon("fa-regular fa-check-circle"); // Change the icon to a checkmark when copied
-    setTimeout(() => setCopiedIcon("fa-solid fa-envelope"), 2000); // Reset the icon after a short delay
+    setCopiedIcon("fa-regular fa-check-circle");
+    setTimeout(() => setCopiedIcon("fa-solid fa-envelope"), 2000);
   };
 
   const handleEmailChange = (event) => {
@@ -61,23 +59,22 @@ export default function Footer() {
   };
 
   const handleEmailSubmit = () => {
-
     // Data to be sent in the request body
     const data = {
-        email: email 
+      email: email,
     };
 
     // Making a POST request to the backend
-    axios.post(`${REQ_URL}/subscribe`, data)
-        .then(response => {
-          setSubmitSuccess(true);
-            
-        })
-        .catch(error => {
-            console.error('Error submitting email:', error);
-           setSubmitError(true)
-        });
-};
+    axios
+      .post(`${REQ_URL}/sub/subscribe`, data)
+      .then((response) => {
+        setSubmitSuccess(true);
+      })
+      .catch((error) => {
+        console.error("Error submitting email:", error);
+        setSubmitError(true);
+      });
+  };
 
   return (
     <div>
@@ -120,20 +117,25 @@ export default function Footer() {
                   <a href="/about">My Story</a>
                 </li>
                 <li>
-                  <a href="#">Terms</a>
+                  <a href="/privacy-policy">Privacy Policy</a>
                 </li>
                 <li>
-                  <a href="#">Order Policy</a>
+                  <a href="/terms-of-service">Terms of Service</a>
+                </li>
+                <li>
+                  <a href="/returns-refunds">Returns and Refunds</a>
                 </li>
               </ul>
               <ul>
                 <h4>Help</h4>
-                <li>
-                  <a href="#">Contact me</a>
-                </li>
-                <li>
+                {/* <li>
                   <a href="#">FAQ</a>
+                </li> */}
+                <li>
+                  <a href="/contact-support">Contact me</a>
                 </li>
+
+                
               </ul>
             </div>
           </div>
@@ -152,10 +154,9 @@ export default function Footer() {
                 name="email"
                 value={email}
                 type="text"
-                
               />
               <button onClick={handleEmailSubmit} className={styles.subBtn}>
-                 {submitSuccess ? <Checkmark />:"Subscribe"}
+                {submitSuccess ? <Checkmark /> : "Subscribe"}
               </button>
               <p>{submitError && "You have already subscribed"}</p>
               <span>Email</span>
