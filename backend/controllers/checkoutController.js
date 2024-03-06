@@ -29,6 +29,10 @@ const initiateCheckout = async (req, res) => {
       },
       billing_address_collection: "required",
 
+      automatic_tax: {
+        enabled: true
+      },
+
       line_items: lineItems,
 
       shipping_options: [
