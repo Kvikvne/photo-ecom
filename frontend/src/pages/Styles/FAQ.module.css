@@ -1,6 +1,6 @@
 .wrapper {
   width: 100%;
-  min-height: 100svh;
+  margin: 100px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -30,7 +30,7 @@
 }
 
 .open {
-  max-height: 50px;
+  max-height: 200px;
   padding: 12px 0;
 }
 
@@ -40,4 +40,13 @@
 
 .openArrow {
     transform: rotate(180deg);
+}
+
+@media only screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 3) {
+  .faqContainer {
+    width: 90%;
+  }
+  /* .wrapper {
+    min-height: 120svh;
+  } */
 }
