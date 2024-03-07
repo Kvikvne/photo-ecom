@@ -5,6 +5,36 @@ i {
   user-select: none;
 }
 
+.dropShop {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  background-color: #06151c;
+  margin-top: 20px;
+  border-radius: 8px;
+  padding: 12px;
+}
+.dropShop a {
+  background-color: transparent;
+  border-radius: #e1ae8100;
+  padding: 16px;
+  height: 15px;
+  transition: background-color 0.8s, border-radius ease 0.8s;
+  margin-bottom: 8px;
+}
+
+.dropShop a:hover {
+  background-color: #e1ad81;
+  border-radius: 8px;
+  text-decoration: none;
+  
+}
+
+.navLinks {
+  display: flex;
+  gap: 16px;
+}
+
 .navContainer {
   display: flex;
   justify-content: center;
@@ -86,7 +116,6 @@ i {
 
 .navRight > a {
   margin-left: 20px;
-  
 }
 .navRight > a:first-child {
   margin-left: 0;
@@ -95,15 +124,14 @@ i {
 .navRight span {
   padding: 10px;
   border-radius: 2px;
-  transition: background-color .8s, border-radius ease .8s;
+  transition: background-color 0.8s, border-radius ease 0.8s;
   user-select: none;
 }
 
-.navRight span:hover{
+.navRight span:hover {
   background-color: #e1ad81;
   border-radius: 10px;
   text-decoration: none;
-  
 }
 
 @keyframes fadeIn {
@@ -153,5 +181,3 @@ i {
     margin-left: -100px;
   }
 }
-
-
