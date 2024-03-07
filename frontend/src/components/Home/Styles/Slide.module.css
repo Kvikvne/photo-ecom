@@ -14,6 +14,8 @@
   height: 25px;
   width: 25px;
   cursor: pointer;
+  opacity: 0;
+  transition: opacity .3s ease;
 }
 
 .slideContainer {
@@ -53,4 +55,8 @@
   .wrapper i {
     display: none;
   }
+}
+
+.wrapper:hover i {
+  opacity: 1;
 }
