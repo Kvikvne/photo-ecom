@@ -1,6 +1,16 @@
 .wrapper {
     margin: 16px 0;
-
+    width: 25%;
+    
+}
+.outer {
+    display: flex;
+    gap: 12px;
+    background-color: #e2e1db77;
+    border-radius: 8px;
+    padding: 12px;
+    align-items: center;
+    margin: 12px 0;
 }
 
 .wrapper p {
@@ -10,7 +20,7 @@
 .btnContainer {
     display: flex;
     gap: 15px;
-    justify-content: start;
+    justify-content: center;
     flex-wrap: wrap;
     max-width: 100%;
 }
@@ -27,6 +37,10 @@
     color: #f0ede6;
     border: none;
     cursor: pointer;
+}
+
+.productDescription {
+    max-width: 70%;
 }
 
 .typeBtn:hover {

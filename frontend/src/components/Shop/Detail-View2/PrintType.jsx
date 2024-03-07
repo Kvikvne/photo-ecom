@@ -9,7 +9,7 @@ export default function PrintType({ name, products }) {
   const matchingProducts = productTypes.filter(
     (product) => product.title === name
   );
-console.log(matchingProducts)
+
   // State to track active button index
   const [activeButtonIndex, setActiveButtonIndex] = useState(null);
 
@@ -28,27 +28,50 @@ console.log(matchingProducts)
   }
 
   return (
-    <div className={css.wrapper}>
-      <p>Select a print type:</p>
+    <div className={css.outer}>
+      <div className={css.wrapper}>
+        <p>Select a print type:</p>
 
-      <div className={css.btnContainer}>
-        {matchingProducts.map((item, index) => (
-          <a 
-            className={`${css.typeA} ${
-              activeButtonIndex === index ? css.activeA : ""
-            }`}
-            key={index} href={item.external.handle}
-          >
-            <button
-              className={`${css.typeBtn} ${
-                activeButtonIndex === index ? css.active : ""
+        <div className={css.btnContainer}>
+          {matchingProducts.map((item, index) => (
+            <a
+              className={`${css.typeA} ${
+                activeButtonIndex === index ? css.activeA : ""
               }`}
+              key={index}
+              href={item.external.handle}
             >
-              {item.tags[4] === "Canvas" ? "Canvas" : "Acrylic"}
-            </button>
-          </a>
-        ))}
+              <button
+                className={`${css.typeBtn} ${
+                  activeButtonIndex === index ? css.active : ""
+                }`}
+              >
+                {item.tags[4] === "Canvas" ? "Canvas" : "Acrylic"}
+              </button>
+            </a>
+          ))}
+        </div>
       </div>
+      {matchingProducts[activeButtonIndex]?.tags[4] === "Canvas" && (
+        <div className={css.productDescription}>
+          <p>
+            Uplift any room's decor with art that's printed on top-quality
+            canvas gallery wraps. Each wrap is made with finely textured,
+            artist-grade cotton substrate which helps reproduce the image in
+            outstanding clarity and detail.
+          </p>
+        </div>
+      )}
+      {matchingProducts[activeButtonIndex]?.tags[3] === "Poster" && (
+        <div className={css.productDescription}>
+          <p>
+            Made to seem like the photo is printed on a glass surface, these
+            acrylic prints never fail to dazzle. Photos are second-surface
+            printed directly on a 1/4" acrylic panel for a stunning result. Each
+            acrylic print comes ready to hang, and floats 1.5" off the wall.
+          </p>
+        </div>
+      )}
     </div>
   );
 }

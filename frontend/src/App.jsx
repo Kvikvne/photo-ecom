@@ -15,6 +15,7 @@ import ProductMain from "./pages/ProductMain";
 import TOS from "./pages/TOS";
 import ReturnsRefunds from "./pages/ReturnsRefunds";
 import SupportForm from "./pages/SupportForm";
+import FAQ from "./pages/FAQ";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -41,6 +42,7 @@ function App() {
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/returns-refunds" element={<ReturnsRefunds />} />
           <Route path="/contact-support" element={<SupportForm />} />
+          <Route path="/faq" element={<FAQ />} />
 
         </Routes>
         <Footer />

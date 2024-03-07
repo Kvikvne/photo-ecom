@@ -29,10 +29,14 @@
 .btnContainer {
   width: 150px;
   height: fit-content;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .btnContainer button {
   height: 3rem;
+  width: 10rem;
   border-radius: 20px;
   background-color: #e1ad81;
   color: #06151c;

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import GalleryModal from "./GalleryModal";
 import css from "./Styles/Gallery.module.css";
 
-
 const images = [
   {
     path: "./IMG_6374_edit.JPG",
@@ -50,7 +49,6 @@ const images = [
     path: "./IMG_9486.jpg",
     id: "65c55cb2833a332c6d0bc39a",
   },
-
 ];
 
 export default function Gallery() {
@@ -73,13 +71,17 @@ export default function Gallery() {
     <div id="collection" className={css.container}>
       <div className={css.header}>
         <div className={css.title}>
-          <h1>Collection</h1>
-        </div>
+          <div className={css.btnContainer}>
+            <h1>Collection</h1>
+            <a href="/products/Canvas">
+              <button className={css.btn}>Shop prints</button>
+            </a>
+          </div>
 
-        <div className={css.btnContainer}>
-          <a href="/products/Canvas">
-            <button className={css.btn}>Shop prints</button>
-          </a>
+          <p>
+            Discover Captivating Moments: Explore Our Stunning Collection of
+            Photography
+          </p>
         </div>
       </div>
 

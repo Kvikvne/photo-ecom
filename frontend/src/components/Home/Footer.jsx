@@ -128,9 +128,9 @@ export default function Footer() {
               </ul>
               <ul>
                 <h4>Help</h4>
-                {/* <li>
-                  <a href="#">FAQ</a>
-                </li> */}
+                <li>
+                  <a href="/faq">FAQ</a>
+                </li>
                 <li>
                   <a href="/contact-support">Contact me</a>
                 </li>
