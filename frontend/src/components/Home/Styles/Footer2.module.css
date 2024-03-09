@@ -38,8 +38,9 @@
 .links {
   padding: 12px;
   display: flex;
-  justify-content: space-between;
-  width: max-content
+  justify-content: space-around;
+  width: max-content;
+  flex-wrap: wrap;
 }
 .links h4 {
   font-size: 1.2rem;
@@ -154,7 +155,7 @@
     }
   
     .links {
-      
+      justify-content: left;
       width: 40%;
     }
     .socials {

@@ -113,9 +113,7 @@ export default function Footer() {
             <div className={styles.links}>
               <ul>
                 <h4>About</h4>
-                <li>
-                  <a href="/about">My Story</a>
-                </li>
+               
                 <li>
                   <a href="/privacy-policy">Privacy Policy</a>
                 </li>
@@ -125,6 +123,19 @@ export default function Footer() {
                 <li>
                   <a href="/returns-refunds">Returns and Refunds</a>
                 </li>
+              </ul>
+              <ul>
+                <h4>The goods</h4>
+                <li>
+                  <a href="/products/Canvas">Wall art</a>
+                </li>
+                <li>
+                  <a href="/products/Accessories">Accessories</a>
+                </li>
+                <li>
+                  <a href="/about">My Story</a>
+                </li>
+                
               </ul>
               <ul>
                 <h4>Help</h4>
@@ -137,6 +148,7 @@ export default function Footer() {
 
                 
               </ul>
+              
             </div>
           </div>
         </div>
