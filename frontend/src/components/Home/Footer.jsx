@@ -113,7 +113,7 @@ export default function Footer() {
             <div className={styles.links}>
               <ul>
                 <h4>About</h4>
-               
+
                 <li>
                   <a href="/privacy-policy">Privacy Policy</a>
                 </li>
@@ -135,7 +135,6 @@ export default function Footer() {
                 <li>
                   <a href="/about">My Story</a>
                 </li>
-                
               </ul>
               <ul>
                 <h4>Help</h4>
@@ -145,10 +144,7 @@ export default function Footer() {
                 <li>
                   <a href="/contact-support">Contact me</a>
                 </li>
-
-                
               </ul>
-              
             </div>
           </div>
         </div>
