@@ -70,6 +70,15 @@ export default function ProductPage2() {
   const shippingId =
     sku === "20669326178018925650" ? "shr_1OMKyBDJK1tIdvkfeXHkLmmV" : "";
 
+
+    useEffect(() => { 
+      if (availibleVariants && !selectedVariant) {
+        setSelectedVariant(availibleVariants[0].id.toString())
+      }
+    })
+  
+
+
   useEffect(() => {
     const fetchData = async () => {
       const fetchedPriceId = await itemPriceMemoized(sku);

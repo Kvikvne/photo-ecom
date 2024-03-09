@@ -3,6 +3,13 @@ import { useState, useEffect } from "react";
 
 export default function VariantSelect2({ availibleVariants, onSelectVariant }) {
   const [selectedVariant, setSelectedVariant] = useState();
+  
+  useEffect(() => { 
+    if (availibleVariants && !selectedVariant) {
+      setSelectedVariant(availibleVariants[0].id)
+    }
+  })
+
 
   const handleVariantSelect = (variantId, buttonValue) => {
     setSelectedVariant(variantId);

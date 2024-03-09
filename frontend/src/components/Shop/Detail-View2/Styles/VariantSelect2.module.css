@@ -27,6 +27,7 @@
 .variantBtn.selectedVariant {
     background-color: #e1ad81;
     color: #06151c;
+    pointer-events: none;
 }
 
 @media (max-width: 1024px) {
