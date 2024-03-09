@@ -82,7 +82,7 @@ export default function Footer() {
         <div className={styles.left}>
           <div className={styles.leftBox}>
             <div className={styles.logo}>
-              <img src="./PORTFOLIO_LOGO_1.svg" alt="" />
+              <img src="/canvas-logo-2.svg" alt="" />
             </div>
             <div className={styles.socials}>
               <a target="blank" href="https://www.instagram.com/kvikvne/">

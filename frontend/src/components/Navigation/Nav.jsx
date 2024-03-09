@@ -73,7 +73,7 @@ export default function Nav() {
       <nav>
         <div className={css.icon}>
           <a href="/">
-            <img src="/PORTFOLIO_LOGO_1.svg" alt="" />
+            <img src="/canvas-logo-2.svg" alt="" />
           </a>
         </div>
 
