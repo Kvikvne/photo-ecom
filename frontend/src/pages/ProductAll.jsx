@@ -31,6 +31,9 @@ const ProductAll = () => {
     all: "All products",
   };
 
+  const products_data = [];
+
+  console.log(products_data);
   return (
     <div>
       {/* Helmet for setting page title */}
@@ -41,9 +44,7 @@ const ProductAll = () => {
       {/* Header with category name */}
       <div className={css.container2}>
         <h1>{categoryNames[tag] || ""}</h1>
-        <p className={css.headerP}>
-          {categoryHeaders[tag]}
-        </p>
+        <p className={css.headerP}>{categoryHeaders[tag]}</p>
       </div>
 
       {/* Container for displaying products */}
@@ -60,6 +61,9 @@ const ProductAll = () => {
           const enabledVariants = product.variants.filter(
             (variant) => variant.is_enabled
           );
+
+          
+
           // Find minimum enabled price
           const minEnabledPrice = enabledVariants.reduce(
             (minPrice, variant) => Math.min(minPrice, variant.price),
@@ -69,6 +73,49 @@ const ProductAll = () => {
           // Find default image for the product
           let defaultImg = product.images.filter((image) => image.is_default);
           defaultImg = defaultImg[defaultImg.length - 1].src;
+
+
+          // if (tag === "all" || product.tags.includes(tag)) {
+          //   let newData = {
+          //     id: enabledVariants[0].sku,
+          //     title: product.title,
+          //     description: product.description.replace(/<p>/g, "").replace(/<\/p>/g, ""),
+          //     availability: "in_stock",
+          //     link:`https://www.kvikvne.com${product.external.handle}`,
+          //     "image link": defaultImg,
+          //     price: enabledVariants[0].price / 100,
+          //     "identifier exists": "no",
+          //     gtin: "",
+          //     mpn: "",
+          //     brand: "Kvikvne",
+          //     "product highlight": 'canvas prints , photography, wall art, home decor',
+          //     "product detail": "Print Type: Canvas, Print Type: Acrylic",
+          //     "additional image link": "",
+          //     condition: "new",
+          //     adult: "no",
+          //     color: '',
+          //     size: enabledVariants[0].title,
+          //     gender: "",
+          //     material: "100% cotton canvas, optically clear acrylic",
+          //     pattern: "",
+          //     "age group": "",
+          //     multipack: "",
+          //     "is bundle": "",
+          //     "unit pricing measure": "",
+          //     "unit pricing base measure": "",
+          //     "energy efficiency class": "",
+          //     "min energy efficiency class": "",
+          //     "item group id": "",
+          //     "sell on google quantity": "",
+              
+
+              
+              
+          //   };
+
+          //   // Push the new data object into the products_data array
+          //   products_data.push(newData);
+          // }
 
           // Render product card if it matches the selected tag or if tag is 'all'
           if (tag === "all" || product.tags.includes(tag)) {

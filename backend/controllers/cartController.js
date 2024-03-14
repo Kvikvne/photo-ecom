@@ -21,7 +21,7 @@ const addToCart = async (req, res) => {
 
     // Get sessionID from the request
     const sessionID = req.sessionID;
-    console.log(req)
+
 
     // Check if the item already exists in the cart for the given sessionID
     const existingItem = await cartModel.findCartItem(

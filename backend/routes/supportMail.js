@@ -15,7 +15,7 @@ require("dotenv").config();
 router.post("/send-email", upload.single("attch"), async (req, res) => {
   const { first_name, last_name, email, subject, description } = req.body;
   const sessionID = req.sessionID;
-  console.log(req)
+
   try {
     const transporter = nodemailer.createTransport({
       service: "gmail",
@@ -51,7 +51,7 @@ router.post("/send-email", upload.single("attch"), async (req, res) => {
     }
 
     const customerMailOptions = {
-      from: "kvikvne.prints@gmail.com",
+      from: "support@kvikvne.com",
       to: email,
       subject: "Thank you for contacting us!",
       html: `

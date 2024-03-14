@@ -6,7 +6,6 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 // Define a controller function
 const searchProducts = async (req, res) => {
   const { sku } = req.query; // Extract sku from query parameters
-  console.log("controller: ", sku);
   try {
     // Perform the search operation using the Stripe SDK
     const stripeProducts = await stripe.prices.search({

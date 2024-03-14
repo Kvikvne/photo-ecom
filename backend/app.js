@@ -19,6 +19,8 @@ const session = require("express-session");
 
 const supportMail = require("./routes/supportMail");
 
+const printifyWebhookRouter = require('./webhooks/printifyWebhook');
+
 const app = express();
 const port = process.env.PORT || 3000;
 require("dotenv").config();
@@ -64,6 +66,7 @@ app.post("/webhook", express.raw({type: 'application/json'}), handleStripeWebhoo
 
 
 
+
 // json Middleware
 app.use(bodyParser.json());
 
@@ -72,7 +75,7 @@ app.use("/api/printify/", printifyRoutes);
 app.use("/", indexRoutes);
 app.use("/sub", emailSub);
 app.use("/stripe", stripeRoutes);
-
+app.use('/order', printifyWebhookRouter);
 
 // Session middleware
 app.use(
