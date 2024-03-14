@@ -202,7 +202,7 @@ export default function ShippingForm() {
             <span>Phone</span>
           </div>
           <button className={css.submitBtn} type="submit">
-            {loading ? <SmallLoader /> : "Submit"}
+            {loading ? <SmallLoader /> : "Continue to payment"}
           </button>
         </form>
       </div>
