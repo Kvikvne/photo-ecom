@@ -61,6 +61,8 @@ export default function MyOrders() {
     }
   };
 
+  console.log(filteredPrintifyData)
+
   if (noOrders) {
     return (
       <div className={css.container}>
@@ -143,7 +145,7 @@ export default function MyOrders() {
                     </td>
                     <td>
                       <h4>ID</h4>
-                      {order.metadata.shop_order_id}
+                      {order.id}
                     </td>
                     <td>
                       {order.line_items.map((item, index) => (
