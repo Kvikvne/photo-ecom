@@ -194,7 +194,7 @@ export default function MyOrders() {
                         </a>
                       </td>
                     )}
-                    {order.line_items[0].status === "canceled" ||
+                    {/* {order.line_items[0].status === "canceled" ||
                     order.line_items[0].status === "shipped" ? (
                       ""
                     ) : (
@@ -243,7 +243,7 @@ export default function MyOrders() {
                           </button>
                         )}
                       </td>
-                    )}
+                    )} */}
                   </tr>
                 );
               })}
