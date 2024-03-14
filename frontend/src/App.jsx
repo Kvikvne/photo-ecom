@@ -16,6 +16,7 @@ import TOS from "./pages/TOS";
 import ReturnsRefunds from "./pages/ReturnsRefunds";
 import SupportForm from "./pages/SupportForm";
 import FAQ from "./pages/FAQ";
+import MetaPixel from "./utilities/metaPixel";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -46,6 +47,7 @@ function App() {
 
         </Routes>
         <Footer />
+        <MetaPixel />
       </BrowserRouter>
     </div>
   );
