@@ -39,6 +39,24 @@ const getOrders = async () => {
   }
 };
 
+// Get order by ID
+const getOrdersById = async (id) => {
+  try {
+    const response = await axios.get(
+      `https://api.printify.com/v1/shops/12652066/orders/${id}.json`,
+      {
+        headers: {
+          Authorization: `Bearer ${TOKEN}`,
+        },
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 // Delete a product from printify
 const deleteProduct = async (product_id) => {
   try {
@@ -137,4 +155,4 @@ const cancelOrder = async (shop_order_id) => {
   }
 };
 
-module.exports = { getProducts, deleteProduct, shippingCost, getOrders, cancelOrder, publishProduct };
+module.exports = { getProducts, deleteProduct, shippingCost, getOrders, getOrdersById, cancelOrder, publishProduct };

@@ -16,7 +16,20 @@ router.post("/shipped", async (req, res) => {
     try {
       // Get order email
       const order = await getOrder(id);
+      // const { shipments } = order;
 
+      
+
+      // const shippingInfo = shipments.map((item) => {
+      //   const { carrier, number, url } = item;
+      //   return {
+      //     carrier,
+      //     number,
+      //     url,
+      //   };
+      // });
+      // console.log(shippingInfo);
+      
       const products = order.line_items.map((item) => {
         const { quantity, metadata } = item;
         const { title, variant_label } = metadata;
@@ -208,12 +221,16 @@ async function sendOrderConfirmationEmail(email, name, orderId, products) {
           </div>
 
           <div class="detail-products">
-            ${products .map( (product) => `
+            ${products
+              .map(
+                (product) => `
             <p>
               ${product.quantity} x <strong>${product.title}</strong>
               ${product.variant_label}
             </p>
-            ` ) .join("")}
+            `
+              )
+              .join("")}
           </div>
         </div>
         <div class="links">
@@ -249,7 +266,6 @@ async function sendShippingNotificationEmail(
   products,
   tracking_url
 ) {
-
   try {
     const transporter = nodemailer.createTransport({
       service: "gmail",
@@ -374,12 +390,16 @@ async function sendShippingNotificationEmail(
           </div>
 
           <div class="detail-products">
-            ${products .map( (product) => `
+            ${products
+              .map(
+                (product) => `
             <p>
               ${product.quantity} x <strong>${product.title}</strong>
               ${product.variant_label}
             </p>
-            ` ) .join("")}
+            `
+              )
+              .join("")}
           </div>
         </div>
         <div class="links">
@@ -399,23 +419,20 @@ async function sendShippingNotificationEmail(
     };
 
     await transporter.sendMail(mailOptions);
-
   } catch (error) {
     console.error("Error sending order confirmation email:", error);
     throw error; // Re-throw the error to be caught by the caller
   }
-
-
 }
 
 async function getOrder(id) {
   try {
     // Get all orders from the Printify API
-    const orders = await printifyApi.getOrders();
-    const { data } = orders;
+    const order = await printifyApi.getOrdersById(id);
 
-    // Find the order with the specified ID
-    const order = data.find((order) => order.id === id);
+    // if (order) {
+    //   console.log(order)
+    // }
 
     if (!order) {
       throw new Error(`Order with ID ${id} not found`);
