@@ -58,8 +58,8 @@ export default function Footer() {
     setEmail(event.target.value);
   };
 
-  const handleEmailSubmit = () => {
-    // Data to be sent in the request body
+  const handleEmailSubmit = (event) => {
+    event.preventDefault();
     const data = {
       email: email,
     };
@@ -74,6 +74,7 @@ export default function Footer() {
         console.error("Error submitting email:", error);
         setSubmitError(true);
       });
+   
   };
 
   return (
@@ -155,6 +156,7 @@ export default function Footer() {
               I will continue to design and add new items to my collection so
               you dont want to miss out!
             </p>
+            <form onSubmit={handleEmailSubmit}>
             <div className={styles.inputBox}>
               <input
                 required
@@ -163,12 +165,13 @@ export default function Footer() {
                 value={email}
                 type="text"
               />
-              <button onClick={handleEmailSubmit} className={styles.subBtn}>
+              <button type="submit" className={styles.subBtn}>
                 {submitSuccess ? <Checkmark /> : "Subscribe"}
               </button>
               <p>{submitError && "You have already subscribed"}</p>
               <span>Email</span>
             </div>
+            </form>
           </div>
         </div>
       </div>
