@@ -3,11 +3,15 @@ dotenv.config();
 import bodyParser from "body-parser";
 import express from "express";
 import cors from "cors";
+
+// CRON
 import "./scripts/worker";
+
 // Route imports
 import productRoutes from "./routes/productRoutes";
 import cartRoutes from "./routes/cartRoutes";
 import checkoutRoutes from "./routes/checkoutRoutes";
+import orderRoutes from "./routes/orderRoutes";
 
 // DB
 import { connectToMongoDB } from "./db/mongoose";
@@ -35,6 +39,7 @@ app.use(assignSessionId);
 app.use("/api/products", productRoutes);
 app.use("/api/cart", cartRoutes);
 app.use("/api/checkout", checkoutRoutes);
+app.use("/api/orders", orderRoutes);
 
 const PORT = process.env.PORT || 5000;
 

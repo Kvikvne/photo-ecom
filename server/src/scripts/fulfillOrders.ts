@@ -12,20 +12,20 @@ export async function fulfillPendingOrders() {
     const pendingOrders = await Order.find({ status: "pending" });
 
     if (pendingOrders.length === 0) {
-        console.log("No pending orders to fulfill.");
+        console.log("No pending orders to confirm.");
     }
 
     for (const order of pendingOrders) {
         try {
             const printifyOrderId = await sendToPrintify(order);
-            order.status = "fulfilled";
+            order.status = "confirmed";
             order.printifyOrderId = printifyOrderId;
             order.fulfilledAt = new Date();
             await order.save();
             await sendConfirmationEmailDev(order);
-            console.log(`Fulfilled order ${order._id}`);
+            console.log(`Confirmed order ${order._id}`);
         } catch (err: any) {
-            console.error(`Failed to fulfill order ${order._id}:`, err.message);
+            console.error(`Failed to confirm order ${order._id}:`, err.message);
             order.status = "failed";
             order.error = err.message;
             await order.save();

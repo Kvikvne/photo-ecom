@@ -13,7 +13,7 @@ export interface OrderDocument extends Document {
     sessionId: string;
     stripeSessionId: string;
     email?: string;
-    status: "pending" | "processing" | "fulfilled" | "failed";
+    status: "pending" | "processing" | "confirmed" | "fulfilled" | "failed";
     lineItems: OrderItem[];
     stripeCustomerId?: string;
     stripePaymentIntentId?: string;
