@@ -1,11 +1,11 @@
 import cron from "node-cron";
 import { fulfillPendingOrders } from "./fulfillOrders";
 
-export async function startWorker() {
-    console.log("🔁 Order fulfillment worker started.");
+// Run every 5 minutes
+cron.schedule("*/5 * * * *", async () => {
+    console.log("Running fulfillment worker...");
+    await fulfillPendingOrders();
+});
 
-    cron.schedule("*/2 * * * *", async () => {
-        console.log("🕑 Running scheduled fulfillment job...");
-        await fulfillPendingOrders();
-    });
-}
+// Keep process alive
+console.log("Worker is running on interval...");

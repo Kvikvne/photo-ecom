@@ -3,8 +3,7 @@ dotenv.config();
 import bodyParser from "body-parser";
 import express from "express";
 import cors from "cors";
-import { startWorker } from "./scripts/worker";
-
+import "./scripts/worker";
 // Route imports
 import productRoutes from "./routes/productRoutes";
 import cartRoutes from "./routes/cartRoutes";
@@ -42,6 +41,5 @@ const PORT = process.env.PORT || 5000;
 connectToMongoDB().then(() => {
     app.listen(PORT, () => {
         console.log(`Server running on http://localhost:${PORT}`);
-        startWorker();
     });
 });

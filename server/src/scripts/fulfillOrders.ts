@@ -13,7 +13,6 @@ export async function fulfillPendingOrders() {
 
     if (pendingOrders.length === 0) {
         console.log("No pending orders to fulfill.");
-        return process.exit(0);
     }
 
     for (const order of pendingOrders) {
@@ -23,8 +22,8 @@ export async function fulfillPendingOrders() {
             order.printifyOrderId = printifyOrderId;
             order.fulfilledAt = new Date();
             await order.save();
-            console.log(`Fulfilled order ${order._id}`);
             await sendConfirmationEmailDev(order);
+            console.log(`Fulfilled order ${order._id}`);
         } catch (err: any) {
             console.error(`Failed to fulfill order ${order._id}:`, err.message);
             order.status = "failed";
@@ -32,6 +31,4 @@ export async function fulfillPendingOrders() {
             await order.save();
         }
     }
-
-    process.exit(0);
 }
