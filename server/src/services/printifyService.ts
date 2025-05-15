@@ -1,5 +1,6 @@
 import axios from "axios";
 import { PrintifyProduct } from "../types/printify";
+import { OrderDocument } from "../models/order";
 
 const TOKEN = process.env.PRINTIFY_TOKEN;
 const SHOP_ID = process.env.PRINTIFY_SHOP_ID;
@@ -89,5 +90,63 @@ export async function cancelOrder(orderId: string): Promise<any> {
             error.response?.data || error.message
         );
         throw error;
+    }
+}
+
+export async function sendToPrintify(order: OrderDocument): Promise<string> {
+    const shopId = process.env.PRINTIFY_SHOP_ID;
+    const token = process.env.PRINTIFY_TOKEN;
+
+    if (!shopId || !token) {
+        throw new Error(
+            "Missing PRINTIFY_SHOP_ID or PRINTIFY_TOKEN in environment"
+        );
+    }
+
+    // Temporary dummy shipping info
+    const address = {
+        first_name: "Test",
+        last_name: "User",
+        email: order.email || "test@example.com",
+        phone: "5555555555",
+        country: "US",
+        region: "CA",
+        city: "Honolulu",
+        address1: "123 Test Street",
+        zip: "96815",
+    };
+
+    const formattedOrderData = {
+        external_id: order._id.toString(),
+        line_items: order.lineItems.map((item) => ({
+            product_id: item.productId,
+            variant_id: item.variantId,
+            quantity: item.quantity,
+        })),
+        shipping_method: 1,
+        send_shipping_notification: false,
+        address_to: address,
+    };
+
+    try {
+        const response = await axios.post(
+            `https://api.printify.com/v1/shops/${shopId}/orders.json`,
+            formattedOrderData,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                },
+            }
+        );
+
+        return response.data.id; // This is the Printify order ID
+    } catch (error: any) {
+        console.error(
+            "Error from Printify API:",
+            error.response?.data || error.message,
+            formattedOrderData
+        );
+        throw new Error("Failed to submit order to Printify");
     }
 }

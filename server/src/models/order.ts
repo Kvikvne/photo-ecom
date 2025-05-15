@@ -1,4 +1,4 @@
-import mongoose, { Schema, Document } from "mongoose";
+import mongoose, { Schema, Document, Types } from "mongoose";
 
 interface OrderItem {
     variantId: number;
@@ -19,8 +19,9 @@ export interface OrderDocument extends Document {
     stripePaymentIntentId?: string;
     createdAt: Date;
     fulfilledAt?: Date;
-    printifyOrderId?: string;
+    printifyOrderId: string;
     error?: string;
+    _id: Types.ObjectId;
 }
 
 const OrderItemSchema = new Schema<OrderItem>(

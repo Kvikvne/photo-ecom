@@ -43,10 +43,10 @@ const webhookHandler: RequestHandler = async (req: Request, res: Response) => {
 
                 return {
                     variantId: parseInt(metadata.variantId || "0"),
-                    productId: metadata.productId || "",
-                    quantity: item.quantity || 1,
-                    priceInCents: item.amount_total || 0,
-                    title: item.description || "",
+                    productId: metadata.productId,
+                    quantity: item.quantity,
+                    priceInCents: item.amount_total,
+                    title: item.description,
                 };
             });
 

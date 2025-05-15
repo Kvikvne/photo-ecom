@@ -8,7 +8,8 @@
     "build": "tsc",
     "start": "node dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "create:stripe-product": "ts-node src/scripts/createStripeProduct.ts"
+    "create:stripe-product": "ts-node src/scripts/createStripeProduct.ts",
+    "send:printify-order": "ts-node src/scripts/fulfillOrders.ts"
   },
   "keywords": [],
   "author": "",
