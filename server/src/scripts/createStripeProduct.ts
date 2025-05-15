@@ -80,6 +80,7 @@ async function createStripeProductAndStore() {
     }
 
     console.log("All variants synced");
+    return;
 }
 
 createStripeProductAndStore();

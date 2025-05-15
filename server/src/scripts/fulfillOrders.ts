@@ -1,13 +1,12 @@
-// scripts/fulfillOrders.ts
-import mongoose from "mongoose";
 import dotenv from "dotenv";
 import { connectToMongoDB } from "../db/mongoose";
 import { Order } from "../models/order";
 import { sendToPrintify } from "../services/printifyService";
+import { sendConfirmationEmailDev } from "../services/emailService";
 
 dotenv.config();
 
-async function fulfillPendingOrders() {
+export async function fulfillPendingOrders() {
     await connectToMongoDB();
 
     const pendingOrders = await Order.find({ status: "pending" });
@@ -25,6 +24,7 @@ async function fulfillPendingOrders() {
             order.fulfilledAt = new Date();
             await order.save();
             console.log(`Fulfilled order ${order._id}`);
+            await sendConfirmationEmailDev(order);
         } catch (err: any) {
             console.error(`Failed to fulfill order ${order._id}:`, err.message);
             order.status = "failed";
@@ -35,5 +35,3 @@ async function fulfillPendingOrders() {
 
     process.exit(0);
 }
-
-fulfillPendingOrders();
