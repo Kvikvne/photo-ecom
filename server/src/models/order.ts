@@ -13,7 +13,13 @@ export interface OrderDocument extends Document {
     sessionId: string;
     stripeSessionId: string;
     email?: string;
-    status: "pending" | "processing" | "confirmed" | "fulfilled" | "failed";
+    status:
+        | "pending"
+        | "processing"
+        | "confirmed"
+        | "shipped"
+        | "delivered"
+        | "failed";
     lineItems: OrderItem[];
     stripeCustomerId?: string;
     stripePaymentIntentId?: string;
@@ -22,6 +28,9 @@ export interface OrderDocument extends Document {
     printifyOrderId: string;
     error?: string;
     _id: Types.ObjectId;
+    shippedAt: Date;
+    deliveredAt: Date;
+    trackingUrl: string;
 }
 
 const OrderItemSchema = new Schema<OrderItem>(
@@ -43,7 +52,14 @@ const OrderSchema = new Schema<OrderDocument>(
         email: String,
         status: {
             type: String,
-            enum: ["pending", "processing", "fulfilled", "failed"],
+            enum: [
+                "pending",
+                "processing",
+                "confirmed",
+                "shipped",
+                "delivered",
+                "failed",
+            ],
             default: "pending",
         },
         lineItems: [OrderItemSchema],
@@ -52,6 +68,9 @@ const OrderSchema = new Schema<OrderDocument>(
         fulfilledAt: Date,
         printifyOrderId: String,
         error: String,
+        shippedAt: Date,
+        deliveredAt: Date,
+        trackingUrl: { type: String },
     },
     { timestamps: true }
 );

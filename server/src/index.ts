@@ -20,15 +20,17 @@ import { assignSessionId } from "./middleware/sessionId";
 
 //webhook
 import webhookHandler from "./webhooks/stripeWebhook";
+import { printifyWebhookHandler } from "./webhooks/printifyWebhook";
 
 const app = express();
 
-// Webhook
+// Webhooks
 app.post(
     "/api/webhook",
     bodyParser.raw({ type: "application/json" }),
     webhookHandler
 );
+app.post("/api/webhook/printify", express.json(), printifyWebhookHandler);
 
 app.use(cors());
 app.use(express.json());
