@@ -2,7 +2,7 @@ import cron from "node-cron";
 import { fulfillPendingOrders } from "./fulfillOrders";
 
 // Run every 5 minutes
-cron.schedule("*/5 * * * *", async () => {
+cron.schedule("*/1 * * * *", async () => {
     console.log("Running fulfillment worker...");
     await fulfillPendingOrders();
 });
