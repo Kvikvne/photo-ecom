@@ -17,7 +17,7 @@ export default function MyFavorites() {
                     <div>
                         <ImgCarousel />
                     </div>
-                    <div className="flex flex-col items-center justify-between max-w-lg">
+                    <div className="flex flex-col items-center justify-center gap-12 max-w-lg">
                         <p className="text-lg">
                             Photography is the art of capturing moments,
                             emotions, and the beauty of our world through the

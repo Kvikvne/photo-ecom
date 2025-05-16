@@ -8,56 +8,72 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog";
+import oceanic from "@/assets/images/oceanic.jpg";
+import sheetGlass from "@/assets/images/sheet-glass.jpg";
+import emerald from "@/assets/images/emerald.jpg";
+import family from "@/assets/images/family.jpg";
+import paintedSky from "@/assets/images/painted-sky.jpg";
+import hawaiianSun from "@/assets/images/hawaiian-sun.jpg";
+import emeraldTunnel from "@/assets/images/emerald-tunnel.jpg";
+import goldenSands from "@/assets/images/golden-sands.jpg";
+import sunlitSurge from "@/assets/images/sunlit-surge.jpg";
+import tropicalSnow from "@/assets/images/tropical-snow.jpg";
+import marineLeap from "@/assets/images/marine-leap.jpg";
 
 const gridItems = [
     {
-        image: "/Oceanic.JPG",
+        image: oceanic,
         name: "Oceanic",
         link: "/",
     },
     {
-        image: "/SheetGlass.jpg",
+        image: sheetGlass,
         name: "Sheet Glass",
         link: "/",
     },
     {
-        image: "/Oceanic.JPG",
-        name: "Oceanic",
+        image: emerald,
+        name: "Emerald",
         link: "/",
     },
     {
-        image: "/SheetGlass.jpg",
-        name: "Sheet Glass",
+        image: family,
+        name: "Family",
         link: "/",
     },
     {
-        image: "/Oceanic.JPG",
-        name: "Oceanic",
+        image: paintedSky,
+        name: "Painted Sky",
         link: "/",
     },
     {
-        image: "/SheetGlass.jpg",
-        name: "Sheet Glass",
+        image: hawaiianSun,
+        name: "Hawaiian Sun",
         link: "/",
     },
     {
-        image: "/Oceanic.JPG",
-        name: "Oceanic",
+        image: emeraldTunnel,
+        name: "Emerald Tunnel",
         link: "/",
     },
     {
-        image: "/SheetGlass.jpg",
-        name: "Sheet Glass",
+        image: goldenSands,
+        name: "Golden Sands",
         link: "/",
     },
     {
-        image: "/Oceanic.JPG",
-        name: "Oceanic",
+        image: sunlitSurge,
+        name: "Sunlit Surge",
         link: "/",
     },
     {
-        image: "/SheetGlass.jpg",
-        name: "Sheet Glass",
+        image: tropicalSnow,
+        name: "Tropical Snow",
+        link: "/",
+    },
+    {
+        image: marineLeap,
+        name: "Marine Leap",
         link: "/",
     },
 ];
@@ -76,10 +92,10 @@ export default function Collection() {
                         Collection of Photography
                     </p>
                 </div>
-                <div className="grid w-full gap-4 px-4 py-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+                <div className="grid w-full gap-2 px-4 py-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
                     {gridItems.map((item, idx) => (
                         <Dialog>
-                            <DialogContent className="min-w-fit">
+                            <DialogContent className="bg-background min-w-fit">
                                 <DialogHeader>
                                     <DialogTitle>{item.name}</DialogTitle>
                                     <DialogDescription>
@@ -87,25 +103,21 @@ export default function Collection() {
                                     </DialogDescription>
                                 </DialogHeader>
                                 <Image
-                                    height={1200}
-                                    width={1200}
-                                    className="max-w-full rounded-sm"
-                                    alt={item.name}
                                     src={item.image}
+                                    alt={item.name}
+                                    className="w-full max-h-[80svh] rounded-md"
                                 />
                             </DialogContent>
 
                             <DialogTrigger asChild>
                                 <div
                                     key={idx}
-                                    className=" relative overflow-hidden rounded-xl hover:scale-102 duration-100 ease-in cursor-pointer"
+                                    className="h-64 w-fit relative overflow-hidden rounded-sm flex items-center justify-center  hover:scale-102 duration-100 ease-in cursor-pointer"
                                 >
                                     <Image
-                                        height={1000}
-                                        width={1000}
-                                        className="max-w-full "
-                                        alt={item.name}
                                         src={item.image}
+                                        alt={item.name}
+                                        className="object-cover h-full w-auto"
                                     />
                                 </div>
                             </DialogTrigger>

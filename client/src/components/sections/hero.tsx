@@ -6,7 +6,7 @@ export default function Hero() {
     return (
         <section
             id="home"
-            className="h-[calc(100vh-88px)] bg-[url(/Oceanic.JPG)] bg-cover bg-bottom flex flex-col justify-between items-center px-4 py-8"
+            className="h-[calc(100vh-88px)] bg-[url(/oceanic.jpg)] bg-cover bg-bottom flex flex-col justify-between items-center px-4 py-8"
         >
             {/* <div
                 className="z-0 absolute top-0 left-0 w-full h-full"
