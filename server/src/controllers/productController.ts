@@ -1,4 +1,5 @@
 import { getAllProducts, getProductById } from "../services/printifyService";
+import { PrintifyProduct } from "../types/printify";
 import { filterEnabledVariants } from "../utils/printifyFilter";
 
 import { RequestHandler } from "express";
@@ -23,7 +24,7 @@ export const fetchProductById: RequestHandler = async (req, res) => {
     const { variantId } = req.query;
 
     try {
-        const product = await getProductById(id); // from Printify or Mongo
+        const product = await getProductById(id);
 
         if (!product) {
             res.status(404).json({ error: "Product not found" });
@@ -41,6 +42,40 @@ export const fetchProductById: RequestHandler = async (req, res) => {
             selectedVariant,
         });
     } catch (error: any) {
-        res.status(500).json({ error: "Failed to fetch product" });
+        res.status(500).json({
+            error: "Failed to fetch product what the hell",
+        });
+    }
+};
+
+export const fetchProductCards: RequestHandler = async (req, res) => {
+    try {
+        const rawProducts = await getAllProducts();
+        const filteredProducts = rawProducts.map(filterEnabledVariants);
+
+        const cardProducts = filteredProducts.map(
+            (product: PrintifyProduct) => {
+                const defaultImage =
+                    product.images.find((img) => img.is_default)?.src ||
+                    product.images[0]?.src;
+
+                const prices = product.variants.map((v) => v.price);
+                const minPrice = Math.min(...prices) / 100;
+                const maxPrice = Math.max(...prices) / 100;
+
+                return {
+                    id: product.id,
+                    title: product.title,
+                    image: defaultImage,
+                    minPrice,
+                    maxPrice,
+                };
+            }
+        );
+
+        res.status(200).json({ products: cardProducts });
+    } catch (error: any) {
+        console.error("Error fetching product cards:", error);
+        res.status(500).json({ error: "Failed to fetch product cards" });
     }
 };

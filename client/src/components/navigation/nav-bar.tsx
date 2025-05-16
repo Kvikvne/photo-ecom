@@ -21,8 +21,8 @@ const navItems = [
         link: "/",
         isMenu: true,
         menuItems: [
-            { name: "Art & Wall Decor", link: "/products/prints" },
-            { name: "Accessories", link: "/products/accessories" },
+            { name: "Prints", link: "/shop/prints" },
+            { name: "Accessories", link: "/shop/accessories" },
         ],
     },
     { name: "My orders", link: "/orders", isMenu: false },
