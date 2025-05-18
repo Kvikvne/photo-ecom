@@ -13,5 +13,6 @@ export function filterEnabledVariants(product: any) {
         description: product.description,
         variants: enabledVariants,
         images: selectedImages,
+        tags: product.tags,
     };
 }

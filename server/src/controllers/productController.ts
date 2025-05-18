@@ -49,12 +49,17 @@ export const fetchProductById: RequestHandler = async (req, res) => {
 };
 
 export const fetchProductCards: RequestHandler = async (req, res) => {
+    const { productType } = req.params;
+
     try {
         const rawProducts = await getAllProducts();
         const filteredProducts = rawProducts.map(filterEnabledVariants);
 
-        const cardProducts = filteredProducts.map(
-            (product: PrintifyProduct) => {
+        const cardProducts = filteredProducts
+            .filter((product: PrintifyProduct) =>
+                product.tags.includes(productType)
+            )
+            .map((product: PrintifyProduct) => {
                 const defaultImage =
                     product.images.find((img) => img.is_default)?.src ||
                     product.images[0]?.src;
@@ -70,8 +75,7 @@ export const fetchProductCards: RequestHandler = async (req, res) => {
                     minPrice,
                     maxPrice,
                 };
-            }
-        );
+            });
 
         res.status(200).json({ products: cardProducts });
     } catch (error: any) {

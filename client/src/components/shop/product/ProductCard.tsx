@@ -1,14 +1,10 @@
 import Image from "next/image";
-import {
-    Card,
-    CardFooter,
-    CardContent,
-    CardTitle,
-    CardDescription,
-} from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 type ProductCardProps = {
+    id: string;
     title: string;
     image: string;
     minPrice: number;
@@ -16,6 +12,7 @@ type ProductCardProps = {
 };
 
 export default function ProductCard({
+    id,
     title,
     image,
     minPrice,
@@ -38,8 +35,9 @@ export default function ProductCard({
                 <Button
                     variant={"outline"}
                     className="w-full mt-4 bg-primary text-background hover:text-foreground"
+                    asChild
                 >
-                    View details
+                    <Link href={`/shop/${id}`}>View details</Link>
                 </Button>
             </CardContent>
         </Card>

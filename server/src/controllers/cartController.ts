@@ -3,9 +3,10 @@ import { Cart } from "../models/cart";
 
 // POST /api/cart/add
 export const addToCart: RequestHandler = async (req, res) => {
-    const { sessionId, item } = req.body;
+    const sessionId = req.sessionId;
+    const item = req.body.item;
 
-    if (!sessionId || !item?.variantId) {
+    if (!sessionId || !item?.productId) {
         res.status(400).json({ error: "Missing sessionId or item" });
         return;
     }
@@ -13,9 +14,7 @@ export const addToCart: RequestHandler = async (req, res) => {
     const cart = await Cart.findOne({ sessionId });
 
     if (cart) {
-        const existingItem = cart.items.find(
-            (i) => i.variantId === item.variantId
-        );
+        const existingItem = cart.items.find((i) => i.variantId === item.id);
 
         if (existingItem) {
             existingItem.quantity += item.quantity;
@@ -25,16 +24,18 @@ export const addToCart: RequestHandler = async (req, res) => {
 
         await cart.save();
         res.status(200).json(cart);
+        return;
     } else {
         const newCart = new Cart({ sessionId, items: [item] });
         await newCart.save();
         res.status(201).json(newCart);
+        return;
     }
 };
 
-// GET /api/cart?sessionId=abc123
+// GET /api/cart
 export const getCart: RequestHandler = async (req, res) => {
-    const { sessionId } = req.query;
+    const sessionId = req.sessionId;
 
     if (!sessionId) {
         res.status(400).json({ error: "Missing sessionId" });

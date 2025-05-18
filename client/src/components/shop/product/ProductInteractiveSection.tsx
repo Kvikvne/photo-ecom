@@ -1,0 +1,55 @@
+"use client";
+
+import { useState } from "react";
+import ProductImageGallery from "@/components/shop/product/ProductImageGallery";
+import ProductPurchaseSection from "@/components/shop/product/ProductPurchaseSection";
+
+type Variant = {
+    id: number;
+    title: string;
+    price: number;
+};
+
+type ImageType = {
+    src: string;
+    variant_ids: number[];
+    is_default: boolean;
+};
+
+type Props = {
+    images: ImageType[];
+    variants: Variant[];
+    title: string;
+    description: string;
+    productId: string;
+};
+
+export default function ProductInteractiveSection({
+    title,
+    description,
+    images,
+    variants,
+    productId,
+}: Props) {
+    const [activeVariantId, setActiveVariantId] = useState(variants[0]?.id);
+
+    return (
+        <div className="grid md:grid-cols-2 gap-12">
+            <ProductImageGallery images={images} variantId={activeVariantId} />
+            <div>
+                <h1 className="text-4xl font-bold mb-4">{title}</h1>
+                <p
+                    className="text-muted-foreground mb-6 text-lg"
+                    dangerouslySetInnerHTML={{
+                        __html: description,
+                    }}
+                />
+                <ProductPurchaseSection
+                    variants={variants}
+                    onVariantChange={setActiveVariantId}
+                    productId={productId}
+                />
+            </div>
+        </div>
+    );
+}

@@ -22,6 +22,7 @@ export default function ProductGrid({ products }: ProductGridProps) {
                     image={product.image}
                     minPrice={product.minPrice}
                     maxPrice={product.maxPrice}
+                    id={product.id}
                 />
             ))}
         </div>
