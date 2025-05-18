@@ -65,7 +65,7 @@ const footerLinks = [
                 link: "/",
             },
             {
-                name: "Terms of Service",
+                name: "Returns and Refunds",
                 link: "/",
             },
         ],
@@ -127,7 +127,7 @@ export function Footer() {
                             </Link>
                         ))}
                     </div>
-                    <div className="flex gap-6">
+                    <div className="flex7 gap-6">
                         {footerLinks.map((item, idx) => (
                             <div className="flex flex-col">
                                 <span

@@ -85,3 +85,31 @@ export const removeFromCart: RequestHandler = async (req, res) => {
 
     res.status(200).json(cart);
 };
+
+export const updateCartItem: RequestHandler = async (req, res) => {
+    const sessionId = req.sessionId;
+    const { variantId } = req.params;
+    const { quantity } = req.body;
+
+    if (!sessionId || !variantId || typeof quantity !== "number") {
+        res.status(400).json({ error: "Missing data" });
+        return;
+    }
+
+    const cart = await Cart.findOne({ sessionId });
+    if (!cart) {
+        res.status(404).json({ error: "Cart not found" });
+        return;
+    }
+
+    const item = cart.items.find((i) => i.id === Number(variantId));
+    if (!item) {
+        res.status(404).json({ error: "Item not found" });
+        return;
+    }
+
+    item.quantity = quantity;
+    await cart.save();
+
+    res.json(cart);
+};

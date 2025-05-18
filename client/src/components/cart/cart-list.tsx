@@ -45,6 +45,20 @@ async function checkout() {
     return res.json();
 }
 
+async function updateCartItemQuantity(id: number, quantity: number) {
+    const res = await fetch(`http://localhost:5000/api/cart/item/${id}`, {
+        method: "PATCH",
+        credentials: "include",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ quantity }),
+    });
+
+    if (!res.ok) throw new Error("Failed to update cart item");
+    return res.json();
+}
+
 export default function CartList() {
     const [cart, setCart] = useState<{ items: any[] } | null>(null);
 
@@ -77,7 +91,7 @@ export default function CartList() {
     );
 
     return (
-        <div className="max-w-3xl mx-auto py-24">
+        <div className="max-w-4xl mx-auto py-24">
             {cart.items.map((item, idx) => (
                 <div className="flex items-center justify-between gap-6 mb-4 border-b-2 pb-4">
                     <Image
@@ -93,7 +107,39 @@ export default function CartList() {
                     <p className="" key={idx}>
                         ${(item.price / 100).toFixed(2)}
                     </p>
-                    <p>x {item.quantity}</p>
+                    <div className="flex items-center gap-2">
+                        <Button
+                            disabled={item.quantity === 1}
+                            variant="ghost"
+                            size="icon"
+                            onClick={async () => {
+                                if (item.quantity > 1) {
+                                    const updated =
+                                        await updateCartItemQuantity(
+                                            item.id,
+                                            item.quantity - 1
+                                        );
+                                    setCart(updated);
+                                }
+                            }}
+                        >
+                            -
+                        </Button>
+                        <span>{item.quantity}</span>
+                        <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={async () => {
+                                const updated = await updateCartItemQuantity(
+                                    item.id,
+                                    item.quantity + 1
+                                );
+                                setCart(updated);
+                            }}
+                        >
+                            +
+                        </Button>
+                    </div>
                     <Button
                         onClick={async () => {
                             await removeCartItem(item.id);
