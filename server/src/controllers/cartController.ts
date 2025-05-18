@@ -4,7 +4,7 @@ import { Cart } from "../models/cart";
 // POST /api/cart/add
 export const addToCart: RequestHandler = async (req, res) => {
     const sessionId = req.sessionId;
-    const item = req.body.item;
+    const { item, product } = req.body;
 
     if (!sessionId || !item?.productId) {
         res.status(400).json({ error: "Missing sessionId or item" });
@@ -14,7 +14,8 @@ export const addToCart: RequestHandler = async (req, res) => {
     const cart = await Cart.findOne({ sessionId });
 
     if (cart) {
-        const existingItem = cart.items.find((i) => i.variantId === item.id);
+        // Check if item (by variant ID) already exists
+        const existingItem = cart.items.find((i) => i.id === item.id);
 
         if (existingItem) {
             existingItem.quantity += item.quantity;
@@ -22,11 +23,27 @@ export const addToCart: RequestHandler = async (req, res) => {
             cart.items.push(item);
         }
 
+        // Only add the product metadata if it’s not already stored
+        if (product && product.productId) {
+            const productExists = cart.products?.some(
+                (p) => p.productId === product.productId
+            );
+
+            if (!productExists) {
+                cart.products.push(product);
+            }
+        }
+
         await cart.save();
         res.status(200).json(cart);
         return;
     } else {
-        const newCart = new Cart({ sessionId, items: [item] });
+        const newCart = new Cart({
+            sessionId,
+            items: [item],
+            products: [product],
+        });
+
         await newCart.save();
         res.status(201).json(newCart);
         return;
@@ -36,7 +53,7 @@ export const addToCart: RequestHandler = async (req, res) => {
 // GET /api/cart
 export const getCart: RequestHandler = async (req, res) => {
     const sessionId = req.sessionId;
-
+    console.log("express session", sessionId);
     if (!sessionId) {
         res.status(400).json({ error: "Missing sessionId" });
         return;
@@ -48,7 +65,7 @@ export const getCart: RequestHandler = async (req, res) => {
 
 // DELETE /api/cart/:variantId?sessionId=abc123
 export const removeFromCart: RequestHandler = async (req, res) => {
-    const { sessionId } = req.query;
+    const sessionId = req.sessionId;
     const { variantId } = req.params;
 
     if (!sessionId || !variantId) {
@@ -63,7 +80,7 @@ export const removeFromCart: RequestHandler = async (req, res) => {
         return;
     }
 
-    cart.items = cart.items.filter((i) => i.variantId !== Number(variantId));
+    cart.items = cart.items.filter((i) => i.id !== Number(variantId));
     await cart.save();
 
     res.status(200).json(cart);

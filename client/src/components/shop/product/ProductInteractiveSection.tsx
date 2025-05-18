@@ -32,7 +32,9 @@ export default function ProductInteractiveSection({
     productId,
 }: Props) {
     const [activeVariantId, setActiveVariantId] = useState(variants[0]?.id);
-
+    const variantImages = images.filter((img) =>
+        img.variant_ids.includes(activeVariantId)
+    );
     return (
         <div className="grid md:grid-cols-2 gap-12">
             <ProductImageGallery images={images} variantId={activeVariantId} />
@@ -47,7 +49,11 @@ export default function ProductInteractiveSection({
                 <ProductPurchaseSection
                     variants={variants}
                     onVariantChange={setActiveVariantId}
-                    productId={productId}
+                    product={{
+                        productId: productId,
+                        title: title,
+                    }}
+                    image={variantImages[0]?.src || ""}
                 />
             </div>
         </div>

@@ -9,15 +9,25 @@ type Variant = {
     price: number;
 };
 
+type ProductInfo = {
+    productId: string;
+    title: string;
+};
+
 type Props = {
     variants: Variant[];
     onVariantChange: (variantId: number) => void;
-    productId: string;
+    product: ProductInfo;
+    image: string;
 };
 
-function addToCart(selectedVariant: Variant, productId: string) {
+async function addToCart(
+    selectedVariant: Variant,
+    product: ProductInfo,
+    image: string
+) {
     try {
-        fetch("http://localhost:5000/api/cart/add", {
+        const res = await fetch("http://localhost:5000/api/cart/add", {
             method: "POST",
             credentials: "include",
             headers: {
@@ -26,19 +36,30 @@ function addToCart(selectedVariant: Variant, productId: string) {
             body: JSON.stringify({
                 item: {
                     ...selectedVariant,
-                    productId: productId,
+                    productId: product.productId,
+                    image: image,
+                    productTitle: product.title,
                 },
             }),
         });
+
+        if (!res.ok) {
+            const errorData = await res.json();
+            console.error("Add to cart failed:", errorData);
+        } else {
+            const data = await res.json();
+            console.log("Cart updated:", data);
+        }
     } catch (err) {
-        console.error("There was problem adding item to cart.");
+        console.error("There was a problem adding item to cart:", err);
     }
 }
 
 export default function ProductPurchaseSection({
     variants,
     onVariantChange,
-    productId,
+    product,
+    image,
 }: Props) {
     const [selectedVariant, setSelectedVariant] = useState<Variant>(
         variants[0]
@@ -49,7 +70,7 @@ export default function ProductPurchaseSection({
         onVariantChange(variant.id);
     };
 
-    console.log(selectedVariant);
+    console.log("add to cart component product: ", product);
 
     return (
         <div className="mt-6">
@@ -75,7 +96,7 @@ export default function ProductPurchaseSection({
 
             <Button
                 className="mt-4"
-                onClick={() => addToCart(selectedVariant, productId)}
+                onClick={() => addToCart(selectedVariant, product, image)}
             >
                 Add to Cart
             </Button>

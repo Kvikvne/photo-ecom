@@ -7,11 +7,12 @@ const CartSchema = new Schema<CartDocument>(
         items: [
             {
                 id: { type: Number, required: true },
-                productId: { type: String, required: true },
                 quantity: { type: Number, required: true },
                 price: { type: Number, required: true },
                 title: String,
+                productId: { type: String, required: true },
                 image: String,
+                productTitle: String,
             },
         ],
     },
