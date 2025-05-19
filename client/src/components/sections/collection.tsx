@@ -94,7 +94,7 @@ export default function Collection() {
                 </div>
                 <div className="grid w-full gap-2 px-4 py-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
                     {gridItems.map((item, idx) => (
-                        <Dialog>
+                        <Dialog key={idx}>
                             <DialogContent className="bg-background min-w-fit">
                                 <DialogHeader>
                                     <DialogTitle>{item.name}</DialogTitle>

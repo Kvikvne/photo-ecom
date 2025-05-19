@@ -16,18 +16,20 @@ export async function generateMetadata({
 }: {
     params: { id: string };
 }): Promise<Metadata> {
-    const product = await getProduct(params.id);
+    // Next 15 bullshit await to make the warning go away
+    const { id } = await params;
+    const product = await getProduct(id);
 
     if (!product) {
         return {
-            title: "Product Not Found – KAI",
+            title: "Product Not Found - KAI",
             description: "This product could not be found.",
         };
     }
 
     return {
         title: `${product.title}`,
-        description: product.description.replace(/<[^>]*>/g, "").slice(0, 150), // strip HTML, truncate
+        description: product.description.replace(/<[^>]*>/g, "").slice(0, 150),
         openGraph: {
             title: `${product.title}`,
             description: product.description
@@ -62,7 +64,9 @@ export default async function ProductPage({
 }: {
     params: { id: string };
 }) {
-    const product = await getProduct(params.id);
+    // Next 15 bullshit await to make the warning go away
+    const { id } = await params;
+    const product = await getProduct(id);
 
     if (!product) return notFound();
 

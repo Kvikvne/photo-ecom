@@ -129,7 +129,7 @@ export function Footer() {
                     </div>
                     <div className="flex7 gap-6">
                         {footerLinks.map((item, idx) => (
-                            <div className="flex flex-col">
+                            <div key={idx} className="flex flex-col">
                                 <span
                                     key={idx}
                                     className="font-bold text-xl text-background"

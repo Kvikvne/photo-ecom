@@ -72,7 +72,7 @@ export function Navbar() {
                 )
             )}
             <DropdownMenu>
-                <DropdownMenuTrigger>
+                <DropdownMenuTrigger asChild>
                     <Button
                         className="cursor-pointer text-background hover:text-foreground"
                         variant="ghost"

@@ -1,6 +1,8 @@
 "use client";
 import * as React from "react";
 import Autoplay from "embla-carousel-autoplay";
+import SheetGlass from "@/assets/images/sheet-glass.jpg";
+import Oceanic from "@/assets/images/oceanic.jpg";
 
 import Image from "next/image";
 import {
@@ -14,12 +16,12 @@ import { Button } from "@/components/ui/button";
 
 const carouselItems = [
     {
-        image: "/Oceanic.JPG",
+        image: Oceanic,
         name: "Oceanic",
         link: "/",
     },
     {
-        image: "/SheetGlass.jpg",
+        image: SheetGlass,
         name: "Sheet Glass",
         link: "/",
     },

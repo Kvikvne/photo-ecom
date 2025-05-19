@@ -70,8 +70,6 @@ export default function ProductPurchaseSection({
         onVariantChange(variant.id);
     };
 
-    console.log("add to cart component product: ", product);
-
     return (
         <div className="mt-6">
             <p className="text-xl font-semibold mb-4">

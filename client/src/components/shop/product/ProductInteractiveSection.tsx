@@ -40,12 +40,9 @@ export default function ProductInteractiveSection({
             <ProductImageGallery images={images} variantId={activeVariantId} />
             <div>
                 <h1 className="text-4xl font-bold mb-4">{title}</h1>
-                <p
-                    className="text-muted-foreground mb-6 text-lg"
-                    dangerouslySetInnerHTML={{
-                        __html: description,
-                    }}
-                />
+                <p className="text-muted-foreground mb-6 text-lg">
+                    {description}
+                </p>
                 <ProductPurchaseSection
                     variants={variants}
                     onVariantChange={setActiveVariantId}

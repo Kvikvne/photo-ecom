@@ -93,7 +93,10 @@ export default function CartList() {
     return (
         <div className="max-w-4xl mx-auto py-24">
             {cart.items.map((item, idx) => (
-                <div className="flex items-center justify-between gap-6 mb-4 border-b-2 pb-4">
+                <div
+                    key={idx}
+                    className="flex items-center justify-between gap-6 mb-4 border-b-2 pb-4"
+                >
                     <Image
                         height={100}
                         width={100}

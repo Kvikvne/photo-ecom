@@ -36,9 +36,8 @@ export default function ProductCard({
                     <Button
                         variant={"outline"}
                         className="w-full mt-4 bg-primary text-background hover:text-foreground"
-                        asChild
                     >
-                        <Link href={`/shop/${id}`}>View details</Link>
+                        View details
                     </Button>
                 </Link>
             </CardContent>
