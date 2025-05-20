@@ -72,11 +72,11 @@ export const createCheckoutSession = async (
         zip: shipping.zip,
     };
 
-    const order = await Order.create({
-        sessionId,
-        addressTo,
-        status: "pending",
-    });
+    // const order = await Order.create({
+    //     sessionId,
+    //     addressTo,
+    //     status: "pending",
+    // });
 
     // Build line_items for Printify
     const printifyLineItems = cart.items.map((item) => ({
@@ -143,7 +143,16 @@ export const createCheckoutSession = async (
             cancel_url: `http://localhost:3000/cart`,
             metadata: {
                 sessionId,
-                orderId: order._id.toString(),
+                first_name: addressTo.first_name,
+                last_name: addressTo.last_name,
+                email: addressTo.email,
+                phone: addressTo.phone,
+                country: addressTo.country,
+                region: addressTo.region,
+                address1: addressTo.address1,
+                address2: addressTo.address2,
+                city: addressTo.city,
+                zip: addressTo.zip,
             },
         });
 

@@ -78,7 +78,7 @@ export interface OrderDocument extends Document {
 
 const OrderSchema = new Schema<OrderDocument>(
     {
-        sessionId: { type: String, required: true },
+        sessionId: { type: String },
         stripeSessionId: { type: String },
         email: String,
         status: {
