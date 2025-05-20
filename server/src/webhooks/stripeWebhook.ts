@@ -63,6 +63,12 @@ const webhookHandler: RequestHandler = async (req: Request, res: Response) => {
                 zip: session.metadata?.zip,
             };
 
+            // Assumes standard shipping is always the first option when creating the session
+            // const rate = session.shipping_cost?.shipping_rate;
+            // const standardShipping = session.shipping_options[0].shipping_rate;
+
+            // const shippingMethod = rate === standardShipping ? 1 : 3; // 1 = standard, 3 = express
+
             await Order.create({
                 stripeSessionId: session.id,
                 stripeCustomerId: session.customer as string,
@@ -75,6 +81,7 @@ const webhookHandler: RequestHandler = async (req: Request, res: Response) => {
                 shippingInCents: session.total_details?.amount_shipping,
                 discountInCents: session.total_details?.amount_discount,
                 totalAmountPaidInCents: session.amount_total ?? 0,
+                // shippingMethod: shippingMethod,
             });
 
             console.log("Order saved:", session.id);

@@ -115,20 +115,6 @@ export const createCheckoutSession = async (
                     },
                 },
             },
-            {
-                shipping_rate_data: {
-                    type: "fixed_amount",
-                    fixed_amount: {
-                        amount: shippingData.express,
-                        currency: "usd",
-                    },
-                    display_name: "Express Shipping",
-                    delivery_estimate: {
-                        minimum: { unit: "business_day", value: 2 },
-                        maximum: { unit: "business_day", value: 3 },
-                    },
-                },
-            },
         ];
 
     // Step 4: Create Stripe Checkout Session

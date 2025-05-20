@@ -109,7 +109,7 @@ export async function sendToPrintify(order: OrderDocument): Promise<string> {
             variant_id: item.variantId,
             quantity: item.quantity,
         })),
-        shipping_method: 1,
+        shipping_method: order.shippingMethod,
         send_shipping_notification: false,
         address_to: order.addressTo,
     };
