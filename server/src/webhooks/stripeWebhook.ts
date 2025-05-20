@@ -71,6 +71,10 @@ const webhookHandler: RequestHandler = async (req: Request, res: Response) => {
                 status: "paid",
                 lineItems: orderItems,
                 addressTo: addressTo,
+                subtotalInCents: session.amount_subtotal,
+                shippingInCents: session.total_details?.amount_shipping,
+                discountInCents: session.total_details?.amount_discount,
+                totalAmountPaidInCents: session.amount_total ?? 0,
             });
 
             console.log("Order saved:", session.id);

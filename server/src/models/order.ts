@@ -74,6 +74,10 @@ export interface OrderDocument extends Document {
     deliveredAt: Date;
     trackingUrl: string;
     addressTo: AddressTo;
+    subtotalInCents?: number;
+    shippingInCents?: number;
+    discountInCents?: number;
+    totalAmountPaidInCents: number;
 }
 
 const OrderSchema = new Schema<OrderDocument>(
@@ -104,6 +108,10 @@ const OrderSchema = new Schema<OrderDocument>(
         deliveredAt: Date,
         trackingUrl: { type: String },
         addressTo: { type: AddressToSchema, required: true },
+        subtotalInCents: { type: Number },
+        shippingInCents: { type: Number },
+        discountInCents: { type: Number },
+        totalAmountPaidInCents: { type: Number, required: true },
     },
     { timestamps: true }
 );
