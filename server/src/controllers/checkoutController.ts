@@ -1,10 +1,16 @@
 import { RequestHandler } from "express";
+import { Request, Response } from "express";
 import { stripe } from "../lib/stripe";
 import { Cart } from "../models/cart";
 import { Order } from "../models/order";
 import { ProductVariant } from "../models/productVariant";
+import { calculateShippingCost } from "../utils/shippingCost";
+import Stripe from "stripe";
 
-export const createCheckoutSession: RequestHandler = async (req, res) => {
+export const createCheckoutSession = async (
+    req: Request,
+    res: Response
+): Promise<void> => {
     const sessionId = req.sessionId;
     const { shipping } = req.body;
 
@@ -66,17 +72,80 @@ export const createCheckoutSession: RequestHandler = async (req, res) => {
         zip: shipping.zip,
     };
 
-    await Order.create({
-        addressTo,
-        sessionId,
-        status: "pending",
-    });
+    await Order.findOneAndUpdate(
+        { sessionId }, // Find an existing order with this sessionId
+        {
+            $set: {
+                addressTo,
+                status: "pending",
+            },
+        },
+        {
+            upsert: true, // Create the order if it doesn't exist
+            new: true,
+        }
+    );
+
+    // Build line_items for Printify
+    const printifyLineItems = cart.items.map((item) => ({
+        product_id: item.productId,
+        variant_id: item.id,
+        quantity: item.quantity,
+    }));
+
+    // Calculate shipping from Printify
+    let shippingData;
+    try {
+        shippingData = await calculateShippingCost(
+            addressTo,
+            printifyLineItems
+        );
+        console.log("Shipping cost calculated:", shippingData);
+    } catch (err) {
+        console.error("Failed to calculate shipping:", err);
+        res.status(500).json({ error: "Failed to calculate shipping cost" });
+        return;
+    }
+
+    const shippingOptions: Stripe.Checkout.SessionCreateParams.ShippingOption[] =
+        [
+            {
+                shipping_rate_data: {
+                    type: "fixed_amount",
+                    fixed_amount: {
+                        amount: shippingData.standard,
+                        currency: "usd",
+                    },
+                    display_name: "Standard Shipping",
+                    delivery_estimate: {
+                        minimum: { unit: "business_day", value: 4 },
+                        maximum: { unit: "business_day", value: 8 },
+                    },
+                },
+            },
+            {
+                shipping_rate_data: {
+                    type: "fixed_amount",
+                    fixed_amount: {
+                        amount: shippingData.express,
+                        currency: "usd",
+                    },
+                    display_name: "Express Shipping",
+                    delivery_estimate: {
+                        minimum: { unit: "business_day", value: 2 },
+                        maximum: { unit: "business_day", value: 3 },
+                    },
+                },
+            },
+        ];
 
     // Step 4: Create Stripe Checkout Session
     try {
         const session = await stripe.checkout.sessions.create({
+            allow_promotion_codes: true,
             mode: "payment",
             payment_method_types: ["card"],
+            shipping_options: shippingOptions,
             line_items: lineItems,
             success_url: `https://yourdomain.com/success?session_id={CHECKOUT_SESSION_ID}`,
             cancel_url: `http://localhost:3000/cart`,

@@ -156,16 +156,16 @@ export default function CheckoutForm() {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            first_name: "John",
-            last_name: "Doe",
-            email: "email@email.com",
+            first_name: "Kai",
+            last_name: "Anderson",
+            email: "kaianderson9@gmail.com",
             phone: "123-456-7890",
             country: "US",
-            region: "HI",
-            city: "Koloa",
-            address1: "123 Test Street",
+            region: "CA",
+            city: "Imperial Beach",
+            address1: "705 3rd street",
             address2: "Apt K",
-            zip: "98765",
+            zip: "91932",
         },
     });
 

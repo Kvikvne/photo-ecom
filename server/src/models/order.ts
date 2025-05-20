@@ -79,7 +79,7 @@ export interface OrderDocument extends Document {
 const OrderSchema = new Schema<OrderDocument>(
     {
         sessionId: { type: String, required: true },
-        stripeSessionId: { type: String, required: false, unique: true },
+        stripeSessionId: { type: String },
         email: String,
         status: {
             type: String,
@@ -107,5 +107,17 @@ const OrderSchema = new Schema<OrderDocument>(
     },
     { timestamps: true }
 );
+
+OrderSchema.index(
+    { stripeSessionId: 1 },
+    {
+        unique: true,
+        partialFilterExpression: {
+            stripeSessionId: { $exists: true, $ne: null },
+        },
+    }
+);
+
+OrderSchema.index({ sessionId: 1 }, { unique: true });
 
 export const Order = mongoose.model<OrderDocument>("Order", OrderSchema);
