@@ -50,24 +50,24 @@ const webhookHandler: RequestHandler = async (req: Request, res: Response) => {
                 };
             });
 
-            const existingOrder = await Order.findOne({
-                stripeSessionId: session.id,
-            });
-            if (existingOrder) {
-                console.log(`Order for session ${session.id} already exists.`);
-                res.status(200).send("Already processed");
+            const sessionId = session.metadata?.sessionId;
+
+            if (!sessionId) {
+                console.error("Missing sessionId in metadata.");
                 return;
             }
 
-            await Order.create({
-                sessionId: session.metadata?.sessionId || "unknown",
-                stripeSessionId: session.id,
-                stripeCustomerId: session.customer as string,
-                stripePaymentIntentId: session.payment_intent as string,
-                email: session.customer_details?.email || "",
-                status: "pending",
-                lineItems: orderItems,
-            });
+            await Order.findOneAndUpdate(
+                { sessionId: sessionId },
+                {
+                    stripeSessionId: session.id,
+                    stripeCustomerId: session.customer as string,
+                    stripePaymentIntentId: session.payment_intent as string,
+                    email: session.customer_details?.email || "",
+                    status: "paid",
+                    lineItems: orderItems,
+                }
+            );
 
             console.log("Order saved:", session.id);
             res.status(200).send("Order received");

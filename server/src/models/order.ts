@@ -9,12 +9,54 @@ interface OrderItem {
     image?: string;
 }
 
+interface AddressTo {
+    first_name: string;
+    last_name: string;
+    email: string;
+    phone: string;
+    country: string; // ISO 3166-1 alpha-2 country code (e.g., "US")
+    region: string; // State or province
+    city: string;
+    address1: string;
+    address2?: string; // Optional
+    zip: string;
+}
+
+const AddressToSchema = new Schema<AddressTo>(
+    {
+        first_name: { type: String, required: true },
+        last_name: { type: String, required: true },
+        email: { type: String, required: true },
+        phone: { type: String, required: true },
+        country: { type: String, required: true },
+        region: { type: String, required: true },
+        city: { type: String, required: true },
+        address1: { type: String, required: true },
+        address2: { type: String, required: false },
+        zip: { type: String, required: true },
+    },
+    { _id: false }
+);
+
+const OrderItemSchema = new Schema<OrderItem>(
+    {
+        variantId: { type: Number, required: true },
+        productId: { type: String, required: true },
+        quantity: { type: Number, required: true },
+        priceInCents: { type: Number, required: true },
+        title: String,
+        image: String,
+    },
+    { _id: false }
+);
+
 export interface OrderDocument extends Document {
     sessionId: string;
     stripeSessionId: string;
     email?: string;
     status:
         | "pending"
+        | "paid"
         | "processing"
         | "confirmed"
         | "shipped"
@@ -31,29 +73,19 @@ export interface OrderDocument extends Document {
     shippedAt: Date;
     deliveredAt: Date;
     trackingUrl: string;
+    addressTo: AddressTo;
 }
-
-const OrderItemSchema = new Schema<OrderItem>(
-    {
-        variantId: { type: Number, required: true },
-        productId: { type: String, required: true },
-        quantity: { type: Number, required: true },
-        priceInCents: { type: Number, required: true },
-        title: String,
-        image: String,
-    },
-    { _id: false }
-);
 
 const OrderSchema = new Schema<OrderDocument>(
     {
         sessionId: { type: String, required: true },
-        stripeSessionId: { type: String, required: true, unique: true },
+        stripeSessionId: { type: String, required: false, unique: true },
         email: String,
         status: {
             type: String,
             enum: [
                 "pending",
+                "paid",
                 "processing",
                 "confirmed",
                 "shipped",
@@ -71,6 +103,7 @@ const OrderSchema = new Schema<OrderDocument>(
         shippedAt: Date,
         deliveredAt: Date,
         trackingUrl: { type: String },
+        addressTo: { type: AddressToSchema, required: true },
     },
     { timestamps: true }
 );

@@ -13,7 +13,6 @@ import {
     CardTitle,
     CardContent,
     CardFooter,
-    CardDescription,
 } from "@/components/ui/card";
 import {
     Form,
@@ -131,21 +130,26 @@ interface ShippingInfo {
     zip: string;
 }
 
-async function checkout() {
+async function handleShippingSubmit(data: ShippingInfo) {
     const res = await fetch("http://localhost:5000/api/checkout", {
         method: "POST",
         credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ shipping: data }),
     });
 
-    if (!res.ok) {
-        throw new Error("Failed to fetch cart");
+    const result = await res.json();
+    if (result.url) {
+        window.location.href = result.url;
     }
-
-    return res.json();
 }
 
 function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+    try {
+        handleShippingSubmit(values);
+    } catch (err) {
+        console.error("There was problem submitting your order.");
+    }
 }
 
 export default function CheckoutForm() {

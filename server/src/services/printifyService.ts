@@ -102,20 +102,6 @@ export async function sendToPrintify(order: OrderDocument): Promise<string> {
             "Missing PRINTIFY_SHOP_ID or PRINTIFY_TOKEN in environment"
         );
     }
-
-    // Temporary dummy shipping info
-    const address = {
-        first_name: "Test",
-        last_name: "User",
-        email: order.email || "test@example.com",
-        phone: "5555555555",
-        country: "US",
-        region: "CA",
-        city: "Honolulu",
-        address1: "123 Test Street",
-        zip: "96815",
-    };
-
     const formattedOrderData = {
         external_id: order._id.toString(),
         line_items: order.lineItems.map((item) => ({
@@ -125,7 +111,7 @@ export async function sendToPrintify(order: OrderDocument): Promise<string> {
         })),
         shipping_method: 1,
         send_shipping_notification: false,
-        address_to: address,
+        address_to: order.addressTo,
     };
 
     try {

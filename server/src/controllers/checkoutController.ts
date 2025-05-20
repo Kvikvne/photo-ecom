@@ -1,10 +1,12 @@
 import { RequestHandler } from "express";
 import { stripe } from "../lib/stripe";
 import { Cart } from "../models/cart";
+import { Order } from "../models/order";
 import { ProductVariant } from "../models/productVariant";
 
 export const createCheckoutSession: RequestHandler = async (req, res) => {
     const sessionId = req.sessionId;
+    const { shipping } = req.body;
 
     if (!sessionId) {
         res.status(400).json({ error: "Missing session ID" });
@@ -50,6 +52,26 @@ export const createCheckoutSession: RequestHandler = async (req, res) => {
         return;
     }
 
+    // Create pending order document
+    const addressTo = {
+        first_name: shipping.first_name,
+        last_name: shipping.last_name,
+        email: shipping.email,
+        phone: shipping.phone,
+        country: shipping.country,
+        region: shipping.region,
+        address1: shipping.address1,
+        address2: shipping.address2,
+        city: shipping.city,
+        zip: shipping.zip,
+    };
+
+    await Order.create({
+        addressTo,
+        sessionId,
+        status: "pending",
+    });
+
     // Step 4: Create Stripe Checkout Session
     try {
         const session = await stripe.checkout.sessions.create({
@@ -57,7 +79,7 @@ export const createCheckoutSession: RequestHandler = async (req, res) => {
             payment_method_types: ["card"],
             line_items: lineItems,
             success_url: `https://yourdomain.com/success?session_id={CHECKOUT_SESSION_ID}`,
-            cancel_url: `https://yourdomain.com/cart`,
+            cancel_url: `http://localhost:3000/cart`,
             metadata: {
                 sessionId,
             },

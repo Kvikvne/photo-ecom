@@ -9,13 +9,13 @@ dotenv.config();
 export async function fulfillPendingOrders() {
     await connectToMongoDB();
 
-    const pendingOrders = await Order.find({ status: "pending" });
+    const paidOrders = await Order.find({ status: "paid" });
 
-    if (pendingOrders.length === 0) {
-        console.log("No pending orders to confirm.");
+    if (paidOrders.length === 0) {
+        console.log("No paid orders to confirm.");
     }
 
-    for (const order of pendingOrders) {
+    for (const order of paidOrders) {
         try {
             const printifyOrderId = await sendToPrintify(order);
             order.status = "confirmed";
