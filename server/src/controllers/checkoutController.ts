@@ -72,19 +72,11 @@ export const createCheckoutSession = async (
         zip: shipping.zip,
     };
 
-    await Order.findOneAndUpdate(
-        { sessionId }, // Find an existing order with this sessionId
-        {
-            $set: {
-                addressTo,
-                status: "pending",
-            },
-        },
-        {
-            upsert: true, // Create the order if it doesn't exist
-            new: true,
-        }
-    );
+    const order = await Order.create({
+        sessionId,
+        addressTo,
+        status: "pending",
+    });
 
     // Build line_items for Printify
     const printifyLineItems = cart.items.map((item) => ({
@@ -151,6 +143,7 @@ export const createCheckoutSession = async (
             cancel_url: `http://localhost:3000/cart`,
             metadata: {
                 sessionId,
+                orderId: order._id.toString(),
             },
         });
 

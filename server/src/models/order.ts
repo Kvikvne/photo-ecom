@@ -118,6 +118,4 @@ OrderSchema.index(
     }
 );
 
-OrderSchema.index({ sessionId: 1 }, { unique: true });
-
 export const Order = mongoose.model<OrderDocument>("Order", OrderSchema);

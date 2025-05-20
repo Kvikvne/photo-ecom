@@ -50,24 +50,17 @@ const webhookHandler: RequestHandler = async (req: Request, res: Response) => {
                 };
             });
 
-            const sessionId = session.metadata?.sessionId;
+            const orderId = session.metadata?.orderId;
+            if (!orderId) throw new Error("Missing orderId from metadata");
 
-            if (!sessionId) {
-                console.error("Missing sessionId in metadata.");
-                return;
-            }
-
-            await Order.findOneAndUpdate(
-                { sessionId: sessionId },
-                {
-                    stripeSessionId: session.id,
-                    stripeCustomerId: session.customer as string,
-                    stripePaymentIntentId: session.payment_intent as string,
-                    email: session.customer_details?.email || "",
-                    status: "paid",
-                    lineItems: orderItems,
-                }
-            );
+            await Order.findByIdAndUpdate(orderId, {
+                stripeSessionId: session.id,
+                stripeCustomerId: session.customer as string,
+                stripePaymentIntentId: session.payment_intent as string,
+                email: session.customer_details?.email || "",
+                status: "paid",
+                lineItems: orderItems,
+            });
 
             console.log("Order saved:", session.id);
             res.status(200).send("Order received");
