@@ -127,7 +127,7 @@ export function Footer() {
                             </Link>
                         ))}
                     </div>
-                    <div className="flex7 gap-6">
+                    <div className="flex gap-6">
                         {footerLinks.map((item, idx) => (
                             <div key={idx} className="flex flex-col">
                                 <span

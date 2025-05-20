@@ -32,19 +32,6 @@ async function removeCartItem(id: string) {
     return res.json();
 }
 
-async function checkout() {
-    const res = await fetch("http://localhost:5000/api/checkout", {
-        method: "POST",
-        credentials: "include",
-    });
-
-    if (!res.ok) {
-        throw new Error("Failed to fetch cart");
-    }
-
-    return res.json();
-}
-
 async function updateCartItemQuantity(id: number, quantity: number) {
     const res = await fetch(`http://localhost:5000/api/cart/item/${id}`, {
         method: "PATCH",
@@ -161,26 +148,8 @@ export default function CartList() {
                     Total: ${(total / 100).toFixed(2)}
                 </p>
 
-                {/* Need to collect shipping info and append it to the data 
-                before creating a stripe session */}
-
-                <Button
-                    onClick={async () => {
-                        try {
-                            const response = await checkout();
-                            if (response.url) {
-                                window.location.href = response.url; // Redirect to Stripe Checkout
-                            } else {
-                                console.error(
-                                    "No URL returned from checkout session"
-                                );
-                            }
-                        } catch (err) {
-                            console.error("Checkout error:", err);
-                        }
-                    }}
-                >
-                    Checkout
+                <Button>
+                    <Link href={"/checkout"}>Checkout</Link>
                 </Button>
             </div>
         </div>
