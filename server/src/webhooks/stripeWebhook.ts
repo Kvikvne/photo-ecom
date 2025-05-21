@@ -2,6 +2,7 @@ import { Request, Response, RequestHandler } from "express";
 import Stripe from "stripe";
 import { stripe } from "../lib/stripe";
 import { Order } from "../models/order";
+import { Cart } from "../models/cart";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -85,6 +86,10 @@ const webhookHandler: RequestHandler = async (req: Request, res: Response) => {
             });
 
             console.log("Order saved:", session.id);
+
+            // Delete the cart after confirming session
+            await Cart.deleteOne({ sessionId: session.metadata?.sessionId });
+
             res.status(200).send("Order received");
             return;
         } catch (err) {

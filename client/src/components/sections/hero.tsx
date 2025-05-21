@@ -31,8 +31,9 @@ export default function Hero() {
                     className="mt-6 cursor-pointer"
                     size="lg"
                     color="primary"
+                    asChild
                 >
-                    Shop prints
+                    <Link href={"/shop/prints"}>Shop prints</Link>
                 </Button>
             </div>
 

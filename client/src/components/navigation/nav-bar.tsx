@@ -81,7 +81,7 @@ export function Navbar() {
                     </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
-                    <DropdownMenuItem>
+                    <DropdownMenuItem asChild>
                         <Link href={"/cart"}>View cart</Link>
                     </DropdownMenuItem>
                 </DropdownMenuContent>

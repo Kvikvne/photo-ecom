@@ -117,14 +117,16 @@ export function Footer() {
                     </Link>
                     <div className="flex">
                         {linkButtons.map((link, idx) => (
-                            <Link key={idx} target="_blank" href={link.link}>
-                                <Button
-                                    className="text-background"
-                                    variant="ghost"
-                                >
+                            <Button
+                                key={idx}
+                                className="text-background"
+                                variant="ghost"
+                                asChild
+                            >
+                                <Link target="_blank" href={link.link}>
                                     {link.icon}
-                                </Button>
-                            </Link>
+                                </Link>
+                            </Button>
                         ))}
                     </div>
                     <div className="flex gap-6">
