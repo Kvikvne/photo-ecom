@@ -27,7 +27,7 @@ const AddressToSchema = new Schema<AddressTo>(
         first_name: { type: String, required: true },
         last_name: { type: String, required: true },
         email: { type: String, required: true },
-        phone: { type: String, required: true },
+        phone: { type: String, required: false },
         country: { type: String, required: true },
         region: { type: String, required: true },
         city: { type: String, required: true },

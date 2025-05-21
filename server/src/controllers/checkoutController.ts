@@ -26,6 +26,33 @@ export const createCheckoutSession = async (
         return;
     }
 
+    // Create Stripe Customer
+    const customer = await stripe.customers.create({
+        name: `${shipping.first_name} ${shipping.last_name}`,
+        email: shipping.email,
+        phone: shipping.phone,
+        address: {
+            line1: shipping.address1,
+            line2: shipping.address2,
+            city: shipping.city,
+            state: shipping.region,
+            postal_code: shipping.zip,
+            country: shipping.country,
+        },
+        shipping: {
+            name: `${shipping.first_name} ${shipping.last_name}`,
+            phone: shipping.phone,
+            address: {
+                line1: shipping.address1,
+                line2: shipping.address2,
+                city: shipping.city,
+                state: shipping.region,
+                postal_code: shipping.zip,
+                country: shipping.country,
+            },
+        },
+    });
+
     // Step 1: Collect variant IDs
     const variantIds = cart.items.map((item) => item.id);
 
@@ -72,12 +99,6 @@ export const createCheckoutSession = async (
         zip: shipping.zip,
     };
 
-    // const order = await Order.create({
-    //     sessionId,
-    //     addressTo,
-    //     status: "pending",
-    // });
-
     // Build line_items for Printify
     const printifyLineItems = cart.items.map((item) => ({
         product_id: item.productId,
@@ -121,11 +142,15 @@ export const createCheckoutSession = async (
     try {
         const session = await stripe.checkout.sessions.create({
             allow_promotion_codes: true,
+            shipping_address_collection: { allowed_countries: ["US"] },
+            automatic_tax: { enabled: true },
+            customer: customer.id,
+            customer_update: { shipping: "auto" },
             mode: "payment",
             payment_method_types: ["card"],
             shipping_options: shippingOptions,
             line_items: lineItems,
-            success_url: `https://yourdomain.com/success?session_id={CHECKOUT_SESSION_ID}`,
+            success_url: `http://localhost:3000/`, // https://yourdomain.com/success?session_id={CHECKOUT_SESSION_ID}
             cancel_url: `http://localhost:3000/cart`,
             metadata: {
                 sessionId,
