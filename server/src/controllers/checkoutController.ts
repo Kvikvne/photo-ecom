@@ -19,8 +19,6 @@ export const createCheckoutSession = async (
         return;
     }
 
-    // const cart = await Cart.findOne({ sessionId });
-    console.log(cart);
     if (!cart || cart.length === 0) {
         res.status(400).json({ error: "Cart is empty or not found" });
         return;

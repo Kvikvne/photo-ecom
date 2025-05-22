@@ -22,6 +22,29 @@ type Props = {
     image: string;
 };
 
+export function Checkmark() {
+    return (
+        <svg
+            className={"checkmark text-primary"}
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 52 52"
+        >
+            <circle
+                className={"checkmarkCircle "}
+                cx="26"
+                cy="26"
+                r="25"
+                fill="none"
+            />
+            <path
+                className={"checkmarkCheck"}
+                fill="none"
+                d="M14.1 27.2l7.1 7.2 16.7-16.8"
+            />
+        </svg>
+    );
+}
+
 export default function ProductPurchaseSection({
     variants,
     onVariantChange,
@@ -31,6 +54,7 @@ export default function ProductPurchaseSection({
     const [selectedVariant, setSelectedVariant] = useState<Variant>(
         variants[0]
     );
+    const [loading, setLoading] = useState(false);
 
     const handleSelect = (variant: Variant) => {
         setSelectedVariant(variant);
@@ -38,6 +62,8 @@ export default function ProductPurchaseSection({
     };
 
     const handleAddToCart = () => {
+        setLoading(true);
+
         const cart = getCart();
 
         const existingIndex = cart.findIndex(
@@ -60,7 +86,9 @@ export default function ProductPurchaseSection({
             };
             cart.push(newItem);
         }
-
+        setTimeout(() => {
+            setLoading(false);
+        }, 2500);
         saveCart(cart);
         window.dispatchEvent(new Event("cartUpdated"));
     };
@@ -86,10 +114,12 @@ export default function ProductPurchaseSection({
                     </Button>
                 ))}
             </div>
-
-            <Button className="mt-4" onClick={handleAddToCart}>
-                Add to Cart
-            </Button>
+            <div className="flex items-center mt-4 gap-4">
+                <Button className="" onClick={handleAddToCart}>
+                    Add to Cart
+                </Button>
+                {loading && <Checkmark />}
+            </div>
         </div>
     );
 }

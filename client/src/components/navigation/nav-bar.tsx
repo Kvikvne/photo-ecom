@@ -68,22 +68,12 @@ export function Navbar() {
                     </Button>
                 )
             )}
-            <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                    <Button
-                        className="cursor-pointer text-background hover:text-foreground"
-                        variant="ghost"
-                    >
-                        <ShoppingCart />
-                        <CartLenBadge />
-                    </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent>
-                    <DropdownMenuItem asChild>
-                        <Link href={"/cart"}>View cart</Link>
-                    </DropdownMenuItem>
-                </DropdownMenuContent>
-            </DropdownMenu>
+            <Button variant="ghost" asChild>
+                <Link className="text-background" href={"/cart"}>
+                    <ShoppingCart />
+                    <CartLenBadge />
+                </Link>
+            </Button>
         </nav>
     );
 }

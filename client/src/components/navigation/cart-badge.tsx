@@ -3,21 +3,21 @@
 
 import { useState, useEffect } from "react";
 import { Badge } from "@/components/ui/badge";
+import { CartItem } from "@/lib/cart-utils";
 
 export function CartLenBadge() {
     const [cartLen, setCartLen] = useState<number>(0);
 
     const getCartLength = () => {
-        const stored = localStorage.getItem("cart");
-        if (stored) {
-            try {
-                const cart = JSON.parse(stored);
-                return cart.length;
-            } catch {
-                return 0;
-            }
+        try {
+            const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+            return cart.reduce(
+                (sum: number, item: CartItem) => sum + (item.quantity ?? 1),
+                0
+            );
+        } catch {
+            return 0;
         }
-        return 0;
     };
 
     useEffect(() => {
@@ -39,6 +39,6 @@ export function CartLenBadge() {
             window.removeEventListener("storage", updateHandler);
         };
     }, []);
-
+    if (cartLen === 0) return;
     return <Badge variant="destructive">{cartLen}</Badge>;
 }

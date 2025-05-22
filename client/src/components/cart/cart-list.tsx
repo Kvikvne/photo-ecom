@@ -43,7 +43,7 @@ export default function CartList() {
             <div className="max-w-xl mx-auto">
                 <div className="flex flex-col gap-8 items-center justify-center min-h-90">
                     <p>Your cart is empty.</p>
-                    <Button>
+                    <Button asChild>
                         <Link href={"/shop/prints"}>Go to shop</Link>
                     </Button>
                 </div>
@@ -111,7 +111,7 @@ export default function CartList() {
                 <p className="text-xl font-semibold mb-4">
                     Total: ${(total / 100).toFixed(2)}
                 </p>
-                <Button>
+                <Button asChild>
                     <Link href={"/checkout"}>Checkout</Link>
                 </Button>
             </div>
