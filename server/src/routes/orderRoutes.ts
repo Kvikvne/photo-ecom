@@ -3,6 +3,6 @@ import { getOrder } from "../controllers/orderController";
 
 const router = express.Router();
 
-router.get("/:orderId", getOrder);
+router.get("/", getOrder);
 
 export default router;

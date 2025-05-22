@@ -79,6 +79,7 @@ export interface OrderDocument extends Document {
     discountInCents?: number;
     totalAmountPaidInCents: number;
     shippingMethod: number;
+    taxInCents: number;
 }
 
 const OrderSchema = new Schema<OrderDocument>(
@@ -114,6 +115,7 @@ const OrderSchema = new Schema<OrderDocument>(
         discountInCents: { type: Number },
         totalAmountPaidInCents: { type: Number, required: true },
         shippingMethod: { type: Number },
+        taxInCents: { type: Number },
     },
     { timestamps: true }
 );

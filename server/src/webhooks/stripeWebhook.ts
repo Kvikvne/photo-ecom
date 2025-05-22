@@ -71,6 +71,7 @@ const webhookHandler: RequestHandler = async (req: Request, res: Response) => {
             // const shippingMethod = rate === standardShipping ? 1 : 3; // 1 = standard, 3 = express
 
             await Order.create({
+                sessionId: session.metadata?.sessionId,
                 stripeSessionId: session.id,
                 stripeCustomerId: session.customer as string,
                 stripePaymentIntentId: session.payment_intent as string,
@@ -81,6 +82,7 @@ const webhookHandler: RequestHandler = async (req: Request, res: Response) => {
                 subtotalInCents: session.amount_subtotal,
                 shippingInCents: session.total_details?.amount_shipping,
                 discountInCents: session.total_details?.amount_discount,
+                taxInCents: session.total_details?.amount_tax,
                 totalAmountPaidInCents: session.amount_total ?? 0,
                 // shippingMethod: shippingMethod,
             });

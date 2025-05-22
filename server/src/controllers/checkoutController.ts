@@ -150,7 +150,7 @@ export const createCheckoutSession = async (
             payment_method_types: ["card"],
             shipping_options: shippingOptions,
             line_items: lineItems,
-            success_url: `http://localhost:3000/`, // https://yourdomain.com/success?session_id={CHECKOUT_SESSION_ID}
+            success_url: `http://localhost:3000/success`,
             cancel_url: `http://localhost:3000/cart`,
             metadata: {
                 sessionId,
