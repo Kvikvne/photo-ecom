@@ -32,6 +32,8 @@ import {
 } from "@/components/ui/select";
 import { StripeBadge } from "@/components/ui/stripe-badge";
 
+import { getCart } from "@/lib/cart-utils";
+
 export const countries = [
     { code: "US", name: "United States" },
     { code: "CA", name: "Canada" },
@@ -131,11 +133,12 @@ interface ShippingInfo {
 }
 
 async function handleShippingSubmit(data: ShippingInfo) {
+    const cart = getCart();
     const res = await fetch("http://localhost:5000/api/checkout", {
         method: "POST",
         credentials: "include",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ shipping: data }),
+        body: JSON.stringify({ shipping: data, cart }),
     });
 
     const result = await res.json();

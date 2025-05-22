@@ -12,16 +12,16 @@ export const createCheckoutSession = async (
     res: Response
 ): Promise<void> => {
     const sessionId = req.sessionId;
-    const { shipping } = req.body;
+    const { shipping, cart } = req.body;
 
     if (!sessionId) {
         res.status(400).json({ error: "Missing session ID" });
         return;
     }
 
-    const cart = await Cart.findOne({ sessionId });
-
-    if (!cart || cart.items.length === 0) {
+    // const cart = await Cart.findOne({ sessionId });
+    console.log(cart);
+    if (!cart || cart.length === 0) {
         res.status(400).json({ error: "Cart is empty or not found" });
         return;
     }
@@ -54,7 +54,7 @@ export const createCheckoutSession = async (
     });
 
     // Step 1: Collect variant IDs
-    const variantIds = cart.items.map((item) => item.id);
+    const variantIds = cart.map((item: any) => item.id);
 
     // Step 2: Lookup Stripe price IDs from your ProductVariant model
     const variants = await ProductVariant.find({
@@ -65,7 +65,7 @@ export const createCheckoutSession = async (
     let lineItems;
 
     try {
-        lineItems = cart.items.map((item) => {
+        lineItems = cart.map((item: any) => {
             const matchedVariant = variants.find(
                 (v) => v.variantId === item.id
             );
@@ -100,7 +100,7 @@ export const createCheckoutSession = async (
     };
 
     // Build line_items for Printify
-    const printifyLineItems = cart.items.map((item) => ({
+    const printifyLineItems = cart.map((item: any) => ({
         product_id: item.productId,
         variant_id: item.id,
         quantity: item.quantity,
