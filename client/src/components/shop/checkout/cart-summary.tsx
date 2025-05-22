@@ -3,29 +3,19 @@ import React, { useState, useEffect } from "react";
 
 import { Loader2 } from "lucide-react";
 import Image from "next/image";
-
-async function getCart() {
-    const res = await fetch("http://localhost:5000/api/cart", {
-        credentials: "include",
-    });
-
-    if (!res.ok) {
-        throw new Error("Failed to fetch cart");
-    }
-
-    return res.json();
-}
+import { getCart } from "@/lib/cart-utils";
 
 export default function CartSummary() {
     const [cart, setCart] = useState<{ items: any[] } | null>(null);
 
     useEffect(() => {
-        getCart()
-            .then(setCart)
-            .catch((err) => {
-                console.error("Failed to load cart:", err);
-                setCart({ items: [] }); // fallback
-            });
+        try {
+            const cart = getCart();
+            setCart({ items: cart });
+        } catch (err) {
+            console.error("Failed to load cart:", err);
+            setCart({ items: [] });
+        }
     }, []);
 
     if (!cart) return <Loader2 className="animate-spin" />;

@@ -1,5 +1,3 @@
-"use client";
-
 import Image from "next/image";
 import { ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -8,10 +6,9 @@ import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { CartLenBadge } from "./cart-badge";
 
 const navItems = [
     { name: "Home", link: "/", isMenu: false },
@@ -78,6 +75,7 @@ export function Navbar() {
                         variant="ghost"
                     >
                         <ShoppingCart />
+                        <CartLenBadge />
                     </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>

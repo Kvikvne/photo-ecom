@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { getCart, saveCart, CartItem } from "@/lib/cart-utils";
 
 type Variant = {
     id: number;
@@ -21,40 +22,6 @@ type Props = {
     image: string;
 };
 
-async function addToCart(
-    selectedVariant: Variant,
-    product: ProductInfo,
-    image: string
-) {
-    try {
-        const res = await fetch("http://localhost:5000/api/cart/add", {
-            method: "POST",
-            credentials: "include",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                item: {
-                    ...selectedVariant,
-                    productId: product.productId,
-                    image: image,
-                    productTitle: product.title,
-                },
-            }),
-        });
-
-        if (!res.ok) {
-            const errorData = await res.json();
-            console.error("Add to cart failed:", errorData);
-        } else {
-            const data = await res.json();
-            console.log("Cart updated:", data);
-        }
-    } catch (err) {
-        console.error("There was a problem adding item to cart:", err);
-    }
-}
-
 export default function ProductPurchaseSection({
     variants,
     onVariantChange,
@@ -68,6 +35,34 @@ export default function ProductPurchaseSection({
     const handleSelect = (variant: Variant) => {
         setSelectedVariant(variant);
         onVariantChange(variant.id);
+    };
+
+    const handleAddToCart = () => {
+        const cart = getCart();
+
+        const existingIndex = cart.findIndex(
+            (item: CartItem) =>
+                item.productId === product.productId &&
+                item.id === selectedVariant.id
+        );
+
+        if (existingIndex !== -1) {
+            // If item exists, increment quantity
+            cart[existingIndex].quantity += 1;
+        } else {
+            // If item doesn't exist, add new item with quantity 1
+            const newItem: CartItem = {
+                ...selectedVariant,
+                productId: product.productId,
+                image,
+                productTitle: product.title,
+                quantity: 1,
+            };
+            cart.push(newItem);
+        }
+
+        saveCart(cart);
+        window.dispatchEvent(new Event("cartUpdated"));
     };
 
     return (
@@ -92,10 +87,7 @@ export default function ProductPurchaseSection({
                 ))}
             </div>
 
-            <Button
-                className="mt-4"
-                onClick={() => addToCart(selectedVariant, product, image)}
-            >
+            <Button className="mt-4" onClick={handleAddToCart}>
                 Add to Cart
             </Button>
         </div>
