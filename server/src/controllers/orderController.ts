@@ -148,11 +148,35 @@ export const cancelOrder: RequestHandler = async (req, res) => {
             return;
         }
 
+        if (order.stripeRefundId) {
+            res.status(400).json({
+                error: "This order has already been refunded",
+            });
+            return;
+        }
+
+        if (!order.stripePaymentIntentId) {
+            res.status(400).json({
+                error: "No Stripe payment intent associated with this order",
+            });
+            return;
+        }
+
         const cancelResponse = await cancelPrintifyOrder(order.printifyOrderId);
 
-        const refund = await stripe.refunds.create({
-            payment_intent: order.stripePaymentIntentId,
-        });
+        let refund;
+
+        try {
+            refund = await stripe.refunds.create({
+                payment_intent: order.stripePaymentIntentId,
+            });
+        } catch (stripeErr) {
+            console.error("Stripe refund failed:", stripeErr);
+            res.status(500).json({
+                error: "Refund failed, order not cancelled",
+            });
+            return;
+        }
 
         order.status = "canceled";
         order.printifyStatus = "canceled";
