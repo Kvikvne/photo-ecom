@@ -1,5 +1,5 @@
-import mongoose, { Schema, Document } from "mongoose";
-import { CartItem, CartDocument } from "../types/cart";
+import mongoose, { Schema } from "mongoose";
+import { CartDocument } from "../types/cart";
 
 const CartSchema = new Schema<CartDocument>(
     {

@@ -3,11 +3,12 @@ import React, { useState, useEffect } from "react";
 
 import { Loader2 } from "lucide-react";
 import Image from "next/image";
-import { getCart } from "@/lib/cart-utils";
+import { getCart, CartItem } from "@/lib/cart-utils";
 
 export default function CartSummary() {
-    const [cart, setCart] = useState<{ items: any[] } | null>(null);
+    const [cart, setCart] = useState<{ items: CartItem[] } | null>(null);
 
+    // Fetch cart from local storage and set the state
     useEffect(() => {
         try {
             const cart = getCart();
@@ -19,6 +20,7 @@ export default function CartSummary() {
     }, []);
 
     if (!cart) return <Loader2 className="animate-spin" />;
+    // Catches for if the user navigates back to the checkout with an empty cart
     else if (cart.items.length === 0) {
         return (
             <div className="max-w-xl mx-auto">
@@ -29,6 +31,7 @@ export default function CartSummary() {
         );
     }
 
+    // Calculate total items in cart with item quantities
     const total = cart.items.reduce(
         (sum, item) => sum + item.price * item.quantity,
         0

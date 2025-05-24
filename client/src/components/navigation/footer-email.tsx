@@ -3,26 +3,33 @@ import { Input } from "@/components/ui/input";
 import { Loader2 } from "lucide-react";
 import { useState } from "react";
 import { Button } from "../ui/button";
+import { toast } from "sonner";
 
 export default function EmailSignupForm() {
     const [email, setEmail] = useState("");
-    const [status, setStatus] = useState<
-        "idle" | "loading" | "success" | "error"
-    >("idle");
+    const [loading, setLoading] = useState(false);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        setStatus("loading");
+        setLoading(true);
         try {
-            // Send email to your API route or 3rd party service
-            await fetch("/api/subscribe", {
+            const res = await fetch("http://localhost:5000/api/email/sub", {
                 method: "POST",
                 body: JSON.stringify({ email }),
                 headers: { "Content-Type": "application/json" },
             });
-            setStatus("success");
-        } catch {
-            setStatus("error");
+
+            const result = await res.json();
+
+            if (!res.ok) {
+                throw new Error(result.error || "Subscription failed.");
+            }
+
+            toast.success("You have subscribed successfully!");
+        } catch (err: any) {
+            toast.error(err?.message || "There was a problem subscribing.");
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -48,9 +55,9 @@ export default function EmailSignupForm() {
                     type="submit"
                     variant={"outline"}
                     className="bg-primary text-background w-full hover:border-accent"
-                    disabled={status === "loading"}
+                    disabled={loading}
                 >
-                    {status === "loading" ? (
+                    {loading ? (
                         <Loader2 className="animate-spin" />
                     ) : (
                         "Subscribe"
@@ -60,3 +67,4 @@ export default function EmailSignupForm() {
         </div>
     );
 }
+``;

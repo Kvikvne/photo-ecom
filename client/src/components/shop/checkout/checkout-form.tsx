@@ -1,11 +1,15 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 
+// Form validation with Zod and React Hook Form
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
+// UI components
+import { Loader2 } from "lucide-react";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import {
     Card,
@@ -32,8 +36,10 @@ import {
 } from "@/components/ui/select";
 import { StripeBadge } from "@/components/ui/stripe-badge";
 
+// Helper to retrieve cart contents
 import { getCart } from "@/lib/cart-utils";
 
+// List of coutries with codes for country select
 export const countries = [
     { code: "US", name: "United States" },
     { code: "CA", name: "Canada" },
@@ -61,6 +67,7 @@ export const countries = [
     { code: "ZA", name: "South Africa" },
 ];
 
+// Shipping address form validation schema
 export const formSchema = z.object({
     first_name: z
         .string()
@@ -119,43 +126,10 @@ export const formSchema = z.object({
         }),
 });
 
-interface ShippingInfo {
-    first_name: string;
-    last_name: string;
-    email: string;
-    phone: string;
-    country: string;
-    region: string;
-    city: string;
-    address1: string;
-    address2: string;
-    zip: string;
-}
-
-async function handleShippingSubmit(data: ShippingInfo) {
-    const cart = getCart();
-    const res = await fetch("http://localhost:5000/api/checkout", {
-        method: "POST",
-        credentials: "include",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ shipping: data, cart }),
-    });
-
-    const result = await res.json();
-    if (result.url) {
-        window.location.href = result.url;
-    }
-}
-
-function onSubmit(values: z.infer<typeof formSchema>) {
-    try {
-        handleShippingSubmit(values);
-    } catch (err) {
-        console.error("There was problem submitting your order.");
-    }
-}
-
 export default function CheckoutForm() {
+    const [loading, setLoading] = useState(false);
+
+    // Setup React Hook Form with Zod schema and default field values
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -172,10 +146,36 @@ export default function CheckoutForm() {
         },
     });
 
+    // Submit handler that posts shipping and cart data to backend to create Stripe session
+    async function handleShippingSubmit(values: z.infer<typeof formSchema>) {
+        try {
+            setLoading(true);
+            const cart = await getCart();
+            const res = await fetch("http://localhost:5000/api/checkout", {
+                method: "POST",
+                credentials: "include",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ shipping: values, cart }),
+            });
+
+            const result = await res.json();
+            if (result.url) {
+                window.location.href = result.url; // redirect to Stripe checkout
+            }
+        } catch (err: any) {
+            console.error("There was a problem submitting your order.", err);
+            toast.error(
+                err?.message || "There was a problem submitting your order."
+            );
+        } finally {
+            setLoading(false);
+        }
+    }
+
     return (
         <Form {...form}>
             <form
-                onSubmit={form.handleSubmit(onSubmit)}
+                onSubmit={form.handleSubmit(handleShippingSubmit)}
                 className="max-w-xl mx-auto"
             >
                 <Card>
@@ -185,6 +185,7 @@ export default function CheckoutForm() {
                     <CardContent className="space-y-8">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <FormField
+                                disabled={loading === true}
                                 control={form.control}
                                 name="first_name"
                                 render={({ field }) => (
@@ -198,6 +199,7 @@ export default function CheckoutForm() {
                                 )}
                             />
                             <FormField
+                                disabled={loading === true}
                                 control={form.control}
                                 name="last_name"
                                 render={({ field }) => (
@@ -213,6 +215,7 @@ export default function CheckoutForm() {
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <FormField
+                                disabled={loading === true}
                                 control={form.control}
                                 name="email"
                                 render={({ field }) => (
@@ -229,6 +232,7 @@ export default function CheckoutForm() {
                                 )}
                             />
                             <FormField
+                                disabled={loading === true}
                                 control={form.control}
                                 name="phone"
                                 render={({ field }) => (
@@ -249,6 +253,7 @@ export default function CheckoutForm() {
                             <FormField
                                 control={form.control}
                                 name="country"
+                                disabled={loading === true}
                                 render={({ field }) => (
                                     <FormItem>
                                         <FormLabel>Country</FormLabel>
@@ -280,6 +285,7 @@ export default function CheckoutForm() {
                                 )}
                             />
                             <FormField
+                                disabled={loading === true}
                                 control={form.control}
                                 name="region"
                                 render={({ field }) => (
@@ -293,6 +299,7 @@ export default function CheckoutForm() {
                                 )}
                             />
                             <FormField
+                                disabled={loading === true}
                                 control={form.control}
                                 name="city"
                                 render={({ field }) => (
@@ -308,6 +315,7 @@ export default function CheckoutForm() {
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <FormField
+                                disabled={loading === true}
                                 control={form.control}
                                 name="address1"
                                 render={({ field }) => (
@@ -324,6 +332,7 @@ export default function CheckoutForm() {
                                 )}
                             />
                             <FormField
+                                disabled={loading === true}
                                 control={form.control}
                                 name="address2"
                                 render={({ field }) => (
@@ -340,6 +349,7 @@ export default function CheckoutForm() {
                                 )}
                             />
                             <FormField
+                                disabled={loading === true}
                                 control={form.control}
                                 name="zip"
                                 render={({ field }) => (
@@ -359,7 +369,11 @@ export default function CheckoutForm() {
                     </CardContent>
                     <CardFooter className="flex flex-col gap-2 justify-end items-end">
                         <Button className="" type="submit">
-                            Continue to payment
+                            {loading ? (
+                                <Loader2 className="animate-spin" />
+                            ) : (
+                                "Continue to payment"
+                            )}
                         </Button>
                         <div className="w-26">
                             <StripeBadge />

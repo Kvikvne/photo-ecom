@@ -12,6 +12,7 @@ import productRoutes from "./routes/productRoutes";
 import cartRoutes from "./routes/cartRoutes";
 import checkoutRoutes from "./routes/checkoutRoutes";
 import orderRoutes from "./routes/orderRoutes";
+import emailRoutes from "./routes/emailRoutes";
 
 // DB
 import { connectToMongoDB } from "./db/mongoose";
@@ -47,6 +48,7 @@ app.use("/api/products", productRoutes);
 app.use("/api/cart", cartRoutes);
 app.use("/api/checkout", checkoutRoutes);
 app.use("/api/orders", orderRoutes);
+app.use("/api/email", emailRoutes);
 
 const PORT = process.env.PORT || 5000;
 

@@ -20,9 +20,6 @@ export default function ProductImageGallery({ images, variantId }: Props) {
     );
 
     const defaultImage = variantImages[variantImages.length - 1]?.src;
-
-    // variantImages.find((img) => img.is_default)?.src ??
-    // variantImages[0]?.src;
     const [mainImage, setMainImage] = useState<string>(defaultImage);
 
     useEffect(() => {
