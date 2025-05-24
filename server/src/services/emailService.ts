@@ -107,3 +107,40 @@ export async function sendDeliveredEmail(
     await transporter.sendMail(mailOptions);
     console.log(`Shipping email sent to ${order.email}`);
 }
+
+export async function sendCanceledEmail(order: OrderDocument) {
+    if (!order.email) {
+        console.warn(`No email found for order ${order._id}`);
+        return;
+    }
+
+    const refundAmount = order.totalAmountPaidInCents
+        ? `$${(order.totalAmountPaidInCents / 100).toFixed(2)}`
+        : null;
+
+    const mailOptions = {
+        from: "noreply@kvikvne.com",
+        to: order.email,
+        subject: "Your KVIKVNE order has been canceled and refunded",
+        html: `
+      <div style="font-family: 'Outfit', sans-serif; max-width: 600px; margin: auto; padding: 16px;">
+        <h2 style="color: #06151c;">Your KVIKVNE order has been canceled</h2>
+        <p>Hi there,</p>
+        <p>Your order <strong>#${
+            order._id
+        }</strong> has been successfully canceled.</p>
+        ${
+            refundAmount
+                ? `<p>A refund of <strong>${refundAmount}</strong> has been issued to your card.</p>`
+                : `<p>A refund has been issued to your card.</p>`
+        }
+        <p>If you have any questions or need assistance, feel free to reply to this email or reach out to our support team at <a href="mailto:support@kvikvne.com">support@kvikvne.com</a>.</p>
+        <p style="margin-top: 24px;">Thanks for choosing KVIKVNE.</p>
+        <p>- The KVIKVNE Team</p>
+      </div>
+    `,
+    };
+
+    await transporter.sendMail(mailOptions);
+    console.log(`Cancellation email sent to ${order.email}`);
+}

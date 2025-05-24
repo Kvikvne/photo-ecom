@@ -24,8 +24,13 @@ export async function getProductById(
     return res.data;
 }
 
-export async function getOrders(): Promise<any> {
+export async function getAllOrders(): Promise<any> {
     const res = await printifyClient.get("/orders.json");
+    return res.data;
+}
+
+export async function getPrintifyOrder(printifyOrderId: string): Promise<any> {
+    const res = await printifyClient.get(`/orders/${printifyOrderId}.json`);
     return res.data;
 }
 
@@ -80,7 +85,7 @@ export async function shippingCost(
     }
 }
 
-export async function cancelOrder(orderId: string): Promise<any> {
+export async function cancelPrintifyOrder(orderId: string): Promise<any> {
     try {
         const res = await printifyClient.post(`/orders/${orderId}/cancel.json`);
         return res.data;

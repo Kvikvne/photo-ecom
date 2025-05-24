@@ -61,7 +61,8 @@ export interface OrderDocument extends Document {
         | "confirmed"
         | "shipped"
         | "delivered"
-        | "failed";
+        | "failed"
+        | "canceled";
     lineItems: OrderItem[];
     stripeCustomerId?: string;
     stripePaymentIntentId?: string;
@@ -80,6 +81,9 @@ export interface OrderDocument extends Document {
     totalAmountPaidInCents: number;
     shippingMethod: number;
     taxInCents: number;
+    printifyStatus: string;
+    printifySyncedAt: Date;
+    stripeRefundId: string;
 }
 
 const OrderSchema = new Schema<OrderDocument>(
@@ -97,6 +101,7 @@ const OrderSchema = new Schema<OrderDocument>(
                 "shipped",
                 "delivered",
                 "failed",
+                "canceled",
             ],
             default: "pending",
         },
@@ -116,6 +121,9 @@ const OrderSchema = new Schema<OrderDocument>(
         totalAmountPaidInCents: { type: Number, required: true },
         shippingMethod: { type: Number },
         taxInCents: { type: Number },
+        printifyStatus: String,
+        printifySyncedAt: Date,
+        stripeRefundId: String,
     },
     { timestamps: true }
 );

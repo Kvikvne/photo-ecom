@@ -1,5 +1,9 @@
 import express from "express";
-import { getOrder, getAllOrders } from "../controllers/orderController";
+import {
+    getOrder,
+    getAllOrders,
+    cancelOrder,
+} from "../controllers/orderController";
 
 const router = express.Router();
 
@@ -10,5 +14,8 @@ router.get("/", getOrder); // This is for the success page, using sessionId
 // Attempts to fetch all orders using sessionId then wil need to fall back
 // to using "/:orderId" route in client
 router.get("/all", getAllOrders);
+
+// cancel order
+router.post("/cancel-order/:orderId", cancelOrder);
 
 export default router;

@@ -1,7 +1,6 @@
 "use client";
-import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Printer, ArrowRight } from "lucide-react";
+import { Printer, ArrowRight, ReceiptText } from "lucide-react";
 
 import {
     Card,
@@ -153,13 +152,18 @@ export default function SuccessPage() {
                         </div>
                     </CardFooter>
                 </Card>
-                <div className="flex justify-end gap-2">
-                    <Button className="mt-4">
+                <div className="flex justify-between gap-2">
+                    <Button onClick={() => window.print()} className="mt-4">
                         Print order <Printer />
                     </Button>
                     <Button asChild className="mt-4">
+                        <Link href={"/orders"}>
+                            My orders <ReceiptText />
+                        </Link>
+                    </Button>
+                    <Button asChild className="mt-4">
                         <Link href={"/shop/prints"}>
-                            continue shopping <ArrowRight />
+                            Continue shopping <ArrowRight />
                         </Link>
                     </Button>
                 </div>
