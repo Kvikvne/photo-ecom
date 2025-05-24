@@ -50,16 +50,27 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog";
 
-// interface OrderItem {
-//     variantId: number;
-//     productId: string;
-//     quantity: number;
-//     priceInCents: number;
-//     title?: string;
-//     image?: string;
-//     trackingUrl?: string;
-// }
+// --- Interfaces and validation ---
 
+// Defines the shape of a single order object
+interface Order {
+    _id: string;
+    status: string;
+    createdAt: string;
+    addressTo: {
+        first_name: string;
+        last_name: string;
+        address1: string;
+        city: string;
+        region: string;
+        zip: string;
+    };
+    totalAmountPaidInCents: number;
+    trackingUrl?: string;
+    printifyStatus: string;
+}
+
+// Order ID form validation schema
 export const formSchema = z.object({
     orderId: z
         .string()
@@ -68,6 +79,9 @@ export const formSchema = z.object({
         .max(24, { message: "Your order ID must be 24 characters" }),
 });
 
+// --- APQI CALLS ---
+
+// Fetches a single order by ID (_id)
 async function handleOrderIdSubmit(orderId: string) {
     const res = await fetch(`http://localhost:5000/api/orders/get/${orderId}`, {
         method: "GET",
@@ -75,28 +89,28 @@ async function handleOrderIdSubmit(orderId: string) {
         headers: { "Content-Type": "application/json" },
     });
 
-    const result = await res.json();
-
     if (!res.ok) {
+        const result = await res.json();
         throw new Error(result.error || "Failed to fetch order");
     }
-
-    return result;
+    return await res.json();
 }
 
+// Fetches all orders associated with the user/session
 async function getAllOrders() {
     const res = await fetch("http://localhost:5000/api/orders/all", {
         method: "GET",
         credentials: "include",
     });
-    const result = await res.json();
 
     if (!res.ok) {
+        const result = await res.json();
         throw new Error(result.error || "Failed to fetch order");
     }
-    return result;
+    return await res.json();
 }
 
+// Cancels an order and returns updated data
 async function cancelOrder(orderId: string) {
     const res = await fetch(
         `http://localhost:5000/api/orders/cancel-order/${orderId}`,
@@ -111,6 +125,7 @@ async function cancelOrder(orderId: string) {
     return result.order;
 }
 
+// Utility to format price from cents to USD string
 function formatPrice(cents: number) {
     return (cents / 100).toLocaleString("en-US", {
         style: "currency",
@@ -118,11 +133,13 @@ function formatPrice(cents: number) {
     });
 }
 
+// --- ORDER TABLE COMPONENT ---
+
 function OrderTable({
     orders,
     setOrders,
 }: {
-    orders: any[];
+    orders: Order[];
     setOrders: React.Dispatch<React.SetStateAction<any>>;
 }) {
     const [cancelingOrderId, setCancelingOrderId] = useState<string | null>(
@@ -131,13 +148,14 @@ function OrderTable({
 
     if (!orders) return null;
 
+    // Handles the cancellation process
     const handleCancel = async (orderId: string) => {
         setCancelingOrderId(orderId);
         try {
             const updatedOrder = await cancelOrder(orderId);
             toast.success("Order canceled successfully");
 
-            // Update only the affected order in state
+            // Update only the canceled order in the state
             setOrders((prev: any[]) =>
                 prev.map((o) => (o._id === orderId ? updatedOrder : o))
             );
@@ -199,6 +217,7 @@ function OrderTable({
                                 {formatPrice(order.totalAmountPaidInCents)}
                             </TableCell>
                             <TableCell className="text-right">
+                                {/* Tracking link */}
                                 {order.trackingUrl ? (
                                     <Button className="mr-4" asChild>
                                         <Link
@@ -213,6 +232,7 @@ function OrderTable({
                                         Tracking
                                     </Button>
                                 )}
+                                {/* Cancel Button */}
                                 {["pending", "on-hold"].includes(
                                     order.printifyStatus
                                 ) ? (
@@ -271,6 +291,8 @@ function OrderTable({
     );
 }
 
+// --- MAIN COMPONENT ---
+
 export default function Orders() {
     const [orders, setOrders] = useState<any>();
     const [loading, setLoading] = useState(true);
@@ -283,6 +305,7 @@ export default function Orders() {
         },
     });
 
+    // Fetches orders when filter is "all"
     useEffect(() => {
         const controller = new AbortController();
 
@@ -299,11 +322,14 @@ export default function Orders() {
 
         if (filter === "all") {
             fetchOrders();
+        } else {
+            setOrders(null); // Clear search results when switching away
         }
 
         return () => controller.abort();
     }, [filter]);
 
+    // Handles manual search by ID
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
             const orderData = await handleOrderIdSubmit(values.orderId);

@@ -1,8 +1,6 @@
 import { RequestHandler } from "express";
 import { Request, Response } from "express";
 import { stripe } from "../lib/stripe";
-import { Cart } from "../models/cart";
-import { Order } from "../models/order";
 import { ProductVariant } from "../models/productVariant";
 import { calculateShippingCost } from "../utils/shippingCost";
 import Stripe from "stripe";
