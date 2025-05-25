@@ -5,7 +5,7 @@ export default function CartLayout({
 }>) {
     return (
         <main>
-            <div className="container mx-auto py-16">
+            <div className="container mx-auto py-16 min-h-[80svh]">
                 <h1 className="font-bold text-4xl">Your cart</h1>
                 {children}
             </div>

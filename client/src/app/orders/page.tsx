@@ -38,7 +38,7 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-import { Loader2 } from "lucide-react";
+import { Loader2, TriangleAlert } from "lucide-react";
 import Link from "next/link";
 
 import {
@@ -297,6 +297,7 @@ export default function Orders() {
     const [orders, setOrders] = useState<any>();
     const [loading, setLoading] = useState(true);
     const [filter, setFilter] = useState("all");
+    const [error, setError] = useState<string | null>(null);
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -313,8 +314,13 @@ export default function Orders() {
             try {
                 const allOrders = await getAllOrders();
                 setOrders(allOrders.orders);
-            } catch (err) {
+                setError(null); // clear any existing error
+            } catch (err: any) {
                 console.error("Failed to fetch orders", err);
+                setError(
+                    "We couldn't load your orders. Please try again later."
+                );
+                toast.error("Error loading orders.");
             } finally {
                 setLoading(false);
             }
@@ -342,6 +348,20 @@ export default function Orders() {
 
     if (orders && orders.length === 0) {
         return <p className="mt-8 text-muted-foreground">No orders found.</p>;
+    }
+
+    if (error) {
+        return (
+            <div className="flex flex-col items-center justify-center h-[70vh] gap-4 text-center">
+                <div className="text-red-500">
+                    <TriangleAlert size={48} />
+                </div>
+                <p className="text-lg font-medium">{error}</p>
+                <Button onClick={() => window.location.reload()}>
+                    Reload Page
+                </Button>
+            </div>
+        );
     }
 
     return (

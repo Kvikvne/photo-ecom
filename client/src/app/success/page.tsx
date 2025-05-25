@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Printer, ArrowRight, ReceiptText } from "lucide-react";
+import { Printer, ArrowRight, ReceiptText, TriangleAlert } from "lucide-react";
 
 import {
     Card,
@@ -60,19 +60,48 @@ interface Order {
 
 export default function SuccessPage() {
     const [order, setOrder] = useState<Order | null>(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
         async function fetchOrder() {
-            const res = await fetch(`http://localhost:5000/api/orders`, {
-                credentials: "include",
-            });
-            const data = await res.json();
-            setOrder(data);
+            try {
+                setLoading(true);
+
+                const res = await fetch(`http://localhost:5000/api/orders/`, {
+                    credentials: "include",
+                });
+                const data = await res.json();
+
+                if (!res.ok) {
+                    throw new Error(data.error || "Subscription failed.");
+                }
+
+                setOrder(data);
+            } catch (err: any) {
+                console.error("There was a problem fetching your order.");
+                setError("There was a problem fetching your order.");
+            } finally {
+                setLoading(false);
+                localStorage.removeItem("cart");
+                window.dispatchEvent(new Event("cartUpdated"));
+            }
         }
         fetchOrder();
     }, []);
 
-    if (!order) return <Loader2 className="animate-spin mx-auto" />;
+    if (loading) return <Loader2 className="animate-spin mx-auto" />;
+    if (error || !order) {
+        return (
+            <div className="flex flex-col items-center justify-center gap-2 h-[80vh]">
+                <TriangleAlert className="text-red-500" size={48} />
+                <p className="text-center text-muted-foreground">
+                    Something went wrong. Try reloading the page.
+                </p>
+                <Button onClick={() => window.location.reload()}>Reload</Button>
+            </div>
+        );
+    }
 
     return (
         <div className="flex flex-col items-center">
