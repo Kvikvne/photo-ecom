@@ -10,81 +10,49 @@ Welcome to my Fully Automated E-commerce Web App! This project began as a simple
 
 # I am currently refactoring the whole codebase because the old was kind of terrible.
 
-## Current Refactor Progress
+## 🚧 Refactor Progress – May 2025
 
 ### Order Lifecycle
 
--   ✅ Stripe checkout integration
--   ✅ Webhook to capture successful payments
--   ✅ Order saved to DB after purchase
--   ✅ Email on payment confirmation
--   ✅ Order fulfillment to Printify via cron worker
--   ✅ Email on shipment and delivery
--   ✅ Printify webhook for `shipped` and `delivered` events
--   ✅ Order lookup endpoint
+-   ✅ **Stripe Checkout** integration with shipping info collection
+-   ✅ **Webhook listener** for `checkout.session.completed` to store orders
+-   ✅ **MongoDB** order persistence with session-based tracking
+-   ✅ **Order enrichment** with Printify API after fulfillment
+-   ✅ **Email notifications** on payment confirmation, shipping, and delivery
+-   ✅ **Cancelation flow** with refund via Stripe and cancel request to Printify
+-   ✅ **Printify webhooks** for `order:shipment:created` and `order:fulfilled`
+-   ✅ **Order lookup** via session ID or user-supplied order ID
 
 ### Store Features
 
--   ✅ Product fetching from Printify
--   ✅ Variant filtering
--   ✅ Cart system with add/remove
--   ✅ Session ID management
--   ✅ MongoDB persistence
+-   ✅ **Product fetching** from Printify API
+-   ✅ **ProductVariant model** to cache product details and store Stripe price IDs
+-   ✅ **Variant filtering** (e.g. size, style)
+-   ✅ **LocalStorage cart** tied to session ID with add/remove support
+-   ✅ **Storefront pages** for prints and accessories
+-   ✅ **Order success page** with pricing breakdown and user actions
+-   ✅ **My Orders page** with both automatic (session-based) and manual lookup
 
-### Infra / Automation
+### Backend Infrastructure (Node.js + Express)
 
--   ✅ Worker using `node-cron`
--   ✅ Webhooks tested and working
--   ✅ Mongoose schemas defined and enforced
--   ✅ Nodemailer integration
+-   ✅ **Centralized API server** with routes for orders, checkout, email, and products
+-   ✅ **MongoDB collections**: `Orders`, `Emails`, `ProductVariants`
+-   ✅ **`node-cron` worker** for polling and dispatching new Printify orders
+-   ✅ **Webhook handlers** for Stripe and Printify with logging and validation
+-   ✅ **Email subscription endpoint** with conflict handling (409)
+-   ✅ **Nodemailer** setup for transactional emails (payment, shipment, cancelation)
+-   ✅ **Mongoose schemas** with strict type enforcement
 
----
+### Frontend Integration (Next.js + TypeScript)
 
-## What's Next?
-
-### 1. \*\*Admin Dashboard
-
--   Admin login & auth (could be simple token auth)
--   View all orders (pending, fulfilled, shipped)
--   Manually retry failed orders
--   Manually resend emails
--   Dashboard stats (orders/day, revenue, top products)
-
----
-
-### 2. **Frontend Integration**
-
--   Integrate cart/checkout with session ID
--   Display dynamic product data from Printify
--   Show order status and tracking on user dashboard
--   Use `/api/order/:id` to show past order info
+-   ✅ **Session-aware cart/checkout** tied to backend session ID
+-   ✅ **Dynamic product rendering** from Printify + local cache fallback
+-   ✅ **Validated shipping form** (Zod + React Hook Form)
+-   ✅ **Conditional UI** for cancelation and tracking links
+-   ✅ **Page structure**: Home, About, Store, Cart, Checkout, My Orders, Success
+-   ✅ **Mobile responsive design** using Tailwind CSS
 
 ---
-
-### 3. **Analytics & Logs**
-
--   Save webhook events to a `webhookLogs` collection
--   Log fulfillment attempts/failures
--   Add basic metrics tracking (total orders, total failed)
--   Consider integrating Sentry or LogRocket for production
-
----
-
-### 4. **Security / Hardening**
-
--   Rate-limit cart/checkout APIs
--   Validate all input against schemas (Zod or Joi)
--   Add request auth for internal endpoints
--   Lock webhook endpoints with secret tokens (especially Stripe)
-
----
-
-### 5. **Deployment Planning**
-
--   Containerize with Docker (optional)
--   Set up environment config for staging/production
--   Deploy to Render, Railway, Vercel (client), etc.
--   Set up email DNS if using custom domain (DKIM/SPF for deliverability)
 
 ## Features
 

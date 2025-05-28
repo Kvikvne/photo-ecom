@@ -27,6 +27,7 @@ import {
     TableHead,
     TableHeader,
     TableRow,
+    TableCaption,
 } from "@/components/ui/table";
 import {
     Select,
@@ -148,6 +149,10 @@ function OrderTable({
 
     if (!orders) return null;
 
+    // if (orders && orders.length === 0) {
+    //     return <p className="mt-8 text-muted-foreground">No orders found.</p>;
+    // }
+
     // Handles the cancellation process
     const handleCancel = async (orderId: string) => {
         setCancelingOrderId(orderId);
@@ -169,6 +174,17 @@ function OrderTable({
     return (
         <div className="bg-white px-8 py-4 rounded-md shadow mt-8">
             <Table>
+                {orders && orders.length === 0 ? (
+                    <TableCaption>
+                        <p>No orders found.</p>
+                        <p>
+                            Try seaching for the order with your order ID
+                            provided in your confirmation email.
+                        </p>
+                    </TableCaption>
+                ) : (
+                    <></>
+                )}
                 <TableHeader>
                     <TableRow>
                         <TableHead className="w-[100px]">ID</TableHead>
@@ -345,10 +361,6 @@ export default function Orders() {
             toast.error("Order not found");
         }
     };
-
-    if (orders && orders.length === 0) {
-        return <p className="mt-8 text-muted-foreground">No orders found.</p>;
-    }
 
     if (error) {
         return (
