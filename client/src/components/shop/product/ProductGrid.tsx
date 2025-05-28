@@ -6,6 +6,7 @@ type Product = {
     image: string;
     minPrice: number;
     maxPrice: number;
+    inStock: boolean;
 };
 
 type ProductGridProps = {
@@ -23,6 +24,7 @@ export default function ProductGrid({ products }: ProductGridProps) {
                     minPrice={product.minPrice}
                     maxPrice={product.maxPrice}
                     id={product.id}
+                    inStock={product.inStock}
                 />
             ))}
         </div>

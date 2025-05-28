@@ -7,6 +7,7 @@ import { RequestHandler } from "express";
 export const fetchAllProducts: RequestHandler = async (req, res) => {
     try {
         const rawProducts = await getAllProducts();
+
         const filteredProducts = rawProducts.map(filterEnabledVariants);
 
         res.status(200).json({
@@ -65,6 +66,8 @@ export const fetchProductCards: RequestHandler = async (req, res) => {
                     product.images[0]?.src;
 
                 const prices = product.variants.map((v) => v.price);
+                const inStock = product.variants.some((v) => v.is_available);
+
                 const minPrice = Math.min(...prices) / 100;
                 const maxPrice = Math.max(...prices) / 100;
 
@@ -74,6 +77,7 @@ export const fetchProductCards: RequestHandler = async (req, res) => {
                     image: defaultImage,
                     minPrice,
                     maxPrice,
+                    inStock,
                 };
             });
 
