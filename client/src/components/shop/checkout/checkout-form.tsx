@@ -165,7 +165,7 @@ export default function CheckoutForm() {
         } catch (err: any) {
             console.error("There was a problem submitting your order.", err);
             toast.error(
-                err?.message || "There was a problem submitting your order."
+                "There was a problem submitting your order. Try again later."
             );
         } finally {
             setLoading(false);
