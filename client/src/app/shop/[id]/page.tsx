@@ -69,7 +69,6 @@ export default async function ProductPage({
     const product = await getProduct(id);
 
     if (!product) return notFound();
-
     return (
         <main className="px-8 py-16">
             <ProductInteractiveSection

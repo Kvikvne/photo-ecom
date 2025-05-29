@@ -19,7 +19,8 @@ export default function ProductImageGallery({ images, variantId }: Props) {
         img.variant_ids.includes(variantId)
     );
 
-    const defaultImage = variantImages[variantImages.length - 1]?.src;
+    const defaultImage =
+        variantImages[variantImages.length - 1]?.src || images[0].src;
     const [mainImage, setMainImage] = useState<string>(defaultImage);
 
     useEffect(() => {

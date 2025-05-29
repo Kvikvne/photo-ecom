@@ -3,6 +3,7 @@
 import { useState } from "react";
 import ProductImageGallery from "@/components/shop/product/ProductImageGallery";
 import ProductPurchaseSection from "@/components/shop/product/ProductPurchaseSection";
+import { Badge } from "@/components/ui/badge";
 
 type Variant = {
     id: number;
@@ -43,6 +44,11 @@ export default function ProductInteractiveSection({
                 <p className="text-muted-foreground mb-6 text-lg">
                     {description}
                 </p>
+                {variants.length > 0 ? (
+                    <Badge variant={"outline"}>In stock</Badge>
+                ) : (
+                    <Badge variant={"destructive"}>Out of stock</Badge>
+                )}
                 <ProductPurchaseSection
                     variants={variants}
                     onVariantChange={setActiveVariantId}

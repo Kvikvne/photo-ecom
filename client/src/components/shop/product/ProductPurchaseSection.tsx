@@ -52,7 +52,7 @@ export default function ProductPurchaseSection({
     image,
 }: Props) {
     const [selectedVariant, setSelectedVariant] = useState<Variant>(
-        variants[0]
+        variants[0] || null
     );
     const [loading, setLoading] = useState(false);
 
@@ -95,27 +95,36 @@ export default function ProductPurchaseSection({
 
     return (
         <div className="mt-6">
-            <p className="text-xl font-semibold mb-4">
-                ${(selectedVariant.price / 100).toFixed(2)}
-            </p>
+            {variants.length > 0 ? (
+                <>
+                    <p className="text-xl font-semibold mb-4">
+                        ${(selectedVariant.price / 100).toFixed(2)}
+                    </p>
 
-            <div className="flex flex-wrap gap-2 mb-4">
-                {variants.map((variant) => (
-                    <Button
-                        key={variant.id}
-                        variant={
-                            selectedVariant.id === variant.id
-                                ? "default"
-                                : "outline"
-                        }
-                        onClick={() => handleSelect(variant)}
-                    >
-                        {variant.title}
-                    </Button>
-                ))}
-            </div>
+                    <div className="flex flex-wrap gap-2 mb-4">
+                        {variants.map((variant) => (
+                            <Button
+                                key={variant.id}
+                                variant={
+                                    selectedVariant.id === variant.id
+                                        ? "default"
+                                        : "outline"
+                                }
+                                onClick={() => handleSelect(variant)}
+                            >
+                                {variant.title}
+                            </Button>
+                        ))}
+                    </div>
+                </>
+            ) : (
+                <></>
+            )}
             <div className="flex items-center mt-4 gap-4">
-                <Button className="" onClick={handleAddToCart}>
+                <Button
+                    disabled={variants.length === 0}
+                    onClick={handleAddToCart}
+                >
                     Add to Cart
                 </Button>
                 {loading && <Checkmark />}
