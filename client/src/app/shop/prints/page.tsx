@@ -2,10 +2,12 @@ import ProductGrid from "@/components/shop/product/ProductGrid";
 import { Button } from "@/components/ui/button";
 import { TriangleAlert } from "lucide-react";
 
+// This gets the products by tag then generates all of your product cards.
+// `http://localhost:5000/api/products/cards/{ your tag here }`
 async function getProducts() {
     try {
         const res = await fetch(
-            `http://localhost:5000/api/products/cards/Canvas`,
+            `http://localhost:5000/api/products/cards/canvas`,
             {
                 credentials: "include",
                 next: { revalidate: 60 }, // ISR

@@ -1,7 +1,9 @@
+import dotenv from "dotenv";
+dotenv.config();
+
 import axios from "axios";
 import { PrintifyProduct } from "../types/printify";
 import { OrderDocument } from "../models/order";
-
 const TOKEN = process.env.PRINTIFY_TOKEN;
 const SHOP_ID = process.env.PRINTIFY_SHOP_ID;
 
@@ -11,6 +13,50 @@ const printifyClient = axios.create({
         Authorization: `Bearer ${TOKEN}`,
     },
 });
+
+// ------------------------
+// PRODUCT MANAGMENT
+// ------------------------
+/**
+ * Find a product on Printify by title. This is used to make sure no duplicates are created during the createProduct script.
+ * @param title REQUIRED - title of the product
+ */
+export async function findProductByTitle(title: string): Promise<any | null> {
+    const allProducts = await getAllProducts();
+    return allProducts.find((p: any) => p.title === title) || null;
+}
+/**
+ * Create a product on Printify
+ * @param body REQUIRED - request body with product details
+ */
+export async function createProduct(body: any = {}): Promise<any> {
+    const res = await printifyClient.post("/products.json", body);
+    return res.data;
+}
+/**
+ * Delete a product on Printify
+ * @param productId REQUIRED -  ID of the product you want to delete
+ */
+export async function deleteProduct(productId: string): Promise<any> {
+    const res = await printifyClient.delete(`/products/${productId}.json`);
+    return res;
+}
+/**
+ * Update a product on Printify
+ * @param productId REQUIRED - ID of the product you want to update
+ * * @param body REQUIRED - request body with product details
+ */
+export async function updateProduct(
+    productId: string,
+    body: any
+): Promise<any> {
+    const res = await printifyClient.put(`/products/${productId}.json`, body);
+    return res.data;
+}
+
+// ------------------------
+// GET PRODUCTS
+// ------------------------
 
 export async function getAllProducts(): Promise<any> {
     const res = await printifyClient.get("/products.json");
@@ -24,49 +70,56 @@ export async function getProductById(
     return res.data;
 }
 
+// ------------------------
+// ORDERS MANAGMENT
+// ------------------------
+
+/**
+ * Fetches all products on Printify
+ */
 export async function getAllOrders(): Promise<any> {
     const res = await printifyClient.get("/orders.json");
     return res.data;
 }
 
+/**
+ * Gets a specific order from printify
+ * @param printifyOrderId REQUIRED - ID of the order you want to fetch
+ */
 export async function getPrintifyOrder(printifyOrderId: string): Promise<any> {
     const res = await printifyClient.get(`/orders/${printifyOrderId}.json`);
     return res.data;
 }
 
-// ADMIN PRODUCT DELETE
-export async function deleteProduct(productId: string): Promise<any> {
-    try {
-        const res = await printifyClient.delete(`/products/${productId}.json`);
-        return res.data;
-    } catch (error: any) {
-        console.error(
-            "Error in deleteProduct:",
-            error.response?.data || error.message
-        );
-        throw error;
-    }
-}
-// ADMIN PRODUCT PUBLISH
-export async function publishProduct(
-    productId: string,
-    externalData: { id: string; handle: string }
-): Promise<any> {
-    try {
-        const res = await printifyClient.post(
-            `/products/${productId}/publishing_succeeded.json`,
-            { external: externalData }
-        );
-        return res.data;
-    } catch (error: any) {
-        console.error(
-            "Error in publishProduct:",
-            error.response?.data || error.message
-        );
-        throw error;
-    }
-}
-
+/**
+ * Calculate the shipping cost of an order
+ * @param formattedData REQUIRED (from the client) - formattedData = {
+        line_items: cartContent
+          .map((cartItem) => {
+            return cartItem.line_items.map((item) => ({
+              product_id: item.product_id,
+              variant_id: parseInt(item.variant_id, 10),
+              quantity: parseInt(item.quantity, 10),
+              print_provider_id: parseInt(item.metadata.print_provider_id, 10),
+              blueprint_id: parseInt(item.metadata.blueprint_id, 10),
+              sku: item.metadata.sku,
+            }));
+          })
+          .flat(),
+        address_to: {
+          first_name: deliveryData.first_name,
+          last_name: deliveryData.last_name,
+          email: deliveryData.email,
+          phone: deliveryData.phone,
+          country: deliveryData.country,
+          region: "",
+          address1: deliveryData.address1,
+          address2: "",
+          city: deliveryData.city,
+          zip: deliveryData.zip,
+        },
+      };
+ */
 export async function shippingCost(
     formattedData: Record<string, any>
 ): Promise<any> {
@@ -85,6 +138,10 @@ export async function shippingCost(
     }
 }
 
+/**
+ * Cancel an order on Printify
+ * @param orderId REQUIRED - ID of the order you want cancelled
+ */
 export async function cancelPrintifyOrder(orderId: string): Promise<any> {
     try {
         const res = await printifyClient.post(`/orders/${orderId}/cancel.json`);
@@ -98,6 +155,10 @@ export async function cancelPrintifyOrder(orderId: string): Promise<any> {
     }
 }
 
+/**
+ * Send an order to Printify
+ * @param order REQUIRED - Order document from the DB
+ */
 export async function sendToPrintify(order: OrderDocument): Promise<string> {
     const shopId = process.env.PRINTIFY_SHOP_ID;
     const token = process.env.PRINTIFY_TOKEN;

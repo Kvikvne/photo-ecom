@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { Printer, ArrowRight, ReceiptText, TriangleAlert } from "lucide-react";
-
+import Image from "next/image";
 import {
     Card,
     CardHeader,
@@ -123,11 +123,11 @@ export default function SuccessPage() {
                                 className="flex items-center justify-between gap-6 mb-4 border-b-2 pb-4"
                             >
                                 {/* <Image
-                        height={100}
-                        width={100}
-                        src={item.image}
-                        alt={item.productTitle}
-                        /> */}
+                                    height={100}
+                                    width={100}
+                                    src={item.image}
+                                    alt={item.productTitle}
+                                /> */}
                                 <div>
                                     <p className="">{item.title}</p>
                                 </div>
