@@ -24,6 +24,8 @@ const ProductVariantSchema = new Schema<ProductVariantDocument>({
     image: { type: String },
 });
 
+ProductVariantSchema.index({ productId: 1, variantId: 1 });
+
 export const ProductVariant = mongoose.model<ProductVariantDocument>(
     "ProductVariant",
     ProductVariantSchema

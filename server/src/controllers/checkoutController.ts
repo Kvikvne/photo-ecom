@@ -49,25 +49,32 @@ export const createCheckoutSession = async (
         },
     });
 
-    // Step 1: Collect variant IDs
-    const variantIds = cart.map((item: any) => item.id);
+    // Step 1: Build compound filters from the cart
+    const variantFilters = cart.map((item: any) => ({
+        variantId: item.id,
+        productId: item.productId,
+    }));
 
-    // Step 2: Lookup Stripe price IDs from your ProductVariant model
+    // Step 2: Query ProductVariant by both variantId + productId
     const variants = await ProductVariant.find({
-        variantId: { $in: variantIds },
+        $or: variantFilters,
     });
 
-    // Step 3: Create line items for Stripe Checkout
+    // Step 3: Build Stripe line items
     let lineItems;
-
     try {
         lineItems = cart.map((item: any) => {
+            // Find variant matching both productId and variantId
             const matchedVariant = variants.find(
-                (v) => v.variantId === item.id
+                (v) =>
+                    v.variantId === item.id &&
+                    v.productId.toString() === item.productId // match string vs ObjectId
             );
 
             if (!matchedVariant) {
-                throw new Error(`Variant ${item.id} not found in DB`);
+                throw new Error(
+                    `Variant not found in DB for productId=${item.productId} and variantId=${item.id}`
+                );
             }
 
             return {
