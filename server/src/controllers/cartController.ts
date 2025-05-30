@@ -1,5 +1,6 @@
 import { RequestHandler } from "express";
 import { Cart } from "../models/cart";
+import { getProductById, getAllProducts } from "../services/printifyService";
 
 // POST /api/cart/add
 export const addToCart: RequestHandler = async (req, res) => {
@@ -112,4 +113,47 @@ export const updateCartItem: RequestHandler = async (req, res) => {
     await cart.save();
 
     res.json(cart);
+};
+
+export const validateCart: RequestHandler = async (req, res) => {
+    const { cartItems } = req.body;
+
+    try {
+        const allProducts = await getAllProducts();
+
+        let resObject: {
+            items: {
+                productId: string;
+                variantId: number;
+                valid: boolean;
+                inStock: boolean;
+                currentPrice: number | null;
+                expectedPrice: number;
+                priceMatch: boolean;
+            }[];
+        } = { items: [] };
+
+        cartItems.forEach((item: any) => {
+            const product = allProducts.find(
+                (p: any) => p.id === item.productId
+            );
+            const variant = product?.variants.find(
+                (v: any) => v.id === item.id
+            );
+
+            resObject.items.push({
+                productId: item.productId,
+                variantId: item.id,
+                valid: !!variant,
+                inStock: variant?.is_available || false,
+                currentPrice: variant?.price || null,
+                expectedPrice: item.price,
+                priceMatch: variant?.price === item.price,
+            });
+        });
+
+        res.status(200).json(resObject);
+    } catch (error) {
+        console.error("Cart validataion failed:", error);
+    }
 };
