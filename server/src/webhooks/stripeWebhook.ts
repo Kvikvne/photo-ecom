@@ -33,6 +33,7 @@ const webhookHandler: RequestHandler = async (req: Request, res: Response) => {
                 session.id,
                 {
                     expand: ["data.price.product"],
+                    limit: 100,
                 }
             );
 
