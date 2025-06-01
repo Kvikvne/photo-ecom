@@ -10,13 +10,14 @@ export const printifyWebhookHandler: RequestHandler = async (req, res) => {
 
     if (!type || !resource?.id) {
         res.status(400).json({ error: "Invalid payload" });
+        return;
     }
 
     try {
         const order = await Order.findOne({ printifyOrderId: resource.id });
 
         if (!order) {
-            console.warn("Webhook for unknown order: data.id");
+            console.warn("Webhook for unknown order:", resource.id);
             res.status(404).json({ error: "Order not found" });
             return;
         }
@@ -25,25 +26,40 @@ export const printifyWebhookHandler: RequestHandler = async (req, res) => {
             order.status = "shipped";
             order.shippedAt = new Date();
 
-            const tracking = resource.data.carrier;
-            if (tracking?.tracking_url) {
-                order.trackingUrl = tracking.tracking_url;
-                await sendShippingEmail(order, tracking.tracking_url);
+            const trackingUrl = resource.shipments?.[0]?.tracking_url || null;
+
+            if (trackingUrl) {
+                order.trackingUrl = trackingUrl;
+                try {
+                    await sendShippingEmail(order, trackingUrl);
+                } catch (emailErr) {
+                    console.error("Failed to send shipping email:", emailErr);
+                }
             }
-        } else if (type === "order:shipment:delivered") {
-            const tracking = resource.data.carrier;
+        }
+
+        if (type === "order:shipment:delivered") {
             order.status = "delivered";
             order.deliveredAt = new Date();
-            if (tracking?.tracking_url) {
-                order.trackingUrl = tracking.tracking_url;
-                await sendDeliveredEmail(order, tracking.tracking_url);
+
+            const trackingUrl = resource.shipments?.[0]?.tracking_url || null;
+
+            if (trackingUrl) {
+                order.trackingUrl = trackingUrl;
+                try {
+                    await sendDeliveredEmail(order, trackingUrl);
+                } catch (emailErr) {
+                    console.error("Failed to send delivered email:", emailErr);
+                }
             }
         }
 
         await order.save();
         res.status(200).json({ received: true });
+        return;
     } catch (err) {
         console.error("Failed to process webhook:", err);
         res.status(500).json({ error: "Internal server error" });
+        return;
     }
 };

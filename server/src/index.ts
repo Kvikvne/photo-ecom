@@ -39,7 +39,7 @@ if (process.env.NODE_ENV === "production") {
 
 // Webhooks first (raw body required)
 app.post(
-    "/api/webhook",
+    "/api/webhook/stripe",
     bodyParser.raw({ type: "application/json" }),
     webhookHandler
 );
