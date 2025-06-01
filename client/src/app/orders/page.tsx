@@ -1,5 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import { API_BASE_URL } from "@/lib/config";
+
 import { toast } from "sonner";
 import {
     Form,
@@ -51,8 +53,6 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog";
 
-const expressURL = process.env.NEXT_PUBLIC_EXPRESS_SERVER_URL;
-
 // --- Interfaces and validation ---
 
 // Defines the shape of a single order object
@@ -86,7 +86,7 @@ export const formSchema = z.object({
 
 // Fetches a single order by ID (_id)
 async function handleOrderIdSubmit(orderId: string) {
-    const res = await fetch(`${expressURL}/api/orders/get/${orderId}`, {
+    const res = await fetch(`${API_BASE_URL}/api/orders/get/${orderId}`, {
         method: "GET",
         credentials: "include",
         headers: { "Content-Type": "application/json" },
@@ -101,7 +101,7 @@ async function handleOrderIdSubmit(orderId: string) {
 
 // Fetches all orders associated with the user/session
 async function getAllOrders() {
-    const res = await fetch(`${expressURL}/api/orders/all`, {
+    const res = await fetch(`${API_BASE_URL}/api/orders/all`, {
         method: "GET",
         credentials: "include",
     });
@@ -116,7 +116,7 @@ async function getAllOrders() {
 // Cancels an order and returns updated data
 async function cancelOrder(orderId: string) {
     const res = await fetch(
-        `${expressURL}/api/orders/cancel-order/${orderId}`,
+        `${API_BASE_URL}/api/orders/cancel-order/${orderId}`,
         {
             method: "POST",
             credentials: "include",

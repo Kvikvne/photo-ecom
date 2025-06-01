@@ -31,7 +31,7 @@ export async function generateMetadata({
 
     return {
         title: `${product.title}`,
-        description: product.description.replace(/<[^>]*>/g, "").slice(0, 150),
+        description: product.description,
         openGraph: {
             title: `${product.title}`,
             description: product.description
