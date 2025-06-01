@@ -1,4 +1,3 @@
-import { RequestHandler } from "express";
 import { Request, Response } from "express";
 import { stripe } from "../lib/stripe";
 import { ProductVariant } from "../models/productVariant";
@@ -116,7 +115,7 @@ export const createCheckoutSession = async (
             addressTo,
             printifyLineItems
         );
-        console.log("Shipping cost calculated:", shippingData);
+        // console.log("Shipping cost calculated:", shippingData);
     } catch (err) {
         console.error("Failed to calculate shipping:", err);
         res.status(500).json({ error: "Failed to calculate shipping cost" });

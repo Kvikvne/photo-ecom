@@ -1,6 +1,11 @@
 import { RequestHandler } from "express";
 import { Cart } from "../models/cart";
-import { getProductById, getAllProducts } from "../services/printifyService";
+import { getAllProducts } from "../services/printifyService";
+
+// ---------------------------
+// Functions for carts stored in a DB.
+// Currently using local storage for user carts.
+// ---------------------------
 
 // POST /api/cart/add
 export const addToCart: RequestHandler = async (req, res) => {
@@ -54,7 +59,6 @@ export const addToCart: RequestHandler = async (req, res) => {
 // GET /api/cart
 export const getCart: RequestHandler = async (req, res) => {
     const sessionId = req.sessionId;
-    console.log("express session", sessionId);
     if (!sessionId) {
         res.status(400).json({ error: "Missing sessionId" });
         return;
@@ -114,6 +118,11 @@ export const updateCartItem: RequestHandler = async (req, res) => {
 
     res.json(cart);
 };
+
+// -------------------------------
+// Needed for any type of cart.
+// Validates cart before checkout session
+// -------------------------------
 
 export const validateCart: RequestHandler = async (req, res) => {
     const { cartItems } = req.body;

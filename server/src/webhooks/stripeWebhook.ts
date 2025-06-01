@@ -88,7 +88,7 @@ const webhookHandler: RequestHandler = async (req: Request, res: Response) => {
                 // shippingMethod: shippingMethod,
             });
 
-            console.log("Order saved:", session.id);
+            // console.log("Order saved:", session.id);
 
             // Delete the cart after confirming session
             await Cart.deleteOne({ sessionId: session.metadata?.sessionId });

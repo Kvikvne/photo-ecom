@@ -8,13 +8,11 @@ export function assignSessionId(
 ) {
     const existingSessionId = req.cookies?.sessionId;
 
-    console.log("existingSessionId", existingSessionId);
-
     if (!existingSessionId) {
         const newSessionId = uuidv4();
         res.cookie("sessionId", newSessionId, {
             httpOnly: true,
-            secure: false, // set to true in prod
+            secure: process.env.COOKIE_SECURE === "true",
             maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
             sameSite: "lax",
         });
