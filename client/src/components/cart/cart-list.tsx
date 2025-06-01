@@ -1,5 +1,7 @@
 "use client";
 
+import { API_BASE_URL } from "@/lib/config";
+
 import { Loader2, CircleX } from "lucide-react";
 import { useEffect, useState } from "react";
 import Image from "next/image";
@@ -37,7 +39,7 @@ export default function CartList() {
     // ----------------
     async function validateCart(cartItems: CartItem[]) {
         try {
-            const res = await fetch("http://localhost:5000/api/cart/validate", {
+            const res = await fetch(`${API_BASE_URL}/api/cart/validate`, {
                 method: "POST",
                 credentials: "include",
                 body: JSON.stringify({ cartItems }),

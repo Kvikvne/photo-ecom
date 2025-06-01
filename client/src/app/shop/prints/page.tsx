@@ -2,6 +2,8 @@ import ProductGrid from "@/components/shop/product/ProductGrid";
 import { fetchWithErrorHandling } from "@/lib/fetch-with-error-handling";
 import { TriangleAlert, Rat } from "lucide-react";
 
+import { API_BASE_URL } from "@/lib/config";
+
 interface Products {
     id: string;
     image: string;
@@ -15,7 +17,7 @@ export default async function Prints() {
     // This gets the products by tag then generates all of your product cards.
     // `http://localhost:5000/api/products/cards/{ your tag here }`
     const data = await fetchWithErrorHandling<{ products: Products[] }>(
-        "http://localhost:5000/api/products/cards/canvas",
+        `${API_BASE_URL}/api/products/cards/canvas`,
         {
             credentials: "include",
             next: { revalidate: 60 },

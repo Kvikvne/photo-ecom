@@ -2,6 +2,8 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import ProductInteractiveSection from "@/components/shop/product/ProductInteractiveSection";
 
+import { API_BASE_URL } from "@/lib/config";
+
 type Product = {
     id: string;
     title: string;
@@ -50,7 +52,7 @@ export async function generateMetadata({
 }
 
 async function getProduct(id: string): Promise<Product | null> {
-    const res = await fetch(`http://localhost:5000/api/products/${id}`, {
+    const res = await fetch(`${API_BASE_URL}/api/products/${id}`, {
         credentials: "include",
         next: { revalidate: 3600 },
     });

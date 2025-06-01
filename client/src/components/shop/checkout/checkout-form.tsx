@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { API_BASE_URL } from "@/lib/config";
 
 // Form validation with Zod and React Hook Form
 import { z } from "zod";
@@ -151,7 +152,7 @@ export default function CheckoutForm() {
         try {
             setLoading(true);
             const cart = await getCart();
-            const res = await fetch("http://localhost:5000/api/checkout", {
+            const res = await fetch(`${API_BASE_URL}/api/checkout`, {
                 method: "POST",
                 credentials: "include",
                 headers: { "Content-Type": "application/json" },

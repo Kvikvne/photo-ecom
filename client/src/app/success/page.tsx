@@ -1,7 +1,9 @@
 "use client";
+
+import { API_BASE_URL } from "@/lib/config";
 import { useEffect, useState } from "react";
+
 import { Printer, ArrowRight, ReceiptText, TriangleAlert } from "lucide-react";
-import Image from "next/image";
 import {
     Card,
     CardHeader,
@@ -68,7 +70,7 @@ export default function SuccessPage() {
             try {
                 setLoading(true);
 
-                const res = await fetch(`http://localhost:5000/api/orders/`, {
+                const res = await fetch(`${API_BASE_URL}/api/orders/`, {
                     credentials: "include",
                 });
                 const data = await res.json();
