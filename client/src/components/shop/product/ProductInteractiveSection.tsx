@@ -32,7 +32,7 @@ export default function ProductInteractiveSection({
     variants,
     productId,
 }: Props) {
-    // Preload all images availible for each variant to imporve perceived speed
+    // Preload all images availible for each variant to imporve perceived speed on variant change.
     useEffect(() => {
         if (!images || images.length === 0) return;
 
@@ -45,8 +45,6 @@ export default function ProductInteractiveSection({
             preload.src = src;
         });
     }, [images]);
-
-    console.log(images);
 
     const [activeVariantId, setActiveVariantId] = useState(variants[0]?.id);
     const variantImages = images.filter((img) =>

@@ -30,12 +30,16 @@ export default function ProductImageGallery({ images, variantId }: Props) {
     return (
         <div>
             <div className="w-full mb-4">
+                {/* IMPORTANT! Use img instead on Image in this component. 
+                This allows all of the variant images to be preloaded 
+                improving speed when the user switched product variants */}
                 <img
                     src={mainImage}
                     alt="Main product image"
                     width={500}
                     height={500}
                     className="rounded-md"
+                    loading="eager"
                 />
             </div>
             <div className="flex gap-2 flex-wrap">
