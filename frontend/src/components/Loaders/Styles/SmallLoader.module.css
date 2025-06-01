@@ -1,8 +1,0 @@
-.Cubesvg {
-    max-height: 100%; /* Adjusts the SVG height to the maximum height of the button */
-    max-width: 100%; /* Ensures the SVG respects the button's width */
-    position: absolute; /* Position the SVG element within the button */
-    top: 50%; /* Vertically center the SVG */
-    left: 50%; /* Horizontally center the SVG */
-    transform: translate(-50%, -50%); /* Adjusts the position to center the SVG */
-  }
