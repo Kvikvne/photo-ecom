@@ -25,57 +25,57 @@ const gridItems = [
     {
         image: oceanic,
         name: "Oceanic",
-        link: "/shop/65c53b0224b6d9777f0ffb58",
+        link: "/shop/6838b0c7a2d0cb6edf0363d2",
     },
     {
         image: sheetGlass,
         name: "Sheet Glass",
-        link: "/shop/65c559ec511eb82d320116fa",
+        link: "/shop/683a29d9372403cb7d0be57c",
     },
     {
         image: emerald,
         name: "Emerald",
-        link: "/shop/65c54e726a56e47eba094950",
+        link: "/shop/683a32f48cd7be7c3a056a37",
     },
     {
         image: family,
         name: "Family",
-        link: "/shop/65c5535bc55f04117f02cd7b",
+        link: "/shop/683a32f8372403cb7d0be794",
     },
     {
         image: paintedSky,
         name: "Painted Sky",
-        link: "/shop/65c55f164ba9341a6d081ef4",
+        link: "/shop/683a1f933ce89481aa03a6e5",
     },
     {
         image: hawaiianSun,
         name: "Hawaiian Sun",
-        link: "/shop/65c55b04688e99f9a001907b",
+        link: "/shop/683a28f2372403cb7d0be53c",
     },
     {
         image: emeraldTunnel,
         name: "Emerald Tunnel",
-        link: "/shop/65c55855800827daf10c139f",
+        link: "/shop/683a32e93b3af933b20c49e4",
     },
     {
         image: goldenSands,
         name: "Golden Sands",
-        link: "/shop/65c552364d795c018c0c9a9e",
+        link: "/shop/683a33018cd7be7c3a056a3b",
     },
     {
         image: sunlitSurge,
         name: "Sunlit Surge",
-        link: "/shop/65c5508098398742140348fd",
+        link: "/shop/683a32fb3a7f9a1e0409896a",
     },
     {
         image: tropicalSnow,
         name: "Tropical Snow",
-        link: "/shop/65c556ece943e035240e3e8e",
+        link: "/shop/683a32ec372403cb7d0be78e",
     },
     {
         image: marineLeap,
         name: "Marine Leap",
-        link: "/shop/65c55cb2833a332c6d0bc39a",
+        link: "/shop/683a279e1ab41436080963ea",
     },
 ];
 

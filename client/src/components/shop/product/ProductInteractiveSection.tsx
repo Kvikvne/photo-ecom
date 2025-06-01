@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ProductImageGallery from "@/components/shop/product/ProductImageGallery";
 import ProductPurchaseSection from "@/components/shop/product/ProductPurchaseSection";
 import { Badge } from "@/components/ui/badge";
@@ -32,6 +32,22 @@ export default function ProductInteractiveSection({
     variants,
     productId,
 }: Props) {
+    // Preload all images availible for each variant to imporve perceived speed
+    useEffect(() => {
+        if (!images || images.length === 0) return;
+
+        const uniqueImageSrcs = Array.from(
+            new Set(images.map((img) => img.src))
+        );
+        uniqueImageSrcs.forEach((src) => {
+            const preload = new Image();
+            preload.decoding = "async";
+            preload.src = src;
+        });
+    }, [images]);
+
+    console.log(images);
+
     const [activeVariantId, setActiveVariantId] = useState(variants[0]?.id);
     const variantImages = images.filter((img) =>
         img.variant_ids.includes(activeVariantId)
@@ -44,11 +60,19 @@ export default function ProductInteractiveSection({
                 <p className="text-muted-foreground mb-6 text-lg">
                     {description}
                 </p>
-                {variants.length > 0 ? (
-                    <Badge variant={"outline"}>In stock</Badge>
-                ) : (
-                    <Badge variant={"destructive"}>Out of stock</Badge>
-                )}
+                <div className="flex items-center gap-5">
+                    {variants.length > 0 ? (
+                        <Badge variant={"outline"}>In stock</Badge>
+                    ) : (
+                        <Badge variant={"destructive"}>Out of stock</Badge>
+                    )}
+                    <p className="text-sm">
+                        Our canvas prints are made with a cotton-poly blend and
+                        stretched over a solid pine wood frame sourced from
+                        renewable forests. Each piece comes ready to hang with
+                        rubber supports on the back.
+                    </p>
+                </div>
                 <ProductPurchaseSection
                     variants={variants}
                     onVariantChange={setActiveVariantId}

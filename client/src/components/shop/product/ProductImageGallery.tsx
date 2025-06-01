@@ -30,7 +30,7 @@ export default function ProductImageGallery({ images, variantId }: Props) {
     return (
         <div>
             <div className="w-full mb-4">
-                <Image
+                <img
                     src={mainImage}
                     alt="Main product image"
                     width={500}
@@ -45,12 +45,13 @@ export default function ProductImageGallery({ images, variantId }: Props) {
                         onClick={() => setMainImage(img.src)}
                         className="w-24 h-24 border rounded overflow-hidden"
                     >
-                        <Image
+                        <img
                             src={img.src}
                             alt="Thumbnail"
                             width={96}
                             height={96}
                             className="object-cover w-full h-full"
+                            loading="lazy"
                         />
                     </button>
                 ))}
