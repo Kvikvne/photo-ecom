@@ -1,6 +1,7 @@
 import { ContactSubmission } from "../models/contact";
 import { RequestHandler } from "express";
 import axios from "axios";
+import { sendContactConfirmationEmail } from "../services/emailService";
 
 export const postContactForm: RequestHandler = async (req, res) => {
     const { values, token } = req.body;
@@ -45,6 +46,9 @@ export const postContactForm: RequestHandler = async (req, res) => {
         });
 
         await contactSub.save();
+
+        await sendContactConfirmationEmail(contactSub);
+
         res.status(200).json({ submissionSaved: values });
     } catch (err) {
         console.error("Error submitting contact submission:", err);

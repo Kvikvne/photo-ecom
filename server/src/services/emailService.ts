@@ -1,5 +1,6 @@
 import nodemailer from "nodemailer";
 import { OrderDocument } from "../models/order";
+import { ContactSubmissionDocument } from "../models/contact";
 
 const transporter = nodemailer.createTransport({
     service: "gmail",
@@ -143,4 +144,42 @@ export async function sendCanceledEmail(order: OrderDocument) {
 
     await transporter.sendMail(mailOptions);
     console.log(`Cancellation email sent to ${order.email}`);
+}
+
+export async function sendContactConfirmationEmail(
+    submission: ContactSubmissionDocument
+) {
+    if (!submission.email) {
+        console.warn(`No email found for contact submission ${submission._id}`);
+        return;
+    }
+
+    const mailOptions = {
+        from: "noreply@kvikvne.com",
+        to: submission.email,
+        subject: "We've received your message",
+        html: `
+      <div style="font-family: 'Outfit', sans-serif; max-width: 600px; margin: auto; padding: 16px;">
+        <h2 style="color: #06151c;">Thanks for contacting KVIKVNE</h2>
+        <p>Hi ${submission.first_name},</p>
+        <p>We've received your message and will get back to you as soon as possible.</p>
+        <p><strong>Topic:</strong> ${submission.reason.replace(/-/g, " ")}</p>
+        ${
+            submission.orderId
+                ? `<p><strong>Order ID:</strong> ${submission.orderId}</p>`
+                : ""
+        }
+        <p><strong>Your Message:</strong></p>
+        <blockquote style="background: #f9f9f9; padding: 12px; border-left: 4px solid #ccc;">
+          ${submission.message}
+        </blockquote>
+        <p>If you have any questions or need to update your inquiry, reach out to <a href="mailto:support@kvikvne.com">support@kvikvne.com</a>.</p>
+        <p style="margin-top: 24px;">Thanks again,</p>
+        <p>- The KVIKVNE Team</p>
+      </div>
+    `,
+    };
+
+    await transporter.sendMail(mailOptions);
+    console.log(`Contact confirmation email sent to ${submission.email}`);
 }

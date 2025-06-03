@@ -1,19 +1,31 @@
-import { Schema, model } from "mongoose";
+import mongoose, { Document, Schema } from "mongoose";
 
-const ContactSubmissionSchema = new Schema(
+export interface ContactSubmissionDocument extends Document {
+    first_name: string;
+    last_name: string;
+    email: string;
+    reason: string;
+    orderId?: string;
+    message: string;
+    recaptchaScore: number;
+    createdAt: Date;
+    updatedAt: Date;
+}
+
+const ContactSubmissionSchema = new Schema<ContactSubmissionDocument>(
     {
-        first_name: String,
-        last_name: String,
-        email: String,
-        reason: String,
-        orderId: String,
-        message: String,
-        recaptchaScore: Number,
+        first_name: { type: String, required: true },
+        last_name: { type: String, required: true },
+        email: { type: String, required: true },
+        reason: { type: String, required: true },
+        orderId: { type: String },
+        message: { type: String, required: true },
+        recaptchaScore: { type: Number, required: true },
     },
     { timestamps: true }
 );
 
-export const ContactSubmission = model(
+export const ContactSubmission = mongoose.model<ContactSubmissionDocument>(
     "ContactSubmission",
     ContactSubmissionSchema
 );
