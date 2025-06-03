@@ -215,7 +215,16 @@ function OrderTable({
                                 </Badge>
                             </TableCell>
                             <TableCell>
-                                {new Date(order.createdAt).toLocaleString()}
+                                {new Date(order.createdAt).toLocaleString(
+                                    "en-US",
+                                    {
+                                        year: "numeric",
+                                        month: "numeric",
+                                        day: "numeric",
+                                        hour: "2-digit",
+                                        minute: "2-digit",
+                                    }
+                                )}
                             </TableCell>
                             <TableCell>
                                 <div>
