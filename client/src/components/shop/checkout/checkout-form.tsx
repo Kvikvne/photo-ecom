@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import { API_BASE_URL } from "@/lib/config";
+import { API_BASE_URL, RECAPTCHA_SITE_KEY } from "@/lib/config";
+import { useRecaptchaScript } from "@/app/hooks/useRecaptchaScript";
 
 // Form validation with Zod and React Hook Form
 import { z } from "zod";
@@ -147,16 +148,35 @@ export default function CheckoutForm() {
         },
     });
 
+    useRecaptchaScript(RECAPTCHA_SITE_KEY);
+
     // Submit handler that posts shipping and cart data to backend to create Stripe session
     async function handleShippingSubmit(values: z.infer<typeof formSchema>) {
         try {
             setLoading(true);
+
+            if (typeof grecaptcha === "undefined") {
+                toast.error(
+                    "reCAPTCHA failed to load. Please refresh and try again."
+                );
+                setLoading(false);
+                return;
+            }
+
+            const token = await new Promise<string>((resolve, reject) => {
+                grecaptcha.ready(() => {
+                    grecaptcha
+                        .execute(RECAPTCHA_SITE_KEY, { action: "contact_form" })
+                        .then(resolve, reject);
+                });
+            });
+
             const cart = await getCart();
             const res = await fetch(`${API_BASE_URL}/api/checkout`, {
                 method: "POST",
                 credentials: "include",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ shipping: values, cart }),
+                body: JSON.stringify({ shipping: values, cart, token }),
             });
 
             const result = await res.json();

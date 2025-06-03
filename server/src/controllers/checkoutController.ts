@@ -3,13 +3,42 @@ import { stripe } from "../lib/stripe";
 import { ProductVariant } from "../models/productVariant";
 import { calculateShippingCost } from "../utils/shippingCost";
 import Stripe from "stripe";
+import axios from "axios";
 
 export const createCheckoutSession = async (
     req: Request,
     res: Response
 ): Promise<void> => {
     const sessionId = req.sessionId;
-    const { shipping, cart } = req.body;
+    const { shipping, cart, token } = req.body;
+
+    // Verify the reCAPTCHA token with Google
+    if (!process.env.RECAPTCHA_SECRET_KEY) {
+        res.status(500).json({ error: "Missing reCAPTCHA secret key." });
+        return;
+    }
+
+    if (!token || typeof token !== "string") {
+        res.status(400).json({
+            error: "Missing or invalid reCAPTCHA token.",
+        });
+        return;
+    }
+
+    const verifyUrl = `https://www.google.com/recaptcha/api/siteverify`;
+    const params = new URLSearchParams();
+    params.append("secret", process.env.RECAPTCHA_SECRET_KEY);
+    params.append("response", token);
+
+    const { data } = await axios.post(verifyUrl, params);
+
+    if (!data.success || data.score < 0.5 || data.action !== "contact_form") {
+        res.status(403).json({
+            error: "reCAPTCHA verification failed.",
+            details: data,
+        });
+        return;
+    }
 
     if (!sessionId) {
         res.status(400).json({ error: "Missing session ID" });
