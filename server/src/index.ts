@@ -26,6 +26,7 @@ import cartRoutes from "./routes/cartRoutes";
 import checkoutRoutes from "./routes/checkoutRoutes";
 import orderRoutes from "./routes/orderRoutes";
 import emailRoutes from "./routes/emailRoutes";
+import contactRoutes from "./routes/contactRoutes";
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -64,6 +65,7 @@ app.use("/api/cart", cartRoutes);
 app.use("/api/checkout", checkoutRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/email", emailRoutes);
+app.use("/api/contact", contactRoutes);
 
 // Start server
 connectToMongoDB().then(() => {

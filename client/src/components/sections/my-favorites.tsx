@@ -1,6 +1,6 @@
 import { ChevronsDown } from "lucide-react";
 import Link from "next/link";
-import { ImgCarousel } from "../img-carousel";
+import { ImgCarousel } from "@/components/ui/img-carousel";
 
 export default function MyFavorites() {
     return (

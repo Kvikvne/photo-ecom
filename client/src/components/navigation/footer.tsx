@@ -57,6 +57,10 @@ const footerLinks = [
         title: "About",
         links: [
             {
+                name: "My Story",
+                link: "/about",
+            },
+            {
                 name: "Privacy Policy",
                 link: "/",
             },
@@ -75,15 +79,11 @@ const footerLinks = [
         links: [
             {
                 name: "Wall art",
-                link: "/",
+                link: "/shop/prints",
             },
             {
                 name: "Accessories",
-                link: "/",
-            },
-            {
-                name: "My Story",
-                link: "/",
+                link: "/shop/accessories",
             },
         ],
     },
@@ -96,7 +96,7 @@ const footerLinks = [
             },
             {
                 name: "Contact me",
-                link: "/",
+                link: "/contact",
             },
         ],
     },
