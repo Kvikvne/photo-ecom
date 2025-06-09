@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import ProductInteractiveSection from "@/components/shop/product/ProductInteractiveSection";
+import { ProductJsonLd } from "@/lib/ProductJsonLd";
 
 import { API_BASE_URL } from "@/lib/config";
 
@@ -30,13 +31,22 @@ export async function generateMetadata({
     }
 
     return {
-        title: `${product.title}`,
+        metadataBase: new URL("https://kvikvne.com"),
+        title: product.title,
         description: product.description,
+        keywords: [
+            "canvas print",
+            product.title,
+            "beach art",
+            "ocean wall decor",
+            "surf photography",
+            "coastal photography",
+        ],
         openGraph: {
-            title: `${product.title}`,
-            description: product.description
-                .replace(/<[^>]*>/g, "")
-                .slice(0, 150),
+            title: product.title,
+            description: product.description,
+            url: `https://kvikvne.com/shop/prints/${id}`,
+            siteName: "KVIKVNE",
             images: [
                 {
                     url:
@@ -46,6 +56,16 @@ export async function generateMetadata({
                     height: 630,
                     alt: product.title,
                 },
+            ],
+            type: "website",
+        },
+        twitter: {
+            card: "summary_large_image",
+            title: product.title,
+            description: product.description,
+            images: [
+                product.images.find((img) => img.is_default)?.src ??
+                    product.images[0]?.src,
             ],
         },
     };
@@ -71,15 +91,30 @@ export default async function ProductPage({
     const product = await getProduct(id);
 
     if (!product) return notFound();
+
+    const defaultImage =
+        product.images.find((img) => img.is_default)?.src ??
+        product.images[0]?.src;
     return (
-        <main className="px-8 py-16">
-            <ProductInteractiveSection
+        <>
+            <ProductJsonLd
+                id={product.id}
                 title={product.title}
                 description={product.description}
-                images={product.images}
-                variants={product.variants}
-                productId={product.id}
+                image={defaultImage}
+                prices={product.variants.map((v) => v.price)}
+                currency="USD"
+                url={`https://kvikvne.com/shop/prints/${product.id}`}
             />
-        </main>
+            <main className="px-8 py-16">
+                <ProductInteractiveSection
+                    title={product.title}
+                    description={product.description}
+                    images={product.images}
+                    variants={product.variants}
+                    productId={product.id}
+                />
+            </main>
+        </>
     );
 }
