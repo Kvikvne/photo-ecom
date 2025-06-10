@@ -6,18 +6,11 @@ export default function Hero() {
     return (
         <section
             id="home"
-            className="h-[calc(100vh-88px)] bg-[url(/oceanic.jpg)] bg-cover bg-bottom flex flex-col justify-between items-center px-4 py-8"
+            className="h-[calc(100svh-88px)] bg-[url(/oceanic.jpg)] bg-cover bg-bottom flex flex-col justify-between items-center px-4 py-8"
         >
-            {/* <div
-                className="z-0 absolute top-0 left-0 w-full h-full"
-                style={{
-                    backgroundImage:
-                        "linear-gradient(180deg, rgba(6, 21, 28, 0) 40%, rgba(6, 21, 28, 1) 100%)",
-                }}
-            /> */}
             <div className="flex-1 flex flex-col justify-center items-start max-w-4xl z-1">
                 <p className="text-background text-4xl">Photography by</p>
-                <h1 className="text-8xl text-background font-bold">
+                <h1 className="text-5xl md:text-8xl text-background font-bold">
                     Kaikane Anderson
                 </h1>
                 <p className="text-background mt-4 text-lg">

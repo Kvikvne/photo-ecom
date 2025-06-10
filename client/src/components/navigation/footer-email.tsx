@@ -57,7 +57,7 @@ export default function EmailSignupForm() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
-                    className="bg-background"
+                    className="bg-background mb-2"
                 />
                 <Button
                     type="submit"

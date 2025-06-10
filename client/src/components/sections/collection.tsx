@@ -85,7 +85,9 @@ export default function Collection() {
             <div className="py-16 px-8">
                 <div>
                     <div className="flex items-center gap-4">
-                        <h3 className="text-6xl font-bold">Collection</h3>
+                        <h3 className="text-5xl md:text-6xl font-bold">
+                            Collection
+                        </h3>
                         <Button asChild>
                             <Link href="/shop/prints">Shop prints</Link>
                         </Button>

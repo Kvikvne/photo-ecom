@@ -41,7 +41,7 @@ export function ImgCarousel() {
     return (
         <Carousel
             plugins={[plugin.current]}
-            className="w-xl"
+            className="w-xl max-w-[85svw]"
             onMouseEnter={plugin.current.stop}
             onMouseLeave={plugin.current.reset}
             opts={{
@@ -69,8 +69,8 @@ export function ImgCarousel() {
                     </CarouselItem>
                 ))}
             </CarouselContent>
-            <CarouselPrevious className="text-foreground border-0" />
-            <CarouselNext className="text-foreground border-0" />
+            <CarouselPrevious className="text-foreground border-0 hidden md:visible" />
+            <CarouselNext className="text-foreground border-0 hidden md:visible" />
         </Carousel>
     );
 }

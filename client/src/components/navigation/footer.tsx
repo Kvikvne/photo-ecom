@@ -24,7 +24,7 @@ const linkButtons = [
     {
         name: "LinkedIn",
         icon: (
-            <svg viewBox="0 0 128 128">
+            <svg viewBox="0 0 128 128" className="w-6 h-6">
                 <path
                     fill="currentColor"
                     d="M116 3H12a8.91 8.91 0 00-9 8.8v104.42a8.91 8.91 0 009 8.78h104a8.93 8.93 0 009-8.81V11.77A8.93 8.93 0 00116 3zM39.17 107H21.06V48.73h18.11zm-9-66.21a10.5 10.5 0 1110.49-10.5 10.5 10.5 0 01-10.54 10.48zM107 107H88.89V78.65c0-6.75-.12-15.44-9.41-15.44s-10.87 7.36-10.87 15V107H50.53V48.73h17.36v8h.24c2.42-4.58 8.32-9.41 17.13-9.41C103.6 47.28 107 59.35 107 75z"
@@ -37,10 +37,9 @@ const linkButtons = [
         name: "Instagram",
         icon: (
             <svg
-                id="Layer_1"
-                data-name="Layer 1"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 1000 1000"
+                className="w-6 h-6"
             >
                 <path
                     fill="currentColor"
@@ -105,31 +104,36 @@ const footerLinks = [
 export function Footer() {
     return (
         <footer className="bg-primary">
-            <div className="px-6 py-8 w-full flex justify-between items-center container mx-auto">
-                <div id="left" className="flex flex-col gap-4">
-                    <Link href={"#home"}>
-                        <Image
-                            width={200}
-                            height={200}
-                            alt="kvikvne"
-                            src={"/canvas-logo-2.svg"}
-                        />
-                    </Link>
-                    <div className="flex">
-                        {linkButtons.map((link, idx) => (
-                            <Button
-                                key={idx}
-                                className="text-background"
-                                variant="ghost"
-                                asChild
-                            >
-                                <Link target="_blank" href={link.link}>
-                                    {link.icon}
-                                </Link>
-                            </Button>
-                        ))}
+            <div className="px-6 py-8 w-full flex justify-center md:justify-between items-center container mx-auto flex-wrap gap-12">
+                <div className="flex flex-col items-center md:items-start gap-4">
+                    <div
+                        id="left"
+                        className="flex flex-col gap-4 items-center md:items-start"
+                    >
+                        <Link href={"#home"}>
+                            <Image
+                                width={200}
+                                height={200}
+                                alt="kvikvne"
+                                src={"/canvas-logo-2.svg"}
+                            />
+                        </Link>
+                        <div className="flex mb-4 items-center justify-center">
+                            {linkButtons.map((link, idx) => (
+                                <Button
+                                    key={idx}
+                                    className="text-background"
+                                    variant="ghost"
+                                    asChild
+                                >
+                                    <Link target="_blank" href={link.link}>
+                                        {link.icon}
+                                    </Link>
+                                </Button>
+                            ))}
+                        </div>
                     </div>
-                    <div className="flex gap-6">
+                    <div className="flex gap-6 flex-wrap">
                         {footerLinks.map((item, idx) => (
                             <div key={idx} className="flex flex-col">
                                 <span
