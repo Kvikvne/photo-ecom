@@ -32,9 +32,7 @@ const carouselItems = [
 ];
 
 export function ImgCarousel() {
-    const plugin = React.useRef(
-        Autoplay({ delay: 6000, stopOnInteraction: true })
-    );
+    const plugin = React.useRef(Autoplay({ delay: 5000 }));
 
     const router = useRouter();
 
@@ -42,8 +40,8 @@ export function ImgCarousel() {
         <Carousel
             plugins={[plugin.current]}
             className="w-xl max-w-[85svw]"
-            onMouseEnter={plugin.current.stop}
-            onMouseLeave={plugin.current.reset}
+            onMouseEnter={() => plugin.current.stop()}
+            onMouseLeave={() => plugin.current.play()}
             opts={{
                 align: "start",
                 loop: true,
@@ -69,8 +67,8 @@ export function ImgCarousel() {
                     </CarouselItem>
                 ))}
             </CarouselContent>
-            <CarouselPrevious className="text-foreground border-0 hidden md:visible" />
-            <CarouselNext className="text-foreground border-0 hidden md:visible" />
+            <CarouselPrevious className="text-foreground border-0 hidden md:flex" />
+            <CarouselNext className="text-foreground border-0 hidden md:flex" />
         </Carousel>
     );
 }
