@@ -112,7 +112,10 @@ export default function ProductPurchaseSection({
                                 }
                                 onClick={() => handleSelect(variant)}
                             >
-                                {variant.title}
+                                {variant.title.replace(
+                                    /\s*\((Horizontal|Vertical)\)/,
+                                    ""
+                                )}
                             </Button>
                         ))}
                     </div>

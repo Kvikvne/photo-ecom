@@ -51,14 +51,20 @@ export default function ProductInteractiveSection({
         img.variant_ids.includes(activeVariantId)
     );
     return (
-        <div className="grid md:grid-cols-2 gap-12">
+        <div className="grid md:grid-cols-2 gap-6">
             <ProductImageGallery images={images} variantId={activeVariantId} />
             <div>
                 <h1 className="text-4xl font-bold mb-4">{title}</h1>
-                <p className="text-muted-foreground mb-6 text-lg">
-                    {description}
-                </p>
-                <div className="flex items-center gap-5">
+                <ProductPurchaseSection
+                    variants={variants}
+                    onVariantChange={setActiveVariantId}
+                    product={{
+                        productId: productId,
+                        title: title,
+                    }}
+                    image={variantImages[0]?.src || ""}
+                />
+                <div className="flex items-center gap-5 my-8">
                     {variants.length > 0 ? (
                         <Badge variant={"outline"}>In stock</Badge>
                     ) : (
@@ -71,15 +77,9 @@ export default function ProductInteractiveSection({
                         rubber supports on the back.
                     </p>
                 </div>
-                <ProductPurchaseSection
-                    variants={variants}
-                    onVariantChange={setActiveVariantId}
-                    product={{
-                        productId: productId,
-                        title: title,
-                    }}
-                    image={variantImages[0]?.src || ""}
-                />
+                <p className="text-muted-foreground mb-6 text-lg">
+                    {description}
+                </p>
             </div>
         </div>
     );

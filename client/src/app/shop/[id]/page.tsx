@@ -106,7 +106,7 @@ export default async function ProductPage({
                 currency="USD"
                 url={`https://kvikvne.com/shop/prints/${product.id}`}
             />
-            <main className="px-8 py-16">
+            <main className="px-8 md:py-16">
                 <ProductInteractiveSection
                     title={product.title}
                     description={product.description}

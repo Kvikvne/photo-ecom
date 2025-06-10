@@ -46,7 +46,7 @@ export default function ProductImageGallery({ images, variantId }: Props) {
                     <button
                         key={img.src}
                         onClick={() => setMainImage(img.src)}
-                        className="w-24 h-24 border rounded overflow-hidden"
+                        className="w-12 h-12 md:w-24 md:h-24 border rounded overflow-hidden"
                     >
                         <img
                             src={img.src}
