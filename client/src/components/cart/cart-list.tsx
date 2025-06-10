@@ -9,8 +9,8 @@ import { Button } from "../ui/button";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-
 import { getCart, saveCart, CartItem } from "@/lib/cart-utils";
+import { toast } from "sonner";
 
 interface InvalidItems {
     productId: string;
@@ -51,12 +51,18 @@ export default function CartList() {
             const data = await res.json();
 
             if (!res.ok) {
-                throw new Error(data.error || "Cart validation failed.");
+                if (res.status === 429) {
+                    toast.error(data.message);
+                } else {
+                    toast.error(data.error || "Cart validation failed.");
+                }
+                return null;
             }
 
             return data;
         } catch (error) {
-            console.error("There was a problem validating your cart.");
+            console.error(error);
+            return null;
         }
     }
 
@@ -64,6 +70,10 @@ export default function CartList() {
         try {
             setLoading(true);
             const cartValidation = await validateCart(cartItems);
+
+            if (!cartValidation?.items) {
+                return;
+            }
 
             const isCartValid = cartValidation.items.every((item: any) => {
                 return item.valid && item.inStock && item.priceMatch;

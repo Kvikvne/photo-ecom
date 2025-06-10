@@ -82,7 +82,7 @@ export const formSchema = z.object({
         .max(24, { message: "Your order ID must be 24 characters" }),
 });
 
-// --- APQI CALLS ---
+// --- API CALLS ---
 
 // Fetches a single order by ID (_id)
 async function handleOrderIdSubmit(orderId: string) {

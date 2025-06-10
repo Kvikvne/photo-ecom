@@ -4,6 +4,7 @@ import { Loader2 } from "lucide-react";
 import { useState } from "react";
 import { Button } from "../ui/button";
 import { toast } from "sonner";
+import { API_BASE_URL } from "@/lib/config";
 
 export default function EmailSignupForm() {
     const [email, setEmail] = useState("");
@@ -13,16 +14,23 @@ export default function EmailSignupForm() {
         e.preventDefault();
         setLoading(true);
         try {
-            const res = await fetch("http://localhost:5000/api/email/sub", {
+            const res = await fetch(`${API_BASE_URL}/api/email/sub`, {
                 method: "POST",
                 body: JSON.stringify({ email }),
                 headers: { "Content-Type": "application/json" },
             });
 
-            const result = await res.json();
+            const data = await res.json();
 
             if (!res.ok) {
-                throw new Error(result.error || "Subscription failed.");
+                if (res.status === 429) {
+                    toast.error(
+                        data.message || "You're submitting email too quickly."
+                    );
+                } else {
+                    toast.error(data.error || "Failed to subscribe.");
+                }
+                return;
             }
 
             toast.success("You have subscribed successfully!");

@@ -133,11 +133,25 @@ export default function ContactForm() {
                 });
             });
 
-            await fetch(`${API_BASE_URL}/api/contact`, {
+            const res = await fetch(`${API_BASE_URL}/api/contact`, {
                 method: "POST",
                 body: JSON.stringify({ values: values, token }),
                 headers: { "Content-Type": "application/json" },
             });
+
+            const data = await res.json();
+
+            if (!res.ok) {
+                if (res.status === 429) {
+                    toast.error(
+                        data.message || "You're sending messages too quickly."
+                    );
+                } else {
+                    toast.error(data.error || "Failed to send message.");
+                }
+                return;
+            }
+
             toast.success(
                 "Message sent. Thank you for reaching out to us. We will get in touch ASAP."
             );

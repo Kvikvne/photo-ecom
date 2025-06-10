@@ -179,9 +179,18 @@ export default function CheckoutForm() {
                 body: JSON.stringify({ shipping: values, cart, token }),
             });
 
-            const result = await res.json();
-            if (result.url) {
-                window.location.href = result.url; // redirect to Stripe checkout
+            const data = await res.json();
+
+            if (!res.ok) {
+                if (res.status === 429) {
+                    toast.error(data.message);
+                } else {
+                    toast.error(data.error || "Something went wrong");
+                }
+            }
+
+            if (res.ok && data.url) {
+                window.location.href = data.url; // redirect to Stripe checkout
             }
         } catch (err: any) {
             console.error("There was a problem submitting your order.", err);
