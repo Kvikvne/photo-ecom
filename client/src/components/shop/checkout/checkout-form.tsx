@@ -206,7 +206,7 @@ export default function CheckoutForm() {
         <Form {...form}>
             <form
                 onSubmit={form.handleSubmit(handleShippingSubmit)}
-                className="max-w-xl mx-auto"
+                className="w-full md:max-w-xl mx-auto"
             >
                 <Card>
                     <CardHeader>
@@ -243,7 +243,7 @@ export default function CheckoutForm() {
                                 )}
                             />
                         </div>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
                             <FormField
                                 disabled={loading === true}
                                 control={form.control}
@@ -279,7 +279,7 @@ export default function CheckoutForm() {
                                 )}
                             />
                         </div>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
                             <FormField
                                 control={form.control}
                                 name="country"
@@ -343,7 +343,7 @@ export default function CheckoutForm() {
                                 )}
                             />
                         </div>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
                             <FormField
                                 disabled={loading === true}
                                 control={form.control}

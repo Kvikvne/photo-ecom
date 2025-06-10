@@ -389,8 +389,8 @@ export default function Orders() {
 
     return (
         <div>
-            <h1 className="text-6xl font-bold">Your Orders</h1>
-            <p className="w-2xl">
+            <h1 className="text-4xl md:text-6xl font-bold">Your Orders</h1>
+            <p className="max-w-screen md:w-2xl">
                 Here are all of your orders. If you don't find what you're
                 looking for, enter your order ID from your confirmation email.
             </p>

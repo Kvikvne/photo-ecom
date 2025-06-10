@@ -5,7 +5,7 @@ export default function CheckoutSuccessLayout({
 }>) {
     return (
         <main>
-            <div className="container mx-auto py-16 min-h-screen">
+            <div className="container mx-auto py-16 px-8 min-h-screen">
                 {children}
             </div>
         </main>

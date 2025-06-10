@@ -165,7 +165,7 @@ export default function CartList() {
                 return (
                     <div
                         key={idx}
-                        className="flex items-center justify-between gap-6 mb-4 border-b-2 pb-4"
+                        className="flex items-center justify-between gap-6 mb-4 border-b-2 pb-4 flex-wrap"
                     >
                         <Image
                             height={100}

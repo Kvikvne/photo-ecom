@@ -107,14 +107,14 @@ export default function SuccessPage() {
 
     return (
         <div className="flex flex-col items-center">
-            <div className=" rounded-sm p-18 shadow max-w-fit">
+            <div className=" rounded-sm ">
                 <h1 className="text-2xl font-bold text-center">
                     Thank you for your order!
                 </h1>
                 <p className="mt-2 text-muted-foreground text-center">
                     Order #{order._id.toUpperCase()}
                 </p>
-                <Card className="mt-8">
+                <Card className="mt-8 w-full">
                     <CardHeader>
                         <CardTitle>Order Summary</CardTitle>
                     </CardHeader>
@@ -140,7 +140,7 @@ export default function SuccessPage() {
                             </div>
                         ))}
                     </CardContent>
-                    <CardFooter className="justify-between items-center">
+                    <CardFooter className="justify-between items-center ">
                         <div>
                             <p className="mb-2">
                                 <strong>Shipping to:</strong>
@@ -183,7 +183,7 @@ export default function SuccessPage() {
                         </div>
                     </CardFooter>
                 </Card>
-                <div className="flex justify-between gap-2">
+                <div className="flex gap-2 flex-wrap">
                     <Button onClick={() => window.print()} className="mt-4">
                         Print order <Printer />
                     </Button>
