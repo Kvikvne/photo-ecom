@@ -181,8 +181,8 @@ export const createCheckoutSession = async (
             payment_method_types: ["card"],
             shipping_options: shippingOptions,
             line_items: lineItems,
-            success_url: `http://localhost:3000/success`,
-            cancel_url: `http://localhost:3000/cart`,
+            success_url: `${process.env.CLIENT_URL}/success`,
+            cancel_url: `${process.env.CLIENT_URL}/cart`,
             metadata: {
                 sessionId,
                 first_name: addressTo.first_name,
