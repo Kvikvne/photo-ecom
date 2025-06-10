@@ -70,7 +70,6 @@ export default function CartList() {
         try {
             setLoading(true);
             const cartValidation = await validateCart(cartItems);
-
             if (!cartValidation?.items) {
                 return;
             }

@@ -57,7 +57,7 @@ export default async function Prints() {
     return (
         <>
             <h1 className="text-6xl font-bold">Prints</h1>
-            <p className="w-2xl">
+            <p className="w-2xl max-w-[80svw]">
                 Transform Your Space with Inspired prints: Elevate Your Home's
                 Aesthetic with Our Stunning Selection.
             </p>

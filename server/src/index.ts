@@ -29,8 +29,8 @@ import emailRoutes from "./routes/emailRoutes";
 import contactRoutes from "./routes/contactRoutes";
 
 const app = express();
-const PORT = process.env.PORT || 5000;
-const CLIENT_URL = process.env.CLIENT_URL || "http://localhost:3000";
+const PORT = parseInt(process.env.PORT || "5000", 10);
+const CORS_ORIGIN = process.env.CORS_ORIGIN;
 
 if (process.env.NODE_ENV === "production") {
     app.use(helmet());
@@ -49,7 +49,7 @@ app.post("/api/webhook/printify", express.json(), printifyWebhookHandler);
 // CORS middleware
 app.use(
     cors({
-        origin: CLIENT_URL,
+        origin: CORS_ORIGIN,
         credentials: true,
     })
 );
@@ -69,7 +69,7 @@ app.use("/api/contact", contactRoutes);
 
 // Start server
 connectToMongoDB().then(() => {
-    app.listen(PORT, () => {
-        console.log(`Server running on PORT ${PORT}`);
+    app.listen(PORT, "0.0.0.0", () => {
+        console.log(`Server running on http://192.168.1.104:${PORT}`);
     });
 });

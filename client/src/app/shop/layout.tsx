@@ -47,5 +47,5 @@ export default function StoreLayout({
 }: Readonly<{
     children: React.ReactNode;
 }>) {
-    return <main className="container mx-auto py-16">{children}</main>;
+    return <main className="container mx-auto py-16 px-8">{children}</main>;
 }

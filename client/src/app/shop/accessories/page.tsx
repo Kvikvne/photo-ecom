@@ -56,7 +56,7 @@ export default async function Accessories() {
     return (
         <>
             <h1 className="text-6xl font-bold">Accessories</h1>
-            <p className="w-2xl">
+            <p className="w-2xl max-w-[80svw]">
                 Complete your space with thoughtfully designed accessories that
                 add both function and flair.
             </p>
