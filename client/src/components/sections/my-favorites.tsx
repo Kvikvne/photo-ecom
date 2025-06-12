@@ -11,9 +11,11 @@ export default function MyFavorites() {
             <div className="container mx-auto py-16 px-8 md:px-0">
                 <div>
                     <p className="text-2xl">My favorites.</p>
-                    <h2 className="text-5xl">Inspire through Imagery</h2>
+                    <h2 className="text-4xl md:text-5xl">
+                        Inspire through Imagery
+                    </h2>
                 </div>
-                <div className="flex justify-center flex-wrap gap-26 mt-12">
+                <div className="flex justify-center flex-wrap gap-13 md:gap-26 mt-12">
                     <div>
                         <ImgCarousel />
                     </div>

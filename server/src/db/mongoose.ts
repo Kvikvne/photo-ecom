@@ -8,7 +8,9 @@ export async function connectToMongoDB(): Promise<void> {
     }
 
     try {
-        await mongoose.connect(uri);
+        await mongoose.connect(uri, {
+            dbName: "kvikvne",
+        });
         console.log("Connected to MongoDB");
     } catch (error) {
         console.error("MongoDB connection error:", error);

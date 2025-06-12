@@ -151,9 +151,9 @@ export default function SuccessPage() {
                             </p>
                             <p>{order.addressTo.address1}</p>
                             <p>
-                                {order.addressTo.city}, {order.addressTo.region}{" "}
-                                {order.addressTo.zip}
+                                {order.addressTo.city}, {order.addressTo.region}
                             </p>
+                            <p>{order.addressTo.zip}</p>
                         </div>
                         <div className="flex flex-col items-end">
                             <p>

@@ -51,7 +51,7 @@ export default function ProductInteractiveSection({
         img.variant_ids.includes(activeVariantId)
     );
     return (
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-2 gap-6 items-center">
             <ProductImageGallery images={images} variantId={activeVariantId} />
             <div>
                 <h1 className="text-4xl font-bold mb-4">{title}</h1>
