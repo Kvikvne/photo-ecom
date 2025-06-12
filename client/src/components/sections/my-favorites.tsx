@@ -10,7 +10,7 @@ export default function MyFavorites() {
         >
             <div className="container mx-auto py-16 px-8 md:px-0">
                 <div>
-                    <p className="text-2xl">My favorites.</p>
+                    <p className="text-2xl">Featured Shots.</p>
                     <h2 className="text-4xl md:text-5xl">
                         Inspire through Imagery
                     </h2>
@@ -24,9 +24,8 @@ export default function MyFavorites() {
                             Photography is the art of capturing moments,
                             emotions, and the beauty of our world through the
                             lens of a camera. My photography collection is a
-                            visual journey that showcases the wonders of life,
-                            from the grand landscapes to the smallest details.
-                            With each click of the shutter, we aim to freeze
+                            visual journey that showcases life, from the grand
+                            landscapes to the smallest details. I aim to freeze
                             time and immortalize the essence of every scene.
                         </p>
                         <Link

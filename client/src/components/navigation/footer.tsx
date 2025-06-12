@@ -61,15 +61,15 @@ const footerLinks = [
             },
             {
                 name: "Privacy Policy",
-                link: "/",
+                link: "/policy/privacy-policy",
             },
             {
                 name: "Terms of Service",
-                link: "/",
+                link: "/policy/terms-of-service",
             },
             {
                 name: "Returns and Refunds",
-                link: "/",
+                link: "/policy/returns-refunds",
             },
         ],
     },
@@ -89,10 +89,10 @@ const footerLinks = [
     {
         title: "Help",
         links: [
-            {
-                name: "FAQ",
-                link: "/",
-            },
+            // {
+            //     name: "FAQ",
+            //     link: "/",
+            // },
             {
                 name: "Contact me",
                 link: "/contact",

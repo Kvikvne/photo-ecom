@@ -9,16 +9,16 @@ export default function Hero() {
             className="h-[calc(100svh-88px)] bg-[url(/oceanic.jpg)] bg-cover bg-bottom flex flex-col justify-between items-center px-4 py-8"
         >
             <div className="flex-1 flex flex-col justify-center items-start max-w-4xl z-1">
-                <p className="text-background text-4xl">Photography by</p>
+                <p className="text-background text-4xl">Collection by</p>
                 <h1 className="text-5xl md:text-8xl text-background font-bold">
                     Kaikane Anderson
                 </h1>
                 <p className="text-background mt-4 text-lg">
-                    This space is a celebration of my love for photography and
-                    my skill in presenting captivating moments through the art
-                    of print. Explore and immerse yourself in a collection that
-                    reflects not only images captured through my lens but also
-                    the essence of unique stories preserved in each print.
+                    This collection started behind the lens, capturing the
+                    waves, light, and landscapes I grew up in. Photography
+                    prints are just the start. KVIKVNE is about living close to
+                    nature, staying creative, and building something that lasts
+                    on your wall, or in the water.
                 </p>
                 <Button
                     className="mt-6 cursor-pointer"

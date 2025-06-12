@@ -19,7 +19,7 @@ const navItems = [
         isMenu: true,
         menuItems: [
             { name: "Prints", link: "/shop/prints" },
-            { name: "Accessories", link: "/shop/accessories" },
+            // { name: "Accessories", link: "/shop/accessories" },
         ],
     },
     { name: "My orders", link: "/orders", isMenu: false },

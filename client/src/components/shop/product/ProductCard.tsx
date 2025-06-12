@@ -34,7 +34,8 @@ export default function ProductCard({
                         />
                         <h3 className="text-lg font-semibold mt-2">{title}</h3>
                         <p className="text-sm text-muted-foreground">
-                            ${minPrice.toFixed(2)} from ${maxPrice.toFixed(2)}
+                            from ${minPrice.toFixed(2)} to $
+                            {maxPrice.toFixed(2)}
                         </p>
                         <Button
                             variant={"outline"}

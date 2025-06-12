@@ -28,7 +28,7 @@ export default function AboutLayout({
 }>) {
     return (
         <main>
-            <div className="container mx-auto py-16">{children}</div>
+            <div className="">{children}</div>
         </main>
     );
 }
