@@ -23,15 +23,24 @@ export async function sendConfirmationEmailDev(order: OrderDocument) {
         to: order.email,
         subject: "Your order has been received!",
         html: `
-        <div style="font-family: 'Outfit', sans-serif; max-width: 600px; margin: auto;">
-        <h2 style="color: #06151c;">Your KVIKVNE order has been received!</h2>
-        <p>Hi there,</p>
-        <p>Just wanted to let you know that your order <strong>#${order._id} has been confimed.</p>
-        <p>We will let you know as soon as your order ships.</p>
-        <p style="margin-top: 24px;">Thanks again for shopping with KVIKVNE!</p>
-        <p>- The KVIKVNE Team</p>
-      </div>
-    `,
+        <div style="font-family: 'Outfit', sans-serif; max-width: 600px; margin: auto; padding: 24px; background-color: #ffffff; color: #06151c;">
+            <h2 style="margin-bottom: 16px;">Your KVIKVNE order has been received!</h2>
+            <p>Hi there,</p>
+            <p>
+                Just wanted to let you know that your order <strong>#${
+                    order._id
+                }</strong> has been confirmed.
+            </p>
+            <p>We'll notify you as soon as your order ships.</p>
+            ${
+                order.stripeReceipt
+                    ? `<p>You can view your receipt <a href="${order.stripeReceipt}" target="_blank" rel="noopener noreferrer">here</a>.</p>`
+                    : ``
+            }
+            <p style="margin-top: 32px;">Thanks again for supporting KVIKVNE!</p>
+            <p style="margin-bottom: 0;">- The KVIKVNE Team</p>
+        </div>
+        `,
     };
 
     await transporter.sendMail(mailOptions);

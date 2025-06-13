@@ -65,12 +65,17 @@ const webhookHandler: RequestHandler = async (req: Request, res: Response) => {
                 zip: session.metadata?.zip,
             };
 
-            // Assumes standard shipping is always the first option when creating the session
-            // const rate = session.shipping_cost?.shipping_rate;
-            // const standardShipping = session.shipping_options[0].shipping_rate;
+            // Get stripe receipt
+            const paymentIntent = await stripe.paymentIntents.retrieve(
+                session.payment_intent as string
+            );
 
-            // const shippingMethod = rate === standardShipping ? 1 : 3; // 1 = standard, 3 = express
+            const charge = await stripe.charges.retrieve(
+                paymentIntent.latest_charge as string
+            );
+            const receipt_url = charge.receipt_url as string;
 
+            // Creat order document
             await Order.create({
                 sessionId: session.metadata?.sessionId,
                 stripeSessionId: session.id,
@@ -85,10 +90,8 @@ const webhookHandler: RequestHandler = async (req: Request, res: Response) => {
                 discountInCents: session.total_details?.amount_discount,
                 taxInCents: session.total_details?.amount_tax,
                 totalAmountPaidInCents: session.amount_total ?? 0,
-                // shippingMethod: shippingMethod,
+                stripeReceipt: receipt_url,
             });
-
-            // console.log("Order saved:", session.id);
 
             // Delete the cart after confirming session
             await Cart.deleteOne({ sessionId: session.metadata?.sessionId });
@@ -103,6 +106,7 @@ const webhookHandler: RequestHandler = async (req: Request, res: Response) => {
     }
 
     res.status(200).send("Event ignored");
+    return;
 };
 
 export default webhookHandler;

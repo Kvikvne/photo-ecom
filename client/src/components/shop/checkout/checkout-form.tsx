@@ -134,18 +134,32 @@ export default function CheckoutForm() {
     // Setup React Hook Form with Zod schema and default field values
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
-        defaultValues: {
-            first_name: "Kai",
-            last_name: "Anderson",
-            email: "kaianderson9@gmail.com",
-            phone: "123-456-7890",
-            country: "US",
-            region: "CA",
-            city: "Imperial Beach",
-            address1: "705 3rd street",
-            address2: "Apt K",
-            zip: "91932",
-        },
+        defaultValues:
+            process.env.NODE_ENV === "development"
+                ? {
+                      first_name: "Kai",
+                      last_name: "Anderson",
+                      email: "kaianderson9@gmail.com",
+                      phone: "123-456-7890",
+                      country: "US",
+                      region: "CA",
+                      city: "Imperial Beach",
+                      address1: "705 3rd street",
+                      address2: "Apt K",
+                      zip: "91932",
+                  }
+                : {
+                      first_name: "",
+                      last_name: "",
+                      email: "",
+                      phone: "",
+                      country: "",
+                      region: "",
+                      city: "",
+                      address1: "",
+                      address2: "",
+                      zip: "",
+                  },
     });
 
     useRecaptchaScript(RECAPTCHA_SITE_KEY);
@@ -293,7 +307,7 @@ export default function CheckoutForm() {
                                         >
                                             <FormControl className="w-full">
                                                 <SelectTrigger>
-                                                    <SelectValue placeholder="Select a verified email to display" />
+                                                    <SelectValue placeholder="" />
                                                 </SelectTrigger>
                                             </FormControl>
                                             <SelectContent>

@@ -84,6 +84,7 @@ export interface OrderDocument extends Document {
     printifyStatus: string;
     printifySyncedAt: Date;
     stripeRefundId: string;
+    stripeReceipt: string;
 }
 
 const OrderSchema = new Schema<OrderDocument>(
@@ -124,6 +125,7 @@ const OrderSchema = new Schema<OrderDocument>(
         printifyStatus: String,
         printifySyncedAt: Date,
         stripeRefundId: String,
+        stripeReceipt: String,
     },
     { timestamps: true }
 );
