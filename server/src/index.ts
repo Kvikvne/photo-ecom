@@ -27,6 +27,7 @@ import checkoutRoutes from "./routes/checkoutRoutes";
 import orderRoutes from "./routes/orderRoutes";
 import emailRoutes from "./routes/emailRoutes";
 import contactRoutes from "./routes/contactRoutes";
+import authRoutes from "./admin/routes/authRoutes";
 
 const app = express();
 const PORT = parseInt(process.env.PORT || "5000", 10);
@@ -60,6 +61,7 @@ app.use(cookieParser());
 app.use(assignSessionId);
 
 // App routes
+app.use(authRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/cart", cartRoutes);
 app.use("/api/checkout", checkoutRoutes);
