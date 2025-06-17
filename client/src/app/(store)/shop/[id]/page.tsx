@@ -14,10 +14,12 @@ type Product = {
   selectedVariant: { id: number; sku: string; price: number };
 };
 
-export async function generateMetadata(props: {
-  params: { id: string };
-}): Promise<Metadata> {
-  const { id } = props.params;
+export async function generateMetadata({
+  params
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
   const product = await getProduct(id);
 
   if (!product) {
@@ -81,10 +83,9 @@ async function getProduct(id: string): Promise<Product | null> {
 export default async function ProductPage({
   params
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
-  // Next 15 bullshit await to make the warning go away
-  const { id } = params;
+  const { id } = await params;
   const product = await getProduct(id);
 
   if (!product) return notFound();
