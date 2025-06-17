@@ -1,15 +1,15 @@
 import AuthGuard from "./authGuard";
+import { Toaster } from "@/components/ui/sonner";
 
 export default function AdminLayout({
-    children,
+  children
 }: {
-    children: React.ReactNode;
+  children: React.ReactNode;
 }) {
-    return (
-        <main>
-            <div className="container mx-auto py-16 min-h-[80svh] px-8">
-                <AuthGuard>{children}</AuthGuard>
-            </div>
-        </main>
-    );
+  return (
+    <>
+      <AuthGuard>{children}</AuthGuard>
+      <Toaster />
+    </>
+  );
 }

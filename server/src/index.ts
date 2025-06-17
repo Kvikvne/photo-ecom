@@ -28,31 +28,32 @@ import orderRoutes from "./routes/orderRoutes";
 import emailRoutes from "./routes/emailRoutes";
 import contactRoutes from "./routes/contactRoutes";
 import authRoutes from "./admin/routes/authRoutes";
+import adminProductsRoutes from "./admin/routes/productRoutes";
 
 const app = express();
 const PORT = parseInt(process.env.PORT || "5000", 10);
 const CORS_ORIGIN = process.env.CORS_ORIGIN;
 
 if (process.env.NODE_ENV === "production") {
-    app.use(helmet());
+  app.use(helmet());
 } else {
-    console.log("Running in development mode");
+  console.log("Running in development mode");
 }
 
 // Webhooks first (raw body required)
 app.post(
-    "/api/webhook/stripe",
-    bodyParser.raw({ type: "application/json" }),
-    webhookHandler
+  "/api/webhook/stripe",
+  bodyParser.raw({ type: "application/json" }),
+  webhookHandler
 );
 app.post("/api/webhook/printify", express.json(), printifyWebhookHandler);
 
 // CORS middleware
 app.use(
-    cors({
-        origin: CORS_ORIGIN,
-        credentials: true,
-    })
+  cors({
+    origin: CORS_ORIGIN,
+    credentials: true
+  })
 );
 
 // General middleware
@@ -62,6 +63,7 @@ app.use(assignSessionId);
 
 // App routes
 app.use(authRoutes);
+app.use("/admin/products", adminProductsRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/cart", cartRoutes);
 app.use("/api/checkout", checkoutRoutes);
@@ -71,7 +73,7 @@ app.use("/api/contact", contactRoutes);
 
 // Start server
 connectToMongoDB().then(() => {
-    app.listen(PORT, "0.0.0.0", () => {
-        console.log(`Server running on http://192.168.1.104:${PORT}`);
-    });
+  app.listen(PORT, "0.0.0.0", () => {
+    console.log(`Server running on http://192.168.1.104:${PORT}`);
+  });
 });

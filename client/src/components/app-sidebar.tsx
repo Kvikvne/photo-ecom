@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 import {
   AudioWaveform,
   BookOpen,
@@ -11,85 +11,86 @@ import {
   Map,
   PieChart,
   Settings2,
-  SquareTerminal,
-} from "lucide-react"
+  SquareTerminal
+} from "lucide-react";
 
-import { NavMain } from "@/components/nav-main"
-import { NavProjects } from "@/components/nav-projects"
-import { NavUser } from "@/components/nav-user"
-import { TeamSwitcher } from "@/components/team-switcher"
+import { NavMain } from "@/components/nav-main";
+import { NavProjects } from "@/components/nav-projects";
+import { NavUser } from "@/components/nav-user";
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
-  SidebarHeader,
-  SidebarRail,
-} from "@/components/ui/sidebar"
+  SidebarRail
+} from "@/components/ui/sidebar";
 
 // This is sample data.
 const data = {
   user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
+    name: "Big Dog",
+    email: "KaiKane Anderson",
+    avatar: "/canvas-logo-2.svg"
   },
-  teams: [
-    {
-      name: "Acme Inc",
-      logo: GalleryVerticalEnd,
-      plan: "Enterprise",
-    },
-    {
-      name: "Acme Corp.",
-      logo: AudioWaveform,
-      plan: "Startup",
-    },
-    {
-      name: "Evil Corp.",
-      logo: Command,
-      plan: "Free",
-    },
-  ],
   navMain: [
     {
-      title: "Playground",
+      title: "Printify",
       url: "#",
       icon: SquareTerminal,
       isActive: true,
       items: [
         {
-          title: "History",
-          url: "#",
+          title: "Create New Product",
+          url: "/admin/dashboard/new-p-product"
         },
         {
-          title: "Starred",
-          url: "#",
+          title: "Edit Product",
+          url: "#"
         },
         {
-          title: "Settings",
-          url: "#",
+          title: "Delete Products",
+          url: "#"
         },
-      ],
+        {
+          title: "Webhooks",
+          url: "#"
+        }
+      ]
     },
     {
-      title: "Models",
+      title: "Worker",
       url: "#",
       icon: Bot,
       items: [
         {
-          title: "Genesis",
-          url: "#",
-        },
-        {
-          title: "Explorer",
-          url: "#",
-        },
-        {
-          title: "Quantum",
-          url: "#",
-        },
-      ],
+          title: "Order Fulfilment",
+          url: "#"
+        }
+      ]
     },
+    {
+      title: "Database",
+      url: "#",
+      icon: Settings2,
+      items: [
+        {
+          title: "Emails",
+          url: "#"
+        },
+        {
+          title: "Contact Submissions",
+          url: "#"
+        },
+        {
+          title: "Orders",
+          url: "#"
+        },
+        {
+          title: "Product Variants",
+          url: "#"
+        }
+      ]
+    },
+
     {
       title: "Documentation",
       url: "#",
@@ -97,79 +98,53 @@ const data = {
       items: [
         {
           title: "Introduction",
-          url: "#",
+          url: "#"
         },
         {
           title: "Get Started",
-          url: "#",
+          url: "#"
         },
         {
           title: "Tutorials",
-          url: "#",
+          url: "#"
         },
         {
           title: "Changelog",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Settings",
-      url: "#",
-      icon: Settings2,
-      items: [
-        {
-          title: "General",
-          url: "#",
-        },
-        {
-          title: "Team",
-          url: "#",
-        },
-        {
-          title: "Billing",
-          url: "#",
-        },
-        {
-          title: "Limits",
-          url: "#",
-        },
-      ],
-    },
+          url: "#"
+        }
+      ]
+    }
   ],
   projects: [
     {
       name: "Design Engineering",
       url: "#",
-      icon: Frame,
+      icon: Frame
     },
     {
       name: "Sales & Marketing",
       url: "#",
-      icon: PieChart,
+      icon: PieChart
     },
     {
       name: "Travel",
       url: "#",
-      icon: Map,
-    },
-  ],
-}
+      icon: Map
+    }
+  ]
+};
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible="icon" {...props}>
-      <SidebarHeader>
-        <TeamSwitcher teams={data.teams} />
-      </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
-        <NavProjects projects={data.projects} />
+        {/* <NavProjects projects={data.projects} /> */}
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={data.user} />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
-  )
+  );
 }
