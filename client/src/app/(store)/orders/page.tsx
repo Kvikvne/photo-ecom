@@ -342,6 +342,7 @@ export default function Orders() {
 
       setOrders([orderData]);
     } catch (err) {
+      console.error(err);
       toast.error("Order not found");
     }
   };

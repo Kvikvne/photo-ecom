@@ -61,7 +61,7 @@ export default function NewPrintifyProductForm() {
     }
   });
 
-  const { fields, append, remove } = useFieldArray({
+  const { fields, append } = useFieldArray({
     control: form.control,
     name: "variants"
   });
