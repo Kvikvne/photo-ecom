@@ -200,7 +200,7 @@ export default function CheckoutForm() {
       if (res.ok && data.url) {
         window.location.href = data.url; // redirect to Stripe checkout
       }
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error("There was a problem submitting your order.", err);
       toast.error(
         "There was a problem submitting your order. Try again later."
