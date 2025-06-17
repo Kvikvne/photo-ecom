@@ -1,4 +1,4 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import ProductInteractiveSection from "@/components/shop/product/ProductInteractiveSection";
 import { ProductJsonLd } from "@/lib/ProductJsonLd";
@@ -14,9 +14,10 @@ type Product = {
   selectedVariant: { id: number; sku: string; price: number };
 };
 
-export async function generateMetadata({ params }: { params: { id: string } }) {
-  // Next 15 bullshit await to make the warning go away
-  const { id } = params;
+export async function generateMetadata(props: {
+  params: { id: string };
+}): Promise<Metadata> {
+  const { id } = props.params;
   const product = await getProduct(id);
 
   if (!product) {
