@@ -25,7 +25,7 @@ export function LoginForm({
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-
+  // Comment for deployment reasons
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
