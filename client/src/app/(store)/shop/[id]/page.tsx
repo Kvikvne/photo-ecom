@@ -14,11 +14,7 @@ type Product = {
   selectedVariant: { id: number; sku: string; price: number };
 };
 
-export async function generateMetadata({
-  params
-}: {
-  params: { id: string };
-}): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: { id: string } }) {
   // Next 15 bullshit await to make the warning go away
   const { id } = params;
   const product = await getProduct(id);
