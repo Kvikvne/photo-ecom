@@ -6,7 +6,7 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="h-[calc(100svh-88px)] bg-[url(/Oceanic.jpg)] bg-cover bg-bottom flex flex-col justify-between items-center px-4 py-8"
+      className="h-[calc(100svh-88px)] bg-[url(/oceanic.jpg)] bg-cover bg-bottom flex flex-col justify-between items-center px-4 py-8"
     >
       <div className="flex-1 flex flex-col justify-center items-start max-w-4xl z-1">
         <p className="text-background text-4xl">Collection by</p>
