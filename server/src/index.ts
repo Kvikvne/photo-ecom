@@ -60,6 +60,7 @@ app.use(
 app.use(express.json());
 app.use(cookieParser());
 app.use(assignSessionId);
+app.set("trust proxy", true);
 
 // App routes
 app.use(authRoutes);
