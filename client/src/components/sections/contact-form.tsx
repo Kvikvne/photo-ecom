@@ -36,27 +36,51 @@ import { useState } from "react";
 // Shipping address form validation schema
 export const formSchema = z
   .object({
-    first_name: z.string().trim().min(2).max(50),
-    last_name: z.string().trim().min(2).max(50),
-    email: z.string().trim().email(),
-    reason: z.string().trim().min(2),
+    first_name: z
+      .string()
+      .trim()
+      .min(2, { message: "First name must be at least 2 characters long." })
+      .max(50, { message: "First name must be 50 characters or less." }),
+
+    last_name: z
+      .string()
+      .trim()
+      .min(2, { message: "Last name must be at least 2 characters long." })
+      .max(50, { message: "Last name must be 50 characters or less." }),
+
+    email: z
+      .string()
+      .trim()
+      .email({ message: "Please enter a valid email address." }),
+
+    reason: z
+      .string()
+      .trim()
+      .min(2, { message: "Please enter a reason for contact." }),
+
     orderId: z
       .string()
       .trim()
       .length(24, { message: "Please enter a valid order ID." })
       .optional(),
-    message: z.string().trim().min(2).max(500)
+
+    message: z
+      .string()
+      .trim()
+      .min(2, { message: "Please enter a message." })
+      .max(500, {
+        message: "Your message is too long. Keep it under 500 characters."
+      })
   })
-  .refine(
-    (data) =>
-      data.reason !== "order-issue" ||
-      (data.orderId && data.orderId.length === 24),
-    {
-      path: ["orderId"],
-      message:
-        "Order ID is required and must be 24 characters when contacting about an order issue."
+  .superRefine((data, ctx) => {
+    if (data.reason === "order-issue" && !data.orderId) {
+      ctx.addIssue({
+        path: ["orderId"],
+        code: z.ZodIssueCode.custom,
+        message: "Order ID is required when contacting about an order issue."
+      });
     }
-  );
+  });
 
 export const reasonList = [
   { title: "General Inquiry", value: "general-inquiry" },
@@ -91,7 +115,7 @@ export default function ContactForm() {
             last_name: "",
             email: "",
             reason: "",
-            orderId: "",
+            orderId: undefined,
             message: ""
           }
   });
