@@ -54,6 +54,18 @@ const data = {
       ]
     },
     {
+      title: "Stripe",
+      url: "#",
+      icon: SquareTerminal,
+      isActive: true,
+      items: [
+        {
+          title: "Sync Products",
+          url: "/admin/dashboard/sync-products"
+        }
+      ]
+    },
+    {
       title: "Worker",
       url: "#",
       icon: Bot,
