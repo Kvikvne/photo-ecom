@@ -21,8 +21,12 @@ export function SyncPrintifyButton() {
       if (!res.ok) throw new Error(data.error || "Sync failed");
 
       toast.success(data.message);
-    } catch (err: any) {
-      toast.error(err.message);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        toast.error(err.message);
+      } else {
+        toast.error("An unknown error occurred.");
+      }
     } finally {
       setLoading(false);
     }
