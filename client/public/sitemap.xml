@@ -3,68 +3,74 @@
   xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
 >
   <url>
-    <loc>http://localhost:3000</loc>
+    <loc>https://www.kvikvne.com</loc>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://localhost:3000/shop/prints</loc>
+    <loc>https://www.kvikvne.com/shop/prints</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
+
+  <url>
+    <loc>https://www.kvikvne.com/about</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
   
   <url>
-    <loc>http://localhost:3000/shop/683a33018cd7be7c3a056a3b</loc>
+    <loc>https://www.kvikvne.com/shop/683a33018cd7be7c3a056a3b</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>http://localhost:3000/shop/683a32fb3a7f9a1e0409896a</loc>
+    <loc>https://www.kvikvne.com/shop/683a32fb3a7f9a1e0409896a</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>http://localhost:3000/shop/683a32f8372403cb7d0be794</loc>
+    <loc>https://www.kvikvne.com/shop/683a32f8372403cb7d0be794</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>http://localhost:3000/shop/683a32f48cd7be7c3a056a37</loc>
+    <loc>https://www.kvikvne.com/shop/683a32f48cd7be7c3a056a37</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>http://localhost:3000/shop/683a32ec372403cb7d0be78e</loc>
+    <loc>https://www.kvikvne.com/shop/683a32ec372403cb7d0be78e</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>http://localhost:3000/shop/683a32e93b3af933b20c49e4</loc>
+    <loc>https://www.kvikvne.com/shop/683a32e93b3af933b20c49e4</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>http://localhost:3000/shop/683a29d9372403cb7d0be57c</loc>
+    <loc>https://www.kvikvne.com/shop/683a29d9372403cb7d0be57c</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>http://localhost:3000/shop/683a28f2372403cb7d0be53c</loc>
+    <loc>https://www.kvikvne.com/shop/683a28f2372403cb7d0be53c</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>http://localhost:3000/shop/683a279e1ab41436080963ea</loc>
+    <loc>https://www.kvikvne.com/shop/683a279e1ab41436080963ea</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>http://localhost:3000/shop/683a1f933ce89481aa03a6e5</loc>
+    <loc>https://www.kvikvne.com/shop/683a1f933ce89481aa03a6e5</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>http://localhost:3000/shop/6838b0c7a2d0cb6edf0363d2</loc>
+    <loc>https://www.kvikvne.com/shop/6838b0c7a2d0cb6edf0363d2</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>

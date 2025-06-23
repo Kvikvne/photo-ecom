@@ -5,23 +5,24 @@ import path from "path";
 import { getAllProducts } from "../services/printifyService";
 
 async function run() {
-    try {
-        const products = await getAllProducts();
+  try {
+    const products = await getAllProducts();
 
-        const baseUrl = process.env.CLIENT_URL;
+    // const baseUrl = process.env.CLIENT_URL;
+    const baseUrl = "https://www.kvikvne.com";
 
-        const urls = products
-            .map((product: { id: string }) => {
-                return `
+    const urls = products
+      .map((product: { id: string }) => {
+        return `
   <url>
     <loc>${baseUrl}/shop/${product.id}</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>`;
-            })
-            .join("");
+      })
+      .join("");
 
-        const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+    const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset
   xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
 >
@@ -38,16 +39,13 @@ async function run() {
   ${urls}
 </urlset>`;
 
-        const filePath = path.join(
-            __dirname,
-            "../../../client/public/sitemap.xml" // adjust if needed
-        );
+    const filePath = path.join(__dirname, "../../../client/public/sitemap.xml");
 
-        fs.writeFileSync(filePath, sitemap, "utf8");
-        console.log("Sitemap generated successfully");
-    } catch (err) {
-        console.error("Sitemap generation failed", err);
-    }
+    fs.writeFileSync(filePath, sitemap, "utf8");
+    console.log("Sitemap generated successfully");
+  } catch (err) {
+    console.error("Sitemap generation failed", err);
+  }
 }
 
 run();
