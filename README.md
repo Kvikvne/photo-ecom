@@ -24,7 +24,7 @@ The core idea is to eliminate reliance on platforms like Shopify or Etsy, allowi
 
 - **Frontend:** Next.js (React) – SSR-enabled UI
 - **Backend:** Express.js (Node) – API logic and webhooks
-- **Database:** MongoDB – product data, orders, and cart sessions
+- **Database:** MongoDB – product data, orders, contact submissions, and emails
 - **Payments:** Stripe API – checkout sessions and webhooks
 - **Fulfillment:** Printify API – print-on-demand integration
 
@@ -43,6 +43,10 @@ Checkout uses Stripe's secure payment flow. PCI-compliant and customer-friendly.
 ### 📦 On-Demand Fulfillment via Printify
 
 Printify handles printing and shipping. No need for inventory or manual logistics.
+
+### 📦 Custom Product Fulfillment (Planned)
+
+You’ll soon be able to add non-Printify products that you ship yourself — perfect for handmade items, limited releases, or physical inventory you want to handle in-house. These products will still be processed through Stripe and integrated into the same seamless checkout and order management flow.
 
 ### 🧰 Product Creation Script
 
@@ -63,11 +67,11 @@ Currently in development, the dashboard will let you:
 
 ### 🛒 Guest Checkout
 
-No login or signup required — shopping is session-based, with cart tracking and order status available post-purchase.
+No login or signup required — shopping is session-based and carts are stored in local storage. Order status is still available post-purchase.
 
 ### 💸 Cheap to Host
 
-Designed to run on free or low-cost plans using services like Vercel (frontend), Render (backend), and MongoDB Atlas (database). (I am currently sitting around $7/month + Domain cost)
+Designed to run on free or low-cost plans using services like Vercel (frontend), Render (backend), and MongoDB Atlas (database). (Currently costs around $7/month + domain.)
 
 ### ⚙️ Developer Friendly
 
@@ -82,6 +86,7 @@ While this repo is a custom implementation, I'm working on a **framework + CLI s
 - Generate a frontend/backend project
 - Connect your Printify and Stripe accounts
 - Automatically configure products, pricing, and DB setup
+- Support both Printify and custom-fulfilled products out of the box
 
 ---
 
