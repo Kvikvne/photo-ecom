@@ -31,7 +31,8 @@ export default function AuthGuard({ children }: { children: React.ReactNode }) {
         }
 
         setIsLoading(false);
-      } catch (err) {
+      } catch (err: unknown) {
+        console.error(err);
         toast.error("You must be logged in to access admin.");
         router.replace("/admin/login");
       }
