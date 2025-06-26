@@ -46,14 +46,6 @@ export const getProductsArray = (req: Request, res: Response) => {
 
 export const createPrices = async (req: Request, res: Response) => {
   try {
-    // Optionally require a secret or check JWT
-    // if (
-    //   req.headers.authorization !== `Bearer ${process.env.ADMIN_JWT_SECRET}`
-    // ) {
-    //   res.status(401).json({ error: "Unauthorized" });
-    //   return;
-    // }
-
     await syncExistingPrintifyProductsToStripe();
     res.status(200).json({ message: "Sync successful" });
   } catch (error) {

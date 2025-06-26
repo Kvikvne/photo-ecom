@@ -15,12 +15,17 @@ import { connectToMongoDB, disconnectFromMongoDB } from "../db/mongoose";
  *
  * ⚠️ Note: This script assumes you're creating canvas prints using specific blueprint/provider settings.
  * Customize `productsArray` and sync logic as needed for your store.
+ *
+ * ⚠️Be aware that if you run this script in the terminal loaclly you need
+ * to connnect and disconnect from the DB with the commented out functions.
+ * LEAVE THEM COMMENTED OUT IN PRODUCTION OR YOU WILL DISCONNECT THE WHOLE
+ * SERVER FROM THE DB!!!
  */
 const productsPath = path.join(__dirname, "data/products.json");
 const products = JSON.parse(fs.readFileSync(productsPath, "utf-8"));
 async function run() {
   try {
-    await connectToMongoDB();
+    // await connectToMongoDB();
 
     for (const productData of products) {
       // Prevent duplicates
@@ -38,7 +43,7 @@ async function run() {
       console.log(`✅ Created and synced "${productData.title}"`);
     }
 
-    await disconnectFromMongoDB();
+    // await disconnectFromMongoDB();
     process.exit(0);
   } catch (err) {
     console.error("❌ Script failed:", err);

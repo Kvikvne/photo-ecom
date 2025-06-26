@@ -25,4 +25,4 @@ try {
 }
 
 // Keep process alive
-console.log("Worker is running on interval...");
+console.log("Starting CRON worker...");

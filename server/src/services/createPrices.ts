@@ -9,7 +9,10 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
 export async function syncExistingPrintifyProductsToStripe() {
   try {
-    await connectToMongoDB();
+    // Use await connectToMongoDB() and await disconnectFromMongoDB()
+    // if you are running this in the terminal locally
+    // If used in the admin dash you will disconnect the server from the DB
+    // Bad things will happen
 
     const printifyProducts = await getAllProducts();
 
@@ -66,7 +69,7 @@ export async function syncExistingPrintifyProductsToStripe() {
         console.log(`✅ Synced new variant ${variant.id} to Stripe and DB`);
       }
     }
-    await disconnectFromMongoDB();
+    // await disconnectFromMongoDB();
   } catch (error) {
     console.error("❌ Script failed:", error);
   }

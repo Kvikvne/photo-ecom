@@ -7,9 +7,6 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import helmet from "helmet";
 
-// CRON
-import "./scripts/worker";
-
 // DB
 import { connectToMongoDB } from "./db/mongoose";
 
@@ -75,6 +72,15 @@ app.use("/api/contact", contactRoutes);
 // Start server
 connectToMongoDB().then(() => {
   app.listen(PORT, "0.0.0.0", () => {
-    console.log(`Server running `);
+    console.log(`Server running on port ${PORT}`);
+
+    // Start worker after DB and server are both ready
+    import("./scripts/worker")
+      .then(() => {
+        console.log("CRON Worker initialized.");
+      })
+      .catch((err) => {
+        console.error("Failed to start worker:", err);
+      });
   });
 });
