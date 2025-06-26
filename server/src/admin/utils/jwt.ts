@@ -1,16 +1,25 @@
-import jwt from "jsonwebtoken";
+import jwt, { TokenExpiredError } from "jsonwebtoken";
 
 const JWT_SECRET = process.env.ADMIN_JWT_SECRET!;
-const EXPIRY = "4h";
+const EXPIRY = "1min";
 
 interface AdminPayload {
-    username: string;
+  username: string;
 }
 
 export function signAdminToken(payload: AdminPayload): string {
-    return jwt.sign(payload, JWT_SECRET, { expiresIn: EXPIRY });
+  return jwt.sign(payload, JWT_SECRET, { expiresIn: EXPIRY });
 }
 
-export function verifyAdminToken(token: string): AdminPayload {
+export function verifyAdminToken(token: string): AdminPayload | null {
+  try {
     return jwt.verify(token, JWT_SECRET) as AdminPayload;
+  } catch (err) {
+    if (err instanceof TokenExpiredError) {
+      console.error("Token expired");
+    } else {
+      console.error("Invalid token:", err);
+    }
+    return null;
+  }
 }

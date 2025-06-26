@@ -25,6 +25,7 @@ export function LoginForm({
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+
   // Comment for deployment reasons
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -38,16 +39,14 @@ export function LoginForm({
           headers: {
             "Content-Type": "application/json"
           },
-          body: JSON.stringify({ username: username, password })
+          body: JSON.stringify({ username, password }),
+          credentials: "include"
         }
       );
 
       if (!res.ok) {
         throw new Error("Invalid credentials");
       }
-
-      const data = await res.json();
-      localStorage.setItem("admin_token", data.token);
 
       toast.success("Login successful!");
       router.push("/admin/dashboard");
