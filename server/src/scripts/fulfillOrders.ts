@@ -23,6 +23,7 @@ export async function fulfillPendingOrders() {
       order.status = "confirmed";
       order.printifyOrderId = printifyOrderId;
       order.fulfilledAt = new Date();
+      order.error = undefined; // clear any previous error
 
       // Optional enriched fields:
       order.trackingUrl = printifyData.printify_connect?.url || null;
