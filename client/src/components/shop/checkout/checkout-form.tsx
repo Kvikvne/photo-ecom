@@ -149,7 +149,7 @@ export default function CheckoutForm() {
             last_name: "",
             email: "",
             phone: "",
-            country: "",
+            country: "US",
             region: "",
             city: "",
             address1: "",
@@ -289,10 +289,7 @@ export default function CheckoutForm() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Country</FormLabel>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
+                    <Select value={field.value} onValueChange={field.onChange}>
                       <FormControl className="w-full">
                         <SelectTrigger>
                           <SelectValue placeholder="" />
