@@ -1,0 +1,59 @@
+[
+  {
+    "title": "Test Product",
+    "description": "This is a test and should be deleted",
+    "safety_information": "",
+    "blueprint_id": 1159,
+    "print_provider_id": 105,
+    "tags": ["canvas", "ocean", "beach", "wave"],
+    "variants": [
+      {
+        "id": 91627,
+        "price": 8900,
+        "is_enabled": true
+      },
+      {
+        "id": 91630,
+        "price": 12900,
+        "is_enabled": true
+      },
+      {
+        "id": 91633,
+        "price": 15900,
+        "is_enabled": true
+      },
+      {
+        "id": 91635,
+        "price": 18900,
+        "is_enabled": true
+      },
+      {
+        "id": 91638,
+        "price": 24900,
+        "is_enabled": true
+      }
+    ],
+    "print_areas": [
+      {
+        "variant_ids": [91627, 91630, 91633, 91635, 91638],
+        "placeholders": [
+          {
+            "position": "front",
+            "images": [
+              {
+                "id": "65c5582e0699e331739dbdde",
+                "x": 0.5,
+                "y": 0.5,
+                "scale": 1,
+                "angle": 0
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "print_details": {
+      "print_on_side": "mirror"
+    }
+  }
+]

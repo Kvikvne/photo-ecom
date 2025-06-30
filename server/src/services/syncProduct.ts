@@ -14,7 +14,7 @@ export async function syncPrintifyToStripe(printifyProductResponse: any) {
   const stripeProduct = await stripe.products.create({
     name: printifyProductResponse.title,
     description: printifyProductResponse.description,
-    images: [printifyProductResponse.images[0]],
+    images: [printifyProductResponse.images[0].src],
     metadata: {
       printifyProductId: printifyProductResponse.id,
       printProviderId: printifyProductResponse.print_provider_id.toString(),

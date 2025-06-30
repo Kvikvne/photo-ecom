@@ -163,7 +163,10 @@ export default function NewPrintifyProductForm() {
               name="tags"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Tags (comma separated)</FormLabel>
+                  <FormLabel>
+                    Tags (comma separated) - first tag should be the product
+                    type
+                  </FormLabel>
                   <FormControl>
                     <Input {...field} placeholder="canvas,ocean,wave" />
                   </FormControl>

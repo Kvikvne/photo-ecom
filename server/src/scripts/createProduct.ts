@@ -21,9 +21,9 @@ import { connectToMongoDB, disconnectFromMongoDB } from "../db/mongoose";
  * LEAVE THEM COMMENTED OUT IN PRODUCTION OR YOU WILL DISCONNECT THE WHOLE
  * SERVER FROM THE DB!!!
  */
-const productsPath = path.join(__dirname, "data/products.json");
+const productsPath = path.join(__dirname, "data/pendingProducts.json");
 const products = JSON.parse(fs.readFileSync(productsPath, "utf-8"));
-async function run() {
+export async function CreateProduct() {
   try {
     // await connectToMongoDB();
 
@@ -44,10 +44,10 @@ async function run() {
     }
 
     // await disconnectFromMongoDB();
-    process.exit(0);
+    // process.exit(0);
   } catch (err) {
     console.error("❌ Script failed:", err);
   }
 }
 
-run();
+// run();

@@ -110,9 +110,9 @@ export default function CartList() {
     window.dispatchEvent(new Event("cartUpdated"));
   };
 
-  const removeItem = (itemId: number) => {
+  const removeItem = (itemId: string) => {
     const updatedCart = getCart().filter(
-      (item: CartItem) => item.id !== itemId
+      (item: CartItem) => item.productId !== itemId
     );
     saveCart(updatedCart);
     setCartItems(updatedCart);
@@ -206,7 +206,7 @@ export default function CartList() {
             )}
 
             <Button
-              onClick={() => removeItem(item.id)}
+              onClick={() => removeItem(item.productId)}
               size="icon"
               variant="destructive"
             >

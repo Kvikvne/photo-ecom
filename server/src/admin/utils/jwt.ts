@@ -1,7 +1,7 @@
 import jwt, { TokenExpiredError } from "jsonwebtoken";
 
 const JWT_SECRET = process.env.ADMIN_JWT_SECRET!;
-const EXPIRY = "1min";
+const EXPIRY = "4h";
 
 interface AdminPayload {
   username: string;
