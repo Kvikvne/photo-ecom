@@ -1,5 +1,5 @@
-import fs from "fs";
-import path from "path";
+const fs = require("fs");
+const path = require("path");
 
 const srcDir = path.resolve("src/scripts/data");
 const destDir = path.resolve("dist/scripts/data");
