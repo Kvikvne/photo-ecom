@@ -94,7 +94,7 @@ export async function CreateProduct() {
       const existing = await findProductByTitle(productData.title);
       if (existing) {
         console.log(
-          `⚠️ Skipped: Product "${productData.title}" already exists on Printify.`
+          `Skipped: Product "${productData.title}" already exists on Printify.`
         );
         updatedPending.push(productData); // keep it pending
         continue;
@@ -104,11 +104,11 @@ export async function CreateProduct() {
         const printifyResponse = await createProduct(productData);
         await syncPrintifyToStripe(printifyResponse);
 
-        console.log(`✅ Created and synced "${productData.title}"`);
+        console.log(`Created and synced "${productData.title}"`);
 
         finalProducts.push(productData); // add to final list
       } catch (err) {
-        console.error(`❌ Failed to process "${productData.title}":`, err);
+        console.error(`Failed to process "${productData.title}":`, err);
         updatedPending.push(productData); // keep it in pending for retry
       }
     }
@@ -117,7 +117,7 @@ export async function CreateProduct() {
     fs.writeFileSync(pendingPath, JSON.stringify(updatedPending, null, 2));
     fs.writeFileSync(productsPath, JSON.stringify(finalProducts, null, 2));
   } catch (err) {
-    console.error("❌ Script failed:", err);
+    console.error("Script failed:", err);
   }
 }
 
