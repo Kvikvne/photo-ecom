@@ -78,12 +78,13 @@ export async function syncPrintifyToStripe(printifyProductResponse: any) {
  * LEAVE THEM COMMENTED OUT IN PRODUCTION OR YOU WILL DISCONNECT THE WHOLE
  * SERVER FROM THE DB!!!
  */
-const productsPath = path.join(__dirname, "data/pendingProducts.json");
-const products = JSON.parse(fs.readFileSync(productsPath, "utf-8"));
 export async function CreateProduct() {
   try {
+    const productsPath = path.join(__dirname, "data/pendingProducts.json");
+    const products = JSON.parse(fs.readFileSync(productsPath, "utf-8"));
     // await connectToMongoDB();
-
+    console.log(products);
+    return;
     for (const productData of products) {
       // Prevent duplicates
       const existing = await findProductByTitle(productData.title);
