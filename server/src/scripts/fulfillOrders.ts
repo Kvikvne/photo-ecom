@@ -17,7 +17,11 @@ export async function fulfillPendingOrders() {
 
   for (const order of paidOrders) {
     try {
+      console.log(`[ORDER ${order._id}] Sending to Printify...`);
       const printifyOrderId = await sendToPrintify(order);
+      console.log(`[ORDER ${order._id}] Printify ID: ${printifyOrderId}`);
+
+      console.log(`[ORDER ${order._id}] Fetching Printify details...`);
       const printifyData = await getPrintifyOrder(printifyOrderId);
 
       order.status = "confirmed";
@@ -30,8 +34,10 @@ export async function fulfillPendingOrders() {
       order.printifyStatus = printifyData.status;
       order.printifySyncedAt = new Date();
 
+      console.log(`[ORDER ${order._id}] Saving order as confirmed...`);
       await order.save();
 
+      console.log(`[ORDER ${order._id}] Saved status: ${order.status}`);
       try {
         await sendConfirmationEmailDev(order);
       } catch (emailErr: any) {
@@ -45,10 +51,16 @@ export async function fulfillPendingOrders() {
       console.log(`Confirmed and enriched order ${order._id}`);
       console.log(`Final saved status for order ${order._id}: ${order.status}`);
     } catch (err: any) {
-      console.error(`Failed to confirm order ${order._id}:`, err.message);
+      console.error(
+        `[ORDER ${order._id}] Error thrown, setting to failed:`,
+        err.message
+      );
       order.status = "failed";
       order.error = err.message;
       await order.save();
+      console.log(
+        `[ORDER ${order._id}] Marked as failed with error: ${order.error}`
+      );
     }
   }
 }
