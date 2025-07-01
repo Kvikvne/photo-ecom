@@ -31,7 +31,7 @@ const iconMap = {
 const processItems = [
   {
     title: "Capture",
-    body: "I&rsquo;ll continue to explore, capture new scenes, and expand the collection with fresh work and new products over time."
+    body: "I'll continue to explore, capture new scenes, and expand the collection with fresh work and new products over time."
   },
   {
     title: "Curate",
