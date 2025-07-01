@@ -75,12 +75,15 @@ connectToMongoDB().then(() => {
     console.log(`Server running on port ${PORT}`);
 
     // Start worker after DB and server are both ready
-    import("./scripts/worker")
-      .then(() => {
-        console.log("CRON Worker initialized.");
-      })
-      .catch((err) => {
-        console.error("Failed to start worker:", err);
-      });
+    if (process.env.ENABLE_INLINE_CRON === "true") {
+      (async () => {
+        try {
+          await import("./scripts/nodeWorker");
+          console.log("CRON Worker initialized.");
+        } catch (err) {
+          console.error("Failed to start CRON Worker:", err);
+        }
+      })();
+    }
   });
 });
