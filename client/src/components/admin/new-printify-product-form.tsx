@@ -45,7 +45,11 @@ const productFormSchema = z.object({
 
 type ProductFormValues = z.infer<typeof productFormSchema>;
 
-export default function NewPrintifyProductForm() {
+export default function NewPrintifyProductForm({
+  onSuccess
+}: {
+  onSuccess: () => void;
+}) {
   const [loading, setLoading] = useState(false);
 
   const form = useForm<ProductFormValues>({
@@ -113,6 +117,8 @@ export default function NewPrintifyProductForm() {
       if (!res.ok) throw new Error("Failed to create product");
       toast.success("Product created successfully!");
       form.reset();
+      // Updates refresh key in parent to refetch data in viewers
+      onSuccess();
     } catch (err) {
       toast.error("Product creation failed.");
       console.error(err);

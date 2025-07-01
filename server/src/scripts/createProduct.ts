@@ -80,29 +80,42 @@ export async function syncPrintifyToStripe(printifyProductResponse: any) {
  */
 export async function CreateProduct() {
   try {
-    const productsPath = path.join(__dirname, "data/pendingProducts.json");
-    const products = JSON.parse(fs.readFileSync(productsPath, "utf-8"));
-    // await connectToMongoDB();
-    console.log(products);
-    return;
-    for (const productData of products) {
-      // Prevent duplicates
+    const pendingPath = path.join(__dirname, "data/pendingProducts.json");
+    const productsPath = path.join(__dirname, "data/products.json");
+
+    let pendingProducts = JSON.parse(fs.readFileSync(pendingPath, "utf-8"));
+    let finalProducts = fs.existsSync(productsPath)
+      ? JSON.parse(fs.readFileSync(productsPath, "utf-8"))
+      : [];
+
+    const updatedPending = [];
+
+    for (const productData of pendingProducts) {
       const existing = await findProductByTitle(productData.title);
       if (existing) {
         console.log(
           `⚠️ Skipped: Product "${productData.title}" already exists on Printify.`
         );
+        updatedPending.push(productData); // keep it pending
         continue;
       }
 
-      // Create on Printify & sync to Stripe/DB
-      const printifyResponse = await createProduct(productData);
-      await syncPrintifyToStripe(printifyResponse);
-      console.log(`✅ Created and synced "${productData.title}"`);
+      try {
+        const printifyResponse = await createProduct(productData);
+        await syncPrintifyToStripe(printifyResponse);
+
+        console.log(`✅ Created and synced "${productData.title}"`);
+
+        finalProducts.push(productData); // add to final list
+      } catch (err) {
+        console.error(`❌ Failed to process "${productData.title}":`, err);
+        updatedPending.push(productData); // keep it in pending for retry
+      }
     }
 
-    // await disconnectFromMongoDB();
-    // process.exit(0);
+    // Write back the updated files
+    fs.writeFileSync(pendingPath, JSON.stringify(updatedPending, null, 2));
+    fs.writeFileSync(productsPath, JSON.stringify(finalProducts, null, 2));
   } catch (err) {
     console.error("❌ Script failed:", err);
   }

@@ -1,1 +1,38 @@
-[]
+[
+  {
+    "title": "Test 1000",
+    "description": "This is a test from local and should be deleted",
+    "tags": ["canvas", "testing-local"],
+    "blueprint_id": 1159,
+    "print_provider_id": 105,
+    "variants": [
+      {
+        "id": 91627,
+        "price": 6969,
+        "is_enabled": true
+      }
+    ],
+    "print_areas": [
+      {
+        "variant_ids": [91627],
+        "placeholders": [
+          {
+            "position": "front",
+            "images": [
+              {
+                "id": "656fa658673461283aa66e23",
+                "x": 0.5,
+                "y": 0.5,
+                "scale": 1,
+                "angle": 0
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "print_details": {
+      "print_on_side": "mirror"
+    }
+  }
+]

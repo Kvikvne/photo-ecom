@@ -44,7 +44,11 @@ type Product = {
 
 type ProductList = Product[];
 
-export default function ActiveProductViewer() {
+export default function ActiveProductViewer({
+  refreshKey
+}: {
+  refreshKey: number;
+}) {
   const [productsData, setProductsData] = useState<ProductList | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -71,7 +75,7 @@ export default function ActiveProductViewer() {
       }
     }
     fetchProductsJson();
-  }, []);
+  }, [refreshKey]);
 
   return (
     <div className="p-6 bg-card rounded-xl">

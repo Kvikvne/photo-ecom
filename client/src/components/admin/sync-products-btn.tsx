@@ -3,8 +3,9 @@ import { API_BASE_URL } from "@/lib/config";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import { Loader2 } from "lucide-react";
 
-export function SyncPrintifyButton() {
+export function SyncPrintifyButton({ onSuccess }: { onSuccess: () => void }) {
   const [loading, setLoading] = useState(false);
 
   async function handleSync() {
@@ -21,6 +22,7 @@ export function SyncPrintifyButton() {
       if (!res.ok) throw new Error(data.error || "Sync failed");
 
       toast.success(data.message);
+      onSuccess();
     } catch (err: unknown) {
       if (err instanceof Error) {
         toast.error(err.message);
@@ -34,7 +36,11 @@ export function SyncPrintifyButton() {
 
   return (
     <Button onClick={handleSync} disabled={loading}>
-      {loading ? "Syncing..." : "Sync Printify to Stripe"}
+      {loading ? (
+        <Loader2 className="animate-spin" />
+      ) : (
+        "Deploy Products to Stripe, Printify, and DB"
+      )}
     </Button>
   );
 }
