@@ -4,6 +4,11 @@ import fs from "fs";
 import path from "path";
 import { getAllProducts } from "../services/printifyService";
 
+/**
+ * Generates a basic sitemap for you. Currently this only can be ran manually
+ * but I plan to make this a part of the build process
+ */
+
 async function run() {
   try {
     const products = await getAllProducts();

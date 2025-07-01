@@ -6,6 +6,12 @@ import { sendConfirmationEmailDev } from "../services/emailService";
 
 dotenv.config();
 
+/**
+ * This function is for CRON workers
+ * It scans the DB for paid orders and send them to Printify.
+ * Then it marks the order as confirmed and sends an email to the customer.
+ */
+
 export async function fulfillPendingOrders() {
   await connectToMongoDB();
 

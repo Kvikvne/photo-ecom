@@ -5,6 +5,10 @@ import { ProductVariant } from "../models/productVariant";
 import { getAllProducts } from "../services/printifyService";
 import { connectToMongoDB, disconnectFromMongoDB } from "../db/mongoose";
 
+/**
+ * This is the main helper function for product creation and product/price sync
+ */
+
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
 export async function syncExistingPrintifyProductsToStripe() {
