@@ -1,20 +1,30 @@
 [
   {
-    "title": "Test 1000",
-    "description": "This is a test from local and should be deleted",
-    "tags": ["canvas", "testing-local"],
+    "title": "Testing",
+    "description": "This is a test",
+    "tags": [
+      "canvas"
+    ],
     "blueprint_id": 1159,
     "print_provider_id": 105,
     "variants": [
       {
-        "id": 91627,
-        "price": 6969,
+        "id": 21414142,
+        "price": 69696,
+        "is_enabled": true
+      },
+      {
+        "id": 12412412,
+        "price": 124124,
         "is_enabled": true
       }
     ],
     "print_areas": [
       {
-        "variant_ids": [91627],
+        "variant_ids": [
+          21414142,
+          12412412
+        ],
         "placeholders": [
           {
             "position": "front",

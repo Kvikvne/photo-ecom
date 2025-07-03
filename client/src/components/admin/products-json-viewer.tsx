@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { API_BASE_URL } from "@/lib/config";
 import { toast } from "sonner";
-import { Loader2 } from "lucide-react";
+import { Loader2, CircleX } from "lucide-react";
 import {
   Accordion,
   AccordionContent,
@@ -11,6 +11,7 @@ import {
   AccordionTrigger
 } from "@/components/ui/accordion";
 import { Badge } from "../ui/badge";
+import { Button } from "../ui/button";
 
 type Product = {
   title: string;
@@ -52,30 +53,51 @@ export default function ProductsJsonViewer({
   const [productsData, setProductsData] = useState<ProductList | null>(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    async function fetchProductsJson() {
-      try {
-        const res = await fetch(`${API_BASE_URL}/admin/products/get-queue`, {
-          method: "GET",
-          headers: { "Content-Type": "application/json" }
-        });
+  async function fetchProductsJson() {
+    try {
+      const res = await fetch(`${API_BASE_URL}/admin/products/get-queue`, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" }
+      });
 
-        const data = await res.json();
+      const data = await res.json();
 
-        if (!data || typeof data !== "object") {
-          throw new Error("Data format is incorrect or incomplete");
-        }
-
-        setProductsData(data.products);
-      } catch (err: unknown) {
-        console.log(err);
-        toast.error("There was a problem fetching data from JSON.");
-      } finally {
-        setLoading(false);
+      if (!data || typeof data !== "object") {
+        throw new Error("Data format is incorrect or incomplete");
       }
+
+      setProductsData(data.products);
+    } catch (err: unknown) {
+      console.log(err);
+      toast.error("There was a problem fetching data from JSON.");
+    } finally {
+      setLoading(false);
     }
+  }
+  useEffect(() => {
     fetchProductsJson();
   }, [refreshKey]);
+
+  async function deleteProduct(item: any) {
+    try {
+      const res = await fetch(
+        `${API_BASE_URL}/admin/products/delete/pending-item`,
+        {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ title: item.title })
+        }
+      );
+
+      if (res.ok) {
+        fetchProductsJson();
+        toast.success("Product removed from pending products.");
+      }
+    } catch (error: unknown) {
+      console.log(error);
+      toast.error("There was a problem deleting pending item from JSON.");
+    }
+  }
 
   return (
     <div className="p-6 bg-card rounded-xl">
@@ -89,7 +111,7 @@ export default function ProductsJsonViewer({
             before submitting them to Printify, Stripe, and your DB
           </p>
           {!productsData?.length && !loading && <p>No products found.</p>}
-          <div className="">
+          <div className="overflow-y-scroll overflow-x-hidden max-h-[70vh] no-scrollbar">
             {productsData?.map((product, idx) => (
               <Accordion key={idx} type="single" collapsible>
                 <AccordionItem value="item-1">
@@ -146,6 +168,14 @@ export default function ProductsJsonViewer({
                       <p className="ml-4 text-sm">
                         Print on side: {product.print_details.print_on_side}
                       </p>
+                    </div>
+                    <div className="flex justify-end">
+                      <Button
+                        onClick={() => deleteProduct(product)}
+                        variant={"destructive"}
+                      >
+                        Delete Product
+                      </Button>
                     </div>
                   </AccordionContent>
                 </AccordionItem>

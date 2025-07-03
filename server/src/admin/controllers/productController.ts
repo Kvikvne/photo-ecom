@@ -75,3 +75,29 @@ export const createPrices = async (req: Request, res: Response) => {
     res.status(500).json({ error: "Sync failed" });
   }
 };
+
+export const deletePendingItem = async (req: Request, res: Response) => {
+  try {
+    const { title } = req.body;
+
+    if (!title) {
+      res.status(400).json({ error: "Missing product title." });
+      return;
+    }
+
+    const file = fs.readFileSync(pendingProductsPath, "utf-8");
+    const products = JSON.parse(file);
+
+    const filtered = products.filter((item: any) => item.title !== title);
+
+    if (filtered.length === products.length) {
+      res.status(404).json({ error: "Item not found." });
+    }
+
+    fs.writeFileSync(pendingProductsPath, JSON.stringify(filtered, null, 2));
+    res.status(200).json({ message: `Product "${title}" removed.` });
+  } catch (error: unknown) {
+    console.error("Failed to delete pending item: ", error);
+    res.status(500).json({ error });
+  }
+};

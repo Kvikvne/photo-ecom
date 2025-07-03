@@ -89,7 +89,7 @@ export default function ActiveProductViewer({
             Stripe, and the DB.
           </p>
           {!productsData?.length && !loading && <p>No products found.</p>}
-          <div className="">
+          <div className="overflow-y-scroll overflow-x-hidden max-h-[70vh] no-scrollbar">
             {productsData?.map((product, idx) => (
               <Accordion key={idx} type="single" collapsible>
                 <AccordionItem value="item-1">
