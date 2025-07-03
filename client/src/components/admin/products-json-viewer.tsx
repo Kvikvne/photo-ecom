@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { API_BASE_URL } from "@/lib/config";
 import { toast } from "sonner";
-import { Loader2, CircleX } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import {
   Accordion,
   AccordionContent,
@@ -78,7 +78,7 @@ export default function ProductsJsonViewer({
     fetchProductsJson();
   }, [refreshKey]);
 
-  async function deleteProduct(item: any) {
+  async function deleteProduct(item: Product) {
     try {
       const res = await fetch(
         `${API_BASE_URL}/admin/products/delete/pending-item`,
